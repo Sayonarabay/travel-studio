@@ -953,8 +953,7 @@ function buildTransportCard(block,dest,origin){
 function buildRecap(block,dest){
   const get=k=>{const m=block.match(new RegExp(k+':\\s*(.+)'));return m?m[1].trim():'';};
   // Pricing fields
-  const transportCost = get('TRANSPORT_COST')||get('FLIGHT_COST'); // support both
-  const localTranspCost = get('LOCAL_TRANSPORT_COST');
+  const flightCost  = get('FLIGHT_COST');
   const hotelCost   = get('HOTEL_COST');
   const expCost     = get('EXP_COST');
   const foodCost    = get('FOOD_COST');
