@@ -9,32 +9,16 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#F8F9FA;
-  --white:#FFFFFF;
-  --ink:#0F172A;
-  --ink2:#334155;
-  --muted:#94A3B8;
-  --border:#E2E8F0;
-  --teal:#2DD4BF;
-  --teal-light:#F0FDFA;
-  --teal-dark:#0F766E;
-  --lav:#818CF8;
-  --lav-light:#EEF2FF;
-  --salmon:#F87171;
-  --salmon-light:#FEF2F2;
-  --amber:#F59E0B;
-  --amber-light:#FFFBEB;
-  --green:#10B981;
-  --green-light:#ECFDF5;
-  --r:14px;
-  --shadow:0 1px 8px rgba(15,23,42,.07);
-  --shadow-md:0 4px 20px rgba(15,23,42,.10);
-  --shadow-lg:0 8px 40px rgba(15,23,42,.14);
+  --bg:#F8F9FA;--white:#FFFFFF;--ink:#0F172A;--ink2:#334155;--muted:#94A3B8;--border:#E2E8F0;
+  --teal:#2DD4BF;--teal-light:#F0FDFA;--teal-dark:#0F766E;
+  --lav:#818CF8;--lav-light:#EEF2FF;--salmon:#F87171;--salmon-light:#FEF2F2;
+  --amber:#F59E0B;--amber-light:#FFFBEB;--green:#10B981;--green-light:#ECFDF5;
+  --r:14px;--shadow:0 1px 8px rgba(15,23,42,.07);--shadow-md:0 4px 20px rgba(15,23,42,.10);
 }
 html{font-size:16px;scroll-behavior:smooth}
 body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;line-height:1.6;overflow-x:hidden}
 
-/* ── NAV ── */
+/* NAV */
 nav{position:fixed;top:0;width:100%;z-index:100;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
 .logo{font-family:'Playfair Display',serif;font-weight:700;font-size:1.15rem;color:var(--ink)}
 .logo em{font-style:italic;color:var(--teal-dark)}
@@ -43,106 +27,45 @@ nav{position:fixed;top:0;width:100%;z-index:100;background:rgba(255,255,255,.96)
 .nav-link:hover{color:var(--ink)}
 .nav-btn{background:var(--ink);color:#fff;border:none;padding:.5rem 1.1rem;border-radius:8px;font-size:.8rem;font-weight:600;cursor:pointer;transition:opacity .2s}
 .nav-btn:hover{opacity:.85}
+.saved-count{background:var(--teal);color:var(--ink);border-radius:100px;padding:.15rem .5rem;font-size:.68rem;font-weight:700;margin-left:.3rem}
 
-/* ── HERO ── */
+/* HERO */
 .hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;gap:0;padding-top:58px}
-
-.hero-left{
-  padding:5rem 3.5rem 3rem;
-  display:flex;flex-direction:column;justify-content:center;
-  background:linear-gradient(135deg,#0F172A 0%,#1E293B 60%,#0F3460 100%);
-  position:relative;overflow:hidden
-}
-.hero-left::before{
-  content:'';position:absolute;top:-100px;right:-100px;
-  width:400px;height:400px;
-  background:radial-gradient(circle,rgba(45,212,191,.15),transparent 70%);
-  border-radius:50%
-}
-.hero-left::after{
-  content:'';position:absolute;bottom:-80px;left:-60px;
-  width:300px;height:300px;
-  background:radial-gradient(circle,rgba(129,140,248,.12),transparent 70%);
-  border-radius:50%
-}
-.hero-badge{
-  display:inline-flex;align-items:center;gap:.4rem;
-  background:rgba(45,212,191,.15);border:1px solid rgba(45,212,191,.3);
-  border-radius:100px;padding:.3rem .9rem;
-  font-size:.72rem;font-weight:600;color:var(--teal);
-  margin-bottom:1.8rem;width:fit-content;
-  opacity:0;animation:up .7s ease .2s forwards
-}
+.hero-left{padding:5rem 3.5rem 3rem;display:flex;flex-direction:column;justify-content:center;background:linear-gradient(135deg,#0F172A 0%,#1E293B 60%,#0F3460 100%);position:relative;overflow:hidden}
+.hero-left::before{content:'';position:absolute;top:-100px;right:-100px;width:400px;height:400px;background:radial-gradient(circle,rgba(45,212,191,.15),transparent 70%);border-radius:50%}
+.hero-left::after{content:'';position:absolute;bottom:-80px;left:-60px;width:300px;height:300px;background:radial-gradient(circle,rgba(129,140,248,.12),transparent 70%);border-radius:50%}
+.hero-badge{display:inline-flex;align-items:center;gap:.4rem;background:rgba(45,212,191,.15);border:1px solid rgba(45,212,191,.3);border-radius:100px;padding:.3rem .9rem;font-size:.72rem;font-weight:600;color:var(--teal);margin-bottom:1.8rem;width:fit-content;opacity:0;animation:up .7s ease .2s forwards}
 .hero-badge .dot{width:6px;height:6px;background:var(--teal);border-radius:50%}
-h1{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(2.4rem,4vw,3.8rem);
-  font-weight:700;line-height:1.08;letter-spacing:-.02em;
-  color:#fff;margin-bottom:1.2rem;
-  opacity:0;animation:up .7s ease .35s forwards
-}
+h1{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,4vw,3.8rem);font-weight:700;line-height:1.08;letter-spacing:-.02em;color:#fff;margin-bottom:1.2rem;opacity:0;animation:up .7s ease .35s forwards}
 h1 em{font-style:italic;color:var(--teal)}
-.hero-sub{
-  font-size:1rem;color:rgba(255,255,255,.6);
-  max-width:38ch;line-height:1.65;margin-bottom:2.5rem;
-  opacity:0;animation:up .7s ease .5s forwards
-}
-.hero-proof{
-  display:flex;gap:2rem;
-  opacity:0;animation:up .7s ease .65s forwards
-}
+.hero-sub{font-size:1rem;color:rgba(255,255,255,.6);max-width:38ch;line-height:1.65;margin-bottom:2.5rem;opacity:0;animation:up .7s ease .5s forwards}
+.hero-proof{display:flex;gap:2rem;opacity:0;animation:up .7s ease .65s forwards}
 .proof-item{display:flex;flex-direction:column}
 .proof-num{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:#fff;line-height:1}
 .proof-label{font-size:.68rem;color:rgba(255,255,255,.4);font-weight:500;margin-top:.2rem}
 
-/* ── FORM PANEL ── */
-.hero-right{
-  background:var(--white);
-  padding:3.5rem 3rem;
-  display:flex;flex-direction:column;justify-content:center;
-  overflow-y:auto
-}
+/* FORM */
+.hero-right{background:var(--white);padding:3.5rem 3rem;display:flex;flex-direction:column;justify-content:center;overflow-y:auto}
 .form-title{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;margin-bottom:.3rem}
-.form-sub{font-size:.85rem;color:var(--muted);margin-bottom:2rem}
-
+.form-sub{font-size:.85rem;color:var(--muted);margin-bottom:1.8rem}
 .fg{display:flex;flex-direction:column;gap:.35rem;margin-bottom:.9rem}
 .fg label{font-size:.7rem;font-weight:700;color:var(--ink2);letter-spacing:.04em;text-transform:uppercase}
-.fg input,.fg select,.fg textarea{
-  border:1.5px solid var(--border);border-radius:var(--r);
-  padding:.75rem 1rem;font-family:'Inter',sans-serif;font-size:.9rem;
-  color:var(--ink);outline:none;transition:border-color .2s;
-  background:var(--bg);-webkit-appearance:none;width:100%
-}
+.fg input,.fg select,.fg textarea{border:1.5px solid var(--border);border-radius:var(--r);padding:.75rem 1rem;font-family:'Inter',sans-serif;font-size:.9rem;color:var(--ink);outline:none;transition:border-color .2s;background:var(--bg);-webkit-appearance:none;width:100%}
 .fg input[type=date]{color-scheme:light}
 .fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--teal-dark);background:#fff}
 .fg input::placeholder,.fg textarea::placeholder{color:var(--muted)}
 .fg select option{background:#fff}
-.fg textarea{resize:none;height:64px;line-height:1.5;font-size:.85rem}
-
+.fg textarea{resize:none;height:60px;line-height:1.5;font-size:.85rem}
 .form-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
 .form-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.8rem}
-
 .tags-wrap{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.3rem}
-.ttag{
-  padding:.28rem .65rem;border-radius:100px;
-  border:1.5px solid var(--border);background:transparent;
-  font-size:.68rem;font-weight:600;color:var(--muted);
-  cursor:pointer;transition:all .15s
-}
+.ttag{padding:.28rem .65rem;border-radius:100px;border:1.5px solid var(--border);background:transparent;font-size:.68rem;font-weight:600;color:var(--muted);cursor:pointer;transition:all .15s}
 .ttag.on{border-color:var(--teal-dark);color:var(--teal-dark);background:var(--teal-light)}
-
-.btn-gen{
-  width:100%;padding:.95rem;border:none;border-radius:var(--r);
-  background:linear-gradient(135deg,var(--teal-dark),#0D9488);
-  color:#fff;font-family:'Inter',sans-serif;font-weight:700;font-size:.9rem;
-  cursor:pointer;transition:all .2s;margin-top:.5rem;
-  display:flex;align-items:center;justify-content:center;gap:.5rem;
-  box-shadow:0 4px 14px rgba(15,118,110,.3)
-}
+.btn-gen{width:100%;padding:.95rem;border:none;border-radius:var(--r);background:linear-gradient(135deg,var(--teal-dark),#0D9488);color:#fff;font-family:'Inter',sans-serif;font-weight:700;font-size:.9rem;cursor:pointer;transition:all .2s;margin-top:.5rem;display:flex;align-items:center;justify-content:center;gap:.5rem;box-shadow:0 4px 14px rgba(15,118,110,.3)}
 .btn-gen:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(15,118,110,.4)}
 .btn-gen:disabled{opacity:.4;cursor:not-allowed;transform:none}
 
-/* ── LOADING ── */
+/* LOADING */
 #loadBox{display:none;padding:2rem;text-align:center}
 #loadBox.on{display:block}
 .dots{display:flex;gap:.4rem;justify-content:center;margin-bottom:.8rem}
@@ -151,19 +74,13 @@ h1 em{font-style:italic;color:var(--teal)}
 .dot:nth-child(3){animation-delay:.4s}
 #ltxt{font-size:.78rem;color:var(--muted);font-weight:500}
 
-/* ── RESULT SECTION ── */
+/* RESULT */
 #resultSection{display:none;background:var(--bg);border-top:1px solid var(--border)}
 #resultSection.on{display:block}
-
-.result-wrap{max-width:1100px;margin:0 auto;padding:3rem 2rem}
+.result-wrap{max-width:980px;margin:0 auto;padding:3rem 2rem}
 
 /* Result header */
-.res-header{
-  background:linear-gradient(135deg,#0F172A,#1E3A5F);
-  border-radius:20px;padding:2rem 2.5rem;margin-bottom:2rem;
-  display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1.5rem;
-  color:#fff
-}
+.res-header{background:linear-gradient(135deg,#0F172A,#1E3A5F);border-radius:20px;padding:2rem 2.5rem;margin-bottom:2rem;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1.5rem;color:#fff}
 .res-dest{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:#fff}
 .res-dest em{font-style:italic;color:var(--teal)}
 .res-chips{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:.6rem}
@@ -171,67 +88,87 @@ h1 em{font-style:italic;color:var(--teal)}
 .chip-label{font-size:.58rem;color:rgba(255,255,255,.5);font-weight:500;text-transform:uppercase;letter-spacing:.06em}
 .chip-val{font-size:.82rem;font-weight:700;color:#fff}
 .res-actions{display:flex;gap:.6rem;flex-direction:column}
-.btn-save{padding:.6rem 1.2rem;border:1px solid rgba(255,255,255,.2);border-radius:8px;background:transparent;color:rgba(255,255,255,.8);font-size:.75rem;font-weight:600;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:.4rem}
-.btn-save:hover{background:rgba(255,255,255,.1)}
+.btn-res-action{padding:.6rem 1.1rem;border:1px solid rgba(255,255,255,.2);border-radius:8px;background:transparent;color:rgba(255,255,255,.85);font-size:.75rem;font-weight:600;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:.4rem;white-space:nowrap}
+.btn-res-action:hover{background:rgba(255,255,255,.12)}
+.btn-res-action.saved-active{background:rgba(45,212,191,.2);border-color:rgba(45,212,191,.4);color:var(--teal)}
 
-/* Map */
-.map-wrap{border-radius:16px;overflow:hidden;margin-bottom:2rem;box-shadow:var(--shadow-md);border:1px solid var(--border)}
-#map{height:320px;width:100%}
-.map-placeholder{height:280px;background:linear-gradient(135deg,#E2E8F0,#CBD5E1);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.8rem;color:var(--muted)}
-.map-placeholder .map-icon{font-size:2.5rem}
-.map-placeholder p{font-size:.85rem;font-weight:500}
-.map-placeholder small{font-size:.72rem;color:var(--border)}
-
-/* Timeline */
+/* TIMELINE */
 .timeline-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem}
 .timeline-title{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700}
 .timeline-sub{font-size:.8rem;color:var(--muted)}
-
 .timeline{display:flex;flex-direction:column;gap:1.2rem;position:relative}
-.timeline::before{content:'';position:absolute;left:19px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--teal),var(--lav),var(--salmon));opacity:.3}
-
+.timeline::before{content:'';position:absolute;left:19px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--teal),var(--lav),var(--salmon));opacity:.25}
 .tl-item{display:flex;gap:1rem;position:relative}
 .tl-dot{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:700;flex-shrink:0;z-index:1;border:3px solid var(--white);box-shadow:var(--shadow)}
 .tl-dot.day{background:var(--ink);color:#fff}
 .tl-dot.act{background:var(--teal-light);color:var(--teal-dark)}
 .tl-dot.tip{background:var(--amber-light);color:var(--amber)}
-
 .tl-card{flex:1;background:var(--white);border:1.5px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);transition:box-shadow .2s}
 .tl-card:hover{box-shadow:var(--shadow-md)}
-
 .tl-card-head{padding:1rem 1.2rem;display:flex;justify-content:space-between;align-items:flex-start;gap:.5rem}
 .tl-day-label{font-size:.62rem;font-weight:700;color:var(--teal-dark);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.2rem}
 .tl-day-title{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--ink)}
-.tl-day-meta{font-size:.72rem;color:var(--muted);margin-top:.2rem}
-
-/* Afiliados dentro de cada día */
-.day-affs{display:flex;gap:.5rem;flex-wrap:wrap;padding:.8rem 1.2rem;border-top:1px solid var(--border);background:var(--bg)}
-.day-aff-btn{display:inline-flex;align-items:center;gap:.4rem;padding:.4rem .8rem;border-radius:100px;font-size:.68rem;font-weight:700;text-decoration:none;transition:all .2s;border:1.5px solid transparent;cursor:pointer}
-.day-aff-btn:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
-.day-aff-btn.vuelo{background:var(--lav-light);color:#4338CA;border-color:#C7D2FE}
-.day-aff-btn.vuelo:hover{background:#E0E7FF}
-.day-aff-btn.hotel{background:var(--green-light);color:#065F46;border-color:#A7F3D0}
-.day-aff-btn.hotel:hover{background:#D1FAE5}
-.day-aff-btn.act{background:var(--salmon-light);color:#B91C1C;border-color:#FECACA}
-.day-aff-btn.act:hover{background:#FEE2E2}
-.day-aff-btn.tren{background:var(--amber-light);color:#92400E;border-color:#FDE68A}
-.day-aff-btn.tren:hover{background:#FEF3C7}
-
-.tl-card-body{padding:1rem 1.2rem;font-size:.88rem;line-height:1.8;color:var(--ink2)}
+.tl-card-body{padding:.2rem 1.2rem 1rem;font-size:.88rem;line-height:1.85;color:var(--ink2)}
 .tl-card-body p{margin-bottom:.5rem}
 .tl-card-body p:last-child{margin-bottom:0}
 .tl-card-body strong{color:var(--ink);font-weight:600}
 
-/* Tips card */
-.tl-card.tips{border-color:#FDE68A;background:var(--amber-light)}
-.tl-card.tips .tl-card-body{color:#78350F}
+/* Day affiliate buttons */
+.day-affs{display:flex;gap:.5rem;flex-wrap:wrap;padding:.8rem 1.2rem;border-top:1px solid var(--border);background:var(--bg)}
+.day-aff-btn{display:inline-flex;align-items:center;gap:.4rem;padding:.38rem .75rem;border-radius:100px;font-size:.68rem;font-weight:700;text-decoration:none;transition:all .2s;border:1.5px solid transparent;cursor:pointer;white-space:nowrap}
+.day-aff-btn:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
+.day-aff-btn.vuelo{background:var(--lav-light);color:#4338CA;border-color:#C7D2FE}
+.day-aff-btn.hotel{background:var(--green-light);color:#065F46;border-color:#A7F3D0}
+.day-aff-btn.act{background:var(--salmon-light);color:#B91C1C;border-color:#FECACA}
+.day-aff-btn.tren{background:var(--amber-light);color:#92400E;border-color:#FDE68A}
+.day-aff-btn.vuelo:hover{background:#E0E7FF}
+.day-aff-btn.hotel:hover{background:#D1FAE5}
+.day-aff-btn.act:hover{background:#FEE2E2}
+.day-aff-btn.tren:hover{background:#FEF3C7}
 
-/* ── BOTTOM AFFILIATES ── */
-.bottom-affs{margin-top:2.5rem;background:var(--white);border:1.5px solid var(--border);border-radius:20px;padding:2rem;box-shadow:var(--shadow)}
+/* TIPS VISUAL CARDS */
+.tips-section{margin-top:2rem}
+.tips-title{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;margin-bottom:.3rem}
+.tips-sub{font-size:.8rem;color:var(--muted);margin-bottom:1.2rem}
+.tips-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.tip-card{background:var(--white);border:1.5px solid var(--border);border-radius:16px;padding:1.3rem;display:flex;flex-direction:column;gap:.6rem;transition:all .2s;position:relative;overflow:hidden}
+.tip-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px)}
+.tip-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.tip-card:nth-child(1)::before{background:linear-gradient(90deg,var(--teal),var(--teal-dark))}
+.tip-card:nth-child(2)::before{background:linear-gradient(90deg,var(--lav),#6366F1)}
+.tip-card:nth-child(3)::before{background:linear-gradient(90deg,var(--amber),#D97706)}
+.tip-card:nth-child(4)::before{background:linear-gradient(90deg,var(--salmon),#DC2626)}
+.tip-card:nth-child(5)::before{background:linear-gradient(90deg,var(--green),#059669)}
+.tip-ico{font-size:1.6rem;line-height:1}
+.tip-label{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
+.tip-heading{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;color:var(--ink);line-height:1.3}
+.tip-body{font-size:.8rem;color:var(--ink2);line-height:1.65}
+
+/* SAVED PANEL */
+#savedPanel{position:fixed;top:0;right:-380px;width:360px;height:100vh;background:var(--white);box-shadow:-4px 0 30px rgba(15,23,42,.12);z-index:200;transition:right .3s ease;display:flex;flex-direction:column;border-left:1px solid var(--border)}
+#savedPanel.open{right:0}
+.saved-header{padding:1.5rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
+.saved-header-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700}
+.saved-close{background:none;border:none;font-size:1.2rem;cursor:pointer;color:var(--muted);padding:.3rem}
+.saved-list{flex:1;overflow-y:auto;padding:1rem}
+.saved-item{background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:1rem;margin-bottom:.8rem;position:relative}
+.saved-item-dest{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700}
+.saved-item-meta{font-size:.72rem;color:var(--muted);margin-top:.2rem}
+.saved-item-del{position:absolute;top:.7rem;right:.7rem;background:none;border:none;color:var(--muted);cursor:pointer;font-size:.85rem;padding:.2rem}
+.saved-item-del:hover{color:var(--salmon)}
+.saved-item-load{margin-top:.8rem;padding:.45rem .9rem;border:1.5px solid var(--teal-dark);border-radius:8px;background:transparent;color:var(--teal-dark);font-size:.72rem;font-weight:700;cursor:pointer;transition:all .2s}
+.saved-item-load:hover{background:var(--teal-light)}
+.saved-empty{text-align:center;padding:3rem 1rem;color:var(--muted);font-size:.85rem}
+.saved-empty-ico{font-size:2rem;margin-bottom:.5rem}
+#savedOverlay{position:fixed;inset:0;background:rgba(15,23,42,.3);z-index:199;display:none;backdrop-filter:blur(2px)}
+#savedOverlay.open{display:block}
+
+/* BOTTOM AFFILIATES */
+.bottom-affs{margin-top:2rem;background:var(--white);border:1.5px solid var(--border);border-radius:20px;padding:2rem;box-shadow:var(--shadow)}
 .bottom-affs-title{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;margin-bottom:.3rem}
 .bottom-affs-sub{font-size:.82rem;color:var(--muted);margin-bottom:1.5rem}
 .affs-big-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:.8rem}
-.aff-big{display:flex;flex-direction:column;align-items:center;gap:.5rem;padding:1.2rem .8rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--bg);text-decoration:none;transition:all .2s;text-align:center;cursor:pointer}
+.aff-big{display:flex;flex-direction:column;align-items:center;gap:.5rem;padding:1.2rem .8rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--bg);text-decoration:none;transition:all .2s;text-align:center}
 .aff-big:hover{border-color:var(--teal-dark);background:var(--teal-light);transform:translateY(-2px);box-shadow:var(--shadow-md)}
 .aff-big-ico{font-size:1.8rem}
 .aff-big-name{font-size:.72rem;font-weight:700;color:var(--ink)}
@@ -242,48 +179,59 @@ h1 em{font-style:italic;color:var(--teal)}
 .aff-big-badge.o{background:var(--amber-light);color:#92400E}
 .aff-big-badge.r{background:var(--salmon-light);color:#B91C1C}
 
-/* Error */
 .err{padding:1.2rem;background:var(--salmon-light);border:1px solid #FECACA;border-radius:var(--r);font-size:.82rem;color:#B91C1C;line-height:1.6}
 
-/* Animations */
 @keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
 @keyframes pulse{0%,80%,100%{transform:scale(.5);opacity:.3}40%{transform:scale(1);opacity:1}}
 
 @media(max-width:900px){
   .hero{grid-template-columns:1fr;min-height:auto}
-  .hero-left{padding:5rem 1.5rem 2.5rem;min-height:50vh}
+  .hero-left{padding:5rem 1.5rem 2.5rem;min-height:45vh}
   .hero-right{padding:2rem 1.5rem}
   .form-grid-2,.form-grid-3{grid-template-columns:1fr 1fr}
   .affs-big-grid{grid-template-columns:repeat(3,1fr)}
-  .res-header{flex-direction:column;align-items:flex-start}
+  .tips-grid{grid-template-columns:1fr 1fr}
   .result-wrap{padding:2rem 1rem}
+  #savedPanel{width:100%;right:-100%}
 }
 @media(max-width:600px){
   .form-grid-2,.form-grid-3{grid-template-columns:1fr}
   .affs-big-grid{grid-template-columns:repeat(2,1fr)}
+  .tips-grid{grid-template-columns:1fr}
   nav{padding:.7rem 1rem}
 }
 </style>
 </head>
 <body>
 
+<!-- SAVED OVERLAY -->
+<div id="savedOverlay" onclick="closeSaved()"></div>
+
+<!-- SAVED PANEL -->
+<div id="savedPanel">
+  <div class="saved-header">
+    <div class="saved-header-title">Mis viajes guardados</div>
+    <button class="saved-close" onclick="closeSaved()">✕</button>
+  </div>
+  <div class="saved-list" id="savedList"></div>
+</div>
+
 <!-- NAV -->
 <nav>
   <div class="logo">Travel<em>Studio</em></div>
   <div class="nav-right">
-    <a class="nav-link" href="#resultSection">Mis viajes</a>
-    <button class="nav-btn" onclick="document.getElementById('dest').focus();document.querySelector('.hero-right').scrollIntoView({behavior:'smooth'})">Crear itinerario</button>
+    <button class="nav-btn" onclick="openSaved()">
+      🗂 Mis viajes<span class="saved-count" id="savedCount" style="display:none">0</span>
+    </button>
   </div>
 </nav>
 
 <!-- HERO + FORM -->
 <section class="hero">
-
-  <!-- LEFT: copy -->
   <div class="hero-left">
-    <div class="hero-badge"><span class="dot"></span>IA + Reservas reales</div>
+    <div class="hero-badge"><span class="dot"></span>IA · Itinerarios con criterio</div>
     <h1>Tu próximo viaje,<br><em>diseñado</em><br>en segundos.</h1>
-    <p class="hero-sub">Dinos a dónde quieres ir. La IA genera un itinerario día a día con todo lo que necesitas para reservar.</p>
+    <p class="hero-sub">Dinos a dónde quieres ir. La IA genera un itinerario real, con nombres concretos, transportes y experiencias que merece la pena vivir.</p>
     <div class="hero-proof">
       <div class="proof-item"><div class="proof-num">10K+</div><div class="proof-label">Itinerarios creados</div></div>
       <div class="proof-item"><div class="proof-num">150+</div><div class="proof-label">Destinos</div></div>
@@ -291,16 +239,14 @@ h1 em{font-style:italic;color:var(--teal)}
     </div>
   </div>
 
-  <!-- RIGHT: form -->
   <div class="hero-right">
     <div class="form-title">Crea tu itinerario</div>
     <div class="form-sub">Rellena lo que sabes — el resto lo resuelve la IA</div>
 
     <div class="form-grid-2">
-      <div class="fg"><label>Desde</label><input type="text" id="origin" placeholder="Madrid…"/></div>
-      <div class="fg"><label>Destino</label><input type="text" id="dest" placeholder="Tokio, Bali, Lisboa…"/></div>
+      <div class="fg"><label>Ciudad de salida</label><input type="text" id="origin" placeholder="Madrid, Barcelona…"/></div>
+      <div class="fg"><label>Destino</label><input type="text" id="dest" placeholder="París, Tokio, Lisboa…"/></div>
     </div>
-
     <div class="form-grid-3">
       <div class="fg"><label>Salida</label><input type="date" id="df"/></div>
       <div class="fg"><label>Vuelta</label><input type="date" id="dt"/></div>
@@ -314,7 +260,6 @@ h1 em{font-style:italic;color:var(--teal)}
         </select>
       </div>
     </div>
-
     <div class="form-grid-2">
       <div class="fg"><label>Viajeros</label>
         <select id="travelers">
@@ -326,15 +271,14 @@ h1 em{font-style:italic;color:var(--teal)}
       </div>
       <div class="fg"><label>Presupuesto</label>
         <select id="budget">
-          <option value="económico (menos de 500€)">Económico</option>
-          <option value="medio (500–1200€)" selected>Medio</option>
-          <option value="alto (1200–2500€)">Alto</option>
+          <option value="económico">Económico</option>
+          <option value="medio" selected>Medio</option>
+          <option value="alto">Alto</option>
           <option value="premium">Premium</option>
         </select>
       </div>
     </div>
-
-    <div class="fg"><label>Tipo de viaje</label>
+    <div class="fg"><label>Tipo de experiencia</label>
       <div class="tags-wrap">
         <button class="ttag on" onclick="this.classList.toggle('on')">🏛️ Cultura</button>
         <button class="ttag" onclick="this.classList.toggle('on')">🍷 Gastronomía</button>
@@ -343,57 +287,38 @@ h1 em{font-style:italic;color:var(--teal)}
         <button class="ttag" onclick="this.classList.toggle('on')">🏖️ Playa</button>
         <button class="ttag" onclick="this.classList.toggle('on')">🌆 Urbano</button>
         <button class="ttag" onclick="this.classList.toggle('on')">🧘 Wellness</button>
-        <button class="ttag" onclick="this.classList.toggle('on')">🌙 Noche</button>
+        <button class="ttag" onclick="this.classList.toggle('on')">🌙 Vida nocturna</button>
         <button class="ttag" onclick="this.classList.toggle('on')">❤️ Romántico</button>
         <button class="ttag" onclick="this.classList.toggle('on')">👨‍👩‍👧 Familiar</button>
       </div>
     </div>
-
-    <div class="fg"><label>Notas (opcional)</label>
-      <textarea id="extra" placeholder="Sin vuelos de madrugada, vegetariano, hotel céntrico…"></textarea>
+    <div class="fg"><label>Algo más que debamos saber (opcional)</label>
+      <textarea id="extra" placeholder="Sin vuelos de madrugada, vegetariano, con perro, movilidad reducida…"></textarea>
     </div>
-
     <button class="btn-gen" id="genBtn" onclick="gen()">
-      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
       Generar itinerario
     </button>
-
     <div id="loadBox">
       <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
       <p id="ltxt">Analizando tu perfil…</p>
     </div>
   </div>
-
 </section>
 
 <!-- RESULT -->
 <section id="resultSection">
   <div class="result-wrap">
-
-    <!-- Header -->
     <div class="res-header" id="resHeader"></div>
-
-    <!-- Map -->
-    <div class="map-wrap">
-      <div class="map-placeholder" id="mapBox">
-        <div class="map-icon">🗺️</div>
-        <p>El mapa aparecerá aquí con las ubicaciones del itinerario</p>
-        <small>Necesita Google Maps API Key para activarse</small>
-      </div>
-    </div>
-
-    <!-- Timeline -->
     <div class="timeline-header">
       <div>
         <div class="timeline-title">Tu viaje día a día</div>
-        <div class="timeline-sub">Cada día incluye enlaces directos para reservar</div>
+        <div class="timeline-sub">Cada día con sus mejores experiencias y enlaces para reservar</div>
       </div>
     </div>
     <div class="timeline" id="timeline"></div>
-
-    <!-- Bottom afiliados -->
+    <div id="tipsSection"></div>
     <div class="bottom-affs" id="bottomAffs"></div>
-
   </div>
 </section>
 
@@ -404,8 +329,7 @@ h1 em{font-style:italic;color:var(--teal)}
   const f=new Date(t);f.setDate(f.getDate()+30);
   const v=new Date(t);v.setDate(v.getDate()+37);
   const df=document.getElementById('df'),dt=document.getElementById('dt');
-  df.value=fmt(f);dt.value=fmt(v);
-  df.min=fmt(t);dt.min=fmt(t);
+  df.value=fmt(f);dt.value=fmt(v);df.min=fmt(t);dt.min=fmt(t);
   df.addEventListener('change',function(){
     const d=new Date(this.value+'T00:00:00');d.setDate(d.getDate()+1);
     const m=d.toISOString().split('T')[0];
@@ -413,188 +337,258 @@ h1 em{font-style:italic;color:var(--teal)}
   });
 })();
 
-function activeTags(){return[...document.querySelectorAll('.ttag.on')].map(b=>b.textContent.trim()).join(', ')}
+function activeTags(){return[...document.querySelectorAll('.ttag.on')].map(b=>b.textContent.trim()).join(', ')||'experiencias locales con criterio'}
+function fmtD(iso){if(!iso)return'';return new Date(iso+'T00:00:00').toLocaleDateString('es-ES',{day:'numeric',month:'long',year:'numeric'})}
 
-function fmtD(iso){
-  if(!iso)return'';
-  return new Date(iso+'T00:00:00').toLocaleDateString('es-ES',{day:'numeric',month:'long',year:'numeric'});
+// ── AFFILIATES ──
+const AFF={skyscanner_id:'',booking_aid:'',gyg_partner_id:'',rentalcars_key:''};
+
+function affUrl(type,dest,origin){
+  const d=encodeURIComponent(dest||'');const o=encodeURIComponent(origin||'');
+  if(type==='vuelo') return AFF.skyscanner_id?`https://www.skyscanner.es/vuelos/${o}/${d}?affilid=${AFF.skyscanner_id}`:`https://www.skyscanner.es/vuelos/${o}/${d}`;
+  if(type==='hotel') return AFF.booking_aid?`https://www.booking.com/search.html?ss=${d}&aid=${AFF.booking_aid}`:`https://www.booking.com/search.html?ss=${d}`;
+  if(type==='actividad') return AFF.gyg_partner_id?`https://www.getyourguide.es/s/?q=${d}&partner_id=${AFF.gyg_partner_id}`:`https://www.getyourguide.es/s/?q=${d}`;
+  if(type==='tren') return 'https://www.thetrainline.com/es';
+  if(type==='coche') return AFF.rentalcars_key?`https://www.rentalcars.com/es/?fts=${d}&affiliateCode=${AFF.rentalcars_key}`:`https://www.rentalcars.com/es/?fts=${d}`;
 }
 
-// ── AFFILIATE LINKS ──
-// 👉 Cuando tengas tus IDs de afiliado, sustitúyelos aquí:
-const AFF = {
-  skyscanner_id:  '',   // partners.skyscanner.net → tu Affiliate ID
-  booking_aid:    '',   // partners.booking.com → tu AID
-  gyg_partner_id: '',   // partner.getyourguide.com → tu Partner ID
-  rentalcars_key: '',   // rentalcars.com/affiliate → tu Affiliate Key
-};
-
-function affUrl(type, dest, origin){
-  const d=encodeURIComponent(dest||'');
-  const o=encodeURIComponent(origin||'');
-  switch(type){
-    case 'vuelo':
-      return AFF.skyscanner_id
-        ? `https://www.skyscanner.es/vuelos/${o}/${d}?affilid=${AFF.skyscanner_id}`
-        : `https://www.skyscanner.es/vuelos/${o}/${d}`;
-    case 'hotel':
-      return AFF.booking_aid
-        ? `https://www.booking.com/search.html?ss=${d}&aid=${AFF.booking_aid}`
-        : `https://www.booking.com/search.html?ss=${d}`;
-    case 'actividad':
-      return AFF.gyg_partner_id
-        ? `https://www.getyourguide.es/s/?q=${d}&partner_id=${AFF.gyg_partner_id}`
-        : `https://www.getyourguide.es/s/?q=${d}`;
-    case 'tren':
-      return 'https://www.thetrainline.com/es';
-    case 'coche':
-      return AFF.rentalcars_key
-        ? `https://www.rentalcars.com/es/?fts=${d}&affiliateCode=${AFF.rentalcars_key}`
-        : `https://www.rentalcars.com/es/?fts=${d}`;
-  }
+function dayAffButtons(dest,origin,isFirstDay){
+  // Only show flight button on day 1 (departure day)
+  const vuelo = isFirstDay ? `<a class="day-aff-btn vuelo" href="${affUrl('vuelo',dest,origin)}" target="_blank" rel="noopener">✈️ Buscar vuelos</a>` : '';
+  return `<div class="day-affs">
+    ${vuelo}
+    <a class="day-aff-btn hotel" href="${affUrl('hotel',dest,origin)}" target="_blank" rel="noopener">🏨 Hoteles</a>
+    <a class="day-aff-btn act" href="${affUrl('actividad',dest,origin)}" target="_blank" rel="noopener">🎟️ Actividades</a>
+    <a class="day-aff-btn tren" href="${affUrl('tren',dest,origin)}" target="_blank" rel="noopener">🚂 Trenes</a>
+  </div>`;
 }
 
-function dayAffButtons(dest, origin, dayNum){
-  return `
-    <div class="day-affs">
-      <a class="day-aff-btn vuelo" href="${affUrl('vuelo',dest,origin)}" target="_blank" rel="noopener">✈️ Vuelos</a>
-      <a class="day-aff-btn hotel" href="${affUrl('hotel',dest,origin)}" target="_blank" rel="noopener">🏨 Hoteles</a>
-      <a class="day-aff-btn act"   href="${affUrl('actividad',dest,origin)}" target="_blank" rel="noopener">🎟️ Actividades</a>
-      <a class="day-aff-btn tren"  href="${affUrl('tren',dest,origin)}" target="_blank" rel="noopener">🚂 Trenes</a>
-    </div>`;
-}
-
-function bottomAffCards(dest, origin){
+function bottomAffCards(dest,origin){
   const affs=[
-    {type:'vuelo',   ico:'✈️',name:'Vuelos',    prov:'Skyscanner', badge:'Precio mínimo', bc:'b'},
-    {type:'hotel',   ico:'🏨',name:'Hoteles',   prov:'Booking.com',badge:'Sin cargos',    bc:'g'},
+    {type:'vuelo',ico:'✈️',name:'Vuelos',prov:'Skyscanner',badge:'Precio mínimo',bc:'b'},
+    {type:'hotel',ico:'🏨',name:'Hoteles',prov:'Booking.com',badge:'Sin cargos',bc:'g'},
     {type:'actividad',ico:'🎟️',name:'Actividades',prov:'GetYourGuide',badge:'Cancelación gratis',bc:'r'},
-    {type:'tren',    ico:'🚂',name:'Trenes',    prov:'Trainline',  badge:'Rail deals',    bc:'o'},
-    {type:'coche',   ico:'🚗',name:'Coche',     prov:'Rentalcars', badge:'Sin comisión',  bc:'g'},
+    {type:'tren',ico:'🚂',name:'Trenes',prov:'Trainline',badge:'Rail deals',bc:'o'},
+    {type:'coche',ico:'🚗',name:'Coche',prov:'Rentalcars',badge:'Sin comisión',bc:'g'},
   ];
-  return `
-    <div class="bottom-affs-title">🔗 Reserva tu viaje</div>
+  return `<div class="bottom-affs-title">🔗 Reserva tu viaje</div>
     <div class="bottom-affs-sub">Todo lo que necesitas para confirmar el viaje, en un clic</div>
     <div class="affs-big-grid">
-      ${affs.map(a=>`
-        <a class="aff-big" href="${affUrl(a.type,dest,origin)}" target="_blank" rel="noopener">
-          <div class="aff-big-ico">${a.ico}</div>
-          <div class="aff-big-name">${a.name}</div>
-          <div class="aff-big-prov">${a.prov}</div>
-          <div class="aff-big-badge ${a.bc}">${a.badge}</div>
-        </a>`).join('')}
+      ${affs.map(a=>`<a class="aff-big" href="${affUrl(a.type,dest,origin)}" target="_blank" rel="noopener">
+        <div class="aff-big-ico">${a.ico}</div>
+        <div class="aff-big-name">${a.name}</div>
+        <div class="aff-big-prov">${a.prov}</div>
+        <div class="aff-big-badge ${a.bc}">${a.badge}</div>
+      </a>`).join('')}
     </div>`;
 }
 
-// ── PARSE AI RESPONSE INTO DAYS ──
-function parseIntoTimeline(text, dest, origin){
-  // Split by day headers
-  const dayRegex = /#{1,3}\s*(Día\s+\d+[^#\n]*)/gi;
-  const tipRegex = /#{1,3}\s*(Consejo|Tips?|Tip\s|Recomendaci)/gi;
+// ── PARSE TIPS into visual cards ──
+function parseTipCards(tipsText){
+  if(!tipsText.trim()) return '';
+  // Extract individual tips — look for numbered lists or bullet points
+  const lines = tipsText.split('\n').map(l=>l.trim()).filter(Boolean);
+  const tips = [];
+  let current = null;
 
-  const parts = text.split(/(#{1,3}[^\n]+)/g).filter(s=>s.trim());
-  let html = '';
-  let dayCount = 0;
-
-  for(let i=0;i<parts.length;i++){
-    const part = parts[i].trim();
-    if(!part)continue;
-
-    // Day header
-    if(/^#{1,3}\s*Día\s+\d+/i.test(part)){
-      dayCount++;
-      const title = part.replace(/^#+\s*/,'').trim();
-      const content = parts[i+1]&&!parts[i+1].startsWith('#')?parts[i+1].trim():'';
-      if(content)i++;
-      const formattedContent = content
-        .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
-        .replace(/\n{2,}/g,'</p><p>')
-        .replace(/\n/g,'<br/>')
-        .replace(/^/,'<p>')+'</p>';
-
-      html+=`
-        <div class="tl-item">
-          <div class="tl-dot day">${dayCount}</div>
-          <div class="tl-card">
-            <div class="tl-card-head">
-              <div>
-                <div class="tl-day-label">Día ${dayCount}</div>
-                <div class="tl-day-title">${title.replace(/^Día\s+\d+[\s—-]*/i,'')}</div>
-              </div>
-            </div>
-            <div class="tl-card-body">${formattedContent}</div>
-            ${dayAffButtons(dest,origin,dayCount)}
-          </div>
-        </div>`;
-    }
-    // Tips section
-    else if(/^#{1,3}\s*(Consejo|Tips?|Recomendaci)/i.test(part)){
-      const content = parts[i+1]&&!parts[i+1].startsWith('#')?parts[i+1].trim():'';
-      if(content)i++;
-      const formattedContent = content
-        .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
-        .replace(/\n{2,}/g,'</p><p>')
-        .replace(/\n/g,'<br/>')
-        .replace(/^/,'<p>')+'</p>';
-      html+=`
-        <div class="tl-item">
-          <div class="tl-dot tip">💡</div>
-          <div class="tl-card tips">
-            <div class="tl-card-head"><div><div class="tl-day-title">Consejos prácticos</div></div></div>
-            <div class="tl-card-body">${formattedContent}</div>
-          </div>
-        </div>`;
-    }
-    // Intro paragraph (before first day)
-    else if(dayCount===0&&!part.startsWith('#')){
-      const formatted = part
-        .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
-        .replace(/\n{2,}/g,'</p><p>')
-        .replace(/^/,'<p>')+'</p>';
-      html+=`
-        <div class="tl-item">
-          <div class="tl-dot act">✦</div>
-          <div class="tl-card">
-            <div class="tl-card-body" style="font-style:italic;color:var(--ink2)">${formatted}</div>
-          </div>
-        </div>`;
+  for(const line of lines){
+    const isTip = /^[-•*]|^\d+[.)]/i.test(line);
+    const cleaned = line.replace(/^[-•*\d.)]\s*/,'').trim();
+    if(!cleaned) continue;
+    if(isTip || tips.length===0){
+      if(current) tips.push(current);
+      current = {text: cleaned};
+    } else {
+      if(current) current.text += ' '+cleaned;
     }
   }
+  if(current) tips.push(current);
 
-  // Fallback si el parser no pudo dividir por días
-  if(dayCount===0){
-    const formatted = text
-      .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
-      .replace(/^#{1,3}\s*(.+)$/gm,'<h3 style="font-family:Playfair Display,serif;font-size:1rem;font-weight:700;margin:1rem 0 .4rem;padding:.5rem .8rem;background:var(--teal-light);border-radius:8px;border-left:3px solid var(--teal)">$1</h3>')
-      .replace(/\n{2,}/g,'</p><p>')
-      .replace(/^/,'<p>')+'</p>';
-    html=`
-      <div class="tl-item">
-        <div class="tl-dot act">✦</div>
-        <div class="tl-card">
-          <div class="tl-card-body">${formatted}</div>
-          ${dayAffButtons(dest,origin,1)}
-        </div>
-      </div>`;
-  }
+  // Assign icons based on content keywords
+  const iconMap = [
+    {keys:['vuelo','avión','billete','reserv','semana','anticipa','meses'],ico:'✈️',label:'Cuándo reservar'},
+    {keys:['clima','tiempo','lluvia','temperatura','mejor época','mes'],ico:'🌤️',label:'Clima y temporada'},
+    {keys:['trans','metro','bus','tren','taxi','tarjeta','movilidad'],ico:'🚇',label:'Moverse por allí'},
+    {keys:['dinero','efectivo','moneda','euro','precio','propina','tarjeta'],ico:'💶',label:'Dinero y pagos'},
+    {keys:['seguro','seguridad','zona','barrio','evita','cuidado','precaución'],ico:'🔒',label:'Seguridad y zonas'},
+    {keys:['idioma','ingles','hablar','frase','local','comunicar'],ico:'🗣️',label:'Idioma y cultura'},
+    {keys:['gratis','gratuito','free','sin pagar','entrada libre'],ico:'🎁',label:'Gratis y sin coste'},
+    {keys:['app','google','maps','offline','descarga','teléfono'],ico:'📱',label:'Apps y tecnología'},
+    {keys:['restaurante','comer','comida','gastronomía','plato','mercado'],ico:'🍽️',label:'Dónde comer'},
+    {keys:['hotel','aloja','hostel','airbnb','zona','barrio','dormir'],ico:'🏨',label:'Dónde alojarse'},
+  ];
 
-  return html;
+  const usedIcos = new Set();
+  const defaultIcos = ['💡','🗺️','⚡','🌟','🧭'];
+  let defIdx = 0;
+
+  const cards = tips.slice(0,6).map(tip=>{
+    let ico='',label='Consejo';
+    for(const m of iconMap){
+      if(m.keys.some(k=>tip.text.toLowerCase().includes(k))&&!usedIcos.has(m.ico)){
+        ico=m.ico;label=m.label;usedIcos.add(m.ico);break;
+      }
+    }
+    if(!ico){ico=defaultIcos[defIdx%defaultIcos.length];defIdx++;}
+    // Split heading from body — first sentence is the heading
+    const dotIdx = tip.text.search(/[.!?]/);
+    const heading = dotIdx>0&&dotIdx<80 ? tip.text.slice(0,dotIdx+1) : tip.text.slice(0,60)+(tip.text.length>60?'…':'');
+    const body = dotIdx>0&&dotIdx<80 ? tip.text.slice(dotIdx+1).trim() : '';
+    return `<div class="tip-card">
+      <div class="tip-ico">${ico}</div>
+      <div class="tip-label">${label}</div>
+      <div class="tip-heading">${heading}</div>
+      ${body?`<div class="tip-body">${body}</div>`:''}
+    </div>`;
+  }).join('');
+
+  return `<div class="tips-section">
+    <div class="tips-title">💡 Consejos para este viaje</div>
+    <div class="tips-sub">Lo que necesitas saber antes de salir</div>
+    <div class="tips-grid">${cards}</div>
+  </div>`;
 }
 
+// ── PARSE AI RESPONSE INTO TIMELINE ──
+function parseTimeline(text, dest, origin){
+  const parts = text.split(/(#{1,3}[^\n]+)/g).filter(s=>s.trim());
+  let html='', dayCount=0, tipsHTML='';
+
+  for(let i=0;i<parts.length;i++){
+    const part=parts[i].trim();
+    if(!part) continue;
+
+    if(/^#{1,3}\s*Día\s+\d+/i.test(part)){
+      dayCount++;
+      const title=part.replace(/^#+\s*/,'').trim();
+      const content=parts[i+1]&&!parts[i+1].startsWith('#')?parts[i+1].trim():'';
+      if(content)i++;
+      const body=content
+        .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+        .replace(/\n{2,}/g,'</p><p>')
+        .replace(/\n/g,'<br/>')
+        .replace(/^/,'<p>')+'</p>';
+      html+=`<div class="tl-item">
+        <div class="tl-dot day">${dayCount}</div>
+        <div class="tl-card">
+          <div class="tl-card-head">
+            <div>
+              <div class="tl-day-label">Día ${dayCount}</div>
+              <div class="tl-day-title">${title.replace(/^Día\s+\d+[\s—–-]*/i,'')}</div>
+            </div>
+          </div>
+          <div class="tl-card-body">${body}</div>
+          ${dayAffButtons(dest,origin,dayCount===1)}
+        </div>
+      </div>`;
+    }
+    else if(/^#{1,3}\s*(Consejo|Tips?|Recomendaci|Antes de|Lo que|Para saber)/i.test(part)){
+      const content=parts[i+1]&&!parts[i+1].startsWith('#')?parts[i+1].trim():'';
+      if(content)i++;
+      tipsHTML = parseTipCards(content);
+    }
+    else if(dayCount===0&&!part.startsWith('#')){
+      const body=part.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\n{2,}/g,'</p><p>').replace(/^/,'<p>')+'</p>';
+      html+=`<div class="tl-item">
+        <div class="tl-dot act">✦</div>
+        <div class="tl-card">
+          <div class="tl-card-body" style="font-style:italic;padding:1rem 1.2rem">${body}</div>
+        </div>
+      </div>`;
+    }
+  }
+
+  // Fallback
+  if(dayCount===0){
+    const body=text.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/^#{1,3}\s*(.+)$/gm,'<strong>$1</strong>').replace(/\n{2,}/g,'</p><p>').replace(/^/,'<p>')+'</p>';
+    html=`<div class="tl-item">
+      <div class="tl-dot act">✦</div>
+      <div class="tl-card">
+        <div class="tl-card-body" style="padding:1rem 1.2rem">${body}</div>
+        ${dayAffButtons(dest,origin,true)}
+      </div>
+    </div>`;
+  }
+
+  return {timelineHTML: html, tipsHTML};
+}
+
+// ── SAVED TRIPS ──
+let saved = JSON.parse(localStorage.getItem('ts_saved')||'[]');
+let currentTrip = null;
+
+function saveSaved(){localStorage.setItem('ts_saved',JSON.stringify(saved))}
+function updateSavedCount(){
+  const el=document.getElementById('savedCount');
+  if(saved.length>0){el.style.display='inline';el.textContent=saved.length}
+  else{el.style.display='none'}
+}
+function openSaved(){
+  renderSavedList();
+  document.getElementById('savedPanel').classList.add('open');
+  document.getElementById('savedOverlay').classList.add('open');
+}
+function closeSaved(){
+  document.getElementById('savedPanel').classList.remove('open');
+  document.getElementById('savedOverlay').classList.remove('open');
+}
+function renderSavedList(){
+  const el=document.getElementById('savedList');
+  if(!saved.length){
+    el.innerHTML=`<div class="saved-empty"><div class="saved-empty-ico">🗺️</div><p>Todavía no has guardado ningún viaje.</p><p style="margin-top:.4rem;font-size:.75rem">Genera un itinerario y pulsa "Guardar este viaje".</p></div>`;
+    return;
+  }
+  el.innerHTML=saved.map((t,i)=>`
+    <div class="saved-item">
+      <button class="saved-item-del" onclick="deleteTrip(${i})">✕</button>
+      <div class="saved-item-dest">${t.dest}</div>
+      <div class="saved-item-meta">${t.days} días · ${t.travelers} · ${t.date}</div>
+      <button class="saved-item-load" onclick="loadTrip(${i})">Ver itinerario →</button>
+    </div>`).join('');
+}
+function deleteTrip(i){saved.splice(i,1);saveSaved();updateSavedCount();renderSavedList()}
+function loadTrip(i){
+  const t=saved[i];
+  document.getElementById('origin').value=t.origin||'';
+  document.getElementById('dest').value=t.dest||'';
+  document.getElementById('days').value=t.days||'7';
+  closeSaved();
+  // Restore result HTML
+  if(t.resultHTML){
+    document.getElementById('resHeader').innerHTML=t.resHeader||'';
+    document.getElementById('timeline').innerHTML=t.timelineHTML||'';
+    document.getElementById('tipsSection').innerHTML=t.tipsHTML||'';
+    document.getElementById('bottomAffs').innerHTML=t.bottomAffsHTML||'';
+    document.getElementById('resultSection').classList.add('on');
+    setTimeout(()=>document.getElementById('resultSection').scrollIntoView({behavior:'smooth',block:'start'}),150);
+  }
+}
+function saveCurrentTrip(){
+  if(!currentTrip) return;
+  const already = saved.findIndex(t=>t.dest===currentTrip.dest&&t.days===currentTrip.days);
+  if(already>=0) saved.splice(already,1);
+  saved.unshift(currentTrip);
+  if(saved.length>20) saved.length=20;
+  saveSaved();updateSavedCount();
+  const btn=document.getElementById('btnSave');
+  if(btn){btn.innerHTML='✅ Guardado';btn.classList.add('saved-active')}
+}
+updateSavedCount();
+
 // ── LOADING MESSAGES ──
-const msgs=['Analizando tu perfil…','Calculando la mejor ruta…','Seleccionando actividades…','Añadiendo transportes concretos…','Puliendo los detalles…'];
+const msgs=['Analizando tu perfil de viajero…','Trazando la mejor ruta…','Seleccionando experiencias únicas…','Añadiendo transportes y opciones locales…','Dando los últimos toques…'];
 
 // ── GENERATE ──
 async function gen(){
-  const origin   = document.getElementById('origin').value.trim()||'España';
-  const dest     = document.getElementById('dest').value.trim();
-  const days     = document.getElementById('days').value;
-  const df       = document.getElementById('df').value;
-  const dt       = document.getElementById('dt').value;
-  const travelers= document.getElementById('travelers').value;
-  const budget   = document.getElementById('budget').value;
-  const styles   = activeTags()||'cultura y experiencia local';
-  const extra    = document.getElementById('extra').value.trim();
+  const origin=document.getElementById('origin').value.trim()||'España';
+  const dest=document.getElementById('dest').value.trim();
+  const days=document.getElementById('days').value;
+  const df=document.getElementById('df').value;
+  const dt=document.getElementById('dt').value;
+  const travelers=document.getElementById('travelers').value;
+  const budget=document.getElementById('budget').value;
+  const styles=activeTags();
+  const extra=document.getElementById('extra').value.trim();
 
   if(!dest){
     const el=document.getElementById('dest');
@@ -608,6 +602,7 @@ async function gen(){
   document.getElementById('loadBox').classList.add('on');
   document.getElementById('resultSection').classList.remove('on');
   document.getElementById('timeline').innerHTML='';
+  document.getElementById('tipsSection').innerHTML='';
   document.getElementById('bottomAffs').innerHTML='';
 
   let mi=0;
@@ -617,48 +612,56 @@ async function gen(){
   const mes=df?meses[new Date(df+'T00:00:00').getMonth()]:'';
   const fechaStr=df?`del ${fmtD(df)} al ${fmtD(dt)}${mes?` (${mes})`:''}`:null;
 
-  const prompt=`Eres un experto en viajes con criterio. Genera un itinerario CONCRETO para:
+  // Detect if origin is a transit city (not a destination)
+  const originIsTransit = origin.trim().length > 0;
 
-- Origen: ${origin}
+  const prompt=`Eres un experto viajero con criterio, gusto curado y conocimiento profundo del mundo. Creas itinerarios que combinan lo esencial con lo inesperado.
+
+VIAJE:
+- Origen: ${origin} (ciudad de salida, no incluyas actividades aquí a menos que sea también el destino)
 - Destino: ${dest}
-- Duración: ${days} días${fechaStr?`\n- Fechas: ${fechaStr}`:''}
+- Duración: ${days} días
+${fechaStr?`- Fechas: ${fechaStr}`:''}
 - Viajeros: ${travelers}
 - Presupuesto: ${budget}
-- Estilo: ${styles}${extra?`\n- Requisitos: ${extra}`:''}
+- Estilo buscado: ${styles}
+${extra?`- Requisitos específicos: ${extra}`:''}
 
-FORMATO OBLIGATORIO — sigue esto al pie de la letra:
-1. Párrafo breve de apertura (2 frases evocadoras, sin título)
+IMPORTANTE sobre el origen:
+- ${origin} es solo el punto de salida. NO generes actividades en ${origin} salvo que ${origin} y ${dest} sean la misma ciudad o el usuario haya pedido explícitamente incluirla.
+- El itinerario es para ${dest} y sus alrededores únicamente.
+
+VOZ Y ESTILO:
+- Escribe como un amigo experto que conoce el destino de verdad, no como una guía turística genérica
+- Mezcla actividades de pago con experiencias gratuitas (paseos, mercados, miradores, barrios, parques)
+- No pongas precio a todo — algunas cosas simplemente se disfrutan
+- Usa nombres reales y específicos ("Mercado de Campo de Ourique", no "un mercado local")
+- Una recomendación local inesperada por día — algo que los turistas normalmente se pierden
+- Tono cálido, concreto y con personalidad
+
+FORMATO OBLIGATORIO:
+1. Párrafo de apertura (2-3 frases evocadoras sobre ${dest}${mes?` en ${mes}`:''}. Sin título.)
+
 2. Un bloque por día:
-### Día X — [Título evocador]
-**Mañana:** actividad concreta con nombre real del lugar y precio estimado si aplica.
-**Tarde:** actividad concreta.
-**Noche:** cena o actividad con nombre de restaurante o zona concreta.
-💡 *Local tip:* recomendación inesperada y específica.
+### Día X — [Título con alma]
+**Mañana:** qué hacer, dónde, cómo llegar si aplica.
+**Tarde:** actividad o zona concreta.
+**Noche:** cena o plan nocturno con nombre de lugar.
+🔍 *Fuera de ruta:* algo específico que solo un local conoce.
 
 3. Al final:
-### Consejos prácticos
-- 3 consejos muy concretos${mes?` para viajar en ${mes}`:''}
-- Cuándo reservar vuelos para este destino
-- Una advertencia útil
+### Consejos para este viaje
+Lista de 4-5 consejos muy concretos. Incluye: cuándo reservar vuelos, cómo moverse, qué evitar, lo mejor de la temporada${mes?` (${mes})`:''}. Uno puede ser sobre algo gratuito imprescindible.
 
-REGLAS:
-- Nombra lugares reales, no genéricos ("Mercado de La Boqueria", no "un mercado local")
-- Precios orientativos cuando los conozcas
-- Transportes específicos cuando sean relevantes (ej: "Metro L3 hasta Passeig de Gràcia")
-- Máximo 700 palabras en total`;
+Máximo 750 palabras. Español.`;
 
   try{
     const res=await fetch('/api/generate',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1200,messages:[{role:'user',content:prompt}]})
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1400,messages:[{role:'user',content:prompt}]})
     });
-
-    if(!res.ok){
-      const e=await res.json().catch(()=>({}));
-      throw new Error(e?.error||`Error HTTP ${res.status}`);
-    }
-
+    if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error(e?.error||`Error HTTP ${res.status}`);}
     const data=await res.json();
     const text=(data.content||[]).map(b=>b.text||'').join('').trim();
     if(!text)throw new Error('La IA no devolvió respuesta');
@@ -666,31 +669,38 @@ REGLAS:
     clearInterval(iv);
     document.getElementById('loadBox').classList.remove('on');
 
-    // Header
-    document.getElementById('resHeader').innerHTML=`
+    const {timelineHTML, tipsHTML} = parseTimeline(text, dest, origin);
+    const affsHTML = bottomAffCards(dest,origin);
+    const resHeaderHTML=`
       <div>
-        <div style="font-size:.72rem;color:rgba(255,255,255,.5);font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.4rem">✨ Itinerario generado</div>
+        <div style="font-size:.7rem;color:rgba(255,255,255,.45);font-weight:600;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.5rem">✨ Itinerario generado</div>
         <div class="res-dest"><em>${dest}</em></div>
         <div class="res-chips">
           <div class="chip"><div class="chip-label">Días</div><div class="chip-val">${days}</div></div>
           ${df?`<div class="chip"><div class="chip-label">Salida</div><div class="chip-val">${fmtD(df)}</div></div>`:''}
           <div class="chip"><div class="chip-label">Viajeros</div><div class="chip-val">${travelers}</div></div>
-          <div class="chip"><div class="chip-label">Presupuesto</div><div class="chip-val">${budget.split(' ')[0]}</div></div>
+          <div class="chip"><div class="chip-label">Presupuesto</div><div class="chip-val">${budget}</div></div>
           <div class="chip"><div class="chip-label">Desde</div><div class="chip-val">${origin}</div></div>
         </div>
       </div>
       <div class="res-actions">
-        <button class="btn-save" onclick="window.print()">🖨️ Imprimir / PDF</button>
-        <button class="btn-save" onclick="navigator.share&&navigator.share({title:'Mi viaje a ${dest}',text:'Itinerario generado con Travel Studio'})">📤 Compartir</button>
+        <button class="btn-res-action" id="btnSave" onclick="saveCurrentTrip()">🗂 Guardar este viaje</button>
+        <button class="btn-res-action" onclick="window.print()">🖨️ Imprimir / PDF</button>
       </div>`;
 
-    // Timeline
-    document.getElementById('timeline').innerHTML = parseIntoTimeline(text, dest, origin);
+    // Store current trip for saving
+    currentTrip={
+      dest, origin, days, travelers, date: new Date().toLocaleDateString('es-ES'),
+      resHeader: resHeaderHTML,
+      timelineHTML, tipsHTML,
+      bottomAffsHTML: affsHTML,
+      resultHTML: true
+    };
 
-    // Bottom affs
-    document.getElementById('bottomAffs').innerHTML = bottomAffCards(dest, origin);
-
-    // Show section
+    document.getElementById('resHeader').innerHTML=resHeaderHTML;
+    document.getElementById('timeline').innerHTML=timelineHTML;
+    document.getElementById('tipsSection').innerHTML=tipsHTML;
+    document.getElementById('bottomAffs').innerHTML=affsHTML;
     document.getElementById('resultSection').classList.add('on');
     setTimeout(()=>document.getElementById('resultSection').scrollIntoView({behavior:'smooth',block:'start'}),150);
 
@@ -698,14 +708,12 @@ REGLAS:
     clearInterval(iv);
     document.getElementById('loadBox').classList.remove('on');
     document.getElementById('timeline').innerHTML=`<div class="err"><strong>Error:</strong> ${e.message}<br/><br/>Comprueba que <code>ANTHROPIC_API_KEY</code> está configurada en Vercel y tienes crédito en console.anthropic.com</div>`;
-    document.getElementById('bottomAffs').innerHTML=bottomAffCards(document.getElementById('dest').value, document.getElementById('origin').value);
+    document.getElementById('bottomAffs').innerHTML=bottomAffCards(dest,origin);
     document.getElementById('resultSection').classList.add('on');
   }
-
   btn.disabled=false;
 }
 
-// Enter key
 ['origin','dest'].forEach(id=>{
   document.getElementById(id).addEventListener('keydown',e=>{if(e.key==='Enter')gen()});
 });
