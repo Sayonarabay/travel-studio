@@ -388,6 +388,13 @@ textarea{resize:none;height:56px;font-size:.83rem}
 .m-pdf-btn{display:inline-flex;align-items:center;gap:.4rem;margin-top:1rem;padding:.55rem 1.2rem;border:1.5px solid var(--teal-dark);border-radius:100px;color:var(--teal-dark);font-size:.76rem;font-weight:700;cursor:pointer;background:transparent;transition:all .18s}
 .m-pdf-btn:hover{background:var(--teal-dark);color:#fff}
 .m-pdf-btn svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:2}
+
+/* ── Experience micro-buttons inside moments ── */
+.moment-exp-btns{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.7rem;padding-top:.55rem;border-top:1px solid var(--border)}
+.exp-micro{display:inline-flex;align-items:center;gap:.3rem;padding:.28rem .65rem;border-radius:100px;font-size:.64rem;font-weight:700;cursor:pointer;border:1.5px solid transparent;transition:all .18s;white-space:nowrap;background:#F8FAFC;border-color:var(--border);color:var(--ink2)}
+.exp-micro:hover{border-color:var(--teal-dark);color:var(--teal-dark);background:#F0FDFA}
+.exp-micro.in-cart{background:var(--teal-dark);border-color:var(--teal-dark);color:#fff}
+.exp-micro svg{width:9px;height:9px;fill:none;stroke:currentColor;stroke-width:2.5;flex-shrink:0}
 </style>
 </head>
 <body>
@@ -776,15 +783,45 @@ function renderReserveLinks(){
 
 async function sendItinerary(){
   const email=document.getElementById('cEmailInput').value.trim();
-  if(!email){alert({es:'Introduce tu email.',en:'Enter your email.',fr:'Entrez votre email.'}[lang]);return;}
-  const btn=document.getElementById('btnSend');
-  btn.disabled=true;btn.querySelector('span').textContent={es:'Enviando…',en:'Sending…',fr:'Envoi…'}[lang];
-  await new Promise(r=>setTimeout(r,1600));
-  btn.style.display='none';
-  const ok=document.getElementById('sendOk');ok.style.display='block';
+  if(!email){document.getElementById('cEmailInput').style.borderColor='#F87171';document.getElementById('cEmailInput').focus();return;}
   const name=document.getElementById('cNameInput').value.trim();
   const dest=document.getElementById('dest').value.trim();
-  ok.textContent={es:`✅ Listo, ${name||'viajero'}. Tu itinerario de ${dest} llega en breve.`,en:`✅ Done, ${name||'traveller'}. Your ${dest} itinerary is on its way.`,fr:`✅ C'est parti, ${name||'voyageur'}. Votre itinéraire pour ${dest} arrive bientôt.`}[lang];
+  const btn=document.getElementById('btnSend');
+  const span=btn.querySelector('span');
+  btn.disabled=true;span.textContent={es:'Enviando…',en:'Sending…',fr:'Envoi…'}[lang];
+  try{
+    const r=await fetch('/api/email',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({name,email,tripName:document.getElementById('tripName')?.textContent||dest,dest,
+        departDate:document.getElementById('df').value,returnDate:document.getElementById('dt').value,
+        travelers:document.getElementById('travelers')?.value||'',lang})});
+    const j=await r.json();
+    btn.style.display='none';
+    const ok=document.getElementById('sendOk');ok.style.display='block';
+    ok.innerHTML={es:`✅ Listo, ${name||'viajero'}. Revisa tu bandeja de ${email}.`,
+      en:`✅ Done, ${name||'traveller'}. Check your inbox at ${email}.`,
+      fr:`✅ C'est parti ! Vérifiez ${email}.`}[lang];
+  }catch(e){
+    btn.disabled=false;span.textContent={es:'Enviar itinerario',en:'Send itinerary',fr:'Envoyer'}[lang];
+    console.error('Email error:',e);
+  }
+}
+
+function toggleExpCart(btnId, name, priceNum, ico){
+  const btn=document.getElementById(btnId);
+  if(!btn) return;
+  const inCart=btn.classList.contains('in-cart');
+  const addICO='<svg viewBox="0 0 24 24" style="width:9px;height:9px;fill:none;stroke:currentColor;stroke-width:2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>';
+  const checkICO='<svg viewBox="0 0 24 24" style="width:9px;height:9px;fill:none;stroke:currentColor;stroke-width:2.5"><polyline points="20 6 9 17 4 12"/></svg>';
+  if(inCart){
+    btn.classList.remove('in-cart');
+    btn.innerHTML=addICO+name;
+    cart=cart.filter(i=>i.id!==btnId);
+  } else {
+    btn.classList.add('in-cart');
+    btn.innerHTML=checkICO+name;
+    cart.push({id:btnId,name,price:'',priceNum:priceNum||0,ico:ico||'🎯'});
+  }
+  updateCartUI();
 }
 
 function shareTrip(){
@@ -1191,17 +1228,57 @@ function parseTimeline(text,dest,origin){
       const dayWord={es:'Día',en:'Day',fr:'Jour'}[lang]||'Day';
       const dayId=`day-${dayCount}`;
 
+      // Extract named experiences from text (bold phrases + capitalized names)
+      function extractExps(txt){
+        if(!txt) return [];
+        const found=new Set();
+        // Bold phrases: **Name** or *Name*
+        const boldRe=/\*{1,2}([^*\n]{4,40}?)\*{1,2}/g;
+        let m;
+        while((m=boldRe.exec(txt))!==null){
+          const s=m[1].trim();
+          if(s.length>3&&s.length<42&&!/^(Mañana|Tarde|Noche|Morning|Afternoon|Evening|Matin|Après)/i.test(s))found.add(s);
+        }
+        // Capitalized multi-word nouns (e.g. "Palais Royal", "Mercado de San Miguel")
+        const capRe=/([A-ZÁÉÍÓÚÀÂÄÈÊËÎÏÔÙÛÜÑ][a-záéíóúàâäèêëîïôùûüñA-ZÁÉÍÓÚÀÂÄÈÊËÎÏÔÙÛÜÑ]+(?:\s+(?:de|del|du|des|van|von|di|di|le|la|el|los|las|the|of|da|das|dos)?\s*[A-ZÁÉÍÓÚÀÂÄÈÊËÎÏÔÙÛÜÑ][a-záéíóúàâäèêëîïôùûüñA-ZÁÉÍÓÚÀÂÄÈÊËÎÏÔÙÛÜÑ]+){1,4})/g;
+        while((m=capRe.exec(txt))!==null){
+          const s=m[1].trim();
+          if(s.length>5&&s.length<50&&!found.has(s)&&found.size<8
+            &&!/^(Después|Luego|Antes|Durante|También|Aunque|Además|Visita|Toma|Sube|Baja|Entra|Sal|Come|Cena|Desayuna|En|La|El|Los|Las|Un|Una|Para|Con|Por|Sin|Al|Del|Desde|Hasta|Si|No|Its|The|This|That|From|Take|Visit|Go|Walk|Head)/i.test(s)){
+            found.add(s);
+          }
+        }
+        return [...found].slice(0,5);
+      }
+
+      const addICO='<svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>';
+      const checkICO='<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>';
+
+      function expBtnsHTML(txt, dayN, momentKey){
+        const exps=extractExps(txt);
+        if(!exps.length) return '';
+        const btns=exps.map((name,i)=>{
+          const safeN=name.replace(/'/g,'\u0027').replace(/"/g,'&quot;');
+          const id=`exp-${dayN}-${momentKey}-${i}`;
+          return `<button class="exp-micro" id="${id}" onclick="toggleExpCart('${id}','${safeN}',0,'🎯')">${addICO}${name}</button>`;
+        }).join('');
+        return `<div class="moment-exp-btns">${btns}</div>`;
+      }
+
       const momentsHTML=hasMoments?[
-        {cls:'moment-m',svg:sunSVG, label:ml[0], text:morn},
-        {cls:'moment-a',svg:aftSVG, label:ml[1], text:aftn},
-        {cls:'moment-e',svg:moonSVG,label:ml[2], text:evng},
+        {cls:'moment-m',svg:sunSVG, label:ml[0], text:morn, key:'m'},
+        {cls:'moment-a',svg:aftSVG, label:ml[1], text:aftn, key:'a'},
+        {cls:'moment-e',svg:moonSVG,label:ml[2], text:evng, key:'e'},
       ].filter(m=>m.text).map(m=>`
         <div class="moment ${m.cls}">
           <div class="moment-time">
             <div class="moment-dot">${m.svg}</div>
             <div class="moment-label">${m.label}</div>
           </div>
-          <div class="moment-body"><div class="moment-text">${m.text}</div></div>
+          <div class="moment-body">
+            <div class="moment-text">${m.text}</div>
+            ${expBtnsHTML(m.text, dayCount, m.key)}
+          </div>
         </div>`).join('')
       :`<div style="padding:1rem 1.4rem;font-size:.87rem;line-height:1.8;color:var(--ink2)"><p>${fallbackText}</p></div>`;
 
@@ -1788,122 +1865,306 @@ function downloadPDF() {
   s.onerror = () => alert('PDF generation unavailable. Please save the page manually.');
   document.head.appendChild(s);
 }
-
 function _generatePDF() {
   const { jsPDF } = window.jspdf;
+  const W = 210, H = 297, MG = 15, MG2 = 195;
   const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
-  const W = 210, H = 297;
-  const margin = 18;
 
-  const tripName = memoriaData.tripName || memoriaData.dest || 'Mi Viaje';
+  const tN   = memoriaData.tripName || memoriaData.dest || 'Mi Viaje';
   const dest = memoriaData.dest || '';
-  const departDate = document.getElementById('df').value;
-  const returnDate = document.getElementById('dt').value;
-  const travelers = memoriaData.travelers || '';
+  const df   = document.getElementById('df').value;
+  const dt   = document.getElementById('dt').value;
+  const trav = memoriaData.travelers || '';
+  const now  = new Date().toLocaleDateString('es-ES',{day:'numeric',month:'long',year:'numeric'});
 
-  // ── Cover header ──
-  doc.setFillColor(15, 23, 42); // ink
-  doc.rect(0, 0, W, 58, 'F');
+  // ─── Palette ───
+  const C = {
+    ink:   [15,23,42],   ink2:  [71,85,105],
+    teal:  [15,118,110], teal2: [45,212,191],
+    bg:    [248,250,252], brd:  [226,232,240],
+    white: [255,255,255],amber: [180,83,9],
+    ind:   [67,56,202],  green: [6,95,70],
+    red:   [190,18,60],  muted: [148,163,184],
+  };
+  // Day palette (alternates)
+  const DAY_PAL = [
+    {h:C.ink,  acc:[45,212,191]},
+    {h:[67,56,202],   acc:[165,180,252]},
+    {h:[180,83,9],    acc:[252,211,77]},
+    {h:[6,95,70],     acc:[110,231,183]},
+    {h:[190,18,60],   acc:[252,165,165]},
+    {h:[3,105,161],   acc:[125,211,252]},
+    {h:[88,28,135],   acc:[216,180,254]},
+  ];
 
-  // Teal accent line
-  doc.setFillColor(45, 212, 191);
-  doc.rect(0, 55, W, 3, 'F');
+  // ─── Helpers ───
+  function setFont(sz, weight, color){
+    doc.setFontSize(sz);
+    doc.setFont('helvetica', weight||'normal');
+    if(color) doc.setTextColor(...color);
+  }
+  function text(str, x, y, opts){ doc.text(String(str), x, y, opts||{}); }
+  function splitText(str, maxW){ return doc.splitTextToSize(String(str).replace(/\s+/g,' ').trim(), maxW); }
+  function rect(x,y,w,h,color,round){
+    doc.setFillColor(...color);
+    round ? doc.roundedRect(x,y,w,h,round,round,'F') : doc.rect(x,y,w,h,'F');
+  }
+  function line(x1,y1,x2,y2,color,w){
+    doc.setDrawColor(...(color||C.brd));
+    doc.setLineWidth(w||0.25);
+    doc.line(x1,y1,x2,y2);
+  }
+  function newPage(){
+    doc.addPage();
+    // Subtle background
+    rect(0,0,W,H,C.bg);
+    // Teal top bar
+    rect(0,0,W,3,C.teal);
+    // Footer
+    rect(0,H-11,W,11,C.ink);
+    setFont(6.5,'normal',C.muted);
+    text(tN + '  ·  Travel Studio', W/2, H-4.2, {align:'center'});
+    return 18;
+  }
 
-  // Trip name
-  doc.setTextColor(255, 255, 255);
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(22);
-  doc.text(tripName, margin, 28);
+  // ════════════════════════════════════════
+  // PORTADA
+  // ════════════════════════════════════════
+  rect(0,0,W,H,C.ink);   // dark bg
 
-  // Destination
-  doc.setFont('helvetica', 'normal');
-  doc.setFontSize(9);
-  doc.setTextColor(45, 212, 191);
-  doc.text(dest.toUpperCase(), margin, 37);
+  // Decorative teal accent block left side
+  rect(0,0,8,H,C.teal);
 
-  // Meta chips
-  doc.setTextColor(180, 200, 220);
-  doc.setFontSize(8);
-  const meta = [departDate, returnDate, travelers].filter(Boolean).join('  ·  ');
-  doc.text(meta, margin, 46);
+  // Thin lines
+  doc.setDrawColor(...C.teal);
+  doc.setLineWidth(0.3);
+  doc.line(18,34,80,34);
 
   // Brand
-  doc.setTextColor(100, 130, 160);
-  doc.setFontSize(7.5);
-  doc.text('Travel Studio', W - margin, 46, {align:'right'});
+  setFont(7.5,'bold',C.teal2);
+  doc.setCharSpace(3);
+  text('TRAVEL STUDIO', 22, 28);
+  doc.setCharSpace(0);
 
-  // ── Content ──
-  let y = 70;
-  doc.setTextColor(15, 23, 42);
+  // Trip name — big
+  const nameLines = splitText(tN, W - 44);
+  setFont(nameLines.length>1 ? 28 : 34, 'bold', C.white);
+  doc.text(nameLines, 22, 50);
+  let cy = 50 + nameLines.length * (nameLines.length>1?11:13);
 
-  // Extract text content from rendered timeline
+  // Destination
+  setFont(12,'normal',C.teal2);
+  text(dest.toUpperCase(), 22, cy+6);
+  cy += 18;
+
+  // Meta chips row
+  const chips = [df&&dt ? df+' → '+dt : '', trav].filter(Boolean);
+  let cx = 22;
+  chips.forEach(chip => {
+    const cw = chip.length*1.8+8;
+    rect(cx, cy, cw, 7, [255,255,255,0.1], 2);
+    doc.setFillColor(255,255,255);
+    doc.roundedRect(cx, cy, cw, 7, 2,2,'S');
+    doc.setDrawColor(255,255,255,0.2);
+    setFont(7,'normal',[200,220,235]);
+    text(chip, cx+4, cy+4.8);
+    cx += cw+4;
+  });
+  cy += 16;
+
+  // Generated date
+  setFont(7.5,'normal',C.muted);
+  text('Generado el '+now, 22, cy);
+
+  // Bottom green teal bar
+  rect(0,H-14,W,14,C.teal);
+  setFont(8,'bold',C.ink);
+  text('travel-studio.vercel.app', W/2, H-5.5, {align:'center'});
+
+  // ════════════════════════════════════════
+  // DÍAS
+  // ════════════════════════════════════════
   const timeline = document.getElementById('timeline');
-  if (timeline) {
-    const days = timeline.querySelectorAll('.day-card');
-    days.forEach((card, i) => {
-      if (y > H - 30) { doc.addPage(); y = 20; }
+  if(!timeline){ doc.save((tN+dest).replace(/[^a-z0-9]/gi,'-')+'.pdf'); return; }
+  const dayCards = timeline.querySelectorAll('.day-card');
+  if(!dayCards.length){ doc.save((tN+dest).replace(/[^a-z0-9]/gi,'-')+'.pdf'); return; }
 
-      // Day header
-      doc.setFillColor(15, 23, 42);
-      doc.rect(margin, y - 4, W - margin*2, 10, 'F');
-      doc.setTextColor(255, 255, 255);
-      doc.setFont('helvetica', 'bold');
-      doc.setFontSize(10);
-      const titleEl = card.querySelector('.day-title');
-      doc.text(`${i+1}  ${titleEl ? titleEl.textContent.slice(0,55) : ''}`, margin + 3, y + 3);
-      y += 13;
+  const PB = H-16;   // page bottom safe zone
 
-      // Moments
-      const moments = card.querySelectorAll('.moment');
-      moments.forEach(m => {
-        if (y > H - 20) { doc.addPage(); y = 20; }
-        const label = m.querySelector('.moment-label');
-        const text = m.querySelector('.moment-text');
-        if (!text) return;
-        doc.setTextColor(100, 100, 100);
-        doc.setFont('helvetica', 'bold');
-        doc.setFontSize(7.5);
-        doc.text((label ? label.textContent.toUpperCase() : ''), margin + 2, y);
-        y += 4;
-        doc.setFont('helvetica', 'normal');
-        doc.setTextColor(40, 40, 60);
-        doc.setFontSize(8.5);
-        const lines = doc.splitTextToSize(text.textContent.replace(/\s+/g,' ').slice(0,280), W - margin*2 - 4);
-        doc.text(lines, margin + 2, y);
-        y += lines.length * 4.5 + 3;
-      });
+  dayCards.forEach((card, di) => {
+    let y = newPage();
+    const pal = DAY_PAL[di % DAY_PAL.length];
 
-      // Gem
-      const gem = card.querySelector('.day-gem-txt');
-      if (gem) {
-        if (y > H - 15) { doc.addPage(); y = 20; }
-        doc.setFillColor(240, 253, 244);
-        doc.rect(margin, y - 3, W - margin*2, 10, 'F');
-        doc.setTextColor(6, 95, 70);
-        doc.setFont('helvetica', 'bolditalic');
-        doc.setFontSize(7.5);
-        const gemLines = doc.splitTextToSize('✦ ' + gem.textContent.slice(0,120), W - margin*2 - 4);
-        doc.text(gemLines, margin + 2, y + 2);
-        y += gemLines.length * 4 + 6;
+    const titleEl = card.querySelector('.day-title');
+    const title = titleEl ? titleEl.textContent.trim() : '';
+
+    // ── Day header block ──
+    rect(MG, y, W-MG*2, 24, pal.h, 4);
+
+    // Circle badge
+    doc.setFillColor(...pal.acc);
+    doc.circle(MG+11, y+12, 8, 'F');
+    setFont(13,'bold',C.ink);
+    text(String(di+1), MG+11, y+16, {align:'center'});
+
+    // Title
+    const titleLines = splitText(title, W-MG*2-30);
+    setFont(titleLines.length>1 ? 11:13, 'bold', C.white);
+    doc.text(titleLines, MG+24, y+9+(titleLines.length>1?0:3));
+
+    y += 30;
+
+    // ── Moment blocks ──
+    const moments = card.querySelectorAll('.moment');
+    const MOT = [
+      {dot:[245,158,11], tag:{es:'MAÑANA',en:'MORNING',fr:'MATIN'}},
+      {dot:[45,212,191], tag:{es:'TARDE', en:'AFTERNOON',fr:'APRÈS-MIDI'}},
+      {dot:[129,140,248],tag:{es:'NOCHE', en:'EVENING',fr:'SOIR'}},
+    ];
+
+    moments.forEach((m, mi) => {
+      const mText = m.querySelector('.moment-text');
+      if(!mText) return;
+      const raw = mText.textContent.replace(/\s+/g,' ').trim();
+      if(!raw) return;
+
+      const mot = MOT[mi]||MOT[0];
+      const tag = mot.tag[lang]||mot.tag.es;
+
+      if(y+8 > PB) y = newPage();
+
+      // Moment label row
+      doc.setFillColor(...mot.dot);
+      doc.circle(MG+3, y+3, 2.5, 'F');
+      setFont(7,'bold', mot.dot);
+      text(tag, MG+8, y+4.5);
+      y += 9;
+
+      // Text block
+      const mLines = splitText(raw, W-MG*2-6);
+      const bh = mLines.length*4.2+7;
+      if(y+bh > PB) y = newPage();
+      // Subtle bg
+      rect(MG, y-2, W-MG*2, bh, [242,247,252], 3);
+      setFont(8.5,'normal',C.ink2);
+      doc.text(mLines, MG+5, y+3.5);
+      y += bh+3;
+    });
+
+    // ── Gem ──
+    const gem = card.querySelector('.day-gem-txt');
+    if(gem){
+      const raw = gem.textContent.replace(/\s+/g,' ').trim();
+      const gLines = splitText(raw, W-MG*2-12);
+      const gh = gLines.length*4+12;
+      if(y+gh > PB) y = newPage();
+      rect(MG, y, W-MG*2, gh, [240,253,244], 3);
+      doc.setDrawColor(...[134,239,172]);
+      doc.setLineWidth(0.3);
+      doc.roundedRect(MG,y,W-MG*2,gh,3,3,'S');
+      setFont(7,'bold',[6,95,70]);
+      text('✦ FUERA DE RUTA', MG+5, y+5.5);
+      setFont(8,'normal',[21,128,61]);
+      doc.text(gLines, MG+5, y+10.5);
+      y += gh+4;
+    }
+
+    y += 2;
+  });
+
+  // ════════════════════════════════════════
+  // RESUMEN FINAL
+  // ════════════════════════════════════════
+  let y = newPage();
+
+  // Section header
+  rect(MG, y, W-MG*2, 16, C.ink, 3);
+  setFont(10,'bold',C.white);
+  text({es:'RESUMEN DEL VIAJE',en:'TRIP SUMMARY',fr:'RÉCAPITULATIF'}[lang]||'RESUMEN', W/2, y+10.5, {align:'center'});
+  y += 22;
+
+  // Budget table from recap
+  const recapEl = document.getElementById('recapSection');
+  if(recapEl){
+    const rows = recapEl.querySelectorAll('.bc-row');
+    rows.forEach((row, ri) => {
+      if(y+10 > PB) y = newPage();
+      const lbl = row.querySelector('.bc-lbl, .bc-cat');
+      const val = row.querySelector('.bc-val');
+      if(!lbl) return;
+      if(ri%2===0){ rect(MG, y-2, W-MG*2, 9, [241,245,249]); }
+      setFont(8.5,'normal',C.ink2);
+      const lblTxt = lbl.textContent.trim().slice(0,55);
+      text(lblTxt, MG+4, y+4.5);
+      if(val){
+        setFont(8.5,'bold',C.teal);
+        text(val.textContent.trim(), MG2-4, y+4.5, {align:'right'});
       }
+      y += 9;
+    });
 
-      y += 5;
+    // Total
+    const total = recapEl.querySelector('.bc-total, .recap-total');
+    if(total && y+14 < PB){
+      y += 2;
+      rect(MG, y, W-MG*2, 13, C.teal, 3);
+      setFont(10,'bold',C.white);
+      text(total.textContent.trim().slice(0,60), W/2, y+8.5, {align:'center'});
+      y += 18;
+    }
+  }
+
+  // Day recap rows
+  const dayRows = recapEl ? recapEl.querySelectorAll('.dr-row') : [];
+  if(dayRows.length && y+12 < PB){
+    y += 4;
+    setFont(8,'bold',C.ink2);
+    text({es:'DÍA A DÍA',en:'DAY BY DAY',fr:'JOUR PAR JOUR'}[lang]||'DÍA A DÍA', MG, y);
+    y += 7;
+    line(MG, y, MG2, y, C.brd);
+    y += 5;
+    dayRows.forEach((row, ri) => {
+      if(y+9 > PB) y = newPage();
+      const txt = row.querySelector('.dr-txt');
+      const cost = row.querySelector('.dr-cost, .dr-pill');
+      // Number
+      doc.setFillColor(...C.teal);
+      doc.circle(MG+3.5, y+2.5, 2.8, 'F');
+      setFont(6.5,'bold',C.white);
+      text(String(ri+1), MG+3.5, y+4.5, {align:'center'});
+      setFont(8,'normal',C.ink2);
+      text((txt?txt.textContent.trim().slice(0,72):''), MG+10, y+4.5);
+      if(cost){
+        setFont(7.5,'bold',C.teal);
+        text(cost.textContent.trim(), MG2-2, y+4.5, {align:'right'});
+      }
+      y += 9;
     });
   }
 
-  // ── Footer on last page ──
-  if (y > H - 25) { doc.addPage(); y = 20; }
-  doc.setDrawColor(220, 230, 240);
-  doc.line(margin, H - 18, W - margin, H - 18);
-  doc.setTextColor(150, 160, 180);
-  doc.setFont('helvetica', 'normal');
-  doc.setFontSize(7);
-  doc.text('Creado con Travel Studio · travel-studio.vercel.app', margin, H - 12);
-  doc.text(`${tripName} · ${new Date().getFullYear()}`, W - margin, H - 12, {align:'right'});
+  // ── Practical tips ──
+  const tipsEl = document.getElementById('tipsSection');
+  if(tipsEl && y+20 < PB){
+    y += 8;
+    rect(MG, y, W-MG*2, 14, C.amber, 3);
+    setFont(9,'bold',C.white);
+    text({es:'CONSEJOS PRÁCTICOS',en:'PRACTICAL TIPS',fr:'CONSEILS PRATIQUES'}[lang]||'CONSEJOS', W/2, y+9, {align:'center'});
+    y += 18;
+    tipsEl.querySelectorAll('.tip-block').forEach(tb => {
+      if(y+9 > PB) y = newPage();
+      const th = tb.querySelector('.tip-head');
+      if(!th) return;
+      doc.setFillColor(...C.teal2);
+      doc.circle(MG+3, y+3, 2, 'F');
+      setFont(8,'normal',C.ink);
+      const tl = splitText(th.textContent.trim(), W-MG*2-10);
+      doc.text(tl.slice(0,2), MG+8, y+4);
+      y += tl.length*4+3;
+    });
+  }
 
-  // Save
-  const fileName = (tripName + ' - ' + dest).replace(/[^a-zA-Z0-9 ]/g,'').replace(/\s+/g,'-').toLowerCase();
-  doc.save(fileName + '.pdf');
+  const fn = (tN+'-'+dest).replace(/[^a-zA-Z0-9 ]/g,'').replace(/\s+/g,'-').toLowerCase();
+  doc.save(fn+'.pdf');
 }
 
 // ═══════════════════════════════════
