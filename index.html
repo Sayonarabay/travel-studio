@@ -97,29 +97,44 @@ textarea{resize:none;height:56px;font-size:.83rem}
 .itin-wrap{max-width:860px;margin:0 auto;padding:2.5rem 2rem}
 .itin-intro{font-family:'Playfair Display',serif;font-size:1.05rem;font-style:italic;color:var(--ink2);line-height:1.8;padding:1.5rem 2rem;background:var(--white);border-radius:var(--r);border:1.5px solid var(--border);margin-bottom:2rem;box-shadow:var(--shadow)}
 
-/* Day card */
-.day-card{background:var(--white);border:1.5px solid var(--border);border-radius:20px;overflow:hidden;margin-bottom:1.5rem;box-shadow:var(--shadow);transition:box-shadow .2s}
+/* Day card — editorial guide style */
+.day-card{background:var(--white);border:1.5px solid var(--border);border-radius:20px;overflow:hidden;margin-bottom:2rem;box-shadow:var(--shadow);transition:box-shadow .2s}
 .day-card:hover{box-shadow:var(--shadow-md)}
-.day-img{width:100%;height:200px;object-fit:cover;display:block}
-.day-body{padding:1.4rem 1.6rem 1rem}
-.day-num-label{font-size:.62rem;font-weight:700;color:var(--teal-dark);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.3rem}
-.day-title{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;margin-bottom:.8rem}
-.day-text{font-size:.87rem;line-height:1.85;color:var(--ink2)}
-.day-text p{margin-bottom:.55rem}
-.day-text p:last-child{margin-bottom:0}
-.day-text strong{color:var(--ink);font-weight:600}
-.day-footer{padding:.9rem 1.6rem 1.2rem;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.7rem;background:#FAFAFA}
-.day-quick-links{display:flex;gap:.4rem;flex-wrap:wrap}
-.dql{display:inline-flex;align-items:center;gap:.25rem;padding:.28rem .65rem;border-radius:100px;font-size:.65rem;font-weight:700;text-decoration:none;transition:all .15s;border:1.5px solid transparent;white-space:nowrap}
-.dql.h{background:#F0FDF4;color:#166534;border-color:#BBF7D0}
-.dql.h:hover{background:#DCFCE7}
-.dql.a{background:#FFF7ED;color:#9A3412;border-color:#FED7AA}
-.dql.a:hover{background:#FFEDD5}
-.dql.v{background:#EFF6FF;color:#1D4ED8;border-color:#BFDBFE}
-.dql.v:hover{background:#DBEAFE}
-.btn-add-day{display:inline-flex;align-items:center;gap:.35rem;padding:.42rem 1rem;border-radius:100px;border:2px solid var(--ink);background:transparent;color:var(--ink);font-size:.72rem;font-weight:700;cursor:pointer;transition:all .18s;white-space:nowrap}
-.btn-add-day:hover{background:var(--ink);color:#fff}
-.btn-add-day.added{background:var(--teal-dark);border-color:var(--teal-dark);color:#fff}
+.day-header{display:flex;align-items:stretch;min-height:72px}
+.day-num-col{width:64px;flex-shrink:0;background:linear-gradient(160deg,var(--ink),#1E3A5F);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.15rem;padding:.8rem 0}
+.day-num-big{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:#fff;line-height:1}
+.day-num-word{font-size:.5rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.4)}
+.day-title-col{flex:1;padding:1rem 1.4rem;display:flex;align-items:center;border-bottom:1.5px solid var(--border);background:linear-gradient(90deg,#F8FAFC,#fff)}
+.day-title{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--ink);line-height:1.3}
+/* Moment blocks: morning / afternoon / evening */
+.day-moments{padding:0}
+.moment{display:flex;align-items:flex-start;gap:0;border-bottom:1px solid var(--border)}
+.moment:last-of-type{border-bottom:none}
+.moment-time{width:64px;flex-shrink:0;padding:1.1rem 0;display:flex;flex-direction:column;align-items:center;gap:.35rem;border-right:1px solid var(--border)}
+.moment-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.moment-dot svg{width:13px;height:13px;fill:none;stroke:#fff;stroke-width:2.2}
+.moment-m .moment-dot{background:linear-gradient(135deg,#F59E0B,#FCD34D)}
+.moment-a .moment-dot{background:linear-gradient(135deg,#0F766E,#2DD4BF)}
+.moment-e .moment-dot{background:linear-gradient(135deg,#4338CA,#818CF8)}
+.moment-label{font-size:.48rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
+.moment-body{flex:1;padding:1rem 1.4rem}
+.moment-text{font-size:.86rem;line-height:1.8;color:var(--ink2)}
+.moment-text strong{color:var(--ink);font-weight:600}
+/* Off-the-beaten-path gem */
+.day-gem{display:flex;align-items:flex-start;gap:.8rem;padding:.9rem 1.4rem;background:linear-gradient(90deg,#F0FDF4,#ECFDF5);border-top:1px solid #BBF7D0}
+.day-gem-ico{width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,#065F46,#10B981);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.1rem}
+.day-gem-ico svg{width:12px;height:12px;fill:none;stroke:#fff;stroke-width:2.2}
+.day-gem-txt{font-size:.8rem;color:#065F46;line-height:1.6;font-style:italic}
+.day-gem-txt strong{font-style:normal;font-weight:700;color:#064E3B}
+/* Day CTA — single clean action */
+.day-cta{padding:.8rem 1.4rem;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:#FAFAFA}
+.day-cta-links{display:flex;gap:.5rem}
+.dql{display:inline-flex;align-items:center;gap:.3rem;padding:.3rem .75rem;border-radius:100px;font-size:.68rem;font-weight:700;text-decoration:none;border:1.5px solid var(--border);color:var(--ink2);background:#fff;transition:all .15s;white-space:nowrap}
+.dql:hover{border-color:var(--ink);color:var(--ink)}
+.dql svg{width:11px;height:11px;fill:none;stroke:currentColor;stroke-width:2.2;flex-shrink:0}
+.btn-add-day{display:inline-flex;align-items:center;gap:.35rem;padding:.38rem .95rem;border-radius:100px;border:2px solid var(--teal-dark);background:transparent;color:var(--teal-dark);font-size:.7rem;font-weight:700;cursor:pointer;transition:all .18s;white-space:nowrap}
+.btn-add-day:hover{background:var(--teal-dark);color:#fff}
+.btn-add-day.added{background:var(--teal-dark);color:#fff}
 
 /* Transport card (flight / train / car / ferry) */
 .transport-card{border-radius:20px;padding:1.5rem 1.8rem;margin-bottom:1.5rem;color:#fff}
@@ -142,19 +157,20 @@ textarea{resize:none;height:56px;font-size:.83rem}
 /* Tips */
 .tips-section{margin-bottom:1.5rem}
 .tips-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;margin-bottom:.9rem;color:var(--ink)}
-.tips-list{display:flex;flex-direction:column;gap:.5rem}
-.tip-row{display:flex;align-items:flex-start;gap:.9rem;padding:.75rem 1rem;background:var(--white);border:1px solid var(--border);border-radius:12px;transition:all .18s}
-.tip-row:hover{border-color:var(--teal-dark);box-shadow:var(--shadow)}
-.tip-icon{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.tip-icon svg{width:15px;height:15px}
-.tip-row:nth-child(1) .tip-icon{background:linear-gradient(135deg,#0F766E,#0D9488)}
-.tip-row:nth-child(2) .tip-icon{background:linear-gradient(135deg,#4338CA,#818CF8)}
-.tip-row:nth-child(3) .tip-icon{background:linear-gradient(135deg,#B45309,#F59E0B)}
-.tip-row:nth-child(4) .tip-icon{background:linear-gradient(135deg,#BE123C,#F87171)}
-.tip-row:nth-child(5) .tip-icon{background:linear-gradient(135deg,#065F46,#10B981)}
-.tip-row:nth-child(6) .tip-icon{background:linear-gradient(135deg,#5B21B6,#8B5CF6)}
-.tip-txt{flex:1}
-.tip-head{font-size:.82rem;font-weight:700;color:var(--ink);line-height:1.35}
+.tips-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+.tip-block{display:flex;align-items:flex-start;gap:.85rem;padding:.95rem 1rem;background:var(--white);border:1.5px solid var(--border);border-radius:14px;transition:all .18s}
+.tip-block:hover{border-color:var(--teal-dark);box-shadow:var(--shadow)}
+.tip-icon{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.05rem}
+.tip-icon svg{width:15px;height:15px;fill:none;stroke:white;stroke-width:2.2}
+.tip-block:nth-child(1) .tip-icon{background:linear-gradient(135deg,#0F766E,#2DD4BF)}
+.tip-block:nth-child(2) .tip-icon{background:linear-gradient(135deg,#4338CA,#818CF8)}
+.tip-block:nth-child(3) .tip-icon{background:linear-gradient(135deg,#B45309,#F59E0B)}
+.tip-block:nth-child(4) .tip-icon{background:linear-gradient(135deg,#BE123C,#F87171)}
+.tip-block:nth-child(5) .tip-icon{background:linear-gradient(135deg,#065F46,#10B981)}
+.tip-block:nth-child(6) .tip-icon{background:linear-gradient(135deg,#5B21B6,#8B5CF6)}
+.tip-txt{flex:1;min-width:0}
+.tip-head{font-size:.81rem;font-weight:700;color:var(--ink);line-height:1.4;margin-bottom:.2rem}
+.tip-body{font-size:.77rem;color:var(--ink2);line-height:1.55}
 
 /* Recap */
 .recap-card{background:var(--white);border:1.5px solid var(--border);border-radius:20px;overflow:hidden;margin-bottom:1.5rem;box-shadow:var(--shadow)}
@@ -207,14 +223,23 @@ textarea{resize:none;height:56px;font-size:.83rem}
 .exp-section{margin-bottom:1.5rem}
 .exp-hed{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;margin-bottom:.35rem}
 .exp-sub{font-size:.8rem;color:var(--muted);margin-bottom:1rem}
-.exp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
-.exp-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;transition:all .2s}
-.exp-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px)}
-.exp-img-wrap{position:relative;height:130px;overflow:hidden}
-.exp-img-wrap img{width:100%;height:100%;object-fit:cover}
-.exp-price{position:absolute;top:.5rem;right:.5rem;background:var(--ink);color:#fff;border-radius:100px;padding:.18rem .55rem;font-size:.64rem;font-weight:700}
-.exp-body{padding:.9rem;flex:1;display:flex;flex-direction:column}
-.exp-type{font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--teal-dark);margin-bottom:.25rem}
+.exp-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.85rem}
+.exp-card{background:var(--white);border:1.5px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);display:flex;align-items:stretch;transition:all .2s}
+.exp-card:hover{box-shadow:var(--shadow-md);border-color:var(--teal-dark)}
+.exp-type-bar{width:6px;flex-shrink:0}
+.exp-card-tour .exp-type-bar{background:linear-gradient(180deg,#0F766E,#2DD4BF)}
+.exp-card-food .exp-type-bar{background:linear-gradient(180deg,#B45309,#F59E0B)}
+.exp-card-museum .exp-type-bar{background:linear-gradient(180deg,#4338CA,#818CF8)}
+.exp-card-night .exp-type-bar{background:linear-gradient(180deg,#1D4ED8,#60A5FA)}
+.exp-card-boat .exp-type-bar{background:linear-gradient(180deg,#0369A1,#38BDF8)}
+.exp-card-bike .exp-type-bar{background:linear-gradient(180deg,#065F46,#34D399)}
+.exp-card-cook .exp-type-bar{background:linear-gradient(180deg,#BE123C,#F87171)}
+.exp-card-hike .exp-type-bar{background:linear-gradient(180deg,#713F12,#D97706)}
+.exp-card-nature .exp-type-bar{background:linear-gradient(180deg,#14532D,#4ADE80)}
+.exp-body{padding:.9rem 1rem;flex:1;display:flex;flex-direction:column}
+.exp-type-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:.3rem}
+.exp-type{font-size:.56rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--teal-dark)}
+.exp-price{font-size:.75rem;font-weight:700;color:var(--ink);background:var(--bg);padding:.1rem .5rem;border-radius:6px;border:1px solid var(--border)}
 .exp-name{font-family:'Playfair Display',serif;font-size:.9rem;font-weight:700;margin-bottom:.3rem;line-height:1.3}
 .exp-tagline{font-size:.75rem;color:var(--ink2);line-height:1.55;flex:1;margin-bottom:.7rem}
 .exp-meta{display:flex;justify-content:space-between;font-size:.7rem;color:var(--muted);margin-bottom:.7rem}
@@ -875,15 +900,19 @@ function parseTips(text){
     {k:['eat','comer','manger','restaurant','food','gastro','mercado','cuisine'],cat:'food'},
   ];
   const used=new Set();const defCats=['tip','tip','tip'];let di=0;
-  const cards=lines.slice(0,5).map(txt=>{
+  const cards=lines.slice(0,6).map(txt=>{
     let cat='';
     for(const m of iconMap){if(m.k.some(k=>txt.toLowerCase().includes(k))&&!used.has(m.cat)){cat=m.cat;used.add(m.cat);break;}}
     if(!cat){cat=defCats[di%defCats.length];di++;}
-    // Keep tip text short: max 90 chars
-    const head=txt.length>90?txt.slice(0,88)+'…':txt;
-    return`<div class="tip-row"><div class="tip-icon">${SVG_ICONS[cat]||SVG_ICONS.tip}</div><div class="tip-txt"><div class="tip-head">${head}</div></div></div>`;
+    // Keep full tip text — no truncation
+    const head=txt;
+    // Split at first ". " to get bold head + rest body — show full text
+    const dotIdx=txt.search(/\.\s/);
+    const tipHead=dotIdx>15&&dotIdx<80?txt.slice(0,dotIdx+1):txt.slice(0,70)+(txt.length>70?'…':'');
+    const tipBody=dotIdx>15&&dotIdx<80?txt.slice(dotIdx+2).trim():'';
+    return`<div class="tip-block"><div class="tip-icon">${SVG_ICONS[cat]||SVG_ICONS.tip}</div><div class="tip-txt"><div class="tip-head">${tipHead}</div>${tipBody?`<div class="tip-body">${tipBody}</div>`:''}</div></div>`;
   }).join('');
-  return`<div class="tips-section"><div class="tips-title">${t('tipsTitle')}</div><div class="tips-list">${cards}</div></div>`;
+  return`<div class="tips-section"><div class="tips-title">${t('tipsTitle')}</div><div class="tips-grid-2">${cards}</div></div>`;
 }
 
 // ═══════════════════════════════════
@@ -1086,25 +1115,86 @@ function parseTimeline(text,dest,origin){
       const title=part.replace(/^#+\s*/,'').trim().replace(/^(Day|Día|Jour)\s+\d+[\s—–-]*/i,'');
       const content=parts[i+1]&&!parts[i+1].startsWith('#')?parts[i+1].trim():'';
       if(content)i++;
-      // Clean: no inline book links
-      let body=content.replace(/\[BOOK:[^\]]+\]/g,'').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\n{2,}/g,'</p><p>').replace(/\n/g,'<br/>');
-      body='<p>'+body+'</p>';
-      const imgUrl=dayImgUrl(dest,title,dayCount);
+
+      // Parse moment blocks: **Mañana/Morning/Matin:** ... **Tarde/Afternoon/Après-midi:** ... **Noche/Evening/Soir:** ...
+      const mKeys={es:['mañana','tarde','noche'],en:['morning','afternoon','evening'],fr:['matin','après-midi','soir']};
+      const mk=mKeys[lang]||mKeys.es;
+      // Also extract 🔍 gem line
+      const gemMatch=content.match(/🔍[^
+]+/);
+      const gemRaw=gemMatch?gemMatch[0].replace(/^🔍\s*\*?[^:*]+\*?:\s*/i,'').replace(/\*\*?(.+?)\*\*?/g,'<strong>$1</strong>').trim():'';
+
+      // Split content into moment sections
+      const cleanContent=content.replace(/\[BOOK:[^\]]+\]/g,'').replace(/🔍[^
+]*/g,'').trim();
+      const mornRE=new RegExp(`\\*{1,2}(${mk[0]})[^:]*:\\*{0,2}\\s*`,'i');
+      const aftnRE=new RegExp(`\\*{1,2}(${mk[1]})[^:]*:\\*{0,2}\\s*`,'i');
+      const evRE  =new RegExp(`\\*{1,2}(${mk[2]})[^:]*:\\*{0,2}\\s*`,'i');
+      function extractBlock(text,startRE,endREs){
+        const sm=text.search(startRE);if(sm<0)return'';
+        const afterStart=text.slice(sm).replace(startRE,'');
+        let end=afterStart.length;
+        for(const re of endREs){const m=afterStart.search(re);if(m>0&&m<end)end=m;}
+        return afterStart.slice(0,end).trim().replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/
+/g,' ');
+      }
+      const morn=extractBlock(cleanContent,mornRE,[aftnRE,evRE]);
+      const aftn=extractBlock(cleanContent,aftnRE,[evRE,mornRE]);
+      const evng=extractBlock(cleanContent,evRE,[mornRE,aftnRE]);
+      // Fallback: if no moment markers, show as single block
+      const hasMoments=morn||aftn||evng;
+      const fallbackText=hasMoments?'':cleanContent.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/
+{2,}/g,'</p><p>').replace(/
+/g,'<br/>');
+
+      // SVG icons
+      const sunSVG='<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>';
+      const aftSVG='<svg viewBox="0 0 24 24"><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/><circle cx="12" cy="12" r="5"/></svg>';
+      const moonSVG='<svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>';
+      const gemSVG='<svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>';
+      const flightSVG='<svg viewBox="0 0 24 24"><path d="M20 12h-3l-4-8H9l2 8H7l-2-2H2l2 4-2 4h3l2-2h4l-2 8h4l4-8h3a2 2 0 000-4z"/></svg>';
+      const hotelSVG='<svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>';
+
+      const mLabels={es:['Mañana','Tarde','Noche'],en:['Morning','Afternoon','Evening'],fr:['Matin','Après-midi','Soir']};
+      const ml=mLabels[lang]||mLabels.es;
+      const dayWord={es:'Día',en:'Day',fr:'Jour'}[lang]||'Day';
       const dayId=`day-${dayCount}`;
-      html+=`<div class="day-card" id="${dayId}">
-        <img class="day-img" src="${imgUrl}" alt="${title}" loading="lazy" onerror="this.style.display='none'"/>
-        <div class="day-body">
-          <div class="day-num-label">${t('dayLabel')} ${dayCount}</div>
-          <div class="day-title">${title}</div>
-          <div class="day-text">${body}</div>
-        </div>
-        <div class="day-footer">
-          <div class="day-quick-links">
-            ${dayCount===1?`<a class="dql v" href="${affUrl('flight',dest,origin)}" target="_blank">✈️ ${lang==='fr'?'Vols':lang==='en'?'Flights':'Vuelos'}</a>`:''}
-            <a class="dql h" href="${affUrl('hotel',dest,'')}" target="_blank">🏨 ${lang==='fr'?'Hôtels':lang==='en'?'Hotels':'Hoteles'}</a>
-            <a class="dql a" href="${affUrl('act',dest,'')}" target="_blank">🎟️ ${lang==='fr'?'Activités':lang==='en'?'Activities':'Actividades'}</a>
+
+      const momentsHTML=hasMoments?[
+        {cls:'moment-m',svg:sunSVG, label:ml[0], text:morn},
+        {cls:'moment-a',svg:aftSVG, label:ml[1], text:aftn},
+        {cls:'moment-e',svg:moonSVG,label:ml[2], text:evng},
+      ].filter(m=>m.text).map(m=>`
+        <div class="moment ${m.cls}">
+          <div class="moment-time">
+            <div class="moment-dot">${m.svg}</div>
+            <div class="moment-label">${m.label}</div>
           </div>
-          <button class="btn-add-day" id="addbtn-${dayCount}" onclick="toggleDayCart(${dayCount},'${title.replace(/'/g,'\\u0027')}')">
+          <div class="moment-body"><div class="moment-text">${m.text}</div></div>
+        </div>`).join('')
+      :`<div style="padding:1rem 1.4rem;font-size:.87rem;line-height:1.8;color:var(--ink2)"><p>${fallbackText}</p></div>`;
+
+      html+=`<div class="day-card" id="${dayId}">
+        <div class="day-header">
+          <div class="day-num-col">
+            <div class="day-num-big">${dayCount}</div>
+            <div class="day-num-word">${dayWord}</div>
+          </div>
+          <div class="day-title-col">
+            <div class="day-title">${title}</div>
+          </div>
+        </div>
+        <div class="day-moments">${momentsHTML}</div>
+        ${gemRaw?`<div class="day-gem">
+          <div class="day-gem-ico">${gemSVG}</div>
+          <div class="day-gem-txt"><strong>${{es:'Fuera de ruta',en:'Off the beaten path',fr:'Hors des sentiers'}[lang]||'Off the beaten path'}:</strong> ${gemRaw}</div>
+        </div>`:''}
+        <div class="day-cta">
+          <div class="day-cta-links">
+            ${dayCount===1?`<a class="dql" href="${affUrl('flight',dest,origin)}" target="_blank">${flightSVG} ${lang==='fr'?'Vols':lang==='en'?'Flights':'Vuelos'}</a>`:''}
+            <a class="dql" href="${affUrl('hotel',dest,'')}" target="_blank">${hotelSVG} ${lang==='fr'?'Hôtels':lang==='en'?'Hotels':'Hoteles'}</a>
+          </div>
+          <button class="btn-add-day" id="addbtn-${dayCount}" onclick="toggleDayCart(${dayCount},'${title.replace(/'/g,'\u0027')}')">
             ${t('addDayBtn')}
           </button>
         </div>
@@ -1164,10 +1254,18 @@ async function loadExperiences(dest,travelers,budget,month,tKey){
 Profile: ${ep}
 ${seasonNote}
 
-Suggest 6 REAL bookable paid experiences that actually exist in ${dest} on GetYourGuide or Viator. No invented names.
-Respond ONLY with JSON array, no markdown:
-[{"name":"Real name in ${wl}","type":"tour|food|museum|night|boat|bike|cook|hike|nature","tagline":"1 sentence in ${wl}","duration":"e.g. 3h","price":"from €45 per person","rating":"4.7"}]
-Rules: realistic prices for ${dest}, mix of types (max 2 same), all suit ${travelers}, all available ${month||'this season'}. JSON only.`;
+Suggest 6 REAL, currently-operating paid experiences in ${dest}. These must be real activities you are confident exist and are bookable today on GetYourGuide or Viator — not generic descriptions, not invented names. If unsure, use the most well-known bookable experience of that type in ${dest}.
+
+Respond ONLY with a JSON array, no markdown, no preamble:
+[{"name":"Exact real bookable name in ${wl}","type":"tour|food|museum|night|boat|bike|cook|hike|nature","tagline":"1 specific sentence about what makes it worth it, in ${wl}","duration":"e.g. 3h","price":"from €45 per person","rating":"4.7"}]
+
+Rules:
+- Realistic prices for ${dest} in ${month||'current season'}
+- Mix of types (no more than 2 of the same type)
+- All experiences must suit: ${travelers}
+- All must be available in ${month||'current season'}
+- Prioritize experiences with 1000+ reviews on GetYourGuide
+- JSON only — no extra text outside the array.`;
 
   try{
     const res=await fetch('/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:800,messages:[{role:'user',content:prompt}]})});
@@ -1179,18 +1277,17 @@ Rules: realistic prices for ${dest}, mix of types (max 2 same), all suit ${trave
       <div class="exp-hed">${t('expTitle')}</div>
       <div class="exp-sub">${t('expSub')}</div>
       <div class="exp-grid">${exps.slice(0,6).map((e,i)=>{
-        const photoId=getExpImg(e.name||'',e.type||'');
-        const img=`https://images.unsplash.com/${photoId}?w=400&q=70`;
         const url=`https://www.getyourguide.es/s/?q=${encodeURIComponent(e.name+' '+dest)}${AFF.gyg_partner_id?'&partner_id='+AFF.gyg_partner_id:''}`;
         const rawPrice=e.price||'';
         const priceNum=parseInt(rawPrice.replace(/[^0-9]/g,''))||0;
-        return`<div class="exp-card">
-          <div class="exp-img-wrap">
-            <img src="${img}" alt="${e.name}" loading="lazy" onerror="this.style.display='none'"/>
-            <div class="exp-price">${rawPrice||'—'}</div>
-          </div>
+        const expType=(e.type||'tour').toLowerCase().replace(/[^a-z]/g,'');
+        return`<div class="exp-card exp-card-${expType}">
+          <div class="exp-type-bar"></div>
           <div class="exp-body">
-            <div class="exp-type">${(e.type||'tour').toUpperCase()}</div>
+            <div class="exp-type-row">
+              <div class="exp-type">${(e.type||'tour').toUpperCase()}</div>
+              <div class="exp-price">${rawPrice||'—'}</div>
+            </div>
             <div class="exp-name">${e.name}</div>
             <div class="exp-tagline">${e.tagline||''}</div>
             <div class="exp-meta"><span>⏱ ${e.duration||'—'}</span><span>★ ${e.rating||'4.8'}</span></div>
