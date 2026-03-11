@@ -3,262 +3,265 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Travel Studio — Tu próximo viaje en 3 clics</title>
+<title>Travel Studio — Tu itinerario en segundos</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --white:#fff;
-  --bg:#FAFAFA;
-  --ink:#111827;
-  --ink2:#374151;
-  --muted:#9CA3AF;
-  --border:#E5E7EB;
-  --teal:#4DD9C0;
-  --teal-light:#E6FAF7;
-  --teal-dark:#2BB5A0;
-  --lavender:#EDE9FE;
-  --lavender-mid:#A78BFA;
-  --lavender-dark:#7C3AED;
-  --salmon:#FF6B6B;
-  --salmon-light:#FFF0F0;
-  --mint:#E6FAF4;
-  --yellow:#FEF3C7;
-  --yellow-mid:#F59E0B;
-  --r:16px;
-  --r-sm:10px;
-  --shadow:0 1px 12px rgba(0,0,0,.07);
-  --shadow-md:0 4px 24px rgba(0,0,0,.10);
+  --bg:#F8F9FA;
+  --white:#FFFFFF;
+  --ink:#0F172A;
+  --ink2:#334155;
+  --muted:#94A3B8;
+  --border:#E2E8F0;
+  --teal:#2DD4BF;
+  --teal-light:#F0FDFA;
+  --teal-dark:#0F766E;
+  --lav:#818CF8;
+  --lav-light:#EEF2FF;
+  --salmon:#F87171;
+  --salmon-light:#FEF2F2;
+  --amber:#F59E0B;
+  --amber-light:#FFFBEB;
+  --green:#10B981;
+  --green-light:#ECFDF5;
+  --r:14px;
+  --shadow:0 1px 8px rgba(15,23,42,.07);
+  --shadow-md:0 4px 20px rgba(15,23,42,.10);
+  --shadow-lg:0 8px 40px rgba(15,23,42,.14);
 }
 html{font-size:16px;scroll-behavior:smooth}
-body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;font-weight:400;line-height:1.6;overflow-x:hidden}
+body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;line-height:1.6;overflow-x:hidden}
 
 /* ── NAV ── */
-nav{position:fixed;top:0;width:100%;z-index:500;background:rgba(255,255,255,.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);padding:.9rem 2.5rem;display:flex;justify-content:space-between;align-items:center}
-.logo{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:600;color:var(--ink)}
-.nav-links{display:flex;gap:2rem;list-style:none;align-items:center}
-.nav-links a{font-size:.85rem;font-weight:500;color:var(--ink2);text-decoration:none;transition:color .2s}
-.nav-links a:hover{color:var(--ink)}
-.nav-icon{position:relative;cursor:pointer;color:var(--ink2)}
-.nav-badge{position:absolute;top:-5px;right:-5px;width:16px;height:16px;background:var(--salmon);color:#fff;border-radius:50%;font-size:.55rem;font-weight:700;display:flex;align-items:center;justify-content:center}
-.btn-teal{background:var(--teal);color:var(--ink);border:none;padding:.5rem 1.2rem;border-radius:100px;font-family:'Inter',sans-serif;font-weight:600;font-size:.8rem;cursor:pointer;transition:all .2s}
-.btn-teal:hover{background:var(--teal-dark);color:#fff}
+nav{position:fixed;top:0;width:100%;z-index:100;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.logo{font-family:'Playfair Display',serif;font-weight:700;font-size:1.15rem;color:var(--ink)}
+.logo em{font-style:italic;color:var(--teal-dark)}
+.nav-right{display:flex;align-items:center;gap:1rem}
+.nav-link{font-size:.82rem;font-weight:500;color:var(--muted);text-decoration:none;transition:color .2s}
+.nav-link:hover{color:var(--ink)}
+.nav-btn{background:var(--ink);color:#fff;border:none;padding:.5rem 1.1rem;border-radius:8px;font-size:.8rem;font-weight:600;cursor:pointer;transition:opacity .2s}
+.nav-btn:hover{opacity:.85}
 
 /* ── HERO ── */
-.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:7rem 2rem 4rem;position:relative;overflow:hidden;
-background:radial-gradient(ellipse at 20% 50%,rgba(77,217,192,.15) 0%,transparent 50%),
-radial-gradient(ellipse at 80% 20%,rgba(167,139,250,.12) 0%,transparent 45%),
-radial-gradient(ellipse at 60% 80%,rgba(77,217,192,.08) 0%,transparent 40%),
-#fff}
-.hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:#fff;border:1px solid var(--border);border-radius:100px;padding:.4rem 1rem;font-size:.78rem;color:var(--ink2);font-weight:500;margin-bottom:2rem;box-shadow:var(--shadow);opacity:0;animation:fadeUp .6s ease .2s forwards}
-h1{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,6vw,5rem);font-weight:700;line-height:1.05;letter-spacing:-.02em;color:var(--ink);margin-bottom:1.2rem;max-width:700px;opacity:0;animation:fadeUp .6s ease .35s forwards}
-.hero-sub{font-size:1rem;color:var(--muted);max-width:42ch;margin:0 auto 2.2rem;line-height:1.65;opacity:0;animation:fadeUp .6s ease .5s forwards}
-.hero-cta{background:var(--teal);color:var(--ink);border:none;padding:.9rem 2rem;border-radius:100px;font-family:'Inter',sans-serif;font-weight:700;font-size:.9rem;cursor:pointer;display:inline-flex;align-items:center;gap:.5rem;transition:all .2s;box-shadow:0 4px 14px rgba(77,217,192,.4);opacity:0;animation:fadeUp .6s ease .65s forwards}
-.hero-cta:hover{background:var(--teal-dark);color:#fff;transform:translateY(-2px)}
-.hero-stats{display:flex;gap:3rem;justify-content:center;margin-top:3.5rem;opacity:0;animation:fadeUp .6s ease .8s forwards}
-.hstat-num{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:700;color:var(--ink)}
-.hstat-label{font-size:.72rem;color:var(--muted);font-weight:500;margin-top:.1rem}
-.hero-mouse{margin-top:2.5rem;opacity:0;animation:fadeUp .6s ease 1s forwards;color:var(--muted)}
-.hero-mouse svg{width:24px;height:24px}
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;gap:0;padding-top:58px}
 
-/* ── SECTION COMMONS ── */
-section{padding:5rem 2.5rem}
-.sec-label{font-size:.75rem;font-weight:600;color:var(--teal-dark);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.4rem;display:flex;align-items:center;gap:.4rem;justify-content:center}
-.sec-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.4rem);font-weight:700;color:var(--ink);text-align:center;margin-bottom:.6rem}
-.sec-sub{font-size:.9rem;color:var(--muted);text-align:center;max-width:44ch;margin:0 auto 2.5rem;line-height:1.6}
-.fiu{opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s ease}
-.fiu.v{opacity:1;transform:translateY(0)}
+.hero-left{
+  padding:5rem 3.5rem 3rem;
+  display:flex;flex-direction:column;justify-content:center;
+  background:linear-gradient(135deg,#0F172A 0%,#1E293B 60%,#0F3460 100%);
+  position:relative;overflow:hidden
+}
+.hero-left::before{
+  content:'';position:absolute;top:-100px;right:-100px;
+  width:400px;height:400px;
+  background:radial-gradient(circle,rgba(45,212,191,.15),transparent 70%);
+  border-radius:50%
+}
+.hero-left::after{
+  content:'';position:absolute;bottom:-80px;left:-60px;
+  width:300px;height:300px;
+  background:radial-gradient(circle,rgba(129,140,248,.12),transparent 70%);
+  border-radius:50%
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:.4rem;
+  background:rgba(45,212,191,.15);border:1px solid rgba(45,212,191,.3);
+  border-radius:100px;padding:.3rem .9rem;
+  font-size:.72rem;font-weight:600;color:var(--teal);
+  margin-bottom:1.8rem;width:fit-content;
+  opacity:0;animation:up .7s ease .2s forwards
+}
+.hero-badge .dot{width:6px;height:6px;background:var(--teal);border-radius:50%}
+h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2.4rem,4vw,3.8rem);
+  font-weight:700;line-height:1.08;letter-spacing:-.02em;
+  color:#fff;margin-bottom:1.2rem;
+  opacity:0;animation:up .7s ease .35s forwards
+}
+h1 em{font-style:italic;color:var(--teal)}
+.hero-sub{
+  font-size:1rem;color:rgba(255,255,255,.6);
+  max-width:38ch;line-height:1.65;margin-bottom:2.5rem;
+  opacity:0;animation:up .7s ease .5s forwards
+}
+.hero-proof{
+  display:flex;gap:2rem;
+  opacity:0;animation:up .7s ease .65s forwards
+}
+.proof-item{display:flex;flex-direction:column}
+.proof-num{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:#fff;line-height:1}
+.proof-label{font-size:.68rem;color:rgba(255,255,255,.4);font-weight:500;margin-top:.2rem}
 
-/* ── TRIP TYPES ── */
-.trip-types{background:var(--white);border-top:1px solid var(--border)}
-.types-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.9rem;max-width:900px;margin:0 auto 2rem}
-.type-card{position:relative;border-radius:var(--r-sm);overflow:hidden;cursor:pointer;aspect-ratio:1;border:2.5px solid transparent;transition:all .2s}
-.type-card.selected{border-color:var(--teal)}
-.type-card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}
-.type-card:hover img{transform:scale(1.04)}
-.type-card .label{position:absolute;bottom:0;left:0;right:0;padding:.5rem .6rem;background:linear-gradient(to top,rgba(0,0,0,.6),transparent);color:#fff;font-size:.75rem;font-weight:600}
-.type-check{position:absolute;top:.4rem;right:.4rem;width:20px;height:20px;background:var(--teal);border-radius:50%;display:none;align-items:center;justify-content:center;color:#fff;font-size:.7rem}
-.type-card.selected .type-check{display:flex}
-.btn-surprise{display:flex;align-items:center;gap:.5rem;margin:0 auto;background:var(--white);border:1.5px solid var(--border);border-radius:100px;padding:.6rem 1.5rem;font-size:.82rem;font-weight:600;color:var(--ink2);cursor:pointer;transition:all .2s}
-.btn-surprise:hover{border-color:var(--teal);color:var(--teal-dark)}
+/* ── FORM PANEL ── */
+.hero-right{
+  background:var(--white);
+  padding:3.5rem 3rem;
+  display:flex;flex-direction:column;justify-content:center;
+  overflow-y:auto
+}
+.form-title{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;margin-bottom:.3rem}
+.form-sub{font-size:.85rem;color:var(--muted);margin-bottom:2rem}
 
-/* ── INSPIRATION CARDS ── */
-.inspo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;max-width:900px;margin:0 auto 2rem}
-.inspo-card{border-radius:var(--r);overflow:hidden;height:200px;position:relative;cursor:pointer}
-.inspo-card img{width:100%;height:100%;object-fit:cover}
-.inspo-card::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.7) 0%,transparent 50%)}
-.inspo-content{position:absolute;bottom:0;left:0;right:0;padding:1rem;z-index:1;color:#fff}
-.inspo-from{font-size:.65rem;font-weight:600;background:rgba(255,255,255,.2);backdrop-filter:blur(4px);border-radius:100px;padding:.2rem .6rem;display:inline-block;margin-bottom:.4rem}
-.inspo-title{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:600;line-height:1.3;margin-bottom:.3rem}
-.inspo-desc{font-size:.7rem;opacity:.8;line-height:1.4;margin-bottom:.5rem}
-.inspo-link{font-size:.7rem;font-weight:600;color:rgba(255,255,255,.9);display:flex;align-items:center;gap:.3rem}
-.btn-see-all{display:flex;align-items:center;gap:.5rem;margin:0 auto;background:var(--teal);color:var(--ink);border:none;border-radius:100px;padding:.7rem 1.6rem;font-size:.82rem;font-weight:700;cursor:pointer;transition:all .2s}
-.btn-see-all:hover{background:var(--teal-dark);color:#fff}
+.fg{display:flex;flex-direction:column;gap:.35rem;margin-bottom:.9rem}
+.fg label{font-size:.7rem;font-weight:700;color:var(--ink2);letter-spacing:.04em;text-transform:uppercase}
+.fg input,.fg select,.fg textarea{
+  border:1.5px solid var(--border);border-radius:var(--r);
+  padding:.75rem 1rem;font-family:'Inter',sans-serif;font-size:.9rem;
+  color:var(--ink);outline:none;transition:border-color .2s;
+  background:var(--bg);-webkit-appearance:none;width:100%
+}
+.fg input[type=date]{color-scheme:light}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--teal-dark);background:#fff}
+.fg input::placeholder,.fg textarea::placeholder{color:var(--muted)}
+.fg select option{background:#fff}
+.fg textarea{resize:none;height:64px;line-height:1.5;font-size:.85rem}
 
-/* ── SEARCH / FILTER ── */
-.search-sec{background:var(--white);border-top:1px solid var(--border)}
-.filter-bar{display:flex;gap:.6rem;align-items:center;flex-wrap:wrap;padding:1rem 1.2rem;background:var(--bg);border:1px solid var(--border);border-radius:var(--r-sm);margin-bottom:1.8rem;max-width:900px;margin-left:auto;margin-right:auto}
-.filter-label{font-size:.78rem;color:var(--muted);font-weight:500}
-.filter-tag{padding:.3rem .75rem;border-radius:100px;font-size:.75rem;font-weight:600;cursor:pointer;transition:all .2s}
-.filter-tag.teal{background:var(--teal-light);color:var(--teal-dark);border:1.5px solid var(--teal)}
-.filter-tag.lav{background:var(--lavender);color:var(--lavender-dark);border:1.5px solid var(--lavender-mid)}
-.filter-tag.sal{background:var(--salmon-light);color:var(--salmon);border:1.5px solid rgba(255,107,107,.4)}
-.filter-modify{margin-left:auto;font-size:.78rem;font-weight:600;color:var(--ink2);background:var(--white);border:1px solid var(--border);border-radius:100px;padding:.3rem .8rem;cursor:pointer}
+.form-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.form-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.8rem}
 
-/* ── DEST CARDS GRID ── */
-.dest-count{font-size:.85rem;color:var(--muted);text-align:center;margin-bottom:1.5rem}
-.dest-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;max-width:960px;margin:0 auto}
-.dest-card{background:var(--white);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);transition:box-shadow .25s,transform .25s;cursor:pointer}
-.dest-card:hover{box-shadow:var(--shadow-md);transform:translateY(-3px)}
-.dest-img{height:160px;position:relative;overflow:hidden}
-.dest-img img{width:100%;height:100%;object-fit:cover}
-.dest-tags{position:absolute;top:.6rem;left:.6rem;display:flex;gap:.3rem}
-.dtag{font-size:.62rem;font-weight:700;padding:.2rem .55rem;border-radius:100px}
-.dtag.teal{background:var(--teal-light);color:var(--teal-dark)}
-.dtag.lav{background:var(--lavender);color:var(--lavender-dark)}
-.dtag.sal{background:var(--salmon-light);color:var(--salmon)}
-.dtag.yel{background:var(--yellow);color:var(--yellow-mid)}
-.dest-body{padding:1rem}
-.dest-name{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;margin-bottom:.4rem}
-.dest-meta{display:flex;gap:1rem;font-size:.75rem;color:var(--muted);margin-bottom:.3rem;align-items:center}
-.dest-meta svg{width:13px;height:13px;flex-shrink:0}
-.dest-acts{font-size:.73rem;color:var(--muted);margin-bottom:.9rem}
-.dest-actions{display:flex;gap:.5rem}
-.btn-explore{flex:1;padding:.55rem;border:1.5px solid var(--border);border-radius:var(--r-sm);background:transparent;font-size:.75rem;font-weight:600;color:var(--ink2);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.3rem;transition:all .2s}
-.btn-explore:hover{border-color:var(--teal);color:var(--teal-dark)}
-.btn-save{padding:.55rem .9rem;border:1.5px solid var(--border);border-radius:var(--r-sm);background:transparent;font-size:.75rem;font-weight:600;color:var(--ink2);cursor:pointer;display:flex;align-items:center;gap:.3rem;transition:all .2s;white-space:nowrap}
-.btn-save:hover{border-color:var(--border);background:var(--bg)}
-.btn-save.saved{background:var(--teal-light);border-color:var(--teal);color:var(--teal-dark)}
-.btn-book{padding:.55rem 1rem;border:none;border-radius:var(--r-sm);background:var(--salmon);color:#fff;font-size:.75rem;font-weight:700;cursor:pointer;transition:opacity .2s;white-space:nowrap}
-.btn-book:hover{opacity:.85}
+.tags-wrap{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.3rem}
+.ttag{
+  padding:.28rem .65rem;border-radius:100px;
+  border:1.5px solid var(--border);background:transparent;
+  font-size:.68rem;font-weight:600;color:var(--muted);
+  cursor:pointer;transition:all .15s
+}
+.ttag.on{border-color:var(--teal-dark);color:var(--teal-dark);background:var(--teal-light)}
 
-/* ── AI GENERATOR ── */
-.gen-sec{background:var(--bg);border-top:1px solid var(--border)}
-.gen-card{max-width:760px;margin:0 auto;background:var(--white);border:1.5px solid var(--border);border-radius:20px;padding:2rem;box-shadow:var(--shadow)}
-.gen-card-title{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;margin-bottom:.3rem}
-.gen-card-sub{font-size:.85rem;color:var(--muted);margin-bottom:1.5rem}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;margin-bottom:.9rem}
-.form-row.three{grid-template-columns:1fr 1fr 1fr}
-.form-row.one{grid-template-columns:1fr}
-.f{display:flex;flex-direction:column;gap:.4rem}
-.f label{font-size:.72rem;font-weight:600;color:var(--ink2);letter-spacing:.02em}
-.f input,.f select,.f textarea{border:1.5px solid var(--border);border-radius:var(--r-sm);padding:.7rem .9rem;font-family:'Inter',sans-serif;font-size:.88rem;color:var(--ink);outline:none;transition:border-color .2s;background:var(--bg);-webkit-appearance:none}
-.f input[type=date]{color-scheme:light}
-.f input:focus,.f select:focus,.f textarea:focus{border-color:var(--teal)}
-.f input::placeholder,.f textarea::placeholder{color:var(--muted)}
-.f select option{background:#fff}
-.f textarea{resize:vertical;min-height:70px;line-height:1.55}
-.tags-row{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.3rem}
-.ptag{padding:.32rem .75rem;border-radius:100px;border:1.5px solid var(--border);background:transparent;font-size:.72rem;font-weight:600;color:var(--muted);cursor:pointer;transition:all .18s}
-.ptag.on{border-color:var(--teal);color:var(--teal-dark);background:var(--teal-light)}
-.btn-gen{width:100%;padding:1rem;border:none;border-radius:100px;background:var(--teal);color:var(--ink);font-family:'Inter',sans-serif;font-weight:700;font-size:.88rem;cursor:pointer;transition:all .2s;margin-top:.8rem;display:flex;align-items:center;justify-content:center;gap:.5rem}
-.btn-gen:hover{background:var(--teal-dark);color:#fff}
-.btn-gen:disabled{opacity:.4;cursor:not-allowed}
+.btn-gen{
+  width:100%;padding:.95rem;border:none;border-radius:var(--r);
+  background:linear-gradient(135deg,var(--teal-dark),#0D9488);
+  color:#fff;font-family:'Inter',sans-serif;font-weight:700;font-size:.9rem;
+  cursor:pointer;transition:all .2s;margin-top:.5rem;
+  display:flex;align-items:center;justify-content:center;gap:.5rem;
+  box-shadow:0 4px 14px rgba(15,118,110,.3)
+}
+.btn-gen:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(15,118,110,.4)}
+.btn-gen:disabled{opacity:.4;cursor:not-allowed;transform:none}
 
 /* ── LOADING ── */
-#loadBox{display:none;text-align:center;padding:2.5rem}
+#loadBox{display:none;padding:2rem;text-align:center}
 #loadBox.on{display:block}
-.dots{display:flex;gap:.45rem;justify-content:center;margin-bottom:1rem}
-.dot{width:8px;height:8px;background:var(--teal);border-radius:50%;animation:pulse 1.3s ease infinite}
+.dots{display:flex;gap:.4rem;justify-content:center;margin-bottom:.8rem}
+.dot{width:7px;height:7px;background:var(--teal-dark);border-radius:50%;animation:pulse 1.3s ease infinite}
 .dot:nth-child(2){animation-delay:.2s}
 .dot:nth-child(3){animation-delay:.4s}
-.ltxt{font-size:.78rem;color:var(--muted);font-weight:500}
+#ltxt{font-size:.78rem;color:var(--muted);font-weight:500}
 
-/* ── ITINERARY RESULT ── */
-#resultBox{display:none;margin-top:2rem}
-#resultBox.on{display:block;animation:fadeUp .5s ease forwards}
-.res-hero{background:var(--teal-light);border-radius:var(--r);padding:1.5rem;margin-bottom:1.5rem;border:1px solid rgba(77,217,192,.3)}
-.res-label{font-size:.7rem;font-weight:600;color:var(--teal-dark);display:flex;align-items:center;gap:.3rem;margin-bottom:.5rem}
-.res-title{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;margin-bottom:.5rem}
-.res-loc{font-size:.82rem;color:var(--ink2);display:flex;align-items:center;gap:.3rem;margin-bottom:.9rem}
-.res-chips{display:flex;gap:.7rem;flex-wrap:wrap;margin-bottom:1rem}
-.res-chip{background:var(--white);border:1px solid var(--border);border-radius:var(--r-sm);padding:.5rem .9rem;text-align:center}
-.res-chip-label{font-size:.62rem;color:var(--muted);font-weight:500}
-.res-chip-val{font-size:.85rem;font-weight:700;color:var(--ink)}
-.res-desc{font-size:.88rem;color:var(--ink2);line-height:1.65;font-style:italic}
-.res-btns{display:flex;gap:.6rem;margin-top:1.2rem}
-.btn-save-it{flex:1;padding:.7rem;border:1.5px solid var(--border);border-radius:100px;background:transparent;font-size:.8rem;font-weight:600;cursor:pointer;transition:all .2s}
-.btn-save-it:hover{border-color:var(--teal);color:var(--teal-dark)}
-.btn-reserve{flex:2;padding:.7rem;border:none;border-radius:100px;background:var(--teal);color:var(--ink);font-size:.8rem;font-weight:700;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:.4rem}
-.btn-reserve:hover{background:var(--teal-dark);color:#fff}
+/* ── RESULT SECTION ── */
+#resultSection{display:none;background:var(--bg);border-top:1px solid var(--border)}
+#resultSection.on{display:block}
 
-/* TIMELINE */
-.timeline-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;margin-bottom:.3rem}
-.timeline-sub{font-size:.8rem;color:var(--muted);margin-bottom:1.5rem}
-.timeline{display:flex;flex-direction:column;gap:0;position:relative}
-.timeline::before{content:'';position:absolute;left:14px;top:0;bottom:0;width:2px;background:var(--border)}
-.tl-item{display:flex;gap:1rem;padding-bottom:1rem;position:relative}
-.tl-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;flex-shrink:0;position:relative;z-index:1;color:#fff}
-.tl-dot.day{background:var(--teal)}
-.tl-dot.act{background:var(--lavender-mid)}
-.tl-dot.hotel{background:#10B981}
-.tl-dot.flight{background:var(--ink2)}
-.tl-dot.num{background:var(--lavender-mid)}
-.tl-card{flex:1;border-radius:var(--r-sm);padding:.9rem 1rem;border:1px solid var(--border)}
-.tl-card.day-card{background:var(--teal-light);border-color:rgba(77,217,192,.3)}
-.tl-card.sug-card{background:var(--lavender);border-color:rgba(167,139,250,.3)}
-.tl-card.hotel-card{background:var(--mint);border-color:rgba(16,185,129,.2)}
-.tl-card.flight-card{background:var(--lavender);border-color:rgba(167,139,250,.3)}
-.tl-tag{font-size:.62rem;font-weight:700;display:inline-flex;align-items:center;gap:.25rem;padding:.15rem .5rem;border-radius:100px;margin-bottom:.4rem}
-.tl-tag.sug{background:rgba(167,139,250,.25);color:var(--lavender-dark)}
-.tl-tag.hotel{background:rgba(16,185,129,.2);color:#059669}
-.tl-tag.flight{background:rgba(107,114,128,.15);color:var(--ink2)}
-.tl-tag.back{background:rgba(16,185,129,.15);color:#059669}
-.tl-time{font-size:.72rem;font-weight:600;color:var(--muted);margin-bottom:.2rem;display:flex;align-items:center;gap:.3rem}
-.tl-name{font-size:.9rem;font-weight:600;color:var(--ink);margin-bottom:.2rem}
-.tl-desc{font-size:.78rem;color:var(--ink2);line-height:1.5}
-.tl-price{font-size:.78rem;font-weight:700;color:var(--salmon);float:right;margin-top:-.3rem}
-.tl-day-title{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700}
-.tl-day-sub{font-size:.72rem;color:var(--muted)}
-.hotel-row{display:flex;gap:.8rem;align-items:flex-start}
-.hotel-img{width:70px;height:55px;border-radius:8px;object-fit:cover;flex-shrink:0}
-.hotel-info{flex:1}
-.hotel-name{font-size:.85rem;font-weight:700;margin-bottom:.2rem}
-.hotel-desc{font-size:.72rem;color:var(--muted);margin-bottom:.3rem}
-.hotel-amenities{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:.4rem}
-.amenity{font-size:.62rem;color:var(--muted);background:rgba(0,0,0,.05);padding:.15rem .45rem;border-radius:4px}
-.hotel-price{font-size:.8rem;font-weight:700;color:var(--salmon);margin-bottom:.5rem}
-.hotel-btns{display:flex;gap:.4rem}
-.btn-add{flex:1;padding:.4rem;background:var(--teal);color:var(--ink);border:none;border-radius:6px;font-size:.72rem;font-weight:700;cursor:pointer}
-.btn-remove{padding:.4rem .7rem;background:transparent;border:1px solid var(--border);border-radius:6px;font-size:.72rem;cursor:pointer;color:var(--muted)}
-.flight-grid{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;font-size:.78rem;margin-bottom:.6rem}
-.fg-label{color:var(--muted);font-weight:500;font-size:.68rem;margin-bottom:.1rem}
-.fg-val{color:var(--ink);font-weight:600}
-.flight-note{font-size:.7rem;color:var(--muted);background:rgba(0,0,0,.04);padding:.4rem .6rem;border-radius:6px;margin-bottom:.6rem}
-.flight-foot{display:flex;justify-content:space-between;align-items:center}
-.f-price{font-size:.9rem;font-weight:700;color:var(--salmon)}
-.btn-buy{padding:.45rem 1rem;background:var(--salmon);color:#fff;border:none;border-radius:100px;font-size:.72rem;font-weight:700;cursor:pointer;transition:opacity .2s}
-.btn-buy:hover{opacity:.85}
-.btn-other{width:100%;margin-top:.5rem;padding:.5rem;background:transparent;border:1px solid var(--border);border-radius:6px;font-size:.72rem;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.3rem}
+.result-wrap{max-width:1100px;margin:0 auto;padding:3rem 2rem}
 
-/* AFFILIATES */
-.aff-section{margin-top:1.5rem;padding:1.2rem;background:var(--bg);border-radius:var(--r-sm);border:1px solid var(--border)}
-.aff-title{font-size:.72rem;font-weight:700;color:var(--ink2);margin-bottom:.8rem;text-transform:uppercase;letter-spacing:.06em}
-.aff-grid{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
-.aff-btn{display:flex;align-items:center;gap:.5rem;padding:.6rem .8rem;background:var(--white);border:1px solid var(--border);border-radius:var(--r-sm);text-decoration:none;transition:all .2s;cursor:pointer}
-.aff-btn:hover{border-color:var(--teal);background:var(--teal-light)}
-.aff-ico{font-size:1rem;flex-shrink:0}
-.aff-name{font-size:.72rem;font-weight:700;color:var(--ink)}
-.aff-desc{font-size:.62rem;color:var(--muted)}
-.err-box{padding:1.2rem;background:var(--salmon-light);border:1px solid rgba(255,107,107,.3);border-radius:var(--r-sm);font-size:.82rem;color:var(--salmon);line-height:1.6}
+/* Result header */
+.res-header{
+  background:linear-gradient(135deg,#0F172A,#1E3A5F);
+  border-radius:20px;padding:2rem 2.5rem;margin-bottom:2rem;
+  display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1.5rem;
+  color:#fff
+}
+.res-dest{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:#fff}
+.res-dest em{font-style:italic;color:var(--teal)}
+.res-chips{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:.6rem}
+.chip{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:8px;padding:.35rem .8rem;display:flex;flex-direction:column;align-items:center}
+.chip-label{font-size:.58rem;color:rgba(255,255,255,.5);font-weight:500;text-transform:uppercase;letter-spacing:.06em}
+.chip-val{font-size:.82rem;font-weight:700;color:#fff}
+.res-actions{display:flex;gap:.6rem;flex-direction:column}
+.btn-save{padding:.6rem 1.2rem;border:1px solid rgba(255,255,255,.2);border-radius:8px;background:transparent;color:rgba(255,255,255,.8);font-size:.75rem;font-weight:600;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:.4rem}
+.btn-save:hover{background:rgba(255,255,255,.1)}
 
-/* ── FOOTER ── */
-footer{background:var(--ink);color:#fff;padding:3rem 2.5rem;text-align:center}
-.f-logo{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:600;margin-bottom:.5rem}
-.f-note{font-size:.75rem;color:rgba(255,255,255,.4);margin-top:.3rem}
+/* Map */
+.map-wrap{border-radius:16px;overflow:hidden;margin-bottom:2rem;box-shadow:var(--shadow-md);border:1px solid var(--border)}
+#map{height:320px;width:100%}
+.map-placeholder{height:280px;background:linear-gradient(135deg,#E2E8F0,#CBD5E1);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.8rem;color:var(--muted)}
+.map-placeholder .map-icon{font-size:2.5rem}
+.map-placeholder p{font-size:.85rem;font-weight:500}
+.map-placeholder small{font-size:.72rem;color:var(--border)}
 
-@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+/* Timeline */
+.timeline-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem}
+.timeline-title{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700}
+.timeline-sub{font-size:.8rem;color:var(--muted)}
+
+.timeline{display:flex;flex-direction:column;gap:1.2rem;position:relative}
+.timeline::before{content:'';position:absolute;left:19px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--teal),var(--lav),var(--salmon));opacity:.3}
+
+.tl-item{display:flex;gap:1rem;position:relative}
+.tl-dot{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:700;flex-shrink:0;z-index:1;border:3px solid var(--white);box-shadow:var(--shadow)}
+.tl-dot.day{background:var(--ink);color:#fff}
+.tl-dot.act{background:var(--teal-light);color:var(--teal-dark)}
+.tl-dot.tip{background:var(--amber-light);color:var(--amber)}
+
+.tl-card{flex:1;background:var(--white);border:1.5px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);transition:box-shadow .2s}
+.tl-card:hover{box-shadow:var(--shadow-md)}
+
+.tl-card-head{padding:1rem 1.2rem;display:flex;justify-content:space-between;align-items:flex-start;gap:.5rem}
+.tl-day-label{font-size:.62rem;font-weight:700;color:var(--teal-dark);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.2rem}
+.tl-day-title{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--ink)}
+.tl-day-meta{font-size:.72rem;color:var(--muted);margin-top:.2rem}
+
+/* Afiliados dentro de cada día */
+.day-affs{display:flex;gap:.5rem;flex-wrap:wrap;padding:.8rem 1.2rem;border-top:1px solid var(--border);background:var(--bg)}
+.day-aff-btn{display:inline-flex;align-items:center;gap:.4rem;padding:.4rem .8rem;border-radius:100px;font-size:.68rem;font-weight:700;text-decoration:none;transition:all .2s;border:1.5px solid transparent;cursor:pointer}
+.day-aff-btn:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
+.day-aff-btn.vuelo{background:var(--lav-light);color:#4338CA;border-color:#C7D2FE}
+.day-aff-btn.vuelo:hover{background:#E0E7FF}
+.day-aff-btn.hotel{background:var(--green-light);color:#065F46;border-color:#A7F3D0}
+.day-aff-btn.hotel:hover{background:#D1FAE5}
+.day-aff-btn.act{background:var(--salmon-light);color:#B91C1C;border-color:#FECACA}
+.day-aff-btn.act:hover{background:#FEE2E2}
+.day-aff-btn.tren{background:var(--amber-light);color:#92400E;border-color:#FDE68A}
+.day-aff-btn.tren:hover{background:#FEF3C7}
+
+.tl-card-body{padding:1rem 1.2rem;font-size:.88rem;line-height:1.8;color:var(--ink2)}
+.tl-card-body p{margin-bottom:.5rem}
+.tl-card-body p:last-child{margin-bottom:0}
+.tl-card-body strong{color:var(--ink);font-weight:600}
+
+/* Tips card */
+.tl-card.tips{border-color:#FDE68A;background:var(--amber-light)}
+.tl-card.tips .tl-card-body{color:#78350F}
+
+/* ── BOTTOM AFFILIATES ── */
+.bottom-affs{margin-top:2.5rem;background:var(--white);border:1.5px solid var(--border);border-radius:20px;padding:2rem;box-shadow:var(--shadow)}
+.bottom-affs-title{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;margin-bottom:.3rem}
+.bottom-affs-sub{font-size:.82rem;color:var(--muted);margin-bottom:1.5rem}
+.affs-big-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:.8rem}
+.aff-big{display:flex;flex-direction:column;align-items:center;gap:.5rem;padding:1.2rem .8rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--bg);text-decoration:none;transition:all .2s;text-align:center;cursor:pointer}
+.aff-big:hover{border-color:var(--teal-dark);background:var(--teal-light);transform:translateY(-2px);box-shadow:var(--shadow-md)}
+.aff-big-ico{font-size:1.8rem}
+.aff-big-name{font-size:.72rem;font-weight:700;color:var(--ink)}
+.aff-big-prov{font-size:.62rem;color:var(--muted)}
+.aff-big-badge{font-size:.58rem;font-weight:700;padding:.15rem .45rem;border-radius:100px;margin-top:.1rem}
+.aff-big-badge.g{background:var(--green-light);color:#065F46}
+.aff-big-badge.b{background:var(--lav-light);color:#3730A3}
+.aff-big-badge.o{background:var(--amber-light);color:#92400E}
+.aff-big-badge.r{background:var(--salmon-light);color:#B91C1C}
+
+/* Error */
+.err{padding:1.2rem;background:var(--salmon-light);border:1px solid #FECACA;border-radius:var(--r);font-size:.82rem;color:#B91C1C;line-height:1.6}
+
+/* Animations */
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
 @keyframes pulse{0%,80%,100%{transform:scale(.5);opacity:.3}40%{transform:scale(1);opacity:1}}
 
-@media(max-width:768px){
-  nav{padding:.8rem 1.2rem}
-  .nav-links{display:none}
-  section{padding:3.5rem 1.2rem}
-  .types-grid{grid-template-columns:repeat(3,1fr)}
-  .inspo-grid,.dest-grid{grid-template-columns:1fr}
-  .form-row,.form-row.three{grid-template-columns:1fr 1fr}
-  .aff-grid{grid-template-columns:1fr}
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;min-height:auto}
+  .hero-left{padding:5rem 1.5rem 2.5rem;min-height:50vh}
+  .hero-right{padding:2rem 1.5rem}
+  .form-grid-2,.form-grid-3{grid-template-columns:1fr 1fr}
+  .affs-big-grid{grid-template-columns:repeat(3,1fr)}
+  .res-header{flex-direction:column;align-items:flex-start}
+  .result-wrap{padding:2rem 1rem}
+}
+@media(max-width:600px){
+  .form-grid-2,.form-grid-3{grid-template-columns:1fr}
+  .affs-big-grid{grid-template-columns:repeat(2,1fr)}
+  nav{padding:.7rem 1rem}
 }
 </style>
 </head>
@@ -266,522 +269,446 @@ footer{background:var(--ink);color:#fff;padding:3rem 2.5rem;text-align:center}
 
 <!-- NAV -->
 <nav>
-  <div class="logo">Travel Studio</div>
-  <ul class="nav-links">
-    <li><a href="#">Home</a></li>
-    <li><a href="#explorar">Explorar</a></li>
-    <li><a href="#inspiracion">Inspiración</a></li>
-    <li>
-      <div class="nav-icon" style="position:relative">
-        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/></svg>
-        <div class="nav-badge">1</div>
-      </div>
-    </li>
-    <li><button class="btn-teal">Sign In</button></li>
-  </ul>
+  <div class="logo">Travel<em>Studio</em></div>
+  <div class="nav-right">
+    <a class="nav-link" href="#resultSection">Mis viajes</a>
+    <button class="nav-btn" onclick="document.getElementById('dest').focus();document.querySelector('.hero-right').scrollIntoView({behavior:'smooth'})">Crear itinerario</button>
+  </div>
 </nav>
 
-<!-- HERO -->
+<!-- HERO + FORM -->
 <section class="hero">
-  <div class="hero-badge">✨ Más de 10,000 viajeros nos han descubierto</div>
-  <h1>Tu próximo viaje<br>en 3 clics</h1>
-  <p class="hero-sub">Dinos cómo te sientes y te mostramos el plan perfecto. Reservas reales, precios transparentes.</p>
-  <button class="hero-cta" onclick="document.getElementById('explorar').scrollIntoView({behavior:'smooth'})">
-    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-    Empezar ahora
-  </button>
-  <div class="hero-stats">
-    <div class="hstat"><div class="hstat-num">150+</div><div class="hstat-label">Destinos únicos</div></div>
-    <div class="hstat"><div class="hstat-num">10K+</div><div class="hstat-label">Viajes creados</div></div>
-    <div class="hstat"><div class="hstat-num">4.9★</div><div class="hstat-label">Valoración media</div></div>
-  </div>
-  <div class="hero-mouse">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="8" y="3" width="8" height="14" rx="4"/><line x1="12" y1="7" x2="12" y2="10"/><path d="M6.5 17.5A7.5 7.5 0 0019 12"/></svg>
-  </div>
-</section>
 
-<!-- TRIP TYPES -->
-<section class="trip-types fiu" id="explorar">
-  <h2 class="sec-title" style="text-align:left;margin-bottom:.3rem">¿Qué tipo de viaje buscas?</h2>
-  <p class="sec-sub" style="text-align:left;margin:0 0 1.5rem">Cada momento pide una aventura diferente</p>
-  <div class="types-grid" style="margin:0 0 1.5rem">
-    <div class="type-card" onclick="toggleType(this,'Aventura')">
-      <img src="https://images.unsplash.com/photo-1551632811-561732d1e306?w=300&q=70" alt="Aventura"/>
-      <div class="label">Aventura</div>
-      <div class="type-check">✓</div>
-    </div>
-    <div class="type-card" onclick="toggleType(this,'Deportivo')">
-      <img src="https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=300&q=70" alt="Deportivo"/>
-      <div class="label">Deportivo</div>
-      <div class="type-check">✓</div>
-    </div>
-    <div class="type-card" onclick="toggleType(this,'Gastronómico')">
-      <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=300&q=70" alt="Gastronómico"/>
-      <div class="label">Gastronómico</div>
-      <div class="type-check">✓</div>
-    </div>
-    <div class="type-card selected" onclick="toggleType(this,'Urbano')">
-      <img src="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=300&q=70" alt="Urbano"/>
-      <div class="label">Urbano</div>
-      <div class="type-check">✓</div>
-    </div>
-    <div class="type-card selected" onclick="toggleType(this,'Familiar')">
-      <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=300&q=70" alt="Familiar"/>
-      <div class="label">Familiar</div>
-      <div class="type-check">✓</div>
-    </div>
-    <div class="type-card" onclick="toggleType(this,'Tropical')">
-      <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=300&q=70" alt="Tropical"/>
-      <div class="label">Tropical</div>
-      <div class="type-check">✓</div>
-    </div>
-    <div class="type-card selected" onclick="toggleType(this,'Wellness')">
-      <img src="https://images.unsplash.com/photo-1545389336-cf090694435e?w=300&q=70" alt="Wellness"/>
-      <div class="label">Wellness</div>
-      <div class="type-check">✓</div>
-    </div>
-    <div class="type-card" onclick="toggleType(this,'Cultural')">
-      <img src="https://images.unsplash.com/photo-1528702748617-c64d49f918af?w=300&q=70" alt="Cultural"/>
-      <div class="label">Cultural</div>
-      <div class="type-check">✓</div>
-    </div>
-    <div class="type-card" onclick="toggleType(this,'Romántico')">
-      <img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=300&q=70" alt="Romántico"/>
-      <div class="label">Romántico</div>
-      <div class="type-check">✓</div>
-    </div>
-    <div class="type-card" onclick="toggleType(this,'Playa')">
-      <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=300&q=70" alt="Playa"/>
-      <div class="label">Playa</div>
-      <div class="type-check">✓</div>
-    </div>
-    <div class="type-card" onclick="toggleType(this,'Montaña')">
-      <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=300&q=70" alt="Montaña"/>
-      <div class="label">Montaña</div>
-      <div class="type-check">✓</div>
-    </div>
-    <div class="type-card" onclick="toggleType(this,'Lujo')">
-      <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=300&q=70" alt="Lujo"/>
-      <div class="label">Lujo</div>
-      <div class="type-check">✓</div>
+  <!-- LEFT: copy -->
+  <div class="hero-left">
+    <div class="hero-badge"><span class="dot"></span>IA + Reservas reales</div>
+    <h1>Tu próximo viaje,<br><em>diseñado</em><br>en segundos.</h1>
+    <p class="hero-sub">Dinos a dónde quieres ir. La IA genera un itinerario día a día con todo lo que necesitas para reservar.</p>
+    <div class="hero-proof">
+      <div class="proof-item"><div class="proof-num">10K+</div><div class="proof-label">Itinerarios creados</div></div>
+      <div class="proof-item"><div class="proof-num">150+</div><div class="proof-label">Destinos</div></div>
+      <div class="proof-item"><div class="proof-num">4.9★</div><div class="proof-label">Valoración</div></div>
     </div>
   </div>
-  <button class="btn-surprise" onclick="surprise()">
-    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-    Sorpréndeme
-  </button>
-</section>
 
-<!-- INSPIRACIÓN -->
-<section style="background:var(--bg);border-top:1px solid var(--border);padding:4rem 2.5rem" class="fiu" id="inspiracion">
-  <div class="sec-label">✨ Inspiración del mes</div>
-  <h2 class="sec-title">Ideas seleccionadas para ti</h2>
-  <p class="sec-sub">Cada mes te traemos tres propuestas cuidadosamente elegidas para que descubras experiencias únicas</p>
-  <div class="inspo-grid">
-    <div class="inspo-card">
-      <img src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=400&q=70" alt=""/>
-      <div class="inspo-content">
-        <div class="inspo-from">📍 Desde Madrid</div>
-        <div class="inspo-title">Noviembre en lugares donde aún es verano</div>
-        <div class="inspo-desc">Escapa del frío y descubre destinos cálidos con playas paradisíacas</div>
-        <div class="inspo-link">Explorar destinos →</div>
-      </div>
-    </div>
-    <div class="inspo-card">
-      <img src="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=400&q=70" alt=""/>
-      <div class="inspo-content">
-        <div class="inspo-from">📍 Desde Barcelona</div>
-        <div class="inspo-title">Escapadas urbanas con espíritu festivo</div>
-        <div class="inspo-desc">Ciudades europeas llenas de mercados navideños y ambiente mágico</div>
-        <div class="inspo-link">Explorar destinos →</div>
-      </div>
-    </div>
-    <div class="inspo-card">
-      <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=400&q=70" alt=""/>
-      <div class="inspo-content">
-        <div class="inspo-from">📍 Desde París</div>
-        <div class="inspo-title">Rutas para reencontrarte con el invierno</div>
-        <div class="inspo-desc">Montañas nevadas perfectas para esquiar o simplemente contemplar</div>
-        <div class="inspo-link">Explorar destinos →</div>
-      </div>
-    </div>
-  </div>
-  <br/>
-  <button class="btn-see-all" style="margin:0 auto">
-    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
-    Ver todas las inspiraciones
-  </button>
-</section>
+  <!-- RIGHT: form -->
+  <div class="hero-right">
+    <div class="form-title">Crea tu itinerario</div>
+    <div class="form-sub">Rellena lo que sabes — el resto lo resuelve la IA</div>
 
-<!-- DESTINATIONS -->
-<section class="search-sec fiu" style="padding:4rem 2.5rem">
-  <h2 style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;margin-bottom:.3rem">Experiencias seleccionadas para ti</h2>
-  <p class="dest-count">7 experiencias disponibles</p>
-  <div class="filter-bar">
-    <span class="filter-label">Categorías:</span>
-    <span class="filter-tag teal">Wellness</span>
-    <span class="filter-tag lav">Familiar</span>
-    <span class="filter-tag sal">Urbano</span>
-    <button class="filter-modify">Modificar filtros</button>
-  </div>
-  <!-- Destinos cargados dinámicamente desde Sanity CMS -->
-  <div class="dest-grid" id="destGrid">
-    <div style="grid-column:1/-1;text-align:center;padding:2rem;color:var(--muted);font-size:.85rem">
-      <div class="dots" style="justify-content:center;margin-bottom:.8rem"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
-      Cargando destinos…
+    <div class="form-grid-2">
+      <div class="fg"><label>Desde</label><input type="text" id="origin" placeholder="Madrid…"/></div>
+      <div class="fg"><label>Destino</label><input type="text" id="dest" placeholder="Tokio, Bali, Lisboa…"/></div>
     </div>
-  </div>
-</section>
 
-<!-- AI GENERATOR -->
-<section class="gen-sec fiu" id="generar">
-  <div style="text-align:center;margin-bottom:2rem">
-    <div class="sec-label">✨ Generador con IA</div>
-    <h2 class="sec-title">Afina tu búsqueda</h2>
-    <p class="sec-sub">Dinos exactamente lo que necesitas y la IA crea tu itinerario perfecto</p>
-  </div>
-  <div class="gen-card">
-    <h3 class="gen-card-title">Tu itinerario personalizado</h3>
-    <p class="gen-card-sub">Rellena los datos y generamos el plan completo con transportes, alojamiento y actividades</p>
-    <div class="form-row">
-      <div class="f"><label>¿Desde dónde sales?</label><input type="text" id="origin" placeholder="Madrid, Barcelona…"/></div>
-      <div class="f"><label>¿A dónde quieres ir?</label><input type="text" id="dest" placeholder='Destino o "sorpréndeme"'/></div>
-    </div>
-    <div class="form-row three">
-      <div class="f"><label>Fecha de salida</label><input type="date" id="df"/></div>
-      <div class="f"><label>Fecha de vuelta</label><input type="date" id="dt"/></div>
-      <div class="f"><label>Viajeros</label>
-        <select id="travelers">
-          <option value="solo/a">Solo/a</option>
-          <option value="en pareja" selected>En pareja</option>
-          <option value="grupo de amigos">Grupo de amigos</option>
-          <option value="familia con niños">Familia con niños</option>
-        </select>
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="f"><label>¿Cuántos días?</label>
+    <div class="form-grid-3">
+      <div class="fg"><label>Salida</label><input type="date" id="df"/></div>
+      <div class="fg"><label>Vuelta</label><input type="date" id="dt"/></div>
+      <div class="fg"><label>Días</label>
         <select id="days">
           <option value="3">3 días</option>
           <option value="5">5 días</option>
-          <option value="7" selected>1 semana</option>
+          <option value="7" selected>7 días</option>
           <option value="10">10 días</option>
-          <option value="14">2 semanas</option>
+          <option value="14">14 días</option>
         </select>
       </div>
-      <div class="f"><label>Presupuesto / persona</label>
+    </div>
+
+    <div class="form-grid-2">
+      <div class="fg"><label>Viajeros</label>
+        <select id="travelers">
+          <option value="solo/a">Solo/a</option>
+          <option value="en pareja" selected>En pareja</option>
+          <option value="grupo de amigos">Amigos</option>
+          <option value="familia con niños">Familia</option>
+        </select>
+      </div>
+      <div class="fg"><label>Presupuesto</label>
         <select id="budget">
-          <option value="bajo (menos de 500€)">Bajo — menos de 500€</option>
-          <option value="medio (500–1200€)" selected>Medio — 500 a 1200€</option>
-          <option value="alto (1200–2500€)">Alto — 1200 a 2500€</option>
+          <option value="económico (menos de 500€)">Económico</option>
+          <option value="medio (500–1200€)" selected>Medio</option>
+          <option value="alto (1200–2500€)">Alto</option>
           <option value="premium">Premium</option>
         </select>
       </div>
     </div>
-    <div class="f" style="margin-bottom:.9rem">
-      <label>Tipo de experiencia</label>
-      <div class="tags-row">
-        <button class="ptag" onclick="this.classList.toggle('on')">🏔️ Aventura</button>
-        <button class="ptag on" onclick="this.classList.toggle('on')">🏛️ Cultura</button>
-        <button class="ptag" onclick="this.classList.toggle('on')">🍷 Gastronomía</button>
-        <button class="ptag on" onclick="this.classList.toggle('on')">🚂 Slow travel</button>
-        <button class="ptag" onclick="this.classList.toggle('on')">🏖️ Playa</button>
-        <button class="ptag" onclick="this.classList.toggle('on')">🌆 Urbano</button>
-        <button class="ptag" onclick="this.classList.toggle('on')">🧘 Wellness</button>
-        <button class="ptag" onclick="this.classList.toggle('on')">🌙 Noche</button>
+
+    <div class="fg"><label>Tipo de viaje</label>
+      <div class="tags-wrap">
+        <button class="ttag on" onclick="this.classList.toggle('on')">🏛️ Cultura</button>
+        <button class="ttag" onclick="this.classList.toggle('on')">🍷 Gastronomía</button>
+        <button class="ttag" onclick="this.classList.toggle('on')">🏔️ Naturaleza</button>
+        <button class="ttag on" onclick="this.classList.toggle('on')">🚂 Slow travel</button>
+        <button class="ttag" onclick="this.classList.toggle('on')">🏖️ Playa</button>
+        <button class="ttag" onclick="this.classList.toggle('on')">🌆 Urbano</button>
+        <button class="ttag" onclick="this.classList.toggle('on')">🧘 Wellness</button>
+        <button class="ttag" onclick="this.classList.toggle('on')">🌙 Noche</button>
+        <button class="ttag" onclick="this.classList.toggle('on')">❤️ Romántico</button>
+        <button class="ttag" onclick="this.classList.toggle('on')">👨‍👩‍👧 Familiar</button>
       </div>
     </div>
-    <div class="f">
-      <label>Notas adicionales (opcional)</label>
-      <textarea id="extra" placeholder="Ej: prefiero hoteles boutique, me encanta el tren, odio los tours masificados…"></textarea>
+
+    <div class="fg"><label>Notas (opcional)</label>
+      <textarea id="extra" placeholder="Sin vuelos de madrugada, vegetariano, hotel céntrico…"></textarea>
     </div>
+
     <button class="btn-gen" id="genBtn" onclick="gen()">
-      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-      Generar itinerario con IA
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      Generar itinerario
     </button>
 
     <div id="loadBox">
       <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
-      <p class="ltxt" id="ltxt">Analizando tu perfil de viajero…</p>
+      <p id="ltxt">Analizando tu perfil…</p>
+    </div>
+  </div>
+
+</section>
+
+<!-- RESULT -->
+<section id="resultSection">
+  <div class="result-wrap">
+
+    <!-- Header -->
+    <div class="res-header" id="resHeader"></div>
+
+    <!-- Map -->
+    <div class="map-wrap">
+      <div class="map-placeholder" id="mapBox">
+        <div class="map-icon">🗺️</div>
+        <p>El mapa aparecerá aquí con las ubicaciones del itinerario</p>
+        <small>Necesita Google Maps API Key para activarse</small>
+      </div>
     </div>
 
-    <div id="resultBox">
-      <!-- filled by JS -->
+    <!-- Timeline -->
+    <div class="timeline-header">
+      <div>
+        <div class="timeline-title">Tu viaje día a día</div>
+        <div class="timeline-sub">Cada día incluye enlaces directos para reservar</div>
+      </div>
     </div>
+    <div class="timeline" id="timeline"></div>
+
+    <!-- Bottom afiliados -->
+    <div class="bottom-affs" id="bottomAffs"></div>
+
   </div>
 </section>
 
-<footer>
-  <div class="f-logo">Travel Studio</div>
-  <div class="f-note">Viajes con criterio · Powered by Claude AI</div>
-</footer>
-
 <script>
-// NAV scroll
-window.addEventListener('scroll',()=>{});
-
-// IO
-const io=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('v')}),{threshold:.08});
-document.querySelectorAll('.fiu').forEach(el=>io.observe(el));
-
-// Dates
+// ── DATES ──
 (function(){
   const t=new Date(),fmt=d=>d.toISOString().split('T')[0];
   const f=new Date(t);f.setDate(f.getDate()+30);
   const v=new Date(t);v.setDate(v.getDate()+37);
-  document.getElementById('df').value=fmt(f);
-  document.getElementById('dt').value=fmt(v);
-  document.getElementById('df').min=fmt(t);
-  document.getElementById('dt').min=fmt(t);
+  const df=document.getElementById('df'),dt=document.getElementById('dt');
+  df.value=fmt(f);dt.value=fmt(v);
+  df.min=fmt(t);dt.min=fmt(t);
+  df.addEventListener('change',function(){
+    const d=new Date(this.value+'T00:00:00');d.setDate(d.getDate()+1);
+    const m=d.toISOString().split('T')[0];
+    dt.min=m;if(dt.value<m)dt.value=m;
+  });
 })();
-document.getElementById('df').addEventListener('change',function(){
-  const d=new Date(this.value+'T00:00:00');d.setDate(d.getDate()+1);
-  const m=d.toISOString().split('T')[0];
-  document.getElementById('dt').min=m;
-  if(document.getElementById('dt').value<m)document.getElementById('dt').value=m;
-});
 
-// Types
-function toggleType(el,name){el.classList.toggle('selected')}
-function surprise(){
-  document.querySelectorAll('.type-card').forEach(c=>c.classList.remove('selected'));
-  const all=document.querySelectorAll('.type-card');
-  const picks=[...all].sort(()=>Math.random()-.5).slice(0,3);
-  picks.forEach(p=>p.classList.add('selected'));
-  document.getElementById('generar').scrollIntoView({behavior:'smooth'});
-}
+function activeTags(){return[...document.querySelectorAll('.ttag.on')].map(b=>b.textContent.trim()).join(', ')}
 
-// Active tags
-function activeTags(){return[...document.querySelectorAll('.ptag.on')].map(b=>b.textContent.trim()).join(', ')}
-
-// Open itinerary (prefill)
-function openItinerary(loc,name,days,price,types){
-  document.getElementById('dest').value=loc;
-  document.getElementById('days').value=days;
-  document.getElementById('generar').scrollIntoView({behavior:'smooth'});
-  setTimeout(gen,400);
-}
-
-// Format date
 function fmtD(iso){
   if(!iso)return'';
   return new Date(iso+'T00:00:00').toLocaleDateString('es-ES',{day:'numeric',month:'long',year:'numeric'});
 }
 
-// Affiliate cards
-function buildAffs(dest){
-  const e=encodeURIComponent(dest||'Europa');
-  return`<div class="aff-section">
-    <div class="aff-title">Reserva directamente</div>
-    <div class="aff-grid">
-      <a class="aff-btn" href="https://www.skyscanner.es/vuelos/${e}" target="_blank"><span class="aff-ico">✈️</span><div><div class="aff-name">Vuelos · Skyscanner</div><div class="aff-desc">Mejor precio garantizado</div></div></a>
-      <a class="aff-btn" href="https://www.booking.com/search.html?ss=${e}" target="_blank"><span class="aff-ico">🏨</span><div><div class="aff-name">Hoteles · Booking</div><div class="aff-desc">Sin cargos extra</div></div></a>
-      <a class="aff-btn" href="https://www.getyourguide.es/s/?q=${e}" target="_blank"><span class="aff-ico">🎟️</span><div><div class="aff-name">Actividades · GetYourGuide</div><div class="aff-desc">Cancelación gratuita</div></div></a>
-      <a class="aff-btn" href="https://www.thetrainline.com/es" target="_blank"><span class="aff-ico">🚂</span><div><div class="aff-name">Trenes · Trainline</div><div class="aff-desc">Rail deals Europa</div></div></a>
-    </div>
-  </div>`;
+// ── AFFILIATE LINKS ──
+// 👉 Cuando tengas tus IDs de afiliado, sustitúyelos aquí:
+const AFF = {
+  skyscanner_id:  '',   // partners.skyscanner.net → tu Affiliate ID
+  booking_aid:    '',   // partners.booking.com → tu AID
+  gyg_partner_id: '',   // partner.getyourguide.com → tu Partner ID
+  rentalcars_key: '',   // rentalcars.com/affiliate → tu Affiliate Key
+};
+
+function affUrl(type, dest, origin){
+  const d=encodeURIComponent(dest||'');
+  const o=encodeURIComponent(origin||'');
+  switch(type){
+    case 'vuelo':
+      return AFF.skyscanner_id
+        ? `https://www.skyscanner.es/vuelos/${o}/${d}?affilid=${AFF.skyscanner_id}`
+        : `https://www.skyscanner.es/vuelos/${o}/${d}`;
+    case 'hotel':
+      return AFF.booking_aid
+        ? `https://www.booking.com/search.html?ss=${d}&aid=${AFF.booking_aid}`
+        : `https://www.booking.com/search.html?ss=${d}`;
+    case 'actividad':
+      return AFF.gyg_partner_id
+        ? `https://www.getyourguide.es/s/?q=${d}&partner_id=${AFF.gyg_partner_id}`
+        : `https://www.getyourguide.es/s/?q=${d}`;
+    case 'tren':
+      return 'https://www.thetrainline.com/es';
+    case 'coche':
+      return AFF.rentalcars_key
+        ? `https://www.rentalcars.com/es/?fts=${d}&affiliateCode=${AFF.rentalcars_key}`
+        : `https://www.rentalcars.com/es/?fts=${d}`;
+  }
 }
 
-// Parse markdown
-function parseMD(t){
-  return'<div style="font-size:.88rem;line-height:1.75;color:var(--ink2)">'+
-    t.replace(/\*\*(.+?)\*\*/g,'<strong style="color:var(--ink)">$1</strong>')
-     .replace(/^#{1,3} (.+)$/gm,'<p style="font-family:Playfair Display,serif;font-size:.95rem;font-weight:700;color:var(--ink);margin:1.2rem 0 .4rem;padding:.6rem .8rem;background:var(--teal-light);border-radius:8px;border-left:3px solid var(--teal)">$1</p>')
-     .replace(/\n{2,}/g,'</p><p style="margin-bottom:.7rem">')
-     .replace(/^/,'<p style="margin-bottom:.7rem">')+'</p></div>';
+function dayAffButtons(dest, origin, dayNum){
+  return `
+    <div class="day-affs">
+      <a class="day-aff-btn vuelo" href="${affUrl('vuelo',dest,origin)}" target="_blank" rel="noopener">✈️ Vuelos</a>
+      <a class="day-aff-btn hotel" href="${affUrl('hotel',dest,origin)}" target="_blank" rel="noopener">🏨 Hoteles</a>
+      <a class="day-aff-btn act"   href="${affUrl('actividad',dest,origin)}" target="_blank" rel="noopener">🎟️ Actividades</a>
+      <a class="day-aff-btn tren"  href="${affUrl('tren',dest,origin)}" target="_blank" rel="noopener">🚂 Trenes</a>
+    </div>`;
 }
 
-const loadMsgs=['Analizando tu perfil de viajero…','Buscando combinaciones inteligentes…','Diseñando el itinerario día a día…','Eligiendo los mejores alojamientos…','Añadiendo actividades con criterio…','Puliendo los últimos detalles…'];
+function bottomAffCards(dest, origin){
+  const affs=[
+    {type:'vuelo',   ico:'✈️',name:'Vuelos',    prov:'Skyscanner', badge:'Precio mínimo', bc:'b'},
+    {type:'hotel',   ico:'🏨',name:'Hoteles',   prov:'Booking.com',badge:'Sin cargos',    bc:'g'},
+    {type:'actividad',ico:'🎟️',name:'Actividades',prov:'GetYourGuide',badge:'Cancelación gratis',bc:'r'},
+    {type:'tren',    ico:'🚂',name:'Trenes',    prov:'Trainline',  badge:'Rail deals',    bc:'o'},
+    {type:'coche',   ico:'🚗',name:'Coche',     prov:'Rentalcars', badge:'Sin comisión',  bc:'g'},
+  ];
+  return `
+    <div class="bottom-affs-title">🔗 Reserva tu viaje</div>
+    <div class="bottom-affs-sub">Todo lo que necesitas para confirmar el viaje, en un clic</div>
+    <div class="affs-big-grid">
+      ${affs.map(a=>`
+        <a class="aff-big" href="${affUrl(a.type,dest,origin)}" target="_blank" rel="noopener">
+          <div class="aff-big-ico">${a.ico}</div>
+          <div class="aff-big-name">${a.name}</div>
+          <div class="aff-big-prov">${a.prov}</div>
+          <div class="aff-big-badge ${a.bc}">${a.badge}</div>
+        </a>`).join('')}
+    </div>`;
+}
 
+// ── PARSE AI RESPONSE INTO DAYS ──
+function parseIntoTimeline(text, dest, origin){
+  // Split by day headers
+  const dayRegex = /#{1,3}\s*(Día\s+\d+[^#\n]*)/gi;
+  const tipRegex = /#{1,3}\s*(Consejo|Tips?|Tip\s|Recomendaci)/gi;
+
+  const parts = text.split(/(#{1,3}[^\n]+)/g).filter(s=>s.trim());
+  let html = '';
+  let dayCount = 0;
+
+  for(let i=0;i<parts.length;i++){
+    const part = parts[i].trim();
+    if(!part)continue;
+
+    // Day header
+    if(/^#{1,3}\s*Día\s+\d+/i.test(part)){
+      dayCount++;
+      const title = part.replace(/^#+\s*/,'').trim();
+      const content = parts[i+1]&&!parts[i+1].startsWith('#')?parts[i+1].trim():'';
+      if(content)i++;
+      const formattedContent = content
+        .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+        .replace(/\n{2,}/g,'</p><p>')
+        .replace(/\n/g,'<br/>')
+        .replace(/^/,'<p>')+'</p>';
+
+      html+=`
+        <div class="tl-item">
+          <div class="tl-dot day">${dayCount}</div>
+          <div class="tl-card">
+            <div class="tl-card-head">
+              <div>
+                <div class="tl-day-label">Día ${dayCount}</div>
+                <div class="tl-day-title">${title.replace(/^Día\s+\d+[\s—-]*/i,'')}</div>
+              </div>
+            </div>
+            <div class="tl-card-body">${formattedContent}</div>
+            ${dayAffButtons(dest,origin,dayCount)}
+          </div>
+        </div>`;
+    }
+    // Tips section
+    else if(/^#{1,3}\s*(Consejo|Tips?|Recomendaci)/i.test(part)){
+      const content = parts[i+1]&&!parts[i+1].startsWith('#')?parts[i+1].trim():'';
+      if(content)i++;
+      const formattedContent = content
+        .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+        .replace(/\n{2,}/g,'</p><p>')
+        .replace(/\n/g,'<br/>')
+        .replace(/^/,'<p>')+'</p>';
+      html+=`
+        <div class="tl-item">
+          <div class="tl-dot tip">💡</div>
+          <div class="tl-card tips">
+            <div class="tl-card-head"><div><div class="tl-day-title">Consejos prácticos</div></div></div>
+            <div class="tl-card-body">${formattedContent}</div>
+          </div>
+        </div>`;
+    }
+    // Intro paragraph (before first day)
+    else if(dayCount===0&&!part.startsWith('#')){
+      const formatted = part
+        .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+        .replace(/\n{2,}/g,'</p><p>')
+        .replace(/^/,'<p>')+'</p>';
+      html+=`
+        <div class="tl-item">
+          <div class="tl-dot act">✦</div>
+          <div class="tl-card">
+            <div class="tl-card-body" style="font-style:italic;color:var(--ink2)">${formatted}</div>
+          </div>
+        </div>`;
+    }
+  }
+
+  // Fallback si el parser no pudo dividir por días
+  if(dayCount===0){
+    const formatted = text
+      .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+      .replace(/^#{1,3}\s*(.+)$/gm,'<h3 style="font-family:Playfair Display,serif;font-size:1rem;font-weight:700;margin:1rem 0 .4rem;padding:.5rem .8rem;background:var(--teal-light);border-radius:8px;border-left:3px solid var(--teal)">$1</h3>')
+      .replace(/\n{2,}/g,'</p><p>')
+      .replace(/^/,'<p>')+'</p>';
+    html=`
+      <div class="tl-item">
+        <div class="tl-dot act">✦</div>
+        <div class="tl-card">
+          <div class="tl-card-body">${formatted}</div>
+          ${dayAffButtons(dest,origin,1)}
+        </div>
+      </div>`;
+  }
+
+  return html;
+}
+
+// ── LOADING MESSAGES ──
+const msgs=['Analizando tu perfil…','Calculando la mejor ruta…','Seleccionando actividades…','Añadiendo transportes concretos…','Puliendo los detalles…'];
+
+// ── GENERATE ──
 async function gen(){
-  const origin=document.getElementById('origin').value.trim()||'España';
-  const dest=document.getElementById('dest').value.trim();
-  const days=document.getElementById('days').value;
-  const df=document.getElementById('df').value;
-  const dt=document.getElementById('dt').value;
-  const travelers=document.getElementById('travelers').value;
-  const budget=document.getElementById('budget').value;
-  const styles=activeTags()||'cultura y experiencia local';
-  const extra=document.getElementById('extra').value.trim();
+  const origin   = document.getElementById('origin').value.trim()||'España';
+  const dest     = document.getElementById('dest').value.trim();
+  const days     = document.getElementById('days').value;
+  const df       = document.getElementById('df').value;
+  const dt       = document.getElementById('dt').value;
+  const travelers= document.getElementById('travelers').value;
+  const budget   = document.getElementById('budget').value;
+  const styles   = activeTags()||'cultura y experiencia local';
+  const extra    = document.getElementById('extra').value.trim();
+
   if(!dest){
     const el=document.getElementById('dest');
     el.style.borderColor='var(--salmon)';el.focus();
     el.addEventListener('input',()=>el.style.borderColor='var(--border)',{once:true});
     return;
   }
+
   const btn=document.getElementById('genBtn');
   btn.disabled=true;
   document.getElementById('loadBox').classList.add('on');
-  document.getElementById('resultBox').classList.remove('on');
-  document.getElementById('resultBox').innerHTML='';
+  document.getElementById('resultSection').classList.remove('on');
+  document.getElementById('timeline').innerHTML='';
+  document.getElementById('bottomAffs').innerHTML='';
+
   let mi=0;
-  const iv=setInterval(()=>{document.getElementById('ltxt').textContent=loadMsgs[mi=(mi+1)%loadMsgs.length]},2000);
+  const iv=setInterval(()=>{document.getElementById('ltxt').textContent=msgs[mi=(mi+1)%msgs.length]},2000);
+
   const meses=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
   const mes=df?meses[new Date(df+'T00:00:00').getMonth()]:'';
   const fechaStr=df?`del ${fmtD(df)} al ${fmtD(dt)}${mes?` (${mes})`:''}`:null;
-  const prompt=`Eres un experto en viajes con criterio y gusto curado. Genera un itinerario detallado y narrativo:
+
+  const prompt=`Eres un experto en viajes con criterio. Genera un itinerario CONCRETO para:
 
 - Origen: ${origin}
 - Destino: ${dest}
 - Duración: ${days} días${fechaStr?`\n- Fechas: ${fechaStr}`:''}
 - Viajeros: ${travelers}
 - Presupuesto: ${budget}
-- Estilo: ${styles}${extra?`\n- Notas: ${extra}`:''}
+- Estilo: ${styles}${extra?`\n- Requisitos: ${extra}`:''}
 
-FORMATO:
-1. Párrafo de apertura evocador (2-3 frases sobre el destino${mes?` en ${mes}`:''}).
-2. Itinerario: ### Día X — [Título del día]
-   Actividades concretas mañana/tarde/noche. Transportes específicos. 1 recomendación inesperada por día.
-3. ### Tips con criterio — 3-4 consejos que no da Google.
+FORMATO OBLIGATORIO — sigue esto al pie de la letra:
+1. Párrafo breve de apertura (2 frases evocadoras, sin título)
+2. Un bloque por día:
+### Día X — [Título evocador]
+**Mañana:** actividad concreta con nombre real del lugar y precio estimado si aplica.
+**Tarde:** actividad concreta.
+**Noche:** cena o actividad con nombre de restaurante o zona concreta.
+💡 *Local tip:* recomendación inesperada y específica.
 
-Español, voz cálida, muy concreto. Máx 700 palabras.`;
+3. Al final:
+### Consejos prácticos
+- 3 consejos muy concretos${mes?` para viajar en ${mes}`:''}
+- Cuándo reservar vuelos para este destino
+- Una advertencia útil
+
+REGLAS:
+- Nombra lugares reales, no genéricos ("Mercado de La Boqueria", no "un mercado local")
+- Precios orientativos cuando los conozcas
+- Transportes específicos cuando sean relevantes (ej: "Metro L3 hasta Passeig de Gràcia")
+- Máximo 700 palabras en total`;
+
   try{
     const res=await fetch('/api/generate',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]})
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1200,messages:[{role:'user',content:prompt}]})
     });
-    if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error(e?.error?.message||`HTTP ${res.status}`)}
+
+    if(!res.ok){
+      const e=await res.json().catch(()=>({}));
+      throw new Error(e?.error||`Error HTTP ${res.status}`);
+    }
+
     const data=await res.json();
     const text=(data.content||[]).map(b=>b.text||'').join('').trim();
-    if(!text)throw new Error('Respuesta vacía');
+    if(!text)throw new Error('La IA no devolvió respuesta');
+
     clearInterval(iv);
     document.getElementById('loadBox').classList.remove('on');
-    const html=`
-      <div class="res-hero">
-        <div class="res-label">✨ Experiencia personalizada</div>
-        <div class="res-title">${dest}</div>
-        <div class="res-loc">📍 ${dest}</div>
+
+    // Header
+    document.getElementById('resHeader').innerHTML=`
+      <div>
+        <div style="font-size:.72rem;color:rgba(255,255,255,.5);font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.4rem">✨ Itinerario generado</div>
+        <div class="res-dest"><em>${dest}</em></div>
         <div class="res-chips">
-          <div class="res-chip"><div class="res-chip-label">Duración</div><div class="res-chip-val">${days} días</div></div>
-          ${df?`<div class="res-chip"><div class="res-chip-label">¿Cuándo?</div><div class="res-chip-val">${fmtD(df)}</div></div>`:''}
-          <div class="res-chip"><div class="res-chip-label">Viajeros</div><div class="res-chip-val">${travelers}</div></div>
-          <div class="res-chip"><div class="res-chip-label">Presupuesto</div><div class="res-chip-val">${budget.split(' ')[0]}</div></div>
-        </div>
-        <div class="res-btns">
-          <button class="btn-save-it">+ Guardar en mi itinerario</button>
-          <button class="btn-reserve">❤️ Reservar esta experiencia</button>
+          <div class="chip"><div class="chip-label">Días</div><div class="chip-val">${days}</div></div>
+          ${df?`<div class="chip"><div class="chip-label">Salida</div><div class="chip-val">${fmtD(df)}</div></div>`:''}
+          <div class="chip"><div class="chip-label">Viajeros</div><div class="chip-val">${travelers}</div></div>
+          <div class="chip"><div class="chip-label">Presupuesto</div><div class="chip-val">${budget.split(' ')[0]}</div></div>
+          <div class="chip"><div class="chip-label">Desde</div><div class="chip-val">${origin}</div></div>
         </div>
       </div>
-      <div class="timeline-title">Tu viaje paso a paso</div>
-      <div class="timeline-sub">Desde el momento en que sales hasta tu regreso. Cada transporte puede reservarse individualmente.</div>
-      <div style="padding:.5rem 0">
-        ${parseMD(text)}
-      </div>
-      ${buildAffs(dest)}
-    `;
-    document.getElementById('resultBox').innerHTML=html;
-    document.getElementById('resultBox').classList.add('on');
-    setTimeout(()=>document.getElementById('resultBox').scrollIntoView({behavior:'smooth',block:'start'}),120);
+      <div class="res-actions">
+        <button class="btn-save" onclick="window.print()">🖨️ Imprimir / PDF</button>
+        <button class="btn-save" onclick="navigator.share&&navigator.share({title:'Mi viaje a ${dest}',text:'Itinerario generado con Travel Studio'})">📤 Compartir</button>
+      </div>`;
+
+    // Timeline
+    document.getElementById('timeline').innerHTML = parseIntoTimeline(text, dest, origin);
+
+    // Bottom affs
+    document.getElementById('bottomAffs').innerHTML = bottomAffCards(dest, origin);
+
+    // Show section
+    document.getElementById('resultSection').classList.add('on');
+    setTimeout(()=>document.getElementById('resultSection').scrollIntoView({behavior:'smooth',block:'start'}),150);
+
   }catch(e){
     clearInterval(iv);
     document.getElementById('loadBox').classList.remove('on');
-    document.getElementById('resultBox').innerHTML=`<div class="err-box">
-      <strong>No se pudo generar el itinerario</strong><br/>${e.message}<br/><br/>
-      <em>Nota:</em> Para que la IA funcione en producción necesitas un backend proxy con tu API key de Anthropic configurada en servidor (la API bloquea llamadas directas desde navegador por seguridad).
-    </div>${buildAffs(document.getElementById('dest').value)}`;
-    document.getElementById('resultBox').classList.add('on');
+    document.getElementById('timeline').innerHTML=`<div class="err"><strong>Error:</strong> ${e.message}<br/><br/>Comprueba que <code>ANTHROPIC_API_KEY</code> está configurada en Vercel y tienes crédito en console.anthropic.com</div>`;
+    document.getElementById('bottomAffs').innerHTML=bottomAffCards(document.getElementById('dest').value, document.getElementById('origin').value);
+    document.getElementById('resultSection').classList.add('on');
   }
+
   btn.disabled=false;
 }
+
+// Enter key
 ['origin','dest'].forEach(id=>{
   document.getElementById(id).addEventListener('keydown',e=>{if(e.key==='Enter')gen()});
 });
 </script>
 </body>
 </html>
-<script>
-// ══════════════════════════════════════════════
-// SANITY CMS — carga destinos dinámicamente
-// Sustituye SANITY_PROJECT_ID con tu ID real
-// ══════════════════════════════════════════════
-const SANITY_PROJECT_ID = '2d8sevuv'; // ← reemplazar
-const SANITY_DATASET    = 'production';
-const SANITY_API_VER    = '2024-01-01';
-
-const TAG_COLORS = {
-  'Urbano':'teal','Cultura':'lav','Tropical':'teal','Wellness':'lav',
-  'Romántico':'sal','Playa':'teal','Aventura':'yel','Familiar':'lav',
-  'Montaña':'yel','Lujo':'sal','Gastronómico':'sal','Deportivo':'teal'
-};
-
-function tagClass(t){ return TAG_COLORS[t]||'teal'; }
-
-function destCardHTML(d){
-  const img = d.imagen
-    ? `https://cdn.sanity.io/images/${2d8sevuv}/${SANITY_DATASET}/${d.imagen.asset._ref.replace('image-','').replace(/-(\w+)$/,'.$1')}`
-    : `https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&q=70`;
-  const tags = (d.categorias||[]).slice(0,2).map(t=>`<span class="dtag ${tagClass(t)}">${t}</span>`).join('');
-  return `
-    <div class="dest-card" onclick="openItinerary('${d.ubicacion}','${d.nombre}','${d.dias||7}','${d.precioDesde||''}','${(d.categorias||[]).join(',')}')">
-      <div class="dest-img">
-        <img src="${img}" alt="${d.nombre}" loading="lazy"/>
-        <div class="dest-tags">${tags}</div>
-      </div>
-      <div class="dest-body">
-        <div class="dest-name">${d.nombre}</div>
-        <div class="dest-meta">📍 ${d.ubicacion}</div>
-        <div class="dest-meta">🗓 ${d.dias||7} días &nbsp;·&nbsp; 💰 desde ${d.precioDesde||'—'}</div>
-        <div class="dest-acts">${d.actividades||0} actividades posibles</div>
-        <div class="dest-actions">
-          <button class="btn-explore">👁 Explorar itinerario</button>
-          <button class="btn-save" onclick="event.stopPropagation();this.classList.toggle('saved');this.textContent=this.classList.contains('saved')?'✓ Guardado':'+ Guardar'">+ Guardar</button>
-          <button class="btn-book" onclick="event.stopPropagation()">Reservar ahora</button>
-        </div>
-      </div>
-    </div>`;
-}
-
-// Fallback hardcoded si Sanity no está configurado
-const FALLBACK_DESTINATIONS = [
-  {nombre:'Urban Nomad Escape',ubicacion:'Tokio, Japón',dias:7,precioDesde:'$2,500',categorias:['Urbano','Cultura'],actividades:12,imagen:null,_imgFallback:'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=400&q=70'},
-  {nombre:'Tropical Paradise Journey',ubicacion:'Bali, Indonesia',dias:10,precioDesde:'$2,800',categorias:['Tropical','Wellness'],actividades:15,imagen:null,_imgFallback:'https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=400&q=70'},
-  {nombre:'Mediterranean Dream',ubicacion:'Santorini, Grecia',dias:6,precioDesde:'$2,800',categorias:['Romántico','Playa'],actividades:10,imagen:null,_imgFallback:'https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=400&q=70'},
-  {nombre:'Nordic Nights Adventure',ubicacion:'Islandia',dias:8,precioDesde:'$3,800',categorias:['Aventura'],actividades:14,imagen:null,_imgFallback:'https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=400&q=70'},
-  {nombre:'Barcelona City Break',ubicacion:'Barcelona, España',dias:4,precioDesde:'$900',categorias:['Urbano','Cultura'],actividades:14,imagen:null,_imgFallback:'https://images.unsplash.com/photo-1583422409516-2895a77efded?w=400&q=70'},
-  {nombre:'Costa del Sol Escape',ubicacion:'Málaga, España',dias:5,precioDesde:'$1,200',categorias:['Playa'],actividades:10,imagen:null,_imgFallback:'https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=400&q=70'},
-];
-
-async function loadDestinations(){
-  const grid = document.getElementById('destGrid');
-  if(!grid) return;
-
-  // Si Sanity está configurado, carga desde CMS
-  if(SANITY_PROJECT_ID !== '2d8sevuv'){
-    try{
-      const query = encodeURIComponent(`*[_type == "destino"] | order(orden asc) {nombre, ubicacion, dias, precioDesde, categorias, actividades, imagen}`);
-      const url = `https://${SANITY_PROJECT_ID}.api.sanity.io/v${SANITY_API_VER}/data/query/${SANITY_DATASET}?query=${query}`;
-      const res = await fetch(url);
-      const data = await res.json();
-      if(data.result && data.result.length > 0){
-        grid.innerHTML = data.result.map(destCardHTML).join('');
-        return;
-      }
-    }catch(e){ console.warn('Sanity no disponible, usando fallback', e); }
-  }
-
-  // Fallback: datos hardcoded mientras configuras Sanity
-  grid.innerHTML = FALLBACK_DESTINATIONS.map(d => {
-    const img = d._imgFallback;
-    const tags = (d.categorias||[]).slice(0,2).map(t=>`<span class="dtag ${tagClass(t)}">${t}</span>`).join('');
-    return `
-      <div class="dest-card" onclick="openItinerary('${d.ubicacion}','${d.nombre}','${d.dias}','${d.precioDesde}','${d.categorias.join(',')}')">
-        <div class="dest-img"><img src="${img}" alt="${d.nombre}" loading="lazy"/><div class="dest-tags">${tags}</div></div>
-        <div class="dest-body">
-          <div class="dest-name">${d.nombre}</div>
-          <div class="dest-meta">📍 ${d.ubicacion}</div>
-          <div class="dest-meta">🗓 ${d.dias} días &nbsp;·&nbsp; 💰 desde ${d.precioDesde}</div>
-          <div class="dest-acts">${d.actividades} actividades posibles</div>
-          <div class="dest-actions">
-            <button class="btn-explore">👁 Explorar itinerario</button>
-            <button class="btn-save" onclick="event.stopPropagation();this.classList.toggle('saved');this.textContent=this.classList.contains('saved')?'✓ Guardado':'+ Guardar'">+ Guardar</button>
-            <button class="btn-book" onclick="event.stopPropagation()">Reservar ahora</button>
-          </div>
-        </div>
-      </div>`;
-  }).join('');
-}
-
-// Cargar al inicio
-loadDestinations();
-</script>
