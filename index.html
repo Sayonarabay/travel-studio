@@ -119,23 +119,12 @@ textarea{resize:none;height:56px;font-size:.82rem}
 .day-num-word{font-size:.42rem;font-weight:700;text-transform:uppercase;letter-spacing:.2em;color:rgba(255,255,255,.35)}
 .day-title-col{flex:1;padding:.85rem 1.6rem;display:flex;flex-direction:column;justify-content:center;border-bottom:1px solid var(--border);background:var(--warm-white)}
 .day-title{font-family:var(--font-display);font-size:1.1rem;font-weight:400;color:var(--ink);line-height:1.25;letter-spacing:-.02em}
-.day-story{font-family:var(--font-prose);font-size:.82rem;font-style:italic;color:var(--sage-dark);margin-top:.35rem;line-height:1.55;opacity:.85}
+.day-story{font-family:var(--font-prose);font-size:.82rem;font-style:italic;color:var(--sage-dark);margin-top:.38rem;line-height:1.58;opacity:.85}
+/* Day intro description — block below header, above morning/afternoon/evening */
+.day-intro{padding:1rem 1.4rem 1rem 1.6rem;border-bottom:1px solid var(--border);background:linear-gradient(135deg,#FDFCF9,#F7F5F0);display:flex;gap:.85rem;align-items:flex-start}
+.day-intro-accent{width:3px;flex-shrink:0;align-self:stretch;background:linear-gradient(180deg,var(--amber),var(--sage));border-radius:2px;min-height:2rem;margin:.1rem 0}
+.day-intro-text{font-family:var(--font-prose);font-size:.96rem;color:var(--ink2);line-height:1.9;font-style:italic}
 /* Moment blocks */
-.day-moments{padding:0}
-.moment{display:flex;align-items:flex-start;gap:0;border-bottom:1px solid var(--border)}
-.moment:last-of-type{border-bottom:none}
-.moment-time{width:70px;flex-shrink:0;padding:1.2rem 0;display:flex;flex-direction:column;align-items:center;gap:.4rem;border-right:1px solid var(--border);background:var(--sand)}
-.moment-dot{width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center}
-.moment-dot svg{width:13px;height:13px;fill:none;stroke:#fff;stroke-width:2}
-.moment-m .moment-dot{background:linear-gradient(135deg,#C97B3A,#F59E0B)}
-.moment-a .moment-dot{background:linear-gradient(135deg,#4A7C59,#34D399)}
-.moment-e .moment-dot{background:linear-gradient(135deg,#2C3E6B,#818CF8)}
-.moment-label{font-size:.42rem;font-weight:700;text-transform:uppercase;letter-spacing:.18em;color:var(--muted)}
-.moment-body{flex:1;padding:1.3rem 1.8rem 1.2rem}
-.moment-text{font-family:var(--font-prose);font-size:1.04rem;line-height:1.92;color:var(--ink2)}
-.moment-text strong{color:var(--ink);font-weight:600;font-style:normal}
-/* Hidden storytelling hook — shown inline in prompt output */
-.day-story{font-family:var(--font-prose);font-size:.92rem;font-style:italic;color:var(--sage-dark);margin-top:.6rem;padding:.5rem .8rem;border-left:2px solid var(--sage-light);background:var(--sage-light);border-radius:0 6px 6px 0}
 /* Gem */
 .day-gem{display:flex;align-items:flex-start;gap:.9rem;padding:1rem 1.6rem;background:linear-gradient(90deg,var(--sage-light),var(--warm-white));border-top:1px solid #A7F3D0}
 .day-gem-ico{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--sage-dark),var(--sage));display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.1rem}
@@ -466,58 +455,70 @@ textarea{resize:none;height:56px;font-size:.82rem}
 .map-leg-item{display:inline-flex;align-items:center;gap:.3rem;font-size:.67rem;color:var(--ink2);font-weight:600}
 .map-leg-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
 
-/* ── Full recap summary card ── */
-.full-recap-card{background:var(--white);border:1.5px solid var(--border);border-radius:20px;overflow:hidden;margin-bottom:1.5rem;box-shadow:var(--shadow)}
-.full-recap-hero{background:linear-gradient(145deg,#1C1C2E 0%,#2C3E6B 55%,#1C3A2E 100%);padding:1.5rem 1.8rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
-.full-recap-title{font-family:var(--font-display);font-size:1.15rem;font-weight:400;color:#fff;letter-spacing:-.02em}
-.full-recap-total{font-family:var(--font-display);font-size:1.65rem;font-weight:400;background:linear-gradient(135deg,#A7F3D0,#67E8F9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-align:right;letter-spacing:-.02em}
-.full-recap-total-label{font-size:.58rem;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.08em;text-align:right;margin-bottom:.2rem}
-.full-recap-body{padding:1.5rem 1.8rem}
-.full-recap-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.65rem;margin-bottom:1.3rem}
-.frg-item{display:flex;align-items:flex-start;gap:.65rem;padding:.75rem;border-radius:12px;border:1.5px solid var(--border);background:var(--bg);transition:all .18s}
-.frg-item:hover{border-color:var(--teal-dark);background:#fff;box-shadow:var(--shadow)}
-.frg-ico{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1rem}
-.frg-body{flex:1;min-width:0}
-.frg-label{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:.15rem}
-.frg-val{font-size:.83rem;font-weight:700;color:var(--ink);line-height:1.3}
-.frg-sub{font-size:.69rem;color:var(--muted);margin-top:.08rem}
-.frg-ico.fl{background:linear-gradient(135deg,#1D4ED8,#60A5FA)}
-.frg-ico.ho{background:linear-gradient(135deg,#065F46,#34D399)}
-.frg-ico.tr{background:linear-gradient(135deg,#5B21B6,#7C3AED)}
-.frg-ico.ca{background:linear-gradient(135deg,#0369A1,#38BDF8)}
-.frg-ico.ex{background:linear-gradient(135deg,#BE123C,#F87171)}
-.frg-ico.fo{background:linear-gradient(135deg,#B45309,#FCD34D)}
-.frg-ico.re{background:linear-gradient(135deg,#7E22CE,#A855F7)}
-.frg-ico.gr{background:linear-gradient(135deg,#0F766E,#2DD4BF)}
-.full-recap-email-bar{background:linear-gradient(145deg,#1C1C2E,#2C3E6B);border-radius:14px;padding:1.2rem 1.4rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
-.freb-left{display:flex;align-items:center;gap:.7rem}
-.freb-ico{font-size:1.3rem}
-.freb-txt strong{display:block;color:#fff;font-size:.85rem;margin-bottom:.15rem}
-.freb-txt span{color:rgba(255,255,255,.5);font-size:.7rem}
-.freb-right{display:flex;gap:.45rem;flex-wrap:wrap}
-.freb-input{padding:.45rem .9rem;border-radius:9px;border:1.5px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);color:#fff;font-size:.8rem;outline:none;width:180px;font-family:var(--font-body)}
-.freb-input::placeholder{color:rgba(255,255,255,.3)}
-.freb-input:focus{border-color:var(--teal)}
-.freb-btn{padding:.45rem 1rem;background:var(--teal-dark);color:#fff;border:none;border-radius:9px;font-size:.76rem;font-weight:700;cursor:pointer;white-space:nowrap}
-.freb-btn:hover{opacity:.88}
-.freb-pdf{padding:.45rem .85rem;background:rgba(255,255,255,.08);color:rgba(255,255,255,.8);border:1.5px solid rgba(255,255,255,.2);border-radius:9px;font-size:.72rem;font-weight:700;cursor:pointer;white-space:nowrap}
-.freb-pdf:hover{background:rgba(255,255,255,.15)}
-.freb-ok{color:var(--teal);font-weight:600;font-size:.85rem;padding:.3rem 0}
-.reb-content{display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap}
-.reb-left{display:flex;align-items:center;gap:.8rem}
-.reb-ico{font-size:1.4rem;flex-shrink:0}
-.reb-txt{color:rgba(255,255,255,.9);font-size:.82rem;line-height:1.5}
-.reb-txt strong{display:block;color:#fff;font-size:.87rem;margin-bottom:.1rem}
-.reb-txt span{color:rgba(255,255,255,.5);font-size:.72rem}
-.reb-right{display:flex;gap:.5rem;align-items:center;flex-shrink:0;flex-wrap:wrap}
-.reb-input{padding:.48rem .9rem;border-radius:9px;border:1.5px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);color:#fff;font-size:.82rem;outline:none;width:190px;font-family:var(--font-body);transition:border-color .18s}
-.reb-input::placeholder{color:rgba(255,255,255,.32)}
-.reb-input:focus{border-color:var(--teal)}
-.reb-send{padding:.48rem 1rem;background:var(--teal-dark);color:#fff;border:none;border-radius:9px;font-size:.78rem;font-weight:700;cursor:pointer;white-space:nowrap;transition:opacity .18s}
-.reb-send:hover{opacity:.88}
-.reb-pdf{padding:.48rem .85rem;background:rgba(255,255,255,.09);color:rgba(255,255,255,.8);border:1.5px solid rgba(255,255,255,.2);border-radius:9px;font-size:.75rem;font-weight:700;cursor:pointer;white-space:nowrap;transition:all .18s}
-.reb-pdf:hover{background:rgba(255,255,255,.16);color:#fff}
-.reb-ok{color:var(--teal);font-weight:600;font-size:.88rem;text-align:center;padding:.4rem 0}
+/* ── Plan Actions Card (reemplaza full-recap-card) ── */
+.plan-actions-card{background:var(--white);border:1.5px solid var(--border);border-radius:20px;overflow:hidden;margin-bottom:1.5rem;box-shadow:var(--shadow)}
+
+/* Sección email — nuevo diseño limpio */
+.email-save-block{background:#0F172A;border-radius:16px;padding:1.8rem 2rem;margin-bottom:1.5rem;position:relative;overflow:hidden}
+.email-save-block::before{content:'';position:absolute;top:-80px;right:-80px;width:260px;height:260px;background:radial-gradient(circle,rgba(45,212,191,.1),transparent 70%);border-radius:50%;pointer-events:none}
+.email-save-block::after{content:'';position:absolute;bottom:-60px;left:-40px;width:180px;height:180px;background:radial-gradient(circle,rgba(74,124,89,.08),transparent 70%);border-radius:50%;pointer-events:none}
+.esb-inner{position:relative;z-index:1}
+.esb-label{font-size:.56rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--teal);margin-bottom:.6rem;opacity:.9}
+.esb-title{font-family:var(--font-display);font-size:1.4rem;font-weight:400;color:#fff;margin-bottom:.3rem;letter-spacing:-.03em;line-height:1.15}
+.esb-sub{font-size:.78rem;color:rgba(255,255,255,.42);margin-bottom:1.4rem;line-height:1.55}
+.esb-form{display:flex;gap:.55rem;flex-wrap:wrap}
+.esb-input{flex:1;min-width:200px;padding:.7rem 1rem;border-radius:10px;border:1.5px solid rgba(255,255,255,.12);background:rgba(255,255,255,.07);color:#fff;font-size:.85rem;font-family:var(--font-body);outline:none;transition:border-color .18s}
+.esb-input::placeholder{color:rgba(255,255,255,.28)}
+.esb-input:focus{border-color:rgba(45,212,191,.5);background:rgba(255,255,255,.1)}
+.esb-btn{padding:.7rem 1.4rem;background:linear-gradient(135deg,var(--teal-dark),#0E9F8E);color:#fff;border:none;border-radius:10px;font-size:.82rem;font-weight:700;cursor:pointer;white-space:nowrap;transition:all .2s;display:flex;align-items:center;gap:.4rem;font-family:var(--font-body)}
+.esb-btn:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(15,118,110,.4)}
+.esb-btn svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2.5}
+.esb-ok{display:none;align-items:center;gap:.9rem;padding:.9rem 1.1rem;background:rgba(45,212,191,.1);border:1px solid rgba(45,212,191,.25);border-radius:12px;margin-top:.8rem}
+.esb-ok-ico{font-size:1.4rem;flex-shrink:0}
+.esb-ok-txt{font-size:.82rem;color:rgba(255,255,255,.9);line-height:1.5}
+.esb-ok-txt strong{display:block;color:#fff;margin-bottom:.1rem}
+.esb-ok-link{display:inline-flex;align-items:center;gap:.3rem;margin-top:.5rem;padding:.3rem .7rem;border:1px solid rgba(45,212,191,.35);border-radius:100px;color:var(--teal);font-size:.7rem;font-weight:700;cursor:pointer;transition:all .18s;text-decoration:none}
+.esb-ok-link:hover{background:rgba(45,212,191,.15)}
+
+/* Mi viaje recap — nuevo diseño tipo tabla de vuelo */
+.my-trip-block{background:var(--white);border:1.5px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:1.5rem;box-shadow:var(--shadow)}
+.mtb-header{background:linear-gradient(135deg,#1C1C2E,#2C3E6B);padding:1.2rem 1.6rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.mtb-header-left{display:flex;flex-direction:column;gap:.2rem}
+.mtb-eyebrow{font-size:.52rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.4)}
+.mtb-title{font-family:var(--font-display);font-size:1.1rem;font-weight:400;color:#fff;letter-spacing:-.02em}
+.mtb-total{text-align:right}
+.mtb-total-label{font-size:.52rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.4);margin-bottom:.15rem}
+.mtb-total-value{font-family:var(--font-display);font-size:1.6rem;font-weight:400;background:linear-gradient(135deg,#A7F3D0,#67E8F9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-.03em}
+.mtb-body{padding:1.2rem 1.6rem}
+.mtb-meta-row{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.2rem}
+.mtb-meta-chip{display:inline-flex;align-items:center;gap:.35rem;padding:.3rem .75rem;background:var(--bg);border:1px solid var(--border);border-radius:100px;font-size:.69rem;font-weight:600;color:var(--ink2)}
+.mtb-meta-chip svg{width:11px;height:11px;flex-shrink:0;opacity:.6}
+.mtb-section-lbl{font-size:.58rem;font-weight:800;text-transform:uppercase;letter-spacing:.15em;color:var(--muted);margin-bottom:.6rem}
+.mtb-items-added{display:flex;flex-direction:column;gap:.45rem;margin-bottom:1rem}
+.mtb-item-row{display:flex;align-items:center;gap:.7rem;padding:.6rem .75rem;background:var(--bg);border:1px solid var(--border);border-radius:10px;transition:all .18s}
+.mtb-item-row:hover{border-color:var(--teal-dark);background:var(--teal-light)}
+.mtb-item-ico{font-size:1rem;flex-shrink:0;width:22px;text-align:center}
+.mtb-item-name{flex:1;font-size:.78rem;font-weight:600;color:var(--ink)}
+.mtb-item-price{font-size:.72rem;color:var(--muted);font-weight:600}
+.mtb-item-book{padding:.22rem .58rem;border:1.5px solid var(--teal-dark);border-radius:7px;color:var(--teal-dark);font-size:.62rem;font-weight:700;text-decoration:none;white-space:nowrap;transition:all .18s;flex-shrink:0}
+.mtb-item-book:hover{background:var(--teal-dark);color:#fff}
+.mtb-empty{font-size:.78rem;color:var(--muted);font-style:italic;padding:.5rem 0}
+.mtb-total-row{display:flex;justify-content:space-between;align-items:center;padding:.85rem .75rem;background:var(--bg);border-radius:10px;border:1px solid var(--border);margin-top:.6rem}
+.mtb-total-lbl{font-size:.78rem;font-weight:700;color:var(--ink2)}
+.mtb-total-val{font-family:var(--font-display);font-size:1.3rem;font-weight:400;color:var(--coral);letter-spacing:-.02em}
+.mtb-actions{display:flex;gap:.55rem;margin-top:1rem;flex-wrap:wrap}
+.mtb-action-primary{flex:1;padding:.72rem;border:none;border-radius:10px;background:linear-gradient(135deg,var(--sage-dark),var(--sage));color:#fff;font-size:.8rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.38rem;transition:opacity .2s;font-family:var(--font-body)}
+.mtb-action-primary:hover{opacity:.9}
+.mtb-action-sec{padding:.72rem 1rem;border:1.5px solid var(--border);border-radius:10px;background:#fff;color:var(--ink);font-size:.78rem;font-weight:600;cursor:pointer;transition:all .18s;font-family:var(--font-body)}
+.mtb-action-sec:hover{border-color:var(--ink)}
+.mtb-guarantees{display:flex;flex-direction:column;gap:.28rem;margin-top:1rem;padding-top:.9rem;border-top:1px solid var(--border)}
+.mtb-guar{display:flex;align-items:center;gap:.4rem;font-size:.69rem;color:var(--muted)}
+.mtb-guar::before{content:"✓";color:var(--sage);font-weight:800;font-size:.7rem;flex-shrink:0}
+
+/* Kept for compat */
+.full-recap-card{display:none}
+.full-recap-hero,.full-recap-email-bar,.freb-left,.freb-right,.freb-input,.freb-btn,.freb-ok{display:none}
+.reb-content,.reb-left,.reb-right,.reb-input,.reb-send,.reb-pdf,.reb-ok{display:none}
 /* ── Experience micro-buttons inside moments ── */
 .moment-exp-btns{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.7rem;padding-top:.55rem;border-top:1px solid var(--border)}
 .exp-micro{display:inline-flex;align-items:center;gap:.28rem;padding:.26rem .62rem;border-radius:7px;font-size:.63rem;font-weight:700;cursor:pointer;border:1.5px solid var(--border);transition:all .18s;white-space:nowrap;background:var(--white);color:var(--ink2);font-family:var(--font-body)}
@@ -897,11 +898,11 @@ function updateCartBtn(){
 }
 function toggleCart(id,name,price,priceNum,ico){
   const i=cart.findIndex(c=>c.id===id);
-  if(i>=0){cart.splice(i,1);updateCartBtn();return false;}
-  cart.push({id,name,price,priceNum,ico:ico||'🎟️'});
-  updateCartBtn();return true;
+  if(i>=0){cart.splice(i,1);updateCartBtn();updateMyTripBlock();return false;}
+  cart.push({id,label:name,name,price,priceNum,ico:ico||'🎟️'});
+  updateCartBtn();updateMyTripBlock();return true;
 }
-function removeFromCart(id){cart=cart.filter(c=>c.id!==id);updateCartBtn();renderCartBox();}
+function removeFromCart(id){cart=cart.filter(c=>c.id!==id);updateCartBtn();renderCartBox();updateMyTripBlock();}
 
 function openCheckout(){
   renderCartBox();renderReserveLinks();
@@ -1036,9 +1037,10 @@ function toggleExpCart(btnId, name, priceNum, ico){
   } else {
     btn.classList.add('in-cart');
     btn.innerHTML=checkICO+name;
-    cart.push({id:btnId,name,price:'',priceNum:priceNum||0,ico:ico||'🎯'});
+    cart.push({id:btnId,label:name,price:'',priceNum:priceNum||0,ico:ico||'🎯'});
   }
   updateCartUI();
+  updateMyTripBlock();
 }
 
 function quickSendEmail(){
@@ -1635,6 +1637,24 @@ function _extractDayStory(rawContent){
   );
   return lines[0]||'';
 }
+// Extracts a longer intro description (1-3 sentences) before moment markers
+function _extractDayIntro(rawContent){
+  const momentMarkerRE=/\*{1,2}(?:mañana|tarde|noche|morning|afternoon|evening|matin|après-midi|soir)[^:]*:/i;
+  const markerPos=rawContent.search(momentMarkerRE);
+  if(markerPos<=0) return '';
+  const beforeMarker=rawContent.slice(0,markerPos);
+  const cleaned=_stripAllTags(beforeMarker)
+    .replace(/\*{1,2}[^*\n]+\*{1,2}/g,m=>m.replace(/\*/g,'')) // keep text, strip asterisks
+    .replace(/^>\s*/gm,'')
+    .trim();
+  // Take all meaningful lines, join as paragraph (up to 320 chars)
+  const lines=cleaned.split(/\n+/).map(l=>l.trim()).filter(l=>
+    l.length>=20&&
+    !/(maps|wiki|official|booking|\[|\]|🔍)/i.test(l)
+  );
+  const joined=lines.join(' ').trim();
+  return joined.length>20?joined.slice(0,360)+(joined.length>360?'…':''):'';
+}
 function _extractGem(rawContent){
   const re=/(?:🔍\s*|(?:\*{0,2}(?:Fuera de ruta|Off the beaten path|Hors des sentiers|Gem)\*{0,2}\s*:\s*))([^\n]+)/i;
   const m=rawContent.match(re);
@@ -1690,6 +1710,7 @@ function parseTimeline(text,dest,origin){
       const fallback=hasMoments?'':_renderText(rawContent);
 
       const dayStory=_extractDayStory(rawContent);
+      const dayIntro=_extractDayIntro(rawContent);
       const gemText=_extractGem(rawContent);
 
       const allPlaces=_extractPlaceNames(rawContent);
@@ -1727,6 +1748,7 @@ function parseTimeline(text,dest,origin){
             ${dayStory?`<div class="day-story">${dayStory}</div>`:''}
           </div>
         </div>
+        ${dayIntro?`<div class="day-intro"><div class="day-intro-accent"></div><div class="day-intro-text">${dayIntro}</div></div>`:''}
         <div class="day-moments">${momentsHTML}</div>
         ${gemText?`<div class="day-gem">
           <div class="day-gem-ico">${SVG.gem}</div>
@@ -2084,6 +2106,7 @@ CAR_RENTAL_NEEDED: [If car needed: pickup, category, estimated total, best agenc
 ### END_TRANSPORT
 
 ### ${dw} 1 — [Evocative title for ${tStr}]
+[1-2 evocative sentences describing the atmosphere/vibe/character of this day — BEFORE the moment blocks. Literary, specific to ${dest} and the day's theme. This is the day's introduction, not a summary.]
 **${mw}:** [specific, with real place names + source tags]
 **${aw}:** [specific, mix paid/free, with real place names + source tags]
 **${ew}:** [restaurant with name + source tags, ~cost for ${pax}]
@@ -2175,43 +2198,92 @@ Max 1000 words. Write entirely in ${wl}.`;
       <div class="chip"><div class="chip-l">${t('labelBudget')}</div><div class="chip-v">${bStr}</div></div>
       <div class="chip"><div class="chip-l">${t('dayLabel').toLowerCase()}s</div><div class="chip-v">${days}</div></div>`;
 
-    // CTA
-    const ctaFn=t('ctaTitle');
-    const ctaTitle=typeof ctaFn==='function'?ctaFn(dest):dest;
-    const readyLabel={es:`¿Listo para ${dest}?`,en:`Ready for ${dest}?`,fr:`Prêt pour ${dest} ?`}[lang];
-    const planLabel={es:'El plan es tuyo. Solo falta reservar.',en:'The plan is yours. Just book it.',fr:'Le plan est à vous. Il ne reste qu\'à réserver.'}[lang];
-    const ctaHTML=`<div class="bottom-cta">
+    // ── Email save block + My trip block ──
+    const emailSaveLbl={es:'Guarda tu viaje',en:'Save your trip',fr:'Sauvegardez votre voyage'}[lang];
+    const emailSaveTitle={es:`Tu plan para ${dest}`,en:`Your plan for ${dest}`,fr:`Votre plan pour ${dest}`}[lang];
+    const emailSaveSub={es:'Recíbelo en tu email y accede desde cualquier dispositivo con un enlace único.',en:'Get it in your inbox and access it from any device with a unique link.',fr:'Recevez-le par email et accédez-y depuis n\'importe quel appareil.'}[lang];
+    const emailPh={es:'tu@email.com',en:'you@email.com',fr:'toi@email.com'}[lang];
+    const emailSendLbl={es:'Enviar →',en:'Send →',fr:'Envoyer →'}[lang];
+
+    const myTripTitle={es:'Mi viaje',en:'My trip',fr:'Mon voyage'}[lang];
+    const myTripEyebrow={es:'VIAJE PLANIFICADO',en:'TRIP PLANNED',fr:'VOYAGE PLANIFIÉ'}[lang];
+    const totalEstLbl={es:'TOTAL ESTIMADO',en:'ESTIMATED TOTAL',fr:'TOTAL ESTIMÉ'}[lang];
+    const addedLbl={es:'Lo que has apuntado',en:'What you\'ve noted',fr:'Ce que vous avez noté'}[lang];
+    const emptyLbl={es:'Añade lugares o experiencias desde las cards de cada día.',en:'Add places or experiences from each day\'s card.',fr:'Ajoutez des lieux ou expériences depuis les fiches journalières.'}[lang];
+    const addMoreLbl={es:'Añadir más →',en:'Add more →',fr:'Ajouter plus →'}[lang];
+    const reserveLbl={es:'Reservar todo',en:'Book everything',fr:'Tout réserver'}[lang];
+    const pdfLbl={es:'Descargar PDF',en:'Download PDF',fr:'Télécharger PDF'}[lang];
+
+    const ctaHTML=`
+    <div class="email-save-block">
+      <div class="esb-inner">
+        <div class="esb-label">${emailSaveLbl}</div>
+        <div class="esb-title">${emailSaveTitle}</div>
+        <div class="esb-sub">${emailSaveSub}</div>
+        <div class="esb-form">
+          <input type="email" id="esbEmail" class="esb-input" placeholder="${emailPh}"/>
+          <button class="esb-btn" onclick="sendEmailSave()">
+            <svg viewBox="0 0 24 24"><path d="M22 2L11 13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            ${emailSendLbl}
+          </button>
+        </div>
+        <div class="esb-ok" id="esbOk">
+          <div class="esb-ok-ico">✅</div>
+          <div class="esb-ok-txt">
+            <strong id="esbOkTitle"></strong>
+            <span id="esbOkSub"></span>
+            <a class="esb-ok-link" id="esbOkLink" onclick="copyTripLink(currentTrip?.tripId)">
+              <svg viewBox="0 0 24 24" style="width:11px;height:11px;fill:none;stroke:currentColor;stroke-width:2.5"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+              ${lang==='fr'?'Copier le lien':lang==='en'?'Copy link':'Copiar enlace'}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="my-trip-block" id="myTripBlock">
+      <div class="mtb-header">
+        <div class="mtb-header-left">
+          <div class="mtb-eyebrow">${myTripEyebrow}</div>
+          <div class="mtb-title">${dest}</div>
+        </div>
+        <div class="mtb-total">
+          <div class="mtb-total-label">${totalEstLbl}</div>
+          <div class="mtb-total-value" id="myTripTotal">—</div>
+        </div>
+      </div>
+      <div class="mtb-body">
+        <div class="mtb-meta-row">
+          <div class="mtb-meta-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>${dfv?fmtD(dfv):'—'}</div>
+          <div class="mtb-meta-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>${tStr}</div>
+          <div class="mtb-meta-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>${days} ${lang==='fr'?'jours':lang==='en'?'days':'días'}</div>
+        </div>
+        <div class="mtb-section-lbl">${addedLbl}</div>
+        <div class="mtb-items-added" id="mtbItemsAdded">
+          <div class="mtb-empty">${emptyLbl}</div>
+        </div>
+        <div class="mtb-actions">
+          <button class="mtb-action-primary" onclick="openCheckout()">
+            <svg viewBox="0 0 24 24" style="width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2.5"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><path d="M12 22V7M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+            ${reserveLbl}
+          </button>
+          <button class="mtb-action-sec" onclick="downloadPDF()">📄 ${pdfLbl}</button>
+        </div>
+        <div class="mtb-guarantees">
+          <div class="mtb-guar">${t('g1')}</div>
+          <div class="mtb-guar">${t('g2')}</div>
+          <div class="mtb-guar">${t('g3')}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom-cta">
       <div class="bcta-eyebrow">✦ TRAVEL STUDIO</div>
-      <div class="bcta-h">${readyLabel}</div>
-      <div class="bcta-sub">${planLabel}</div>
+      <div class="bcta-h">${typeof t('ctaTitle')==='function'?t('ctaTitle')(dest):dest}</div>
+      <div class="bcta-sub">${t('ctaSub')}</div>
       <div class="bcta-actions">
         <a class="bcta-btn p" href="${affUrl('flight',dest,origin)}" target="_blank">${t('ctaFlights')}</a>
         <a class="bcta-btn s" href="${affUrl('hotel',dest,'')}" target="_blank">${t('ctaHotels')}</a>
-        <div class="bcta-divider"></div>
-        <button class="bcta-btn recap" onclick="openCheckout()">📋 ${{es:'Ver resumen del viaje',en:'View trip summary',fr:'Voir le récapitulatif'}[lang]}</button>
-        <button class="bcta-btn s" onclick="downloadPDF()" style="padding:.7rem 1rem">📄 PDF</button>
-      </div>
-    </div>
-    <div class="full-recap-card" id="fullRecapCard">
-      <div class="full-recap-hero">
-        <div>
-          <div style="font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.45);margin-bottom:.35rem">${{es:'TOTAL ESTIMADO DEL VIAJE',en:'ESTIMATED TRIP TOTAL',fr:'TOTAL ESTIMÉ DU VOYAGE'}[lang]}</div>
-          <div class="full-recap-total" id="fullRecapTotal">&nbsp;</div>
-          <div style="font-size:.7rem;color:rgba(255,255,255,.4);margin-top:.25rem">${tStr} · ${days} ${lang==='fr'?'jours':lang==='en'?'days':'días'}</div>
-        </div>
-      </div>
-      <div class="full-recap-email-bar">
-        <div class="freb-left">
-          <div class="freb-ico">📧</div>
-          <div class="freb-txt">
-            <strong>${{es:'Recibir este plan por email',en:'Get this plan by email',fr:'Recevoir ce plan par email'}[lang]}</strong>
-            <span>${{es:'Itinerario completo · PDF descargable',en:'Full itinerary · Downloadable PDF',fr:'Itinéraire complet · PDF téléchargeable'}[lang]}</span>
-          </div>
-        </div>
-        <div class="freb-right">
-          <input type="email" id="fullRecapEmail" class="freb-input" placeholder="${{es:'tu@email.com',en:'you@email.com',fr:'toi@email.com'}[lang]}"/>
-          <button class="freb-btn" onclick="sendFullRecapEmail()">${{es:'Enviar →',en:'Send →',fr:'Envoyer →'}[lang]}</button>
-        </div>
       </div>
     </div>`;
 
@@ -2753,44 +2825,104 @@ function _generatePDF() {
 function populateFullRecap(recapHTML){
   if(!recapHTML)return;
   const tmp=document.createElement('div');tmp.innerHTML=recapHTML;
-  const getVal=(cls)=>{const el=tmp.querySelector(`.${cls}`);return el?el.textContent.trim():null;};
-  // Try to extract from rct-row elements
-  const rows=tmp.querySelectorAll('.rct-row');
-  const rowMap={};
-  rows.forEach(r=>{
-    const cls=r.querySelector('.rct-ico')?.className||'';
-    const val=r.querySelector('.rct-val')?.textContent.trim()||'';
-    if(cls.includes('fl'))rowMap.fl=val;
-    else if(cls.includes('ho'))rowMap.ho=val;
-    else if(cls.includes('ex'))rowMap.ex=val;
-    else if(cls.includes('fo'))rowMap.fo=val;
-  });
   const total=tmp.querySelector('.rct-total-val')?.textContent.trim()||'';
-  if(document.getElementById('frg-fl'))document.getElementById('frg-fl').textContent=rowMap.fl||'—';
-  if(document.getElementById('frg-ho'))document.getElementById('frg-ho').textContent=rowMap.ho||'—';
-  if(document.getElementById('frg-ex'))document.getElementById('frg-ex').textContent=rowMap.ex||'—';
-  if(document.getElementById('frg-fo'))document.getElementById('frg-fo').textContent=rowMap.fo||'—';
-  if(total&&document.getElementById('fullRecapTotal'))document.getElementById('fullRecapTotal').textContent=total;
+  if(total){
+    // Update myTripTotal display
+    const el=document.getElementById('myTripTotal');
+    if(el)el.textContent=total;
+  }
+}
+
+// ── Update "Mi viaje" block with current cart items ──
+function updateMyTripBlock(){
+  const block=document.getElementById('mtbItemsAdded');
+  if(!block)return;
+  if(!cart||!cart.length){
+    const emptyLbl={es:'Añade lugares o experiencias desde las cards de cada día.',en:'Add places or experiences from each day\'s card.',fr:'Ajoutez des lieux depuis les fiches journalières.'}[lang]||'';
+    block.innerHTML=`<div class="mtb-empty">${emptyLbl}</div>`;
+    return;
+  }
+  block.innerHTML=cart.map(item=>{
+    const bookHref=item.ico==='✈️'?affUrl('flight',currentTrip?.dest||'',currentTrip?.origin||''):
+      item.ico==='🏨'||item.ico==='🏠'?affUrl('hotel',currentTrip?.dest||'',''):
+      item.ico==='🚆'?affUrl('train',currentTrip?.dest||'',currentTrip?.origin||''):'#';
+    const bookLbl={es:'Ver →',en:'View →',fr:'Voir →'}[lang]||'View →';
+    const priceDisp=item.price&&item.price!=='0'&&item.price!==0?`~${item.price}`:'';
+    return`<div class="mtb-item-row">
+      <div class="mtb-item-ico">${item.ico||'📍'}</div>
+      <div class="mtb-item-name">${item.label}</div>
+      ${priceDisp?`<div class="mtb-item-price">${priceDisp}</div>`:''}
+      <a class="mtb-item-book" href="${bookHref}" target="_blank">${bookLbl}</a>
+    </div>`;
+  }).join('');
+}
+
+// ── Send email + save trip link ──
+async function sendEmailSave(){
+  const emailEl=document.getElementById('esbEmail');
+  if(!emailEl)return;
+  const email=emailEl.value.trim();
+  if(!email||!email.includes('@')){
+    emailEl.style.borderColor='rgba(248,113,113,.6)';
+    emailEl.focus();return;
+  }
+  const btn=emailEl.nextElementSibling;
+  if(btn){btn.disabled=true;btn.style.opacity='.6';}
+
+  // Ensure trip is saved and has a tripId + URL
+  if(currentTrip&&!currentTrip.tripId){
+    currentTrip.tripId='ts_'+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+  }
+  if(currentTrip?.tripId){
+    try{localStorage.setItem('ts_trip_'+currentTrip.tripId,JSON.stringify(currentTrip));}catch(e){}
+    const idx=saved.findIndex(s=>s.tripId===currentTrip.tripId||s.dest===currentTrip.dest);
+    if(idx>=0)saved[idx]=currentTrip;else saved.unshift(currentTrip);
+    if(saved.length>30)saved.length=30;
+    saveSaved();updateSavedCount();
+    window.history.replaceState(null,'',window.location.pathname+'#viaje='+currentTrip.tripId);
+  }
+
+  const tripUrl=currentTrip?.tripId?getTripUrl(currentTrip.tripId):'';
+  const dest=currentTrip?.dest||document.getElementById('dest')?.value||'';
+
+  try{
+    await fetch('/api/email',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({email,
+        tripName:currentTrip?.tripName||dest,
+        dest,lang,
+        tripId:currentTrip?.tripId||'',
+        tripUrl,
+        itinerary:currentTrip?.introHTML||''
+      })});
+    // Show success state
+    emailEl.style.display='none';
+    if(btn)btn.style.display='none';
+    const ok=document.getElementById('esbOk');
+    if(ok){
+      const okTitle={es:`✅ Enviado a ${email}`,en:`✅ Sent to ${email}`,fr:`✅ Envoyé à ${email}`}[lang];
+      const okSub={es:'Tu itinerario está en camino. Incluye un enlace para volver a este plan desde cualquier dispositivo.',en:'Your itinerary is on its way. It includes a link to return to this plan from any device.',fr:'Votre itinéraire est en route. Il contient un lien pour retrouver ce plan sur n\'importe quel appareil.'}[lang];
+      document.getElementById('esbOkTitle').textContent=okTitle;
+      document.getElementById('esbOkSub').textContent=okSub;
+      ok.style.display='flex';
+    }
+  }catch(e){
+    if(btn){btn.disabled=false;btn.style.opacity='1';}
+    // Show manual link fallback
+    const ok=document.getElementById('esbOk');
+    if(ok){
+      const errTitle={es:'Error al enviar. Guarda el enlace:',en:'Send error. Save the link:',fr:'Erreur. Sauvegardez le lien :'}[lang];
+      document.getElementById('esbOkTitle').textContent=errTitle;
+      document.getElementById('esbOkSub').textContent=tripUrl||window.location.href;
+      ok.style.display='flex';
+    }
+  }
 }
 
 async function sendFullRecapEmail(){
+  // Legacy wrapper — delegates to sendEmailSave
   const emailEl=document.getElementById('fullRecapEmail');
-  if(!emailEl)return;
-  const email=emailEl.value.trim();
-  if(!email||!email.includes('@')){emailEl.style.borderColor='#F87171';emailEl.focus();return;}
-  const btn=emailEl.nextElementSibling;if(btn)btn.disabled=true;
-  try{
-    // Save trip before sending email so URL works
-    if(currentTrip&&!currentTrip.tripId){ saveCurrentTrip(); }
-    const tripUrl = currentTrip?.tripId ? getTripUrl(currentTrip.tripId) : '';
-    await fetch('/api/email',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({email,tripName:currentTrip?.tripName||currentTrip?.dest||'',dest:currentTrip?.dest||'',lang,tripUrl})});
-    emailEl.value='';
-    const ok=document.createElement('div');ok.className='freb-ok';
-    ok.textContent={es:'✓ En camino a tu bandeja',en:'✓ On its way to your inbox',fr:'✓ En route vers votre boîte mail'}[lang]||'✓ Enviado';
-    emailEl.parentNode.replaceChild(ok,emailEl);
-    if(btn)btn.remove();
-  }catch(e){if(btn)btn.disabled=false;}
+  if(emailEl){document.getElementById('esbEmail')?.value===''&&(document.getElementById('esbEmail').value=emailEl.value);}
+  sendEmailSave();
 }
 
 // ═══════════════════════════════════
