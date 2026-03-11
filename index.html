@@ -1876,7 +1876,7 @@ BUDGET_MATCH: [1 honest sentence: does it fit the ${bStr} budget?]
 DAY_RECAP: [one line per day: "${dw} 1: X + Y + Z — ~€N/person"]
 ACCOMMODATION: [3 options for ${bStr} budget + ${tStr}: name, neighbourhood, €X–Y/night, why it suits ${tStr}]
 
-Max 1150 words. Write entirely in ${wl}.`;
+Max 900 words. Write entirely in ${wl}.`;
 
   function setProgress(pct){
     const bar=document.getElementById('streamBar');
@@ -1886,47 +1886,33 @@ Max 1150 words. Write entirely in ${wl}.`;
   }
 
   try{
-    const res=await fetch('/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:2200,stream:true,messages:[{role:'user',content:prompt}]})});
-    if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error(e?.error||`HTTP ${res.status}`);}
-
-    // SSE streaming read
-    let raw='';
-    const reader=res.body.getReader();
-    const dec=new TextDecoder();
-    let buf='',tokensSeen=0;
-    const EST=1600;
+    // Non-streaming with progress animation
     setProgress(5);
+    const progressAnim=setInterval(()=>{
+      const bar=document.getElementById('streamBar');
+      if(bar){const cur=parseFloat(bar.style.width)||5;if(cur<88)bar.style.width=Math.min(88,cur+2.5)+'%';}
+    },1200);
 
-    while(true){
-      const{done,value}=await reader.read();
-      if(done) break;
-      buf+=dec.decode(value,{stream:true});
-      const lines=buf.split('\n');buf=lines.pop();
-      for(const line of lines){
-        if(!line.startsWith('data: ')) continue;
-        const payload=line.slice(6).trim();
-        if(payload==='[DONE]') continue;
-        try{
-          const ev=JSON.parse(payload);
-          if(ev.type==='content_block_delta'&&ev.delta&&ev.delta.type==='text_delta'){
-            raw+=ev.delta.text;
-            tokensSeen+=ev.delta.text.length/4;
-            const pct=Math.min(95,5+Math.round((tokensSeen/EST)*90));
-            setProgress(pct);
-            const dm=raw.match(/###\s*(?:Jour|Day|D\u00eda)\s*(\d+)/gi);
-            if(dm&&dm.length){
-              const n=dm[dm.length-1].match(/(\d+)/)[1];
-              const dw2={es:'D\u00eda',en:'Day',fr:'Jour'}[lang]||'Day';
-              document.getElementById('ltxt').textContent=dw2+' '+n+'...';
-            }
-          }
-        }catch(e2){}
-      }
-    }
+    const controller=new AbortController();
+    const timeout=setTimeout(()=>controller.abort(),90000);
+    let raw='';
+    try{
+      const res=await fetch('/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},
+        signal:controller.signal,
+        body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1800,messages:[{role:'user',content:prompt}]})});
+      clearTimeout(timeout);
+      if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error(e?.error||`HTTP ${res.status}`);}
+      const data=await res.json();
+      raw=(data.content||[]).map(b=>b.text||'').join('').trim();
+    }catch(fetchErr){
+      clearTimeout(timeout);
+      if(fetchErr.name==='AbortError') throw new Error({es:'Tiempo de espera agotado. Verifica tu conexión e inténtalo de nuevo.',en:'Request timed out. Check your connection and try again.',fr:'Délai dépassé. Vérifiez votre connexion et réessayez.'}[lang]||'Timeout');
+      throw fetchErr;
+    }finally{clearInterval(progressAnim);}
+
     setProgress(100);
-    if(!raw.trim()) throw new Error('Empty response');
-    setTimeout(()=>setProgress(0),500);
+    if(!raw.trim()) throw new Error('Empty response from API');
+    setTimeout(()=>setProgress(0),400);
 
     clearInterval(iv);document.getElementById('loadBox').classList.remove('on');
 
@@ -2007,9 +1993,26 @@ Max 1150 words. Write entirely in ${wl}.`;
     });
 
   }catch(e){
-    clearInterval(iv);document.getElementById('loadBox').classList.remove('on');
+    clearInterval(iv);
+    document.getElementById('loadBox').classList.remove('on');
+    document.getElementById('destFactCard').style.display='none';
+    const prog=document.getElementById('streamProgress');if(prog)prog.classList.remove('on');
     document.getElementById('resultSection').classList.add('on');
-    document.getElementById('timeline').innerHTML=`<div class="err-box"><strong>Error:</strong> ${e.message}<br/><br/>Verifica <code>ANTHROPIC_API_KEY</code> en Vercel → Settings → Environment Variables.</div>`;
+    const errMsg=e.message||'Unknown error';
+    const isKey=errMsg.includes('401')||errMsg.includes('API key')||errMsg.includes('authentication');
+    const isTimeout=errMsg.includes('timeout')||errMsg.includes('Timeout')||errMsg.includes('agotado')||errMsg.includes('dépassé');
+    const hint=isKey
+      ? {es:'Verifica que <code>ANTHROPIC_API_KEY</code> está configurada en Vercel → Settings → Environment Variables.',en:'Check that <code>ANTHROPIC_API_KEY</code> is set in Vercel → Settings → Environment Variables.',fr:'Vérifiez que <code>ANTHROPIC_API_KEY</code> est configurée dans Vercel → Settings → Environment Variables.'}[lang]
+      : isTimeout
+      ? {es:'La generación tardó demasiado. Intenta con un destino diferente o vuelve a intentarlo.',en:'Generation took too long. Try a different destination or try again.',fr:'La génération a pris trop de temps. Essayez une autre destination ou réessayez.'}[lang]
+      : {es:'Error de conexión. Comprueba tu internet e inténtalo de nuevo.',en:'Connection error. Check your internet and try again.',fr:'Erreur de connexion. Vérifiez votre connexion et réessayez.'}[lang];
+    document.getElementById('timeline').innerHTML=`<div style="padding:2rem;background:#fff;border-radius:16px;border:1.5px solid #FCA5A5;margin:1rem 0">
+      <div style="font-size:1.5rem;margin-bottom:.5rem">⚠️</div>
+      <div style="font-weight:700;color:#0F172A;margin-bottom:.5rem">${{es:'Algo salió mal',en:'Something went wrong',fr:'Quelque chose a mal tourné'}[lang]}</div>
+      <div style="font-size:.82rem;color:#475569;margin-bottom:.75rem">${errMsg}</div>
+      <div style="font-size:.78rem;color:#64748B">${hint||''}</div>
+      <button onclick="document.getElementById('resultSection').classList.remove('on');window.scrollTo({top:0,behavior:'smooth'})" style="margin-top:1rem;padding:.5rem 1.2rem;background:#0F172A;color:#fff;border:none;border-radius:9px;font-size:.78rem;font-weight:700;cursor:pointer">${{es:'← Volver al formulario',en:'← Back to form',fr:'← Retour au formulaire'}[lang]}</button>
+    </div>`;
   }
   btn.disabled=false;
 }
