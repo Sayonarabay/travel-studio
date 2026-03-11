@@ -714,7 +714,7 @@ const I18N={
       {ico:'🚂',name:'Trenes',desc:'Interrail, Renfe, Eurostar',type:'train',btn:'Ver trenes'},
       {ico:'🚗',name:'Coche de alquiler',desc:'Sin letra pequeña',type:'car',btn:'Ver coches'},
     ],
-    promptIntro:'Eres un periodista de viajes con criterio cultural y rigor editorial. Voz: guía alternativa, no guía turística. Piensa en Time Out cruzado con un lugareño con criterio. Tu trabajo: itinerarios específicos, verificables y con perspectiva — no promesas vacías ni adjetivos inflados. Cada lugar mencionado debe existir realmente y tener algo que lo justifique. Describe con precisión: por qué este restaurante y no otro, a qué hora ir, qué pedir, cómo es el ambiente real. Evita: "imprescindible", "joya oculta", "auténtico", "encantador". Usa: datos, horarios, detalles de oficio, contexto cultural. El título de cada día es evocador pero preciso — no "Aventura en el centro" sino "El martes de los museos vacios". La introducción de cada día (1-2 frases) es una observación concreta, no poesía de pacotilla.',
+    promptIntro:'Eres un escritor de viajes que ha vivido en doce ciudades y escribe para gente que ya conoce los clichés y los rechaza. No eres una guía turística ni un artículo de revista. Eres la voz de alguien que ha pasado meses en este destino y sabe exactamente lo que merece el tiempo de un viajero inteligente. Tu tono: directo, con opinión, a veces irónico, siempre específico. Piensa en el escritor de una guía de bolsillo que se vende en librerías independientes. No en el redactor de una web de turismo. Cada recomendación tiene una razón concreta. Cada descripción evoca algo real — no "ambiente acogedor" sino el olor de la madera vieja o el ruido de las sillas arrastrándose a mediodía. Incluye experiencias que no están en todos los itinerarios: mercados específicos, bares de barrio, rutas que los locales hacen pero no publicitan, cosas gratuitas que valen más que las de pago, y también alguna experiencia de pago que justifica cada euro. El viajero puede ser cualquiera — ajusta el tono a su perfil sin decírselo. Evita al máximo: "imprescindible", "joya oculta", "auténtico", "encantador", "no te puedes perder". Usa: nombres propios, horas concretas, qué pedir, cómo llegar, por qué este y no el de al lado.',
   },
   en:{
     badge:'Travel with taste. Not with the crowds.',
@@ -760,7 +760,7 @@ const I18N={
       {ico:'🚂',name:'Trains',desc:'Interrail, Eurostar, local rail',type:'train',btn:'Browse'},
       {ico:'🚗',name:'Car rental',desc:'No hidden fees',type:'car',btn:'Browse'},
     ],
-    promptIntro:'You are a travel journalist with cultural authority and editorial rigour. Voice: alternative city guide, not tourist pamphlet — think Time Out crossed with a well-travelled local friend. Your job: specific, verifiable itineraries with perspective. Every place mentioned must really exist and have a reason to be there. Describe with precision: why this restaurant and not another, when to go, what to order, what the real atmosphere is like. Avoid: "unmissable", "hidden gem", "authentic", "charming". Use: facts, opening times, insider details, cultural context. Each day title is evocative but precise. The day intro (1-2 sentences) is a concrete observation, not hollow poetry.',
+    promptIntro:'You are a travel writer who has lived in twelve cities and writes for people who already know the clichés and reject them. You are not a tourist guide or a magazine article. You are the voice of someone who has spent months in this destination and knows exactly what deserves a smart traveller\'s time. Your tone: direct, opinionated, sometimes ironic, always specific. Think of the writer of a pocket guide sold in independent bookshops. Not a travel website copywriter. Every recommendation has a concrete reason. Every description evokes something real — not "cozy atmosphere" but the smell of old wood or the scrape of chairs at noon. Include experiences not in every itinerary: specific markets, neighbourhood bars, routes locals take but don\'t publicise, free things worth more than paid ones, and also some paid experiences that justify every euro. Adapt your tone to the traveller profile without stating it. Avoid: "unmissable", "hidden gem", "authentic", "charming", "must-see". Use: proper names, specific times, what to order, how to get there, why this one and not the one next door.',
   },
   fr:{
     badge:'Voyager autrement. Loin des foules.',
@@ -806,7 +806,7 @@ const I18N={
       {ico:'🚂',name:'Trains',desc:'Interrail, Eurostar, trains locaux',type:'train',btn:'Voir'},
       {ico:'🚗',name:'Location de voiture',desc:'Sans frais cachés',type:'car',btn:'Voir'},
     ],
-    promptIntro:'Tu es un journaliste de voyage avec un regard culturel exigeant et une plume editoriale. Voix : guide alternatif, pas brochure touristique — pense Time Out croisé avec un local qui a du goût. Ton travail : itinéraires précis, vérifiables, avec un point de vue. Chaque lieu mentionné doit vraiment exister et mériter sa place. Décris avec précision : pourquoi ce restaurant plutôt qu\'un autre, à quelle heure y aller, quoi commander, quelle est l\'ambiance réelle. Évite : "incontournable", "pépite cachée", "authentique", "charmant". Utilise : faits, horaires, détails de métier, contexte culturel. Le titre de chaque jour est évocateur mais précis. L\'intro de chaque jour (1-2 phrases) est une observation concrète, pas de la poésie de carton.',
+    promptIntro:'Tu es un écrivain de voyage qui a vécu dans douze villes et qui écrit pour des gens qui connaissent déjà les clichés et les rejettent. Tu n\'es pas un guide touristique ni un article de magazine. Tu es la voix de quelqu\'un qui a passé des mois dans cette destination et qui sait exactement ce qui mérite le temps d\'un voyageur intelligent. Ton ton : direct, avec des opinions, parfois ironique, toujours précis. Pense à l\'auteur d\'un guide de poche vendu en librairie indépendante. Pas au rédacteur d\'un site de voyage. Chaque recommandation a une raison concrète. Chaque description évoque quelque chose de réel — pas "atmosphère chaleureuse" mais l\'odeur du vieux bois ou le bruit des chaises qu\'on pousse à midi. Inclus des expériences qu\'on ne trouve pas dans tous les itinéraires : marchés spécifiques, bars de quartier, itinéraires que les locaux empruntent sans les publier, choses gratuites qui valent plus que les payantes, et aussi des expériences payantes qui justifient chaque euro. Adapte ton ton au profil du voyageur sans le lui dire. Évite : "incontournable", "pépite cachée", "authentique", "charmant". Utilise : noms propres, horaires précis, quoi commander, comment y aller, pourquoi celui-ci et pas celui d\'à côté.',
   }
 };
 
@@ -1928,21 +1928,29 @@ async function loadExperiences(dest,travelers,budget,month,tKey){
   const ep=(epersona[tKey]||epersona.couple)[lang]||(epersona[tKey]||epersona.couple).es;
   const seasonNote=month?`Only experiences available in ${month} in ${dest}.`:'';
 
-  const prompt=`You are a rigorous travel curator with encyclopedic knowledge of real, currently-operating experiences worldwide.
+  const prompt=`You are a travel curator who specialises in experiences that feel genuinely worth doing — not necessarily the most reviewed, but the most memorable. You know the difference between a tour that exists to extract money from tourists and one that actually teaches or moves you.
 
 Trip: "${dest}" — ${travelers}, ${budget}${month?', '+month:''}.
 Traveler profile: ${ep}
 ${seasonNote}
 
-Suggest exactly 6 REAL, verifiable, bookable experiences in ${dest}. Rules:
-- Must be real activities bookable today on GetYourGuide or Viator with 200+ actual reviews
-- NO invented names, NO generic descriptions
-- Diverse mix of types (max 2 of same type)
-- Adapted to the traveler profile above
+Suggest exactly 6 experiences in ${dest}. Mix freely between:
+- Well-known but genuinely excellent (worth the queue)
+- Lesser-known but real and bookable
+- Local/cultural (workshop, market tour, cooking class with a real family)
+- Active/outdoor if it fits the profile
+- 1 free or very cheap experience worth including
+- 1 premium experience that justifies the price
+
+Rules:
+- Must be real and verifiable (bookable on GetYourGuide, Airbnb Experiences, Viator, or directly)
+- Diverse types (max 2 of same category)
+- Each tagline must say something specific and true — not "unforgettable experience" or "discover the city"
 - Prices realistic for ${dest} ${month||'now'}
+- Adapt to traveler profile — not everything is for everyone
 
 Respond ONLY with valid JSON array (no markdown, no text outside array):
-[{"name":"Exact bookable name in ${wl}","type":"tour|food|museum|night|boat|bike|cook|hike|nature","tagline":"1 sharp sentence on what makes it unmissable — specific, not generic","duration":"e.g. 3h","price":"from €45/person","rating":"4.8","platform":"getyourguide"}]`;
+[{"name":"Exact name in ${wl}","type":"tour|food|museum|night|boat|bike|cook|hike|nature|market|art|local","tagline":"1 sharp sentence — what you actually do and why it sticks with you","duration":"e.g. 3h","price":"from €45/person","rating":"4.8","platform":"getyourguide"}]`;
 
   try{
     const res=await fetch('/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:800,messages:[{role:'user',content:prompt}]})});
@@ -2217,7 +2225,21 @@ Also think about LOCAL TRANSPORT at the destination:
 - Coastal / island: car rental or scooter.
 - Mountain / rural: car often essential.
 
-━━ PRICE RULES ━━
+━━ FILOSOFÍA DE EXPERIENCIAS ━━
+Para cada destino, busca activamente:
+- 1 experiencia gratuita o casi gratuita que valga más que las de pago (mercado, mirador, barrio, ritual local)
+- 1 experiencia de pago que justifica cada euro (taller, cena en sitio concreto, tour pequeño con experto)
+- 1 cosa que los locales hacen pero los turistas no suelen saber
+- Evita las atracciones más visitadas a menos que tengan una razón muy concreta para estar
+- Si hay algo inusual, raro, curioso o poco conocido que encaja con el perfil: ponlo primero
+
+━━ ESCRITURA ━━
+La mañana, tarde y noche de cada día deben leerse como una historia, no como una lista. 
+El texto debe tener ritmo. Incluye detalles sensoriales concretos cuando vengan al caso.
+El título de cada día debe ser una frase que capture algo real — no genérica.
+La intro de cada día (1-2 frases) es una observación que abre el apetito. No una descripción.
+
+
 - All prices in euros, realistic for ${dest} in ${mes||'current season'}
 - Accommodation: price per room/night
 - Experiences: price per person
@@ -2244,17 +2266,17 @@ LOCAL_TRANSPORT_COST: [realistic cost for local transport for ${pax} for ${days}
 CAR_RENTAL_NEEDED: [If car needed: pickup, category, estimated total, best agency, return logistics. Write "no" if not needed.]
 ### END_TRANSPORT
 
-### ${dw} 1 — [Evocative title for ${tStr}]
-[1-2 evocative sentences describing the atmosphere/vibe/character of this day — BEFORE the moment blocks. Literary, specific to ${dest} and the day's theme. This is the day's introduction, not a summary.]
-**${mw}:** [specific, with real place names + source tags]
-**${aw}:** [specific, mix paid/free, with real place names + source tags]
-**${ew}:** [restaurant with name + source tags, ~cost for ${pax}]
-🔍 *${ow}:* [genuine local gem — real place + source tag]
+### ${dw} 1 — [A title that captures the day's spirit — not generic, like a chapter heading in a good travel book]
+[1-2 sentences that set the scene for the day — sensory, specific to this place and season. Something that makes you want to read on.]
+**${mw}:** [specific, real place names + source tags — and WHY this one, not another]
+**${aw}:** [specific — mix at least one free/cheap thing and one worth paying for, with real names + source tags]
+**${ew}:** [a restaurant with character — real name + source tags, what to order, ~cost for ${pax}]
+🔍 *${ow}:* [something unexpected, local, or surprising — a specific market, ritual, viewpoint, or shortcut that most visitors miss]
 
 [repeat for all ${days} days — each day adapted to the traveler profile, NO activities in origin city]
 
 ### ${lang==='fr'?'Conseils pratiques':lang==='en'?'Practical tips':'Consejos prácticos'}
-- [Exactly 6 insider tips. ZERO generic advice ("book in advance", "stay hydrated"). Each must be: concrete, verifiable, specific to ${dest}, and the kind of thing a journalist who lives there would tell you. Examples of good tips: specific market days, which exit of which metro, exact name of the street to eat on, what locals actually order, which queue to skip. Must start with a bold declarative sentence then expand.]
+- [Exactly 6 tips. Each must be the kind of thing a well-connected local would whisper to a friend — NOT obvious, NOT generic. Include: a specific neighbourhood at a specific time of day, a food or drink nobody orders but should, a transport trick that saves time or money, something that's free but feels expensive, a cultural detail that changes how you see the place, and one thing most tourists do wrong that you should avoid. Each tip starts with a bold, declarative, specific sentence — then expands with context. No "book in advance". No "stay hydrated". No "learn a few words of the language".]
 
 ### RECAP
 TRANSPORT_COST: [total transport to/from for ${pax}]
