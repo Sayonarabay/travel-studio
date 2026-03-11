@@ -64,27 +64,42 @@ textarea{resize:none;height:56px;font-size:.83rem}
 .btn-gen{width:100%;padding:.9rem;border:none;border-radius:var(--r);background:linear-gradient(135deg,var(--teal-dark),#0D9488);color:#fff;font-family:'Inter',sans-serif;font-weight:700;font-size:.88rem;cursor:pointer;transition:all .2s;margin-top:.4rem;display:flex;align-items:center;justify-content:center;gap:.45rem;box-shadow:0 4px 16px rgba(15,118,110,.28)}
 .btn-gen:hover{transform:translateY(-1px);box-shadow:0 6px 22px rgba(15,118,110,.38)}
 .btn-gen:disabled{opacity:.38;cursor:not-allowed;transform:none}
-#loadBox{display:none;padding:1.4rem;text-align:center}
+#loadBox{display:none;padding:2rem 1.4rem;text-align:center;background:#fff;border-top:3px solid var(--teal-dark)}
 #loadBox.on{display:block}
-.dots{display:flex;gap:.38rem;justify-content:center;margin-bottom:.7rem}
-.dot{width:7px;height:7px;background:var(--teal-dark);border-radius:50%;animation:pulse 1.3s ease infinite}
-.dot:nth-child(2){animation-delay:.2s}.dot:nth-child(3){animation-delay:.4s}
-#ltxt{font-size:.75rem;color:var(--muted);font-weight:500}
+.load-inner{display:flex;flex-direction:column;align-items:center;gap:1.4rem;padding:1rem 0}
+.load-orb{position:relative;width:72px;height:72px;flex-shrink:0}
+.load-orb-ring{position:absolute;inset:0;border-radius:50%;border:2.5px solid transparent;border-top-color:var(--teal-dark);animation:spin 1.4s linear infinite}
+.load-orb-ring.r2{inset:8px;border-top-color:var(--teal);animation-duration:0.9s;animation-direction:reverse}
+.load-orb-ring.r3{inset:18px;border-top-color:rgba(45,212,191,.35);animation-duration:2s}
+.load-orb-core{position:absolute;inset:20px;border-radius:50%;background:linear-gradient(135deg,var(--teal-dark),var(--teal));box-shadow:0 0 16px rgba(45,212,191,.4)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.load-dest-name{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--ink);text-align:center;letter-spacing:-.01em}
+.load-txt{font-family:'Playfair Display',serif;font-size:.95rem;font-style:italic;color:var(--ink2);text-align:center;max-width:30ch;line-height:1.65;min-height:3rem;transition:opacity .3s}
+.load-time{font-size:.68rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;text-align:center}
+.dest-fact-card{background:linear-gradient(135deg,#F0FDFA,#E0F2FE);border:1.5px solid rgba(15,118,110,.2);border-radius:18px;padding:1.1rem 1.5rem;max-width:360px;text-align:left}
+.dfc-label{font-size:.58rem;font-weight:800;text-transform:uppercase;letter-spacing:.18em;color:var(--teal-dark);margin-bottom:.5rem}
+.dfc-fact{font-size:.87rem;color:var(--ink2);line-height:1.7}
+.dfc-fact strong{color:var(--ink)}
+#streamProgress{width:100%;max-width:320px;height:3px;background:#E2E8F0;border-radius:3px;overflow:hidden;display:none}
+#streamProgress.on{display:block}
+#streamBar{height:100%;width:0%;background:linear-gradient(90deg,var(--teal),var(--teal-dark));border-radius:3px;transition:width .5s ease}
+/* Trip hero h1 */
+.trip-dest{font-family:'Playfair Display',serif;font-size:clamp(2.6rem,5vw,4.4rem);font-weight:700;color:#fff;line-height:1.0;margin-bottom:1.1rem;text-shadow:0 2px 32px rgba(0,0,0,.4)}
+.trip-dest em{font-style:italic;background:linear-gradient(135deg,#5EEAD4,#BAE6FD);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 
 /* ── RESULT ── */
 #resultSection{display:none;background:var(--bg)}
 #resultSection.on{display:block}
 
 /* Trip hero header */
-.trip-hero{position:relative;overflow:hidden;margin-bottom:0}
-.trip-hero-img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 8s ease}
-.trip-hero:hover .trip-hero-img{transform:scale(1.04)}
-.trip-hero-overlay{display:none}
-.trip-hero-content{position:relative;z-index:2;padding:2.8rem 3.5rem 2rem}
-.trip-eyebrow{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.22em;color:var(--teal);margin-bottom:.5rem;opacity:.8}
+.trip-hero{position:relative;overflow:hidden;margin-bottom:0;min-height:280px;display:flex;flex-direction:column;justify-content:flex-end}
+.trip-hero-grad{position:absolute;inset:0;background:linear-gradient(135deg,#0f172a,#1e3a5f,#0f766e);transition:background 0.8s ease}
+.trip-hero-grain{position:absolute;inset:0;opacity:.04;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:200px}
+.trip-hero-content{position:relative;z-index:2;padding:3rem 3.5rem 2rem}
+.trip-eyebrow{font-size:.58rem;font-weight:800;text-transform:uppercase;letter-spacing:.28em;color:var(--teal);margin-bottom:.7rem;opacity:.9}
 .trip-name{font-size:.68rem;display:none}
-.trip-dest{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,4.5vw,3.8rem);font-weight:700;color:#fff;line-height:1.0;margin-bottom:1rem;text-shadow:0 2px 20px rgba(0,0,0,.3)}
-.trip-dest em{font-style:italic;background:linear-gradient(135deg,var(--teal),#67E8F9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.trip-dest{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,5vw,4.2rem);font-weight:700;color:#fff;line-height:1.0;margin-bottom:1.2rem;text-shadow:0 4px 32px rgba(0,0,0,.4)}
+.trip-dest em{font-style:italic;background:linear-gradient(135deg,#5EEAD4,#BAE6FD);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:inline}
 .trip-chips{display:flex;gap:.45rem;flex-wrap:wrap}
 .chip{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:100px;padding:.28rem .8rem;display:inline-flex;gap:.4rem;align-items:center;backdrop-filter:blur(6px)}
 .chip-l{font-size:.55rem;color:rgba(255,255,255,.5);font-weight:600;text-transform:uppercase;letter-spacing:.06em}
@@ -312,8 +327,17 @@ textarea{resize:none;height:56px;font-size:.83rem}
 .ci-info{flex:1;min-width:0}
 .ci-name{font-size:.74rem;font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ci-price{font-size:.62rem;color:var(--muted);margin-top:.05rem}
-.ci-aff{font-size:.61rem;font-weight:700;color:var(--teal-dark);text-decoration:none;padding:.15rem .4rem;border-radius:5px;background:#F0FDFA;border:1px solid #99F6E4;white-space:nowrap;flex-shrink:0;transition:all .15s}
-.ci-aff:hover{background:var(--teal-dark);color:#fff}
+.ci-aff{display:inline-flex;align-items:center;font-size:.63rem;font-weight:700;text-decoration:none;padding:.2rem .5rem;border-radius:7px;white-space:nowrap;flex-shrink:0;transition:all .15s;gap:.18rem}
+.ci-aff:hover{opacity:.8}
+.ci-aff-flight{background:#EFF6FF;color:#1D4ED8;border:1px solid #BFDBFE}.ci-aff-flight:hover{background:#1D4ED8;color:#fff}
+.ci-aff-train{background:#F5F3FF;color:#5B21B6;border:1px solid #DDD6FE}.ci-aff-train:hover{background:#5B21B6;color:#fff}
+.ci-aff-hotel{background:#F0FDF4;color:#065F46;border:1px solid #BBF7D0}.ci-aff-hotel:hover{background:#065F46;color:#fff}
+.ci-aff-car{background:#FFFBEB;color:#B45309;border:1px solid #FDE68A}.ci-aff-car:hover{background:#B45309;color:#fff}
+.ci-aff-act{background:#F0FDFA;color:var(--teal-dark);border:1px solid #99F6E4}.ci-aff-act:hover{background:var(--teal-dark);color:#fff}
+.ci-aff-rest{background:#FFF7ED;color:#C2410C;border:1px solid #FED7AA}.ci-aff-rest:hover{background:#C2410C;color:#fff}
+.ci-action-block{display:flex;flex-direction:column;gap:.45rem;margin-top:.75rem;padding-top:.75rem;border-top:1px solid var(--border)}
+.ci-action-main{width:100%;padding:.7rem;border:none;border-radius:10px;background:linear-gradient(135deg,var(--teal-dark),#0D9488);color:#fff;font-weight:700;font-size:.8rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.38rem;transition:opacity .2s}.ci-action-main:hover{opacity:.9}
+.ci-action-sec{width:100%;padding:.55rem;border:1.5px solid var(--border);border-radius:10px;background:#fff;color:var(--ink);font-weight:600;font-size:.76rem;cursor:pointer;transition:all .18s}.ci-action-sec:hover{border-color:var(--ink)}
 .ci-del{background:none;border:none;color:var(--muted);cursor:pointer;font-size:.7rem;padding:.1rem .25rem;flex-shrink:0}
 .ci-del:hover{color:#F87171}
 .ci-grand-total{display:flex;justify-content:space-between;align-items:center;padding:.7rem .3rem .15rem;border-top:2px solid var(--border);margin-top:.3rem;font-size:.76rem;font-weight:700;color:var(--ink)}
@@ -405,6 +429,23 @@ textarea{resize:none;height:56px;font-size:.83rem}
 .m-pdf-btn:hover{background:var(--teal-dark);color:#fff}
 .m-pdf-btn svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:2}
 
+/* Recap email bar */
+.recap-email-bar{background:linear-gradient(135deg,#0F172A,#0F3460);border-radius:16px;padding:1.2rem 1.6rem;margin-top:.8rem}
+.reb-content{display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap}
+.reb-left{display:flex;align-items:center;gap:.8rem}
+.reb-ico{font-size:1.4rem;flex-shrink:0}
+.reb-txt{color:rgba(255,255,255,.9);font-size:.82rem;line-height:1.5}
+.reb-txt strong{display:block;color:#fff;font-size:.87rem;margin-bottom:.1rem}
+.reb-txt span{color:rgba(255,255,255,.5);font-size:.72rem}
+.reb-right{display:flex;gap:.5rem;align-items:center;flex-shrink:0;flex-wrap:wrap}
+.reb-input{padding:.48rem .9rem;border-radius:9px;border:1.5px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);color:#fff;font-size:.82rem;outline:none;width:190px;font-family:'Inter',sans-serif;transition:border-color .18s}
+.reb-input::placeholder{color:rgba(255,255,255,.32)}
+.reb-input:focus{border-color:var(--teal)}
+.reb-send{padding:.48rem 1rem;background:var(--teal-dark);color:#fff;border:none;border-radius:9px;font-size:.78rem;font-weight:700;cursor:pointer;white-space:nowrap;transition:opacity .18s}
+.reb-send:hover{opacity:.88}
+.reb-pdf{padding:.48rem .85rem;background:rgba(255,255,255,.09);color:rgba(255,255,255,.8);border:1.5px solid rgba(255,255,255,.2);border-radius:9px;font-size:.75rem;font-weight:700;cursor:pointer;white-space:nowrap;transition:all .18s}
+.reb-pdf:hover{background:rgba(255,255,255,.16);color:#fff}
+.reb-ok{color:var(--teal);font-weight:600;font-size:.88rem;text-align:center;padding:.4rem 0}
 /* ── Experience micro-buttons inside moments ── */
 .moment-exp-btns{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.7rem;padding-top:.55rem;border-top:1px solid var(--border)}
 .exp-micro{display:inline-flex;align-items:center;gap:.3rem;padding:.28rem .65rem;border-radius:100px;font-size:.64rem;font-weight:700;cursor:pointer;border:1.5px solid transparent;transition:all .18s;white-space:nowrap;background:#F8FAFC;border-color:var(--border);color:var(--ink2)}
@@ -521,23 +562,35 @@ textarea{resize:none;height:56px;font-size:.83rem}
       <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
       <span data-i="btnGen"></span>
     </button>
-    <div id="loadBox"><div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div><p id="ltxt"></p></div>
+    <div id="loadBox">
+      <div class="load-inner">
+        <div class="load-orb"><div class="load-orb-ring"></div><div class="load-orb-ring r2"></div><div class="load-orb-ring r3"></div><div class="load-orb-core"></div></div>
+        <div id="loadDestName" class="load-dest-name" style="display:none"></div>
+        <p id="ltxt" class="load-txt"></p>
+        <div id="loadTimeEst" class="load-time" style="display:none"></div>
+        <div id="streamProgress"><div id="streamBar"></div></div>
+        <div id="destFactCard" class="dest-fact-card" style="display:none">
+          <div id="dfcLabel" class="dfc-label"></div>
+          <div id="dfcFact" class="dfc-fact"></div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- RESULT -->
 <section id="resultSection">
   <div class="trip-hero" id="tripHero" style="display:none">
-    <img class="trip-hero-img" id="tripHeroImg" src="" alt=""/>
-    <div class="trip-hero-overlay"></div>
+    <div class="trip-hero-grad" id="tripHeroGrad"></div>
+    <div class="trip-hero-grain"></div>
     <div class="trip-hero-content">
       <div class="trip-eyebrow" id="tripEyebrow"></div>
-      <div class="trip-dest" id="tripDestDisplay"></div>
+      <h1 class="trip-dest" id="tripDestDisplay"></h1>
       <div class="trip-chips" id="tripChips"></div>
     </div>
     <div class="trip-actions">
       <button class="trip-action-btn" id="btnSave" onclick="saveCurrentTrip()" data-i="saveBtnLabel"></button>
-      <button class="trip-action-btn" onclick="window.print()" data-i="printBtn"></button>
+      <button class="trip-action-btn" onclick="downloadPDF()" title="PDF">📄 PDF</button>
     </div>
   </div>
   <div class="itin-wrap">
@@ -583,7 +636,7 @@ const I18N={
     g1:'Cancelación gratuita hasta 48h',g2:'Mejor precio garantizado',g3:'Soporte durante tu viaje',
     shareTrip:'🔗 Compartir plan',
     saveBtnLabel:'🗂 Guardar',saveBtnDone:'✅ Guardado',printBtn:'🖨 PDF',
-    loadMsgs:['Pensando en tu viaje…','Buscando lo que no está en las guías…','Descartando lo genérico…','Casi listo…'],
+    loadMsgs:['Abriendo rutas que los guías locales guardan para sí…','Descartando todo lo que sale en la primera página de Google…','Calibrando el equilibrio entre aventura y comodidad…','Buscando el restaurante donde comen los que saben…','Eliminando los clichés uno a uno…','Añadiendo ese detalle que convierte un viaje en un recuerdo…','Revisando horarios, precios y esa magia indefinible…','Listo. Tu plan no se parece al de nadie.'],
     dayLabel:'Día',addDayBtn:'+ Añadir a mi viaje',addedDayBtn:'✓ Añadido',
     tipsTitle:'Antes de salir',
     recapTitle:'Resumen del plan',budgetFitLabel:'¿Encaja con tu presupuesto?',
@@ -629,7 +682,7 @@ const I18N={
     g1:'Free cancellation up to 48h',g2:'Best price guaranteed',g3:'Support during your trip',
     shareTrip:'🔗 Share plan',
     saveBtnLabel:'🗂 Save',saveBtnDone:'✅ Saved',printBtn:'🖨 PDF',
-    loadMsgs:['Thinking about your trip…','Looking beyond the guidebooks…','Filtering the generic…','Almost there…'],
+    loadMsgs:['Opening routes that local guides keep to themselves…','Crossing out everything on page one of Google…','Finding the restaurant where the people who know eat…','Calibrating adventure against comfort…','Removing clichés one by one…','Adding the detail that turns a trip into a memory…','Checking hours, prices, and that indefinable magic…','Done. Your plan looks like no one else\'s.'],
     dayLabel:'Day',addDayBtn:'+ Add to my trip',addedDayBtn:'✓ Added',
     tipsTitle:'Before you leave',
     recapTitle:'Plan summary',budgetFitLabel:'Budget fit',
@@ -675,7 +728,7 @@ const I18N={
     g1:'Annulation gratuite jusqu\'à 48h',g2:'Meilleur prix garanti',g3:'Assistance pendant votre voyage',
     shareTrip:'🔗 Partager le plan',
     saveBtnLabel:'🗂 Sauvegarder',saveBtnDone:'✅ Sauvegardé',printBtn:'🖨 PDF',
-    loadMsgs:['On pense à votre voyage…','Au-delà des guides…','On filtre le générique…','Presque prêt…'],
+    loadMsgs:['Ouverture des routes que les guides locaux gardent pour eux…','Suppression de tout ce qui apparaît en première page…','Le restaurant où mangent ceux qui savent…','Calibration aventure — confort…','Clichés éliminés un à un…','Le détail qui fait le souvenir…','Vérification des horaires, prix et magie…','Prêt. Votre plan ne ressemble à aucun autre.'],
     dayLabel:'Jour',addDayBtn:'+ Ajouter à mon voyage',addedDayBtn:'✓ Ajouté',
     tipsTitle:'Avant de partir',
     recapTitle:'Résumé du plan',budgetFitLabel:'Budget adapté ?',
@@ -773,12 +826,23 @@ function renderCartBox(){
     const d=document.getElementById('dest').value.trim();
     const o=document.getElementById('origin').value.trim();
     const n=(c.name||'').toLowerCase(), ic=(c.ico||'');
-    const bk={es:'Reservar',en:'Book',fr:'Réserver'}[lang]||'Book';
-    if(/flight|vuelo|vol|train|tren|ferry/i.test(n)||/✈/.test(ic)) return `<a class="ci-aff" href="${affUrl('flight',d,o)}" target="_blank">${bk}</a>`;
-    if(/car|coche|voiture|rental|alquil/i.test(n)||ic==='🚗') return `<a class="ci-aff" href="${affUrl('car',d,o)}" target="_blank">${bk}</a>`;
-    if(/hotel|hostal|alojam/i.test(n)||ic==='🏨') return `<a class="ci-aff" href="${affUrl('hotel',d,'')}" target="_blank">${{es:'Hoteles',en:'Hotels',fr:'Hôtels'}[lang]}</a>`;
-    if(/restaur|cena|dinner|lunch/i.test(n)||ic==='🍽') return '';
-    return `<a class="ci-aff" href="${affUrl('exp',d,'')}" target="_blank">${{es:'Ver',en:'View',fr:'Voir'}[lang]}</a>`;
+    const BK={es:'Reservar',en:'Book',fr:'Réserver'}[lang]||'Book';
+    const SH={es:'Ver',en:'View',fr:'Voir'}[lang];
+    if(/flight|vuelo|vol|train|tren|ferry/i.test(n)||/✈|🚂/.test(ic)) 
+      return `<a class="ci-aff ci-aff-flight" href="${affUrl('flight',d,o)}" target="_blank">✈️ ${BK}</a>`;
+    if(/train|tren|rail/i.test(n)||ic==='🚂') 
+      return `<a class="ci-aff ci-aff-train" href="${affUrl('train',d,o)}" target="_blank">🚂 ${BK}</a>`;
+    if(/car|coche|voiture|rental|alquil|bici|bike|velo/i.test(n)||/🚗|🚲/.test(ic)) 
+      return `<a class="ci-aff ci-aff-car" href="${affUrl('car',d,o)}" target="_blank">🚗 ${BK}</a>`;
+    if(/hotel|hostal|alojam|auberge|hôtel/i.test(n)||ic==='🏨') 
+      return `<a class="ci-aff ci-aff-hotel" href="${affUrl('hotel',d,'')}" target="_blank">🏨 ${BK}</a>`;
+    if(/restaur|cena|dîner|dinner|lunch|café/i.test(n)||ic==='🍽') 
+      return `<a class="ci-aff ci-aff-rest" href="https://www.thefork.com/search#destination=${encodeURIComponent(d)}" target="_blank">🍽 ${SH}</a>`;
+    if(/muse|galerie|gallery/i.test(n)||ic==='🏛') 
+      return `<a class="ci-aff ci-aff-act" href="${affUrl('act',d,'')}" target="_blank">🎟️ ${BK}</a>`;
+    if(/tour|activ|exp|hike|beach|plage|playa|visit/i.test(n)||/📍|🏖|🥾/.test(ic)) 
+      return `<a class="ci-aff ci-aff-act" href="${affUrl('act',d,'')}" target="_blank">🎟️ ${BK}</a>`;
+    return `<a class="ci-aff ci-aff-act" href="${affUrl('act',d,'')}" target="_blank">${SH} →</a>`;
   }
   const totalLabel={es:'Total del viaje',en:'Trip total',fr:'Total voyage'}[lang];
   const itemsHTML=cart.length?`<div class="cart-items-block">${cart.map(c=>`<div class="ci-row">
@@ -788,15 +852,15 @@ function renderCartBox(){
     <button class="ci-del" onclick="removeFromCart('${c.id}')">✕</button>
   </div>`).join('')}
   <div class="ci-grand-total"><span>${totalLabel}</span><span class="ci-total-num">~€${cartTotal()}</span></div>
-  <div class="ci-footer-btns">
-    <button class="ci-fb" onclick="closeCheckout();setTimeout(downloadPDF,200)">📄 PDF</button>
-    <button class="ci-fb" onclick="document.getElementById('btnSend').scrollIntoView({behavior:'smooth'})">📧 Email</button>
+  <div class="ci-action-block">
+    <button class="ci-action-main" onclick="sendItinerary()">📩 ${({es:'Enviar itinerario por email',en:'Send itinerary by email',fr:'Envoyer l’itinéraire par email'})[lang]||'Send by email'}</button>
+    <button class="ci-action-sec" onclick="closeCheckout();setTimeout(downloadPDF,200)">📄 PDF</button>
   </div>
   </div>`:`<p class="cart-empty-note">${t('cartEmpty')}</p>`;
   document.getElementById('cartBox').innerHTML=`
     <div class="cart-sum-h">${t('cartSummaryTitle')}</div>
     <div class="cart-dest-row">
-      <img class="cart-dest-img" src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=120&q=60" alt="${dest}"/>
+      <div class="cart-dest-img" style="${(()=>{const g=getDestGrad(dest);return `background:linear-gradient(135deg,${g.c[0]},${g.c[1]},${g.c[2]})`;})()};display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-family:'Playfair Display',serif;font-weight:700;color:rgba(255,255,255,.9);font-size:.7rem;text-transform:uppercase;letter-spacing:.08em">${dest.slice(0,3)}</div>
       <div><div class="cart-dest-name">${dest}</div><div class="cart-dest-meta">${origin} · ${days} ${nightW} · ${tMap[tKey]||tKey}</div><div class="cart-dest-meta" style="color:var(--teal-dark);font-weight:600;margin-top:.1rem">${bMap[bKey]||bKey}</div></div>
     </div>
     ${total>0?`<div class="cart-total-row"><span class="cart-total-n">${totalW}</span><span class="cart-total-v">~€${total}</span></div>`:''}
@@ -859,6 +923,23 @@ function toggleExpCart(btnId, name, priceNum, ico){
   updateCartUI();
 }
 
+function quickSendEmail(){
+  const emailEl=document.getElementById('quickEmail');
+  const email=emailEl?emailEl.value.trim():'';
+  if(!email||!email.includes('@')){if(emailEl){emailEl.style.borderColor='#F87171';emailEl.focus();}return;}
+  const dest=document.getElementById('dest').value.trim();
+  const btn=document.querySelector('.reb-send');
+  if(btn){btn.textContent='...';btn.disabled=true;}
+  fetch('/api/email',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({name:'',email,tripName:document.getElementById('tripDestDisplay')?.textContent||dest,dest,
+      departDate:document.getElementById('df').value,returnDate:document.getElementById('dt').value,
+      travelers:document.getElementById('travelers')?.value||'',lang})})
+  .then(r=>r.json()).then(()=>{
+    const bar=document.getElementById('recapEmailBar');
+    const ok=lang==='fr'?"\u2705 C'est parti! V\u00e9rifiez votre bo\u00eete.":lang==='en'?'\u2705 Sent! Check your inbox.':'\u2705 \u00a1Enviado! Revisa tu bandeja.';
+    if(bar)bar.innerHTML='<div class="reb-ok">'+ok+'</div>';
+  }).catch(()=>{if(btn){btn.textContent='\u2192';btn.disabled=false;}});
+}
 function shareTrip(){
   const dest=document.getElementById('dest').value.trim();
   const msg={es:`🌍 Mi plan de viaje a ${dest} — Travel Studio`,en:`🌍 My trip plan to ${dest} — Travel Studio`,fr:`🌍 Mon plan pour ${dest} — Travel Studio`}[lang];
@@ -976,10 +1057,94 @@ function getDestGrad(dest){
   for(const key of Object.keys(G)){if(k.includes(key.replace('_','')))return{c:G[key]};}
   return{c:G.default};
 }
-function heroImgUrl(dest){
-  const photos=getDestPhotos(dest);
-  return`https://images.unsplash.com/${photos[0]}?w=1400&h=600&fit=crop&q=80`;
+
+function getDestFacts(dest,lang){
+  const k=(dest||'').toLowerCase().replace(/[^a-z]/g,'');
+  const F={
+    paris:{
+      es:'<strong>París</strong> tiene más puentes sobre el Sena que Venecia sobre sus canales. Y <strong>ninguno lleva a donde crees.</strong>',
+      en:'<strong>Paris</strong> has more bridges over the Seine than Venice has canals. And <strong>none lead where you expect.</strong>',
+      fr:'<strong>Paris</strong> compte plus de ponts sur la Seine que Venise sur ses canaux. Et <strong>aucun ne mène où vous pensez.</strong>'
+    },
+    tokyo:{
+      es:'En <strong>Tokio</strong> viven más personas que en toda Canadá. Y sin embargo, <strong>nunca te sientes aplastado.</strong>',
+      en:'More people live in <strong>Tokyo</strong> than in all of Canada. And yet <strong>you never feel crushed.</strong>',
+      fr:'<strong>Tokyo</strong> abrite plus d\'habitants que tout le Canada. Et pourtant, <strong>vous ne vous sentez jamais écrasé.</strong>'
+    },
+    lisbon:{
+      es:'<strong>Lisboa</strong> fue reconstruida en 18 años tras el terremoto de 1755. Alfama sobrevivió intacto. <strong>Siempre hay algo que no se rinde.</strong>',
+      en:'<strong>Lisbon</strong> was rebuilt in 18 years after the 1755 earthquake. Alfama survived intact. <strong>Some things refuse to fall.</strong>',
+      fr:'<strong>Lisbonne</strong> fut reconstruite en 18 ans après 1755. L\'Alfama survécut. <strong>Certaines choses ne tombent jamais.</strong>'
+    },
+    marrakech:{
+      es:'La <strong>medina de Marrakech</strong> tiene 7.000 callejones. Los locales navegan por olfato. <strong>Tú también aprenderás.</strong>',
+      en:'The <strong>medina of Marrakech</strong> has over 7,000 alleyways. Locals navigate by smell. <strong>You will too.</strong>',
+      fr:'La <strong>médina de Marrakech</strong> compte 7 000 ruelles. Les habitants s\'y repèrent à l\'odorat. <strong>Vous aussi.</strong>'
+    },
+    kyoto:{
+      es:'<strong>Kioto</strong> fue eliminada de la lista de objetivos atómicos porque un secretario de Estado la conocía de su luna de miel. <strong>La belleza, a veces, salva.</strong>',
+      en:'<strong>Kyoto</strong> was removed from the atomic bomb list because a Secretary of War had honeymooned there. <strong>Sometimes beauty saves.</strong>',
+      fr:'<strong>Kyoto</strong> fut retirée de la liste des cibles car un secrétaire d\'État y avait passé sa lune de miel. <strong>Parfois la beauté sauve.</strong>'
+    },
+    istanbul:{
+      es:'<strong>Estambul</strong> es la única ciudad a caballo entre dos continentes. Desayuno en Asia, cena en Europa. <strong>La geografía como excusa.</strong>',
+      en:'<strong>Istanbul</strong> is the only city straddling two continents. Breakfast in Asia, dinner in Europe. <strong>Geography as an excuse.</strong>',
+      fr:'<strong>Istanbul</strong> est la seule ville à cheval sur deux continents. Petit-déjeuner en Asie, dîner en Europe. <strong>La géographie comme prétexte.</strong>'
+    },
+    tbilisi:{
+      es:'<strong>Tiflis</strong> lleva 5.000 años vinificando. La qvevri de barro entierra el vino antes de que Francia supiera pronunciarlo. <strong>El origen suena diferente.</strong>',
+      en:'<strong>Tbilisi</strong> has made wine for 5,000 years. The clay qvevri predates the French oak barrel by 49 centuries. <strong>Origin tastes different.</strong>',
+      fr:'<strong>Tbilissi</strong> vinifie depuis 5 000 ans. La qvevri devance le fût français de 49 siècles. <strong>L\'origine a un autre goût.</strong>'
+    },
+    havana:{
+      es:'<strong>La Habana</strong> tiene los coches más viejos del mundo en circulación regular. No es nostalgia: <strong>es ingeniería de supervivencia.</strong>',
+      en:'<strong>Havana</strong> has the oldest regularly-driven cars in the world. Not nostalgia: <strong>survival engineering.</strong>',
+      fr:'<strong>La Havane</strong> roule avec les voitures les plus anciennes du monde. Pas de la nostalgie : <strong>de l\'ingénierie de survie.</strong>'
+    },
+    tbilisi_extra:{},
+    seoul:{
+      es:'<strong>Seúál</strong> tiene más estrellas Michelin que París. Y el 70% están en sótanos sin cartel en la puerta. <strong>Lo mejor no se anuncia.</strong>',
+      en:'<strong>Seoul</strong> has more Michelin stars than Paris. And 70% are in basements with no sign on the door. <strong>The best things don&#39;t advertise.</strong>',
+      fr:'<strong>Séoul</strong> a plus d’étoiles Michelin que Paris. Et 70% sont dans des sous-sols sans enseigne. <strong>Ce qui est meilleur ne s’annonce pas.</strong>'
+    },
+    oaxaca:{
+      es:'<strong>Oaxaca</strong> tiene 16 etnias, 8 lenguas vivas y el mezcal más antiguo del mundo. <strong>La complejidad es una forma de generosidad.</strong>',
+      en:'<strong>Oaxaca</strong> has 16 indigenous groups, 8 living languages, and the world&#39;s oldest mezcal. <strong>Complexity is a form of generosity.</strong>',
+      fr:'<strong>Oaxaca</strong> compte 16 ethnies, 8 langues vivantes et le mezcal le plus ancien du monde. <strong>La complexité est une forme de générosité.</strong>'
+    },
+    cappadocia:{
+      es:'Los moradores de <strong>Capadocia</strong> excavaron ciudades enteras bajo tierra para esconderse del mundo. <strong>A veces lo invisible es lo que más dura.</strong>',
+      en:'The people of <strong>Cappadocia</strong> carved entire cities underground to hide from the world. <strong>Sometimes the invisible is what lasts longest.</strong>',
+      fr:'Les habitants de <strong>Cappadoce</strong> ont creusé des villes entières sous terre pour se cacher. <strong>Parfois l’invisible est ce qui dure le plus.</strong>'
+    },
+    sicilia:{
+      es:'<strong>Sicilia</strong> fue colonizada por griegos, árabes, normandos y españoles. Su cocina es la biografía más honesta que existe. <strong>Come para entender.</strong>',
+      en:'<strong>Sicily</strong> was colonized by Greeks, Arabs, Normans, and Spanish. Its cuisine is the most honest biography. <strong>Eat to understand.</strong>',
+      fr:'La <strong>Sicile</strong> fut colonisée par les Grecs, Arabes, Normands et Espagnols. Sa cuisine en est la biographie la plus honnête. <strong>Mangez pour comprendre.</strong>'
+    },
+    medell:{
+      es:'<strong>Medellín</strong> pasó de ser la ciudad más peligrosa del mundo a la más innovadora. <strong>La historia más creíble de reinvención urbana.</strong>',
+      en:'<strong>Medellín</strong> went from most dangerous city to most innovative in 20 years. <strong>The most credible reinvention story in the world.</strong>',
+      fr:'<strong>Medellín</strong> est passée de la ville la plus dangereuse à la plus innovante. <strong>La réinvention urbaine la plus crédible du monde.</strong>'
+    },
+    talin:{
+      es:'<strong>Talinn</strong> conserva el casco histórico medieval mejor preservado del mundo. La OTAN tiene su Centro de Excelencia cibernético allí mismo. <strong>El pasado y el futuro conviven sin frictionarse.</strong>',
+      en:'<strong>Tallinn</strong> has the best-preserved medieval old town in the world. NATO&#39;s cyber excellence centre is right next door. <strong>Past and future without friction.</strong>',
+      fr:'<strong>Tallinn</strong> a la vieille ville médiévale la mieux préservée au monde. Le centre d’excellence cyber de l’OTAN est juste à côté. <strong>Passé et futur sans friction.</strong>'
+    },
+    default:{
+      es:'Los viajes que más recuerdas no son los que salieron perfectos. Son los que <strong>te cambiaron algo sin pedirte permiso.</strong>',
+      en:'The trips you remember most aren&#39;t the ones that went perfectly. They&#39;re the ones that <strong>changed something in you without asking.</strong>',
+      fr:'Les voyages dont on se souvient ne sont pas ceux qui se sont parfaitement passés. Ce sont ceux qui <strong>ont changé quelque chose en vous sans demander la permission.</strong>'
+    }
+  };
+  for(const key of Object.keys(F)){
+    if(key!=='default'&&key!=='tbilisi_extra'&&k.includes(key)){return(F[key][lang]||F[key].es);}
+  }
+  return(F.default[lang]||F.default.es);
 }
+
+function heroImgUrl(dest){ return null; }
 function dayImgUrl(dest,dayTitle,dayNum){
   const title=(dayTitle||'').toLowerCase();
   // Map category to curated photo IDs
@@ -1492,10 +1657,11 @@ function renderResult(s){
   const tripHero=document.getElementById('tripHero');
   const grad=getDestGrad(s.dest||'');
   const heroGrad=document.getElementById('tripHeroGrad');
-  if(heroGrad) heroGrad.style.background=`linear-gradient(135deg,${grad.c[0]} 0%,${grad.c[1]} 55%,${grad.c[2]} 100%)`;
+  if(heroGrad) heroGrad.style.cssText=`position:absolute;inset:0;background:linear-gradient(135deg,${grad.c[0]} 0%,${grad.c[1]} 55%,${grad.c[2]} 100%)`;
   const ey=document.getElementById('tripEyebrow');
   if(ey) ey.textContent=(s.dest||'').toUpperCase();
-  document.getElementById('tripDestDisplay').innerHTML=s.tripName?`<em>${s.tripName}</em>`:`<em>${s.dest}</em>`;
+  const _td=document.getElementById('tripDestDisplay');
+  _td.innerHTML=s.tripName?`<em>${s.tripName}</em>`:s.dest?`<em>${s.dest}</em>`:'';
   document.getElementById('tripChips').innerHTML=s.chipsHTML||'';
   document.getElementById('btnSave').textContent=t('saveBtnLabel');
   document.getElementById('btnSave').classList.remove('added');
@@ -1542,15 +1708,32 @@ async function gen(){
   ['flightCard','timeline','tipsSection','recapSection','expSection','bottomCta'].forEach(id=>document.getElementById(id).innerHTML='');
 
   const msgs=t('loadMsgs');let mi=0;
-  const iv=setInterval(()=>{document.getElementById('ltxt').textContent=msgs[mi=(mi+1)%msgs.length];},2200);
-  document.getElementById('ltxt').textContent=msgs[0];
-  // Show destination fact immediately
+  const ltxtEl=document.getElementById('ltxt');
+  function rotatePhraseWith(text){
+    ltxtEl.style.opacity='0';
+    setTimeout(()=>{ltxtEl.textContent=text;ltxtEl.style.opacity='1';},300);
+  }
+  const iv=setInterval(()=>{rotatePhraseWith(msgs[mi=(mi+1)%msgs.length]);},2600);
+  ltxtEl.textContent=msgs[0];ltxtEl.style.transition='opacity .3s';
+  // Show destination name
+  const _dn=document.getElementById('loadDestName');
+  if(_dn&&dest){_dn.textContent=dest.toUpperCase();_dn.style.display='block';}
+  // Show estimated time
+  const _te=document.getElementById('loadTimeEst');
+  if(_te){
+    const estSec=Math.round(20+Math.random()*15);
+    _te.textContent={es:`Tiempo estimado: ~${estSec} segundos`,en:`Estimated time: ~${estSec} seconds`,fr:`Temps estimé : ~${estSec} secondes`}[lang];
+    _te.style.display='block';
+  }
+  // Show destination fact
   const _fc=document.getElementById('destFactCard');
   const _df=getDestFacts(dest,lang);
   if(_df&&_fc){
-    _fc.style.display='block';
-    document.getElementById('dfcLabel').textContent={es:'Mientras preparamos tu viaje…',en:'While we build your plan…',fr:'Pendant qu’on prépare votre voyage…'}[lang]||'Did you know…';
-    document.getElementById('dfcFact').innerHTML=_df;
+    setTimeout(()=>{
+      _fc.style.display='block';
+      document.getElementById('dfcLabel').textContent={es:'Mientras preparamos tu viaje…',en:'A curiosity while you wait…',fr:'Une curiosité en attendant…'}[lang];
+      document.getElementById('dfcFact').innerHTML=_df;
+    },1200);
   }
 
   const MONTHS={es:['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'],en:['January','February','March','April','May','June','July','August','September','October','November','December'],fr:['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre']};
@@ -1695,13 +1878,55 @@ ACCOMMODATION: [3 options for ${bStr} budget + ${tStr}: name, neighbourhood, €
 
 Max 1150 words. Write entirely in ${wl}.`;
 
+  function setProgress(pct){
+    const bar=document.getElementById('streamBar');
+    const prog=document.getElementById('streamProgress');
+    if(bar) bar.style.width=pct+'%';
+    if(prog) prog.classList.toggle('on',pct>0&&pct<100);
+  }
+
   try{
     const res=await fetch('/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:2200,messages:[{role:'user',content:prompt}]})});
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:2200,stream:true,messages:[{role:'user',content:prompt}]})});
     if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error(e?.error||`HTTP ${res.status}`);}
-    const data=await res.json();
-    const raw=(data.content||[]).map(b=>b.text||'').join('').trim();
-    if(!raw)throw new Error('Empty response');
+
+    // SSE streaming read
+    let raw='';
+    const reader=res.body.getReader();
+    const dec=new TextDecoder();
+    let buf='',tokensSeen=0;
+    const EST=1600;
+    setProgress(5);
+
+    while(true){
+      const{done,value}=await reader.read();
+      if(done) break;
+      buf+=dec.decode(value,{stream:true});
+      const lines=buf.split('\n');buf=lines.pop();
+      for(const line of lines){
+        if(!line.startsWith('data: ')) continue;
+        const payload=line.slice(6).trim();
+        if(payload==='[DONE]') continue;
+        try{
+          const ev=JSON.parse(payload);
+          if(ev.type==='content_block_delta'&&ev.delta&&ev.delta.type==='text_delta'){
+            raw+=ev.delta.text;
+            tokensSeen+=ev.delta.text.length/4;
+            const pct=Math.min(95,5+Math.round((tokensSeen/EST)*90));
+            setProgress(pct);
+            const dm=raw.match(/###\s*(?:Jour|Day|D\u00eda)\s*(\d+)/gi);
+            if(dm&&dm.length){
+              const n=dm[dm.length-1].match(/(\d+)/)[1];
+              const dw2={es:'D\u00eda',en:'Day',fr:'Jour'}[lang]||'Day';
+              document.getElementById('ltxt').textContent=dw2+' '+n+'...';
+            }
+          }
+        }catch(e2){}
+      }
+    }
+    setProgress(100);
+    if(!raw.trim()) throw new Error('Empty response');
+    setTimeout(()=>setProgress(0),500);
 
     clearInterval(iv);document.getElementById('loadBox').classList.remove('on');
 
@@ -1743,6 +1968,22 @@ Max 1150 words. Write entirely in ${wl}.`;
       <div class="bcta-btns">
         <a class="bcta-btn p" href="${affUrl('flight',dest,origin)}" target="_blank">${t('ctaFlights')}</a>
         <a class="bcta-btn s" href="${affUrl('hotel',dest,'')}" target="_blank">${t('ctaHotels')}</a>
+      </div>
+    </div>
+    <div class="recap-email-bar" id="recapEmailBar">
+      <div class="reb-content">
+        <div class="reb-left">
+          <span class="reb-ico">📧</span>
+          <div class="reb-txt">
+            <strong>${{es:'Recibe tu plan por email',en:'Get your plan by email',fr:'Recevez votre plan par email'}[lang]}</strong>
+            <span>${{es:'Alertas de precio · Recordatorio · Sorpresa al volver',en:'Price alerts · Reminder · Surprise on return',fr:'Alertes prix · Rappel · Surprise au retour'}[lang]}</span>
+          </div>
+        </div>
+        <div class="reb-right">
+          <input type="email" id="quickEmail" class="reb-input" placeholder="${{es:'tu@email.com',en:'you@email.com',fr:'toi@email.com'}[lang]}"/>
+          <button class="reb-send" onclick="quickSendEmail()">${{es:'Enviar →',en:'Send →',fr:'Envoyer →'}[lang]}</button>
+          <button class="reb-pdf" onclick="downloadPDF()">PDF ↓</button>
+        </div>
       </div>
     </div>`;
 
