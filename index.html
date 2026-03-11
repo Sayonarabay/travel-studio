@@ -219,6 +219,85 @@ h1 em{font-style:italic;color:var(--teal)}
   nav{padding:.7rem 1rem}
   .res-actions{flex-direction:column}
 }
+
+/* FLEX TOGGLE */
+.flex-toggle-row{flex-direction:row;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
+.flex-toggle-row label{margin-bottom:0}
+.flex-toggle-wrap{display:flex;gap:4px;background:var(--bg);border:1.5px solid var(--border);border-radius:10px;padding:3px}
+.flex-btn{padding:.35rem .9rem;border-radius:7px;border:none;background:transparent;font-size:.78rem;font-weight:600;color:var(--muted);cursor:pointer;transition:all .18s}
+.flex-btn.active{background:var(--ink);color:#fff}
+
+/* CART NAV BUTTON */
+.nav-cart{display:flex;align-items:center;gap:.4rem;background:var(--teal);color:var(--ink);border:none;padding:.5rem 1rem;border-radius:8px;font-size:.8rem;font-weight:700;cursor:pointer;transition:all .2s;position:relative}
+.nav-cart:hover{background:var(--teal-dark);color:#fff}
+.cart-badge{background:var(--salmon);color:#fff;border-radius:100px;padding:.1rem .45rem;font-size:.65rem;font-weight:800;margin-left:.2rem}
+
+/* ADD TO CART BUTTON on exp cards */
+.btn-add-cart{width:100%;padding:.55rem;border:2px solid var(--teal-dark);border-radius:10px;background:transparent;color:var(--teal-dark);font-size:.75rem;font-weight:700;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:.35rem;margin-top:.5rem}
+.btn-add-cart:hover{background:var(--teal-dark);color:#fff}
+.btn-add-cart.in-cart{background:var(--teal-light);border-color:var(--teal);color:var(--teal-dark)}
+
+/* CHECKOUT PAGE */
+#checkoutPage{min-height:100vh;background:var(--bg);padding-top:58px}
+.checkout-wrap{max-width:1000px;margin:0 auto;padding:2.5rem 2rem}
+.back-btn{display:inline-flex;align-items:center;gap:.4rem;background:none;border:none;color:var(--muted);font-size:.85rem;font-weight:600;cursor:pointer;padding:0;margin-bottom:1.5rem;transition:color .2s}
+.back-btn:hover{color:var(--ink)}
+.checkout-title{font-family:"Playfair Display",serif;font-size:2rem;font-weight:700;margin-bottom:.4rem}
+.checkout-sub{font-size:.9rem;color:var(--muted);margin-bottom:2rem}
+.checkout-grid{display:grid;grid-template-columns:1fr 380px;gap:2rem;align-items:start}
+.checkout-left{display:flex;flex-direction:column;gap:1.5rem}
+.checkout-section{background:var(--white);border:1.5px solid var(--border);border-radius:16px;padding:1.5rem}
+.checkout-section-title{font-family:"Playfair Display",serif;font-size:1.05rem;font-weight:700;margin-bottom:1.2rem}
+
+/* Reserve links inside checkout */
+.reserve-links{display:flex;flex-direction:column;gap:.7rem}
+.reserve-link-item{display:flex;align-items:center;gap:.9rem;padding:.9rem;background:var(--bg);border:1px solid var(--border);border-radius:var(--r);transition:all .2s}
+.reserve-link-item:hover{border-color:var(--teal-dark);box-shadow:var(--shadow)}
+.rli-ico{font-size:1.4rem;flex-shrink:0}
+.rli-body{flex:1}
+.rli-name{font-weight:700;font-size:.88rem}
+.rli-desc{font-size:.72rem;color:var(--muted);margin-top:.1rem}
+.rli-btn{padding:.45rem .9rem;background:var(--ink);color:#fff;border-radius:8px;font-size:.72rem;font-weight:700;text-decoration:none;white-space:nowrap;transition:opacity .2s}
+.rli-btn:hover{opacity:.85}
+
+/* Send itinerary */
+.send-desc{font-size:.85rem;color:var(--ink2);margin-bottom:1rem;line-height:1.6}
+.btn-send{width:100%;padding:.9rem;border:none;border-radius:var(--r);background:linear-gradient(135deg,var(--teal-dark),#0D9488);color:#fff;font-family:"Inter",sans-serif;font-weight:700;font-size:.9rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.5rem}
+.btn-send:hover{opacity:.9}
+.send-confirm{background:var(--teal-light);border:1px solid rgba(15,118,110,.2);border-radius:var(--r);padding:1rem;font-size:.85rem;color:var(--teal-dark);margin-top:1rem;line-height:1.6}
+
+/* Cart summary */
+.cart-summary{background:var(--white);border:1.5px solid var(--border);border-radius:16px;padding:1.5rem;position:sticky;top:80px}
+.cart-summary-title{font-family:"Playfair Display",serif;font-size:1.05rem;font-weight:700;margin-bottom:1rem}
+.cart-trip-card{display:flex;gap:.8rem;background:var(--bg);border-radius:var(--r);padding:.9rem;margin-bottom:1.2rem;border:1px solid var(--border)}
+.cart-trip-img{width:60px;height:60px;border-radius:8px;object-fit:cover;flex-shrink:0;background:var(--border)}
+.cart-trip-body{flex:1}
+.cart-trip-name{font-weight:700;font-size:.88rem;margin-bottom:.2rem}
+.cart-trip-meta{font-size:.72rem;color:var(--muted)}
+.cart-line{display:flex;justify-content:space-between;align-items:center;padding:.6rem 0;border-bottom:1px solid var(--border);font-size:.85rem}
+.cart-line:last-of-type{border-bottom:none}
+.cart-line-label{color:var(--ink2)}
+.cart-line-val{font-weight:600}
+.cart-total{display:flex;justify-content:space-between;align-items:center;padding-top:.8rem;margin-top:.4rem;border-top:2px solid var(--ink)}
+.cart-total-label{font-weight:700;font-size:1rem}
+.cart-total-val{font-family:"Playfair Display",serif;font-size:1.4rem;font-weight:700;color:var(--teal-dark)}
+.cart-items{margin-top:1.2rem;border-top:1px solid var(--border);padding-top:1rem}
+.cart-item{display:flex;align-items:center;justify-content:space-between;padding:.5rem 0;font-size:.8rem;border-bottom:1px dashed var(--border)}
+.cart-item:last-child{border-bottom:none}
+.cart-item-name{flex:1;color:var(--ink2)}
+.cart-item-price{font-weight:700;color:var(--ink);margin-left:.5rem;white-space:nowrap}
+.cart-item-del{background:none;border:none;color:var(--muted);cursor:pointer;padding:.2rem .4rem;font-size:.8rem;margin-left:.3rem}
+.cart-item-del:hover{color:var(--salmon)}
+.cart-guarantees{margin-top:1.2rem;border-top:1px solid var(--border);padding-top:1rem}
+.cart-guarantee{display:flex;align-items:center;gap:.5rem;font-size:.75rem;color:var(--muted);margin-bottom:.4rem}
+.cart-guarantee::before{content:"✓";color:var(--green);font-weight:700}
+.cart-share{margin-top:1rem;width:100%;padding:.65rem;border:1.5px solid var(--border);border-radius:8px;background:transparent;font-size:.8rem;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.4rem;transition:all .2s}
+.cart-share:hover{border-color:var(--ink);color:var(--ink)}
+
+@media(max-width:800px){
+  .checkout-grid{grid-template-columns:1fr}
+  .cart-summary{position:static}
+}
 </style>
 </head>
 <body>
@@ -240,6 +319,9 @@ h1 em{font-style:italic;color:var(--teal)}
       <button class="lang-btn" onclick="setLang('en')">EN</button>
       <button class="lang-btn" onclick="setLang('fr')">FR</button>
     </div>
+    <button class="nav-cart" onclick="openCheckout()" id="cartBtn" style="display:none">
+      🛒 <span data-i="cartLabel"></span><span class="cart-badge" id="cartBadge">0</span>
+    </button>
     <button class="nav-btn" onclick="openSaved()">
       <span data-i="navSaved">Mis viajes</span><span class="saved-count" id="savedCount" style="display:none">0</span>
     </button>
@@ -264,14 +346,15 @@ h1 em{font-style:italic;color:var(--teal)}
       <div class="fg"><label data-i="labelFrom"></label><input type="text" id="origin" data-i-ph="phFrom"/></div>
       <div class="fg"><label data-i="labelTo"></label><input type="text" id="dest" data-i-ph="phTo"/></div>
     </div>
-    <div class="form-grid-3">
+    <div class="form-grid-2">
       <div class="fg"><label data-i="labelDepart"></label><input type="date" id="df"/></div>
       <div class="fg"><label data-i="labelReturn"></label><input type="date" id="dt"/></div>
-      <div class="fg"><label data-i="labelDays"></label>
-        <select id="days">
-          <option value="3">3</option><option value="5">5</option>
-          <option value="7" selected>7</option><option value="10">10</option><option value="14">14</option>
-        </select>
+    </div>
+    <div class="fg flex-toggle-row">
+      <label data-i="labelFlexible"></label>
+      <div class="flex-toggle-wrap">
+        <button class="flex-btn active" id="flexNo" onclick="setFlex(false)" data-i="flexNo"></button>
+        <button class="flex-btn" id="flexYes" onclick="setFlex(true)" data-i="flexYes"></button>
       </div>
     </div>
     <div class="form-grid-2">
@@ -308,6 +391,39 @@ h1 em{font-style:italic;color:var(--teal)}
     </div>
   </div>
 </section>
+
+<!-- CHECKOUT PAGE -->
+<div id="checkoutPage" style="display:none">
+  <div class="checkout-wrap">
+    <button class="back-btn" onclick="closeCheckout()">← <span data-i="backBtn"></span></button>
+    <h2 class="checkout-title" data-i="checkoutTitle"></h2>
+    <p class="checkout-sub" data-i="checkoutSub"></p>
+    <div class="checkout-grid">
+      <div class="checkout-left">
+        <div class="checkout-section">
+          <div class="checkout-section-title" data-i="contactTitle"></div>
+          <div class="fg"><label data-i="cName"></label><input type="text" id="cNameInput" data-i-ph="cNamePh"/></div>
+          <div class="fg"><label data-i="cEmail"></label><input type="email" id="cEmailInput" data-i-ph="cEmailPh"/></div>
+        </div>
+        <div class="checkout-section">
+          <div class="checkout-section-title" data-i="reserveTitle"></div>
+          <div class="reserve-links" id="reserveLinks"></div>
+        </div>
+        <div class="checkout-section">
+          <div class="checkout-section-title" data-i="sendTitle"></div>
+          <p class="send-desc" data-i="sendDesc"></p>
+          <button class="btn-send" id="btnSend" onclick="sendItinerary()">
+            <span data-i="sendBtn"></span>
+          </button>
+          <div id="sendConfirm" style="display:none" class="send-confirm"></div>
+        </div>
+      </div>
+      <div class="checkout-right">
+        <div class="cart-summary" id="cartSummary"></div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <section id="resultSection">
   <div class="result-wrap">
@@ -352,7 +468,14 @@ const I18N = {
     dayLabel:'Día',tipsCardTitle:'Consejo',
     bookInline:'Reservar',
     tags:['🏛️ Cultura','🍷 Gastronomía','🏔️ Naturaleza','🚂 Slow travel','🏖️ Playa','🌆 Ciudad','🧘 Desconexión','🌙 Noche','❤️ Romántico','👨‍👩‍👧 Familia'],
-    promptIntro:'Eres un viajero experto con criterio y curiosidad genuina. Conoces los destinos de verdad — no desde una guía turística, sino desde haberlos vivido. Creas planes que combinan lo esencial con lo inesperado, lo gratuito con lo que vale cada euro.',
+    addToCart:'Añadir al carrito',inCart:'En el carrito',cartLabel:'Mi viaje',
+    checkoutTitle:'Finalizar mi viaje',checkoutSub:'Un paso más para convertir el plan en realidad.',
+    contactTitle:'Tus datos',cName:'Nombre',cEmail:'Email',cNamePh:'¿Cómo te llamas?',cEmailPh:'tu@email.com',
+    reserveTitle:'Reserva cada parte de tu viaje',
+    sendTitle:'Recibe tu itinerario por email',sendDesc:'Te enviamos tu plan completo con todos los detalles, día a día, listo para descargar y llevar en el móvil.',
+    sendBtn:'📩 Enviar a mi email',checkoutSummaryTitle:'Tu viaje',
+    backBtn:'Volver al itinerario',labelFlexible:'¿Fechas flexibles?',flexNo:'Fechas fijas',flexYes:'Soy flexible ±3 días',
+        promptIntro:'Eres un viajero experto con criterio y curiosidad genuina. Conoces los destinos de verdad — no desde una guía turística, sino desde haberlos vivido. Creas planes que combinan lo esencial con lo inesperado, lo gratuito con lo que vale cada euro.',
     travelerMap:{solo:'viajando solo/a',couple:'en pareja',friends:'con un grupo de amigos',family:'en familia con niños'},
     budgetMap:{low:'ajustado pero sin renunciar a lo esencial',mid:'cómodo, sin obsesionarse con el precio',high:'con margen para lo que merece la pena',premium:'sin límite de presupuesto'},
   },
@@ -383,7 +506,14 @@ const I18N = {
     dayLabel:'Day',tipsCardTitle:'Tip',
     bookInline:'Book',
     tags:['🏛️ Culture','🍷 Food & Wine','🏔️ Nature','🚂 Slow travel','🏖️ Beach','🌆 City','🧘 Slow down','🌙 Nightlife','❤️ Romance','👨‍👩‍👧 Family'],
-    promptIntro:'You are an expert traveller with genuine curiosity and curated taste. You know destinations from having lived them, not from a guidebook. You build plans that blend the essential with the unexpected — some paid, some completely free.',
+    addToCart:'Add to cart',inCart:'In cart',cartLabel:'My trip',
+    checkoutTitle:'Finalise my trip',checkoutSub:'One step closer to making it real.',
+    contactTitle:'Your details',cName:'Name',cEmail:'Email',cNamePh:'Your name',cEmailPh:'you@email.com',
+    reserveTitle:'Book each part of your trip',
+    sendTitle:'Get your itinerary by email',sendDesc:'We'll send your complete plan with all details, day by day, ready to save and take on your phone.',
+    sendBtn:'📩 Send to my email',checkoutSummaryTitle:'Your trip',
+    backBtn:'Back to itinerary',labelFlexible:'Flexible dates?',flexNo:'Fixed dates',flexYes:'Flexible ±3 days',
+        promptIntro:'You are an expert traveller with genuine curiosity and curated taste. You know destinations from having lived them, not from a guidebook. You build plans that blend the essential with the unexpected — some paid, some completely free.',
     travelerMap:{solo:'travelling solo',couple:'as a couple',friends:'with a group of friends',family:'as a family with children'},
     budgetMap:{low:'on a mindful budget without missing what matters',mid:'comfortable, not obsessing over prices',high:'with room to spend on what\'s worth it',premium:'with no budget limit'},
   },
@@ -414,7 +544,14 @@ const I18N = {
     dayLabel:'Jour',tipsCardTitle:'Conseil',
     bookInline:'Réserver',
     tags:['🏛️ Culture','🍷 Gastronomie','🏔️ Nature','🚂 Slow travel','🏖️ Plage','🌆 Ville','🧘 Déconnexion','🌙 Soirées','❤️ Romantique','👨‍👩‍👧 Famille'],
-    promptIntro:'Tu es un voyageur expert avec une vraie curiosité et un goût affûté. Tu connais les destinations pour les avoir vécues, pas depuis un guide. Tu construis des plans qui mêlent l\'essentiel et l\'inattendu — certains payants, d\'autres totalement gratuits.',
+    addToCart:'Ajouter au panier',inCart:'Dans le panier',cartLabel:'Mon voyage',
+    checkoutTitle:'Finaliser mon voyage',checkoutSub:'Un pas de plus pour transformer le plan en réalité.',
+    contactTitle:'Vos coordonnées',cName:'Prénom',cEmail:'Email',cNamePh:'Votre prénom',cEmailPh:'vous@email.com',
+    reserveTitle:'Réservez chaque étape de votre voyage',
+    sendTitle:'Recevez votre itinéraire par email',sendDesc:'On vous envoie votre plan complet avec tous les détails, jour par jour, prêt à emporter sur votre téléphone.',
+    sendBtn:'📩 Envoyer à mon email',checkoutSummaryTitle:'Votre voyage',
+    backBtn:'Retour à l'itinéraire',labelFlexible:'Dates flexibles ?',flexNo:'Dates fixes',flexYes:'Flexible ±3 jours',
+        promptIntro:'Tu es un voyageur expert avec une vraie curiosité et un goût affûté. Tu connais les destinations pour les avoir vécues, pas depuis un guide. Tu construis des plans qui mêlent l\'essentiel et l\'inattendu — certains payants, d\'autres totalement gratuits.',
     travelerMap:{solo:'en solo',couple:'en couple',friends:'entre amis',family:'en famille avec enfants'},
     budgetMap:{low:'budget malin sans sacrifier l\'essentiel',mid:'à l\'aise sans se soucier du prix',high:'avec de la marge pour ce qui vaut le coup',premium:'sans limite de budget'},
   }
@@ -715,6 +852,9 @@ Rules:
                   <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 8 16 12 12 16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
                   ${t('expBookBtn')}
                 </a>
+                <button class="btn-add-cart" id="cart-exp-${i}" onclick="toggleCartExp(${i},'${e.name.replace(/'/g,\'').replace(/"/g,'&quot;')}','${e.price||''}',${e.price?parseInt(e.price.replace(/[^0-9]/g,''))||0:0},'${gygUrl}')">
+                  🛒 ${t('addToCart')||'Añadir al carrito'}
+                </button>
               </div>
             </div>`;
           }).join('')}
@@ -791,9 +931,9 @@ function fmtD(iso){if(!iso)return'';return new Date(iso+'T00:00:00').toLocaleDat
 async function gen(){
   const origin=document.getElementById('origin').value.trim()||'home';
   const dest=document.getElementById('dest').value.trim();
-  const days=document.getElementById('days').value;
+  const dfv=document.getElementById('df').value, dtv=document.getElementById('dt').value;
+  const days=dfv&&dtv?Math.max(1,Math.round((new Date(dtv)-new Date(dfv))/86400000)):7;
   const df=document.getElementById('df').value;
-  const dt2=document.getElementById('dt').value;
   const travelersKey=document.getElementById('travelers').value;
   const budgetKey=document.getElementById('budget').value;
   const styles=activeTags();
@@ -817,8 +957,8 @@ async function gen(){
   document.getElementById('ltxt').textContent=loadMsgs[0];
 
   const meses={es:['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'],en:['January','February','March','April','May','June','July','August','September','October','November','December'],fr:['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre']};
-  const mes=df?(meses[lang]||meses.es)[new Date(df+'T00:00:00').getMonth()]:'';
-  const fechaStr=df?`${lang==='fr'?'du':'from'} ${fmtD(df)} ${lang==='fr'?'au':'to'} ${fmtD(dt2)}${mes?` (${mes})`:''}`:null;
+  const mes=dfv?(meses[lang]||meses.es)[new Date(dfv+'T00:00:00').getMonth()]:'';
+  const fechaStr=dfv?`${lang==='fr'?'du':'from'} ${fmtD(dfv)} ${lang==='fr'?'au':'to'} ${fmtD(dtv)}${mes?` (${mes})`:''}`:null;
 
   const writingLang=lang==='fr'?'French':lang==='en'?'English':'Spanish';
   const dayWord=lang==='fr'?'Jour':lang==='en'?'Day':'Día';
@@ -1029,7 +1169,7 @@ Max 950 words total. Write in ${writingLang}.`;
         <div class="res-dest"><em>${dest}</em></div>
         <div class="res-chips">
           <div class="chip"><div class="chip-label">${t('labelDays')}</div><div class="chip-val">${days}</div></div>
-          ${df?`<div class="chip"><div class="chip-label">${t('labelDepart')}</div><div class="chip-val">${fmtD(df)}</div></div>`:''}
+          ${dfv?`<div class="chip"><div class="chip-label">${t('labelDepart')}</div><div class="chip-val">${fmtD(dfv)}</div></div>`:''}
           <div class="chip"><div class="chip-label">${t('labelTravelers')}</div><div class="chip-val">${travelersStr}</div></div>
           <div class="chip"><div class="chip-label">${t('labelBudget')}</div><div class="chip-val">${budgetStr}</div></div>
         </div>
@@ -1039,7 +1179,7 @@ Max 950 words total. Write in ${writingLang}.`;
         <button class="btn-res" onclick="window.print()">${t('printBtn')}</button>
       </div>`;
 
-    currentTrip={dest,origin,days,travelers:travelersStr,date:new Date().toLocaleDateString(),resHeader,timelineHTML,tipsHTML,affsHTML,resultHTML:true};
+    currentTrip={dest,origin,days:days,travelers:travelersStr,date:new Date().toLocaleDateString(),resHeader,timelineHTML,tipsHTML,affsHTML,resultHTML:true};
 
     document.getElementById('resHeader').innerHTML=resHeader;
     // Inject flight card before timeline
@@ -1063,6 +1203,205 @@ Max 950 words total. Write in ${writingLang}.`;
 }
 
 ['origin','dest'].forEach(id=>document.getElementById(id).addEventListener('keydown',e=>{if(e.key==='Enter')gen()}));
+
+
+// ── FLEXIBLE DATES ──
+let flexDates = false;
+function setFlex(val){
+  flexDates = val;
+  document.getElementById('flexYes').classList.toggle('active', val);
+  document.getElementById('flexNo').classList.toggle('active', !val);
+}
+
+// ── CART ──
+let cart = []; // [{id, name, price, priceNum, type, url, ico}]
+
+function cartTotal(){
+  return cart.reduce((s,i)=>s+(i.priceNum||0),0);
+}
+
+function updateCartBadge(){
+  const n = cart.length;
+  const btn = document.getElementById('cartBtn');
+  const badge = document.getElementById('cartBadge');
+  if(n>0){btn.style.display='flex';badge.textContent=n;}
+  else{btn.style.display='none';}
+}
+
+function addToCart(item){
+  // item: {id, name, price, priceNum, type, url, ico}
+  const exists = cart.findIndex(c=>c.id===item.id);
+  if(exists>=0){cart.splice(exists,1);updateCartBadge();return false;}
+  cart.push(item);
+  updateCartBadge();
+  return true;
+}
+
+function removeFromCart(id){
+  cart = cart.filter(c=>c.id!==id);
+  updateCartBadge();
+  renderCartSummary();
+}
+
+function openCheckout(){
+  renderCartSummary();
+  renderReserveLinks();
+  applyCheckoutLang();
+  document.getElementById('checkoutPage').style.display='block';
+  document.getElementById('checkoutPage').scrollIntoView({behavior:'smooth',block:'start'});
+  window.scrollTo(0,0);
+}
+
+function closeCheckout(){
+  document.getElementById('checkoutPage').style.display='none';
+}
+
+function applyCheckoutLang(){
+  document.querySelectorAll('#checkoutPage [data-i]').forEach(el=>{
+    const key=el.getAttribute('data-i');
+    el.textContent=t(key);
+  });
+  document.querySelectorAll('#checkoutPage [data-i-ph]').forEach(el=>{
+    el.placeholder=t(el.getAttribute('data-i-ph'));
+  });
+}
+
+function renderCartSummary(){
+  const dest = document.getElementById('dest').value.trim() || '—';
+  const origin = document.getElementById('origin').value.trim() || '—';
+  const df = document.getElementById('df').value;
+  const dt2 = document.getElementById('dt').value;
+  const days = df&&dt2 ? Math.max(1,Math.round((new Date(dt2)-new Date(df))/(86400000))) : '—';
+  const travelersKey = document.getElementById('travelers').value;
+  const budgetKey = document.getElementById('budget').value;
+  const tMap = t('travelerMap'), bMap = t('budgetMap');
+
+  const flightEst = cart.find(c=>c.type==='flight');
+  const hotelEst = cart.find(c=>c.type==='hotel');
+  const actTotal = cart.filter(c=>c.type==='activity').reduce((s,c)=>s+(c.priceNum||0),0);
+  const total = cartTotal();
+
+  const labels = {
+    es:{tripLabel:'Viaje planificado',nights:'noches',transport:'Transportes',hotel:'Alojamiento',activities:'Experiencias',total:'Total estimado',guarantee1:'Cancelación gratuita hasta 48h antes',guarantee2:'Mejor precio garantizado',guarantee3:'Soporte durante tu viaje',share:'Compartir mi plan',cartEmpty:'Tu carrito está vacío — añade experiencias desde el itinerario',added:'añadido'},
+    en:{tripLabel:'Planned trip',nights:'nights',transport:'Transport',hotel:'Accommodation',activities:'Experiences',total:'Estimated total',guarantee1:'Free cancellation up to 48h before',guarantee2:'Best price guaranteed',guarantee3:'Support during your trip',share:'Share my plan',cartEmpty:'Your cart is empty — add experiences from the itinerary',added:'added'},
+    fr:{tripLabel:'Voyage planifié',nights:'nuits',transport:'Transports',hotel:'Hébergement',activities:'Expériences',total:'Total estimé',guarantee1:'Annulation gratuite jusqu'à 48h avant',guarantee2:'Meilleur prix garanti',guarantee3:'Assistance pendant votre voyage',share:'Partager mon plan',cartEmpty:'Votre panier est vide — ajoutez des expériences depuis l'itinéraire',added:'ajouté'},
+  };
+  const L = labels[lang]||labels.es;
+
+  const imgUrl = `https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=120&q=60`;
+
+  const itemsHTML = cart.length ? `
+    <div class="cart-items">
+      ${cart.map(c=>`<div class="cart-item">
+        <span style="margin-right:.4rem">${c.ico||'🎟️'}</span>
+        <span class="cart-item-name">${c.name}</span>
+        <span class="cart-item-price">${c.price||'—'}</span>
+        <button class="cart-item-del" onclick="removeFromCart('${c.id}')">✕</button>
+      </div>`).join('')}
+    </div>` : `<p style="font-size:.8rem;color:var(--muted);margin-top:.8rem">${L.cartEmpty}</p>`;
+
+  document.getElementById('cartSummary').innerHTML = `
+    <div class="cart-summary-title">${t('checkoutSummaryTitle')||'Resumen'}</div>
+    <div class="cart-trip-card">
+      <img class="cart-trip-img" src="${imgUrl}" alt="${dest}"/>
+      <div class="cart-trip-body">
+        <div class="cart-trip-name">${dest}</div>
+        <div class="cart-trip-meta">${origin} · ${days} ${L.nights} · ${tMap[travelersKey]||travelersKey}</div>
+        <div class="cart-trip-meta" style="color:var(--teal-dark);font-weight:600">${bMap[budgetKey]||budgetKey}</div>
+      </div>
+    </div>
+    ${flightEst?`<div class="cart-line"><span class="cart-line-label">✈️ ${L.transport}</span><span class="cart-line-val">${flightEst.price}</span></div>`:''}
+    ${hotelEst?`<div class="cart-line"><span class="cart-line-label">🏨 ${L.hotel}</span><span class="cart-line-val">${hotelEst.price}</span></div>`:''}
+    ${actTotal>0?`<div class="cart-line"><span class="cart-line-label">🎟️ ${L.activities}</span><span class="cart-line-val">~€${actTotal}</span></div>`:''}
+    ${total>0?`<div class="cart-total"><span class="cart-total-label">${L.total}</span><span class="cart-total-val">~€${total}</span></div>`:''}
+    ${itemsHTML}
+    <div class="cart-guarantees">
+      <div class="cart-guarantee">${L.guarantee1}</div>
+      <div class="cart-guarantee">${L.guarantee2}</div>
+      <div class="cart-guarantee">${L.guarantee3}</div>
+    </div>
+    <button class="cart-share" onclick="shareTrip()">🔗 ${L.share}</button>`;
+}
+
+function renderReserveLinks(){
+  const dest = document.getElementById('dest').value.trim();
+  const origin = document.getElementById('origin').value.trim();
+  const labels = {
+    es:[
+      {ico:'✈️',name:'Vuelos',desc:'Busca y compara los mejores precios',type:'flight',btn:'Buscar vuelos'},
+      {ico:'🏨',name:'Hoteles',desc:'Alojamientos con cancelación gratuita',type:'hotel',btn:'Ver hoteles'},
+      {ico:'🎟️',name:'Actividades y tours',desc:'Experiencias verificadas con reseñas reales',type:'act',btn:'Ver actividades'},
+      {ico:'🚂',name:'Trenes',desc:'Conexiones directas y passes de tren',type:'train',btn:'Ver trenes'},
+      {ico:'🚗',name:'Alquiler de coche',desc:'Sin comisiones ocultas',type:'car',btn:'Ver coches'},
+    ],
+    en:[
+      {ico:'✈️',name:'Flights',desc:'Search and compare the best prices',type:'flight',btn:'Search flights'},
+      {ico:'🏨',name:'Hotels',desc:'Accommodation with free cancellation',type:'hotel',btn:'Browse hotels'},
+      {ico:'🎟️',name:'Activities & tours',desc:'Verified experiences with real reviews',type:'act',btn:'Browse activities'},
+      {ico:'🚂',name:'Trains',desc:'Direct connections and rail passes',type:'train',btn:'Browse trains'},
+      {ico:'🚗',name:'Car rental',desc:'No hidden fees',type:'car',btn:'Browse cars'},
+    ],
+    fr:[
+      {ico:'✈️',name:'Vols',desc:'Recherchez et comparez les meilleurs prix',type:'flight',btn:'Chercher des vols'},
+      {ico:'🏨',name:'Hôtels',desc:'Hébergements avec annulation gratuite',type:'hotel',btn:'Voir les hôtels'},
+      {ico:'🎟️',name:'Activités et tours',desc:'Expériences vérifiées avec vrais avis',type:'act',btn:'Voir les activités'},
+      {ico:'🚂',name:'Trains',desc:'Connexions directes et passes rail',type:'train',btn:'Voir les trains'},
+      {ico:'🚗',name:'Location de voiture',desc:'Sans frais cachés',type:'car',btn:'Voir les voitures'},
+    ],
+  };
+  const items = labels[lang]||labels.es;
+  document.getElementById('reserveLinks').innerHTML = items.map(item=>`
+    <div class="reserve-link-item">
+      <div class="rli-ico">${item.ico}</div>
+      <div class="rli-body">
+        <div class="rli-name">${item.name}</div>
+        <div class="rli-desc">${item.desc}</div>
+      </div>
+      <a class="rli-btn" href="${affUrl(item.type,dest,origin)}" target="_blank" rel="noopener">${item.btn} →</a>
+    </div>`).join('');
+}
+
+async function sendItinerary(){
+  const email = document.getElementById('cEmailInput').value.trim();
+  const name = document.getElementById('cNameInput').value.trim();
+  const dest = document.getElementById('dest').value.trim();
+  const sendLabels = {
+    es:{needEmail:'Introduce tu email para recibir el itinerario.',sending:'Enviando…',done:(n,d)=>`✅ Listo, ${n||'viajero'}. Tu itinerario de ${d} llegará a tu bandeja en breve. Si no lo ves, revisa spam.`},
+    en:{needEmail:'Enter your email to receive the itinerary.',sending:'Sending…',done:(n,d)=>`✅ Done, ${n||'traveller'}. Your ${d} itinerary is on its way. Check spam if you don't see it.`},
+    fr:{needEmail:'Entrez votre email pour recevoir l'itinéraire.',sending:'Envoi…',done:(n,d)=>`✅ C'est parti, ${n||'voyageur'}. Votre itinéraire pour ${d} arrive dans votre boîte. Vérifiez les spams.`},
+  };
+  const L = sendLabels[lang]||sendLabels.es;
+  if(!email){alert(L.needEmail);return;}
+  const btn = document.getElementById('btnSend');
+  btn.disabled=true;btn.querySelector('span').textContent=L.sending;
+  // Simulate send (no backend email yet — would need SendGrid/Resend)
+  await new Promise(r=>setTimeout(r,1800));
+  btn.style.display='none';
+  const confirm = document.getElementById('sendConfirm');
+  confirm.style.display='block';
+  confirm.textContent = L.done(name, dest);
+}
+
+function shareTrip(){
+  const dest = document.getElementById('dest').value.trim();
+  const text = {es:`🌍 Mira mi plan de viaje a ${dest} — creado con Travel Studio`,en:`🌍 Check my trip plan to ${dest} — created with Travel Studio`,fr:`🌍 Voici mon plan de voyage à ${dest} — créé avec Travel Studio`};
+  if(navigator.share){navigator.share({title:'Travel Studio',text:text[lang]||text.es,url:window.location.href});}
+  else{navigator.clipboard.writeText(window.location.href).then(()=>alert({es:'Enlace copiado',en:'Link copied',fr:'Lien copié'}[lang]||'Copied'));}
+}
+
+
+function toggleCartExp(idx, name, price, priceNum, url){
+  const id = 'exp-'+idx;
+  const btn = document.getElementById('cart-exp-'+idx);
+  const inCart = cart.findIndex(c=>c.id===id)>=0;
+  if(inCart){
+    removeFromCart(id);
+    if(btn){btn.innerHTML='🛒 '+(t('addToCart')||'Añadir al carrito');btn.classList.remove('in-cart');}
+  } else {
+    addToCart({id, name, price, priceNum, type:'activity', url, ico:'🎟️'});
+    if(btn){btn.innerHTML='✅ '+(t('inCart')||'En el carrito');btn.classList.add('in-cart');}
+  }
+}
 
 // ── INIT ──
 lang=detectLang();
