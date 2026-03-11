@@ -213,38 +213,47 @@ textarea{resize:none;height:56px;font-size:.82rem}
 /* Remove old icon styles */
 .tip-icon{display:none}
 
-/* ── BOOKING RECAP — menú final ── */
+/* ── BOOKING RECAP — menú final, mobile-first ── */
 .booking-recap{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;margin-bottom:2rem;box-shadow:var(--shadow)}
-.br-header{padding:1.6rem 2rem 1.4rem;background:linear-gradient(135deg,#0F172A 0%,#1E293B 60%,#0F3460 100%)}
-.br-eyebrow{font-size:.52rem;font-weight:800;text-transform:uppercase;letter-spacing:.22em;color:rgba(167,243,208,.7);margin-bottom:.5rem}
-.br-title{font-family:var(--font-display);font-size:1.25rem;font-weight:400;color:#fff;letter-spacing:-.025em;margin-bottom:.3rem}
-.br-sub{font-size:.72rem;color:rgba(255,255,255,.4)}
-.br-list{padding:.5rem 0}
-.br-section-lbl{font-size:.52rem;font-weight:800;text-transform:uppercase;letter-spacing:.2em;color:var(--muted);padding:.9rem 2rem .4rem;border-top:1px solid var(--border)}
-.br-section-lbl:first-child{border-top:none;padding-top:1.1rem}
-.br-row{display:flex;align-items:center;gap:.9rem;padding:.75rem 2rem;transition:background .15s}
-.br-row:hover{background:var(--bg)}
-.br-ico{font-size:1.1rem;width:22px;text-align:center;flex-shrink:0}
+.br-header{padding:1.6rem 1.4rem 1.4rem;background:linear-gradient(135deg,#0F172A 0%,#1E293B 60%,#0F3460 100%)}
+.br-eyebrow{font-size:.55rem;font-weight:800;text-transform:uppercase;letter-spacing:.2em;color:rgba(167,243,208,.7);margin-bottom:.55rem}
+.br-title{font-family:var(--font-display);font-size:1.35rem;font-weight:400;color:#fff;letter-spacing:-.025em;margin-bottom:.4rem;line-height:1.2}
+.br-sub{font-size:.75rem;color:rgba(255,255,255,.45);line-height:1.5}
+
+/* Each booking item — full width card on mobile */
+.br-list{padding:.4rem 0}
+.br-section-lbl{font-size:.55rem;font-weight:800;text-transform:uppercase;letter-spacing:.18em;color:var(--muted);padding:1rem 1.4rem .35rem;border-top:1px solid var(--border)}
+.br-section-lbl:first-child{border-top:none;padding-top:.9rem}
+.br-row{display:flex;align-items:center;gap:.75rem;padding:.9rem 1.4rem;border-bottom:1px solid var(--border);transition:background .15s}
+.br-row:last-of-type{border-bottom:none}
+.br-ico{font-size:1.3rem;width:26px;text-align:center;flex-shrink:0}
 .br-info{flex:1;min-width:0}
-.br-label{font-size:.84rem;font-weight:700;color:var(--ink)}
-.br-detail{font-size:.71rem;color:var(--muted);margin-top:.07rem}
-.br-right{display:flex;flex-direction:column;align-items:flex-end;gap:.32rem;flex-shrink:0}
-.br-price{font-family:var(--font-display);font-size:1rem;font-weight:400;color:var(--ink);letter-spacing:-.02em}
-.br-btn{font-size:.65rem;font-weight:700;padding:.26rem .7rem;border-radius:7px;text-decoration:none;white-space:nowrap;transition:all .15s;display:inline-block}
-.br-btn-flight{background:#EFF6FF;color:#1D4ED8;border:1px solid #BFDBFE}.br-btn-flight:hover{background:#1D4ED8;color:#fff}
-.br-btn-hotel{background:#F0FDF4;color:#065F46;border:1px solid #BBF7D0}.br-btn-hotel:hover{background:#065F46;color:#fff}
-.br-btn-act{background:#F0FDFA;color:var(--teal-dark);border:1px solid #99F6E4}.br-btn-act:hover{background:var(--teal-dark);color:#fff}
-.br-btn-train{background:#F5F3FF;color:#5B21B6;border:1px solid #DDD6FE}.br-btn-train:hover{background:#5B21B6;color:#fff}
-.br-btn-car{background:#FFFBEB;color:#B45309;border:1px solid #FDE68A}.br-btn-car:hover{background:#B45309;color:#fff}
-.br-total-row{display:flex;justify-content:space-between;align-items:center;padding:1.1rem 2rem;border-top:2px solid var(--ink);margin:0 0 0}
-.br-total-lbl{font-size:.78rem;font-weight:700;color:var(--ink);text-transform:uppercase;letter-spacing:.06em}
-.br-total-val{font-family:var(--font-display);font-size:2rem;font-weight:400;color:var(--ink);letter-spacing:-.03em;line-height:1}
-.br-total-pp{font-size:.7rem;font-weight:400;color:var(--muted);margin-left:.2rem;font-family:var(--font-body)}
-.br-note{padding:.6rem 2rem 1rem;font-size:.68rem;color:var(--muted);line-height:1.55;border-top:1px solid var(--border)}
-.br-email-row{display:flex;gap:.55rem;padding:0 2rem 1.5rem}
-.br-email-btn{flex:1;padding:.72rem;border:none;border-radius:10px;background:linear-gradient(135deg,#0F172A,#2C3E6B);color:#fff;font-size:.78rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.4rem;transition:opacity .2s;font-family:var(--font-body)}
+.br-label{font-size:.92rem;font-weight:700;color:var(--ink);line-height:1.2}
+.br-detail{font-size:.74rem;color:var(--muted);margin-top:.18rem;line-height:1.4}
+.br-right{display:flex;flex-direction:column;align-items:flex-end;gap:.38rem;flex-shrink:0}
+.br-price{font-family:var(--font-display);font-size:1.05rem;font-weight:400;color:var(--ink);letter-spacing:-.02em;white-space:nowrap}
+
+/* Book button — bigger tap target on mobile */
+.br-btn{font-size:.72rem;font-weight:700;padding:.38rem .85rem;border-radius:8px;text-decoration:none;white-space:nowrap;transition:all .15s;display:inline-block;min-height:32px;display:flex;align-items:center}
+.br-btn-flight{background:#EFF6FF;color:#1D4ED8;border:1px solid #BFDBFE}
+.br-btn-hotel{background:#F0FDF4;color:#065F46;border:1px solid #BBF7D0}
+.br-btn-act{background:#F0FDFA;color:var(--teal-dark);border:1px solid #99F6E4}
+.br-btn-train{background:#F5F3FF;color:#5B21B6;border:1px solid #DDD6FE}
+.br-btn-car{background:#FFFBEB;color:#B45309;border:1px solid #FDE68A}
+
+/* Total — big and clear */
+.br-total-row{display:flex;justify-content:space-between;align-items:center;padding:1.2rem 1.4rem;background:var(--bg);border-top:2px solid var(--ink)}
+.br-total-lbl{font-size:.8rem;font-weight:700;color:var(--ink);text-transform:uppercase;letter-spacing:.05em}
+.br-total-val{font-family:var(--font-display);font-size:2.2rem;font-weight:400;color:var(--ink);letter-spacing:-.03em;line-height:1}
+.br-total-pp{font-size:.72rem;font-weight:400;color:var(--muted);margin-left:.25rem;font-family:var(--font-body)}
+
+.br-note{padding:.7rem 1.4rem;font-size:.71rem;color:var(--muted);line-height:1.6;border-top:1px solid var(--border);font-style:italic}
+
+/* CTA — single big button, PDF secondary */
+.br-email-row{padding:1rem 1.4rem 1.4rem;display:flex;flex-direction:column;gap:.55rem}
+.br-email-btn{width:100%;padding:.9rem;border:none;border-radius:12px;background:linear-gradient(135deg,#0F172A,#2C3E6B);color:#fff;font-size:.9rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.5rem;transition:opacity .2s;font-family:var(--font-body);box-sizing:border-box}
 .br-email-btn:hover{opacity:.88}
-.br-pdf-btn{padding:.72rem 1.1rem;border:1.5px solid var(--border);border-radius:10px;background:#fff;color:var(--ink);font-size:.76rem;font-weight:600;cursor:pointer;font-family:var(--font-body);transition:all .18s}
+.br-pdf-btn{width:100%;padding:.75rem;border:1.5px solid var(--border);border-radius:12px;background:#fff;color:var(--ink);font-size:.82rem;font-weight:600;cursor:pointer;font-family:var(--font-body);transition:all .18s;box-sizing:border-box}
 .br-pdf-btn:hover{border-color:var(--ink)}
 .recap-hed-bar{background:linear-gradient(135deg,#0F172A 0%,#1E293B 60%,#0F3460 100%);padding:1.15rem 1.6rem;display:flex;align-items:center;gap:.75rem}
 .recap-hed-ico{width:30px;height:30px;background:rgba(45,212,191,.18);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
@@ -440,6 +449,24 @@ textarea{resize:none;height:56px;font-size:.82rem}
   .itin-wrap{padding:1.8rem 1rem}
   nav{padding:.6rem 1rem}
   .bottom-cta{padding:1.8rem 1.5rem}
+  /* Day cards — bigger on mobile */
+  .moment-text{font-size:1.02rem;line-height:1.95}
+  .day-title{font-size:1.15rem}
+  .day-intro-text{font-size:1rem}
+  .moment-label{font-size:.58rem}
+  /* Tips — bigger */
+  .tip-head{font-size:.9rem}
+  .tip-body{font-size:.88rem}
+  /* Booking recap — full width rows */
+  .br-row{flex-wrap:wrap;gap:.5rem;padding:.9rem 1.1rem}
+  .br-right{flex-direction:row;align-items:center;gap:.6rem;width:100%}
+  .br-price{font-size:.95rem}
+  .br-btn{flex:1;justify-content:center;text-align:center;padding:.48rem}
+  .br-total-val{font-size:1.9rem}
+  .br-header{padding:1.3rem 1.1rem 1.1rem}
+  .br-title{font-size:1.2rem}
+  /* Nav — hide cart on mobile, recap is at bottom */
+  .nav-cart{display:none!important}
 }
 
 /* ── MEMORIA DE VIAJE MODAL ── */
