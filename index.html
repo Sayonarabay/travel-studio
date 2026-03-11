@@ -695,7 +695,7 @@ Español, voz cálida, muy concreto. Máx 700 palabras.`;
 // SANITY CMS — carga destinos dinámicamente
 // Sustituye SANITY_PROJECT_ID con tu ID real
 // ══════════════════════════════════════════════
-const SANITY_PROJECT_ID = 'YOUR_PROJECT_ID'; // ← reemplazar
+const SANITY_PROJECT_ID = '2d8sevuv'; // ← reemplazar
 const SANITY_DATASET    = 'production';
 const SANITY_API_VER    = '2024-01-01';
 
@@ -709,7 +709,7 @@ function tagClass(t){ return TAG_COLORS[t]||'teal'; }
 
 function destCardHTML(d){
   const img = d.imagen
-    ? `https://cdn.sanity.io/images/${SANITY_PROJECT_ID}/${SANITY_DATASET}/${d.imagen.asset._ref.replace('image-','').replace(/-(\w+)$/,'.$1')}`
+    ? `https://cdn.sanity.io/images/${2d8sevuv}/${SANITY_DATASET}/${d.imagen.asset._ref.replace('image-','').replace(/-(\w+)$/,'.$1')}`
     : `https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&q=70`;
   const tags = (d.categorias||[]).slice(0,2).map(t=>`<span class="dtag ${tagClass(t)}">${t}</span>`).join('');
   return `
@@ -747,7 +747,7 @@ async function loadDestinations(){
   if(!grid) return;
 
   // Si Sanity está configurado, carga desde CMS
-  if(SANITY_PROJECT_ID !== 'YOUR_PROJECT_ID'){
+  if(SANITY_PROJECT_ID !== '2d8sevuv'){
     try{
       const query = encodeURIComponent(`*[_type == "destino"] | order(orden asc) {nombre, ubicacion, dias, precioDesde, categorias, actividades, imagen}`);
       const url = `https://${SANITY_PROJECT_ID}.api.sanity.io/v${SANITY_API_VER}/data/query/${SANITY_DATASET}?query=${query}`;
