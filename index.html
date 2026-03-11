@@ -352,6 +352,42 @@ textarea{resize:none;height:56px;font-size:.83rem}
   .bottom-cta{flex-direction:column;align-items:flex-start}
   nav{padding:.65rem 1rem}
 }
+
+/* ── MEMORIA DE VIAJE MODAL ── */
+#memoriaModal{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;padding:1rem}
+#memoriaModal.on{display:flex}
+#memoriaModal .m-overlay{position:absolute;inset:0;background:rgba(10,14,25,.72);backdrop-filter:blur(6px)}
+#memoriaModal .m-box{position:relative;width:100%;max-width:480px;background:#fff;border-radius:24px;overflow:hidden;box-shadow:0 32px 80px rgba(10,14,25,.35);animation:mup .32s cubic-bezier(.34,1.56,.64,1) both}
+@keyframes mup{from{opacity:0;transform:translateY(28px) scale(.97)}to{opacity:1;transform:none}}
+.m-top{background:linear-gradient(135deg,#0F172A 0%,#1E3A5F 60%,#0F766E 100%);padding:2.2rem 2rem 1.8rem;text-align:center;position:relative}
+.m-close{position:absolute;top:.9rem;right:1rem;background:rgba(255,255,255,.1);border:none;color:rgba(255,255,255,.6);width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:.85rem;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.m-close:hover{background:rgba(255,255,255,.2);color:#fff}
+.m-trip-name{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:#fff;line-height:1.2;margin-bottom:.35rem}
+.m-trip-dest{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.14em;background:linear-gradient(135deg,var(--teal),#67E8F9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.8rem}
+.m-chips-row{display:flex;gap:.4rem;justify-content:center;flex-wrap:wrap}
+.m-chip{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:100px;padding:.22rem .7rem;font-size:.65rem;color:rgba(255,255,255,.75)}
+.m-body{padding:1.6rem 2rem 2rem}
+.m-promise{font-size:.88rem;color:var(--ink2);line-height:1.65;margin-bottom:1.4rem;text-align:center}
+.m-promise strong{color:var(--ink)}
+.m-features{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:1.4rem}
+.m-feat{display:flex;align-items:flex-start;gap:.55rem;font-size:.76rem;color:var(--ink2);line-height:1.4}
+.m-feat-ico{width:22px;height:22px;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.05rem}
+.m-feat-ico svg{width:11px;height:11px;fill:none;stroke:white;stroke-width:2.5}
+.m-input-row{display:flex;flex-direction:column;gap:.6rem;margin-bottom:1rem}
+.m-input{width:100%;padding:.7rem 1rem;border:1.5px solid var(--border);border-radius:12px;font-size:.85rem;font-family:'Inter',sans-serif;color:var(--ink);outline:none;box-sizing:border-box;transition:border-color .18s}
+.m-input:focus{border-color:var(--teal-dark)}
+.m-cta{width:100%;padding:.85rem;border:none;border-radius:14px;background:linear-gradient(135deg,#0F766E,#0D9488);color:#fff;font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;cursor:pointer;transition:opacity .2s;letter-spacing:.01em}
+.m-cta:hover{opacity:.92}
+.m-cta:disabled{opacity:.5;cursor:default}
+.m-skip{display:block;text-align:center;margin-top:.85rem;font-size:.73rem;color:var(--muted);cursor:pointer;transition:color .18s}
+.m-skip:hover{color:var(--ink)}
+.m-ok{display:none;text-align:center;padding:1.2rem 0 .5rem}
+.m-ok-ico{font-size:2rem;margin-bottom:.4rem}
+.m-ok-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--ink);margin-bottom:.4rem}
+.m-ok-sub{font-size:.8rem;color:var(--ink2);line-height:1.6}
+.m-pdf-btn{display:inline-flex;align-items:center;gap:.4rem;margin-top:1rem;padding:.55rem 1.2rem;border:1.5px solid var(--teal-dark);border-radius:100px;color:var(--teal-dark);font-size:.76rem;font-weight:700;cursor:pointer;background:transparent;transition:all .18s}
+.m-pdf-btn:hover{background:var(--teal-dark);color:#fff}
+.m-pdf-btn svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:2}
 </style>
 </head>
 <body>
@@ -1331,6 +1367,12 @@ function renderResult(s){
   document.getElementById('expSection').innerHTML=s.expHTML||'';
   document.getElementById('bottomCta').innerHTML=s.ctaHTML||'';
   document.getElementById('resultSection').classList.add('on');
+
+  // Pre-fill modal name/email if stored
+  const storedEmail = localStorage.getItem('ts_user_email');
+  const storedName = localStorage.getItem('ts_user_name');
+  if (storedEmail) document.getElementById('mEmail').value = storedEmail;
+  if (storedName) document.getElementById('mName').value = storedName;
 }
 
 // ═══════════════════════════════════
@@ -1556,6 +1598,14 @@ Max 1150 words. Write entirely in ${wl}.`;
 
     renderResult(currentTrip);
     setTimeout(()=>document.getElementById('resultSection').scrollIntoView({behavior:'smooth',block:'start'}),200);
+    setTimeout(()=>openMemoria({
+      tripName:tripName,
+      dest,
+      travelers:tStr,
+      budget:bStr,
+      days,
+      date:dfv?fmtD(dfv):'',
+    }), 2800);
 
     loadExperiences(dest,tStr,bStr,mes,tKey).then(()=>{
       if(currentTrip){currentTrip.expHTML=document.getElementById('expSection').innerHTML;}
@@ -1571,11 +1621,330 @@ Max 1150 words. Write entirely in ${wl}.`;
 
 ['origin','dest'].forEach(id=>document.getElementById(id).addEventListener('keydown',e=>{if(e.key==='Enter')gen();}));
 
+
+// ═══════════════════════════════════
+// MEMORIA DE VIAJE MODAL
+// ═══════════════════════════════════
+let memoriaData = {};
+
+function openMemoria(tripData) {
+  memoriaData = tripData || {};
+  const lang_ = lang || 'es';
+
+  // Populate top section
+  document.getElementById('mTripName').textContent = memoriaData.tripName || memoriaData.dest || 'Tu viaje';
+  document.getElementById('mTripDest').textContent = (memoriaData.dest || '').toUpperCase();
+
+  // Chips
+  const chips = [
+    memoriaData.date || '',
+    memoriaData.travelers || '',
+    (memoriaData.days || '') + ({es:' días',en:' days',fr:' jours'}[lang_] || ' días'),
+  ].filter(Boolean);
+  document.getElementById('mChips').innerHTML = chips.map(c => `<div class="m-chip">${c}</div>`).join('');
+
+  // Promise text
+  const promises = {
+    es: `Tu plan para <strong>${memoriaData.dest}</strong> merece vivir más allá de esta pantalla. Recíbelo por email y te avisamos cuando el momento de reservar es el ideal.`,
+    en: `Your plan for <strong>${memoriaData.dest}</strong> deserves to live beyond this screen. Get it by email and we'll let you know when it's the perfect moment to book.`,
+    fr: `Votre plan pour <strong>${memoriaData.dest}</strong> mérite de vivre au-delà de cet écran. Recevez-le par email et nous vous alertons au moment idéal pour réserver.`,
+  };
+  document.getElementById('mPromise').innerHTML = promises[lang_] || promises.es;
+
+  // Feature icons
+  const feats = {
+    es: [
+      {grad:'#0F766E,#2DD4BF', label:'PDF de tu itinerario completo'},
+      {grad:'#4338CA,#818CF8', label:'Alertas de precio para vuelos'},
+      {grad:'#B45309,#F59E0B', label:'Recordatorio antes de salir'},
+      {grad:'#BE123C,#F87171', label:'Sorpresa al volver 🎁'},
+    ],
+    en: [
+      {grad:'#0F766E,#2DD4BF', label:'PDF of your full itinerary'},
+      {grad:'#4338CA,#818CF8', label:'Flight price alerts'},
+      {grad:'#B45309,#F59E0B', label:'Reminder before departure'},
+      {grad:'#BE123C,#F87171', label:'A surprise when you return 🎁'},
+    ],
+    fr: [
+      {grad:'#0F766E,#2DD4BF', label:'PDF de votre itinéraire complet'},
+      {grad:'#4338CA,#818CF8', label:"Alertes prix pour les vols"},
+      {grad:'#B45309,#F59E0B', label:'Rappel avant le départ'},
+      {grad:'#BE123C,#F87171', label:'Une surprise au retour 🎁'},
+    ],
+  };
+  const checkSVG = '<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>';
+  const fl = (feats[lang_] || feats.es);
+  document.getElementById('mFeatures').innerHTML = fl.map(f =>
+    `<div class="m-feat">
+      <div class="m-feat-ico" style="background:linear-gradient(135deg,${f.grad})">${checkSVG}</div>
+      <span>${f.label}</span>
+    </div>`
+  ).join('');
+
+  // CTA text
+  const ctas = {es:'Recibir mi Memoria de Viaje →', en:'Get my Travel Memory →', fr:'Recevoir ma Mémoire de Voyage →'};
+  document.getElementById('mCtaTxt').textContent = ctas[lang_] || ctas.es;
+
+  // Placeholder
+  document.getElementById('mName').placeholder = {es:'Tu nombre',en:'Your name',fr:'Votre prénom'}[lang_] || 'Tu nombre';
+  document.getElementById('mEmail').placeholder = 'email@ejemplo.com';
+
+  // Reset state
+  document.getElementById('mOk').style.display = 'none';
+  document.getElementById('mCta').style.display = 'block';
+  document.getElementById('mCta').disabled = false;
+  document.getElementById('mCtaTxt').textContent = ctas[lang_] || ctas.es;
+  document.querySelector('.m-skip').style.display = 'block';
+
+  document.getElementById('memoriaModal').classList.add('on');
+  document.getElementById('mEmail').focus();
+}
+
+function closeMemoria() {
+  document.getElementById('memoriaModal').classList.remove('on');
+}
+
+function skipMemoria() {
+  closeMemoria();
+}
+
+async function submitMemoria() {
+  const name = document.getElementById('mName').value.trim();
+  const email = document.getElementById('mEmail').value.trim();
+  if (!email || !email.includes('@')) {
+    document.getElementById('mEmail').style.borderColor = '#F87171';
+    document.getElementById('mEmail').focus();
+    return;
+  }
+  const btn = document.getElementById('mCta');
+  btn.disabled = true;
+  const sending = {es:'Guardando tu viaje…', en:'Saving your trip…', fr:'Sauvegarde en cours…'};
+  document.getElementById('mCtaTxt').textContent = sending[lang] || sending.es;
+
+  // Build plain text version of itinerary for email
+  const dest = memoriaData.dest || '';
+  const tripName = memoriaData.tripName || dest;
+  const departDate = document.getElementById('df').value;
+  const returnDate = document.getElementById('dt').value;
+
+  try {
+    const res = await fetch('/api/email', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        name, email,
+        tripName, dest,
+        departDate, returnDate,
+        travelers: memoriaData.travelers || '',
+        budget: memoriaData.budget || '',
+        lang,
+      })
+    });
+
+    if (!res.ok) throw new Error('email_failed');
+
+    // Show success
+    document.getElementById('mCta').style.display = 'none';
+    document.querySelector('.m-skip').style.display = 'none';
+    const ok = document.getElementById('mOk');
+    ok.style.display = 'block';
+    const titles = {es:`Perfecto, ${name||'viajero'} ✓`, en:`Perfect, ${name||'traveller'} ✓`, fr:`Parfait, ${name||'voyageur'} ✓`};
+    const subs = {
+      es:`Tu itinerario a ${dest} está en camino. Te escribiremos antes de tu viaje con lo que necesitas saber — y algo más al volver.`,
+      en:`Your ${dest} itinerary is on its way. We'll reach out before your trip with what you need — and something special when you return.`,
+      fr:`Votre itinéraire pour ${dest} est en route. Nous vous écrirons avant le voyage avec tout ce qu'il faut savoir — et quelque chose de spécial au retour.`,
+    };
+    document.getElementById('mOkTitle').textContent = titles[lang] || titles.es;
+    document.getElementById('mOkSub').textContent = subs[lang] || subs.es;
+    const pdfLabels = {es:'Descargar PDF', en:'Download PDF', fr:'Télécharger PDF'};
+    document.getElementById('mPdfBtn').childNodes[document.getElementById('mPdfBtn').childNodes.length-1].textContent = ' ' + (pdfLabels[lang] || 'Descargar PDF');
+
+    // Store email locally for future use
+    localStorage.setItem('ts_user_email', email);
+    localStorage.setItem('ts_user_name', name);
+
+  } catch(e) {
+    // Still show PDF download even if email fails
+    document.getElementById('mCta').style.display = 'none';
+    document.querySelector('.m-skip').style.display = 'none';
+    const ok = document.getElementById('mOk');
+    ok.style.display = 'block';
+    document.getElementById('mOkTitle').textContent = {es:'Tu viaje está listo', en:'Your trip is ready', fr:'Votre voyage est prêt'}[lang] || 'Tu viaje está listo';
+    document.getElementById('mOkSub').textContent = {
+      es:'Descarga tu PDF a continuación.',
+      en:'Download your PDF below.',
+      fr:'Téléchargez votre PDF ci-dessous.',
+    }[lang] || 'Descarga tu PDF.';
+  }
+}
+
+// ─── PDF GENERATION (client-side with jsPDF) ───
+function downloadPDF() {
+  // Load jsPDF dynamically
+  if (window.jspdf) { _generatePDF(); return; }
+  const s = document.createElement('script');
+  s.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+  s.onload = _generatePDF;
+  s.onerror = () => alert('PDF generation unavailable. Please save the page manually.');
+  document.head.appendChild(s);
+}
+
+function _generatePDF() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+  const W = 210, H = 297;
+  const margin = 18;
+
+  const tripName = memoriaData.tripName || memoriaData.dest || 'Mi Viaje';
+  const dest = memoriaData.dest || '';
+  const departDate = document.getElementById('df').value;
+  const returnDate = document.getElementById('dt').value;
+  const travelers = memoriaData.travelers || '';
+
+  // ── Cover header ──
+  doc.setFillColor(15, 23, 42); // ink
+  doc.rect(0, 0, W, 58, 'F');
+
+  // Teal accent line
+  doc.setFillColor(45, 212, 191);
+  doc.rect(0, 55, W, 3, 'F');
+
+  // Trip name
+  doc.setTextColor(255, 255, 255);
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(22);
+  doc.text(tripName, margin, 28);
+
+  // Destination
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(9);
+  doc.setTextColor(45, 212, 191);
+  doc.text(dest.toUpperCase(), margin, 37);
+
+  // Meta chips
+  doc.setTextColor(180, 200, 220);
+  doc.setFontSize(8);
+  const meta = [departDate, returnDate, travelers].filter(Boolean).join('  ·  ');
+  doc.text(meta, margin, 46);
+
+  // Brand
+  doc.setTextColor(100, 130, 160);
+  doc.setFontSize(7.5);
+  doc.text('Travel Studio', W - margin, 46, {align:'right'});
+
+  // ── Content ──
+  let y = 70;
+  doc.setTextColor(15, 23, 42);
+
+  // Extract text content from rendered timeline
+  const timeline = document.getElementById('timeline');
+  if (timeline) {
+    const days = timeline.querySelectorAll('.day-card');
+    days.forEach((card, i) => {
+      if (y > H - 30) { doc.addPage(); y = 20; }
+
+      // Day header
+      doc.setFillColor(15, 23, 42);
+      doc.rect(margin, y - 4, W - margin*2, 10, 'F');
+      doc.setTextColor(255, 255, 255);
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(10);
+      const titleEl = card.querySelector('.day-title');
+      doc.text(`${i+1}  ${titleEl ? titleEl.textContent.slice(0,55) : ''}`, margin + 3, y + 3);
+      y += 13;
+
+      // Moments
+      const moments = card.querySelectorAll('.moment');
+      moments.forEach(m => {
+        if (y > H - 20) { doc.addPage(); y = 20; }
+        const label = m.querySelector('.moment-label');
+        const text = m.querySelector('.moment-text');
+        if (!text) return;
+        doc.setTextColor(100, 100, 100);
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(7.5);
+        doc.text((label ? label.textContent.toUpperCase() : ''), margin + 2, y);
+        y += 4;
+        doc.setFont('helvetica', 'normal');
+        doc.setTextColor(40, 40, 60);
+        doc.setFontSize(8.5);
+        const lines = doc.splitTextToSize(text.textContent.replace(/\s+/g,' ').slice(0,280), W - margin*2 - 4);
+        doc.text(lines, margin + 2, y);
+        y += lines.length * 4.5 + 3;
+      });
+
+      // Gem
+      const gem = card.querySelector('.day-gem-txt');
+      if (gem) {
+        if (y > H - 15) { doc.addPage(); y = 20; }
+        doc.setFillColor(240, 253, 244);
+        doc.rect(margin, y - 3, W - margin*2, 10, 'F');
+        doc.setTextColor(6, 95, 70);
+        doc.setFont('helvetica', 'bolditalic');
+        doc.setFontSize(7.5);
+        const gemLines = doc.splitTextToSize('✦ ' + gem.textContent.slice(0,120), W - margin*2 - 4);
+        doc.text(gemLines, margin + 2, y + 2);
+        y += gemLines.length * 4 + 6;
+      }
+
+      y += 5;
+    });
+  }
+
+  // ── Footer on last page ──
+  if (y > H - 25) { doc.addPage(); y = 20; }
+  doc.setDrawColor(220, 230, 240);
+  doc.line(margin, H - 18, W - margin, H - 18);
+  doc.setTextColor(150, 160, 180);
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(7);
+  doc.text('Creado con Travel Studio · travel-studio.vercel.app', margin, H - 12);
+  doc.text(`${tripName} · ${new Date().getFullYear()}`, W - margin, H - 12, {align:'right'});
+
+  // Save
+  const fileName = (tripName + ' - ' + dest).replace(/[^a-zA-Z0-9 ]/g,'').replace(/\s+/g,'-').toLowerCase();
+  doc.save(fileName + '.pdf');
+}
+
 // ═══════════════════════════════════
 // INIT
 // ═══════════════════════════════════
 lang=detectLang();
 applyLang();
 </script>
+
+<!-- ── MEMORIA DE VIAJE MODAL ── -->
+<div id="memoriaModal">
+  <div class="m-overlay" onclick="closeMemoria()"></div>
+  <div class="m-box">
+    <div class="m-top">
+      <button class="m-close" onclick="closeMemoria()">✕</button>
+      <div class="m-trip-name" id="mTripName"></div>
+      <div class="m-trip-dest" id="mTripDest"></div>
+      <div class="m-chips-row" id="mChips"></div>
+    </div>
+    <div class="m-body">
+      <p class="m-promise" id="mPromise"></p>
+      <div class="m-features" id="mFeatures"></div>
+      <div class="m-input-row">
+        <input class="m-input" id="mName" type="text" placeholder="Tu nombre"/>
+        <input class="m-input" id="mEmail" type="email" placeholder="tu@email.com"/>
+      </div>
+      <button class="m-cta" id="mCta" onclick="submitMemoria()">
+        <span id="mCtaTxt">Recibir mi Memoria de Viaje →</span>
+      </button>
+      <span class="m-skip" onclick="skipMemoria()">Continuar sin guardar</span>
+      <div class="m-ok" id="mOk">
+        <div class="m-ok-ico">✉️</div>
+        <div class="m-ok-title" id="mOkTitle"></div>
+        <div class="m-ok-sub" id="mOkSub"></div>
+        <button class="m-pdf-btn" id="mPdfBtn" onclick="downloadPDF()">
+          <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Descargar PDF
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 </html>
