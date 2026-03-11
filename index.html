@@ -3,67 +3,76 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Travel Studio</title>
+<title>Travel Studio — Tu viaje con criterio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#F8F9FA;--white:#fff;--ink:#0F172A;--ink2:#475569;--muted:#94A3B8;--border:#E2E8F0;
-  --teal:#2DD4BF;--teal-light:#F0FDFA;--teal-dark:#0F766E;
-  --r:16px;--shadow:0 2px 12px rgba(15,23,42,.07);--shadow-md:0 6px 24px rgba(15,23,42,.11);
+  --bg:#FAFAF7;--white:#fff;--ink:#1C1C2E;--ink2:#4A5568;--muted:#9CA3AF;--border:#E5DFD3;
+  --sage:#4A7C59;--sage-light:#EEF5F0;--sage-dark:#2D5A3D;
+  --coral:#E85D4A;--coral-light:#FDF0EE;
+  --amber:#C97B3A;--amber-light:#FEF6EC;
+  --navy:#2C3E6B;--teal:#2DD4BF;--teal-light:#F0FDFA;--teal-dark:#0F766E;
+  --sand:#F2EDE3;--warm-white:#FDFCF8;
+  --r:12px;--r-lg:20px;
+  --shadow:0 2px 16px rgba(28,28,46,.06);--shadow-md:0 8px 32px rgba(28,28,46,.12);--shadow-lg:0 24px 64px rgba(28,28,46,.18);
+  --font-display:'DM Serif Display',Georgia,serif;
+  --font-body:'DM Sans',system-ui,sans-serif;
+  --font-prose:'Crimson Pro',Georgia,serif;
 }
 html{font-size:16px;scroll-behavior:smooth}
-body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;line-height:1.6;overflow-x:hidden}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);line-height:1.65;overflow-x:hidden}
 
 /* ── NAV ── */
-nav{position:fixed;top:0;width:100%;z-index:100;background:rgba(255,255,255,.95);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:.75rem 2rem;display:flex;justify-content:space-between;align-items:center;gap:1rem}
-.logo{font-family:'Playfair Display',serif;font-weight:700;font-size:1.1rem;color:var(--ink);white-space:nowrap}
-.logo em{font-style:italic;color:var(--teal-dark)}
+nav{position:fixed;top:0;width:100%;z-index:100;background:rgba(250,250,247,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:.65rem 2rem;display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.logo{font-family:var(--font-display);font-size:1.2rem;font-weight:400;color:var(--ink);white-space:nowrap;letter-spacing:-.02em}
+.logo em{font-style:italic;color:var(--sage)}
 .nav-right{display:flex;align-items:center;gap:.7rem}
-.lang-sw{display:flex;gap:2px;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:2px}
-.lang-btn{padding:.22rem .5rem;border-radius:5px;border:none;background:transparent;font-size:.7rem;font-weight:700;color:var(--muted);cursor:pointer;transition:all .15s}
+.lang-sw{display:flex;gap:2px;background:var(--sand);border:1px solid var(--border);border-radius:7px;padding:2px}
+.lang-btn{padding:.2rem .48rem;border-radius:5px;border:none;background:transparent;font-size:.66rem;font-weight:700;color:var(--muted);cursor:pointer;transition:all .15s;letter-spacing:.04em}
 .lang-btn.on{background:var(--ink);color:#fff}
-.nav-cart{display:none;align-items:center;gap:.35rem;background:var(--ink);color:#fff;border:none;padding:.5rem 1rem;border-radius:9px;font-size:.78rem;font-weight:700;cursor:pointer;transition:all .2s;white-space:nowrap}
+.nav-cart{display:none;align-items:center;gap:.35rem;background:var(--ink);color:#fff;border:none;padding:.44rem .9rem;border-radius:9px;font-size:.73rem;font-weight:700;cursor:pointer;transition:all .2s;white-space:nowrap;letter-spacing:.01em}
 .nav-cart.visible{display:flex}
-.nav-cart:hover{background:#1E293B}
-.cart-n{background:#F87171;color:#fff;border-radius:100px;padding:.08rem .42rem;font-size:.64rem;font-weight:800;margin-left:.15rem}
+.nav-cart:hover{background:var(--sage-dark)}
+.cart-n{background:var(--coral);color:#fff;border-radius:100px;padding:.06rem .38rem;font-size:.62rem;font-weight:800;margin-left:.1rem}
 
 /* ── HERO ── */
-.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;padding-top:56px}
-.hero-left{padding:4.5rem 3rem 3rem;display:flex;flex-direction:column;justify-content:center;background:linear-gradient(140deg,#0F172A 0%,#1E293B 55%,#0F3460 100%);position:relative;overflow:hidden}
-.hero-left::after{content:'';position:absolute;top:-80px;right:-80px;width:360px;height:360px;background:radial-gradient(circle,rgba(45,212,191,.13),transparent 70%);border-radius:50%;pointer-events:none}
-.hero-badge{display:inline-flex;align-items:center;gap:.4rem;background:rgba(45,212,191,.12);border:1px solid rgba(45,212,191,.25);border-radius:100px;padding:.28rem .85rem;font-size:.7rem;font-weight:600;color:var(--teal);margin-bottom:1.6rem;width:fit-content;opacity:0;animation:up .6s ease .15s forwards}
-h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,3.2vw,3.3rem);font-weight:700;line-height:1.1;color:#fff;margin-bottom:1rem;opacity:0;animation:up .6s ease .3s forwards}
-h1 em{font-style:italic;color:var(--teal)}
-.hero-sub{font-size:.95rem;color:rgba(255,255,255,.58);max-width:36ch;line-height:1.7;margin-bottom:2.5rem;opacity:0;animation:up .6s ease .45s forwards}
-.hero-stats{display:flex;gap:2rem;opacity:0;animation:up .6s ease .6s forwards}
-.stat-n{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:#fff}
-.stat-l{font-size:.65rem;color:rgba(255,255,255,.38);font-weight:500;margin-top:.15rem}
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;padding-top:52px}
+.hero-left{padding:5rem 3.5rem 3.5rem;display:flex;flex-direction:column;justify-content:center;background:linear-gradient(145deg,#1C1C2E 0%,#2C3E6B 55%,#1C3A2E 100%);position:relative;overflow:hidden}
+.hero-left::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.018' fill-rule='evenodd'%3E%3Ccircle cx='40' cy='40' r='1'/%3E%3C/g%3E%3C/svg%3E");pointer-events:none}
+.hero-left::after{content:'';position:absolute;bottom:-120px;right:-80px;width:500px;height:500px;background:radial-gradient(circle,rgba(74,124,89,.18),transparent 60%);border-radius:50%;pointer-events:none}
+.hero-badge{display:inline-flex;align-items:center;gap:.4rem;background:rgba(74,124,89,.18);border:1px solid rgba(74,124,89,.35);border-radius:6px;padding:.3rem .9rem;font-size:.62rem;font-weight:700;color:#86EFAC;margin-bottom:2rem;width:fit-content;opacity:0;animation:up .6s ease .15s forwards;text-transform:uppercase;letter-spacing:.1em}
+h1{font-family:var(--font-display);font-size:clamp(2.2rem,3.5vw,3.8rem);font-weight:400;line-height:1.06;color:#fff;margin-bottom:1.3rem;opacity:0;animation:up .6s ease .3s forwards;letter-spacing:-.03em}
+h1 em{font-style:italic;color:#A7F3D0}
+.hero-sub{font-family:var(--font-prose);font-size:1.08rem;color:rgba(255,255,255,.46);max-width:34ch;line-height:1.8;margin-bottom:3rem;opacity:0;animation:up .6s ease .45s forwards;font-style:italic}
+.hero-stats{display:flex;gap:2.5rem;opacity:0;animation:up .6s ease .6s forwards}
+.stat-n{font-family:var(--font-display);font-size:1.6rem;font-weight:400;color:#fff;letter-spacing:-.02em}
+.stat-l{font-size:.6rem;color:rgba(255,255,255,.3);font-weight:500;margin-top:.2rem;text-transform:uppercase;letter-spacing:.1em}
 
 /* ── FORM ── */
-.hero-right{background:var(--white);padding:3rem 2.5rem;display:flex;flex-direction:column;justify-content:center;overflow-y:auto}
-.form-hed{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;margin-bottom:.25rem}
-.form-sub{font-size:.82rem;color:var(--muted);margin-bottom:1.6rem}
-.fg{display:flex;flex-direction:column;gap:.3rem;margin-bottom:.85rem}
-label{font-size:.67rem;font-weight:700;color:var(--ink2);letter-spacing:.05em;text-transform:uppercase}
-input,select,textarea{border:1.5px solid var(--border);border-radius:var(--r);padding:.7rem 1rem;font-family:'Inter',sans-serif;font-size:.88rem;color:var(--ink);outline:none;transition:border-color .18s;background:#FAFAFA;width:100%}
+.hero-right{background:var(--warm-white);padding:3rem 2.8rem;display:flex;flex-direction:column;justify-content:center;overflow-y:auto;border-left:1px solid var(--border)}
+.form-hed{font-family:var(--font-display);font-size:1.55rem;font-weight:400;margin-bottom:.3rem;letter-spacing:-.025em;line-height:1.15;color:var(--ink)}
+.form-sub{font-family:var(--font-prose);font-size:.98rem;color:var(--ink2);margin-bottom:1.8rem;font-style:italic;line-height:1.55}
+.fg{display:flex;flex-direction:column;gap:.28rem;margin-bottom:.8rem}
+label{font-size:.6rem;font-weight:700;color:var(--ink2);letter-spacing:.09em;text-transform:uppercase}
+input,select,textarea{border:1.5px solid var(--border);border-radius:var(--r);padding:.68rem 1rem;font-family:var(--font-body);font-size:.87rem;color:var(--ink);outline:none;transition:border-color .18s,box-shadow .18s;background:var(--white);width:100%}
 input[type=date]{color-scheme:light}
-input:focus,select:focus,textarea:focus{border-color:var(--teal-dark);background:#fff}
+input:focus,select:focus,textarea:focus{border-color:var(--sage);background:#fff;box-shadow:0 0 0 3px rgba(74,124,89,.1)}
 input::placeholder,textarea::placeholder{color:var(--muted)}
-textarea{resize:none;height:56px;font-size:.83rem}
-.g2{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+textarea{resize:none;height:56px;font-size:.82rem}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
 .flex-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:.85rem;gap:.5rem;flex-wrap:wrap}
 .flex-row label{margin:0}
-.flex-tog{display:flex;gap:2px;background:var(--bg);border:1.5px solid var(--border);border-radius:10px;padding:2px}
-.flex-btn{padding:.3rem .8rem;border-radius:7px;border:none;background:transparent;font-size:.73rem;font-weight:600;color:var(--muted);cursor:pointer;transition:all .15s}
+.flex-tog{display:flex;gap:2px;background:var(--sand);border:1.5px solid var(--border);border-radius:9px;padding:2px}
+.flex-btn{padding:.28rem .78rem;border-radius:6px;border:none;background:transparent;font-size:.7rem;font-weight:600;color:var(--muted);cursor:pointer;transition:all .15s}
 .flex-btn.on{background:var(--ink);color:#fff}
 .tags{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.28rem}
-.tag{padding:.25rem .6rem;border-radius:100px;border:1.5px solid var(--border);background:transparent;font-size:.67rem;font-weight:600;color:var(--muted);cursor:pointer;transition:all .12s}
-.tag.on{border-color:var(--teal-dark);color:var(--teal-dark);background:var(--teal-light)}
-.btn-gen{width:100%;padding:.9rem;border:none;border-radius:var(--r);background:linear-gradient(135deg,var(--teal-dark),#0D9488);color:#fff;font-family:'Inter',sans-serif;font-weight:700;font-size:.88rem;cursor:pointer;transition:all .2s;margin-top:.4rem;display:flex;align-items:center;justify-content:center;gap:.45rem;box-shadow:0 4px 16px rgba(15,118,110,.28)}
-.btn-gen:hover{transform:translateY(-1px);box-shadow:0 6px 22px rgba(15,118,110,.38)}
-.btn-gen:disabled{opacity:.38;cursor:not-allowed;transform:none}
+.tag{padding:.24rem .62rem;border-radius:7px;border:1.5px solid var(--border);background:var(--white);font-size:.65rem;font-weight:600;color:var(--muted);cursor:pointer;transition:all .12s}
+.tag.on{border-color:var(--sage);color:var(--sage-dark);background:var(--sage-light)}
+.btn-gen{width:100%;padding:.92rem;border:none;border-radius:var(--r);background:linear-gradient(135deg,var(--sage-dark),var(--sage));color:#fff;font-family:var(--font-body);font-weight:700;font-size:.88rem;cursor:pointer;transition:all .22s;margin-top:.5rem;display:flex;align-items:center;justify-content:center;gap:.45rem;box-shadow:0 4px 20px rgba(45,90,61,.28);letter-spacing:.01em}
+.btn-gen:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(45,90,61,.38)}
+.btn-gen:disabled{opacity:.4;cursor:not-allowed;transform:none}
 #loadBox{display:none;padding:.6rem 0 .4rem;background:#fff;border-top:2px solid var(--teal-dark)}
 #loadBox.on{display:block}
 .load-inner{display:flex;flex-direction:column;gap:.3rem}
@@ -74,80 +83,80 @@ textarea{resize:none;height:56px;font-size:.83rem}
 .load-txt{font-size:.65rem;font-style:italic;color:var(--muted);transition:opacity .3s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:78%}
 .load-time{font-size:.62rem;color:var(--muted);font-weight:600;flex-shrink:0}
 @keyframes spin{to{transform:rotate(360deg)}}
-/* Trip hero h1 */
-.trip-dest{font-family:'Playfair Display',serif;font-size:clamp(2.6rem,5vw,4.4rem);font-weight:700;color:#fff;line-height:1.0;margin-bottom:1.1rem;text-shadow:0 2px 32px rgba(0,0,0,.4)}
-.trip-dest em{font-style:italic;background:linear-gradient(135deg,#5EEAD4,#BAE6FD);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-
 /* ── RESULT ── */
 #resultSection{display:none;background:var(--bg)}
 #resultSection.on{display:block}
 
 /* Trip hero header */
-.trip-hero{position:relative;overflow:hidden;margin-bottom:0;min-height:280px;display:flex;flex-direction:column;justify-content:flex-end}
-.trip-hero-grad{position:absolute;inset:0;background:linear-gradient(135deg,#0f172a,#1e3a5f,#0f766e);transition:background 0.8s ease}
-.trip-hero-grain{position:absolute;inset:0;opacity:.04;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:200px}
-.trip-hero-content{position:relative;z-index:2;padding:3rem 3.5rem 2rem}
-.trip-eyebrow{font-size:.58rem;font-weight:800;text-transform:uppercase;letter-spacing:.28em;color:var(--teal);margin-bottom:.7rem;opacity:.9}
+.trip-hero{position:relative;overflow:hidden;margin-bottom:0;min-height:320px;display:flex;flex-direction:column;justify-content:flex-end}
+.trip-hero-grad{position:absolute;inset:0;background:linear-gradient(145deg,#1C1C2E 0%,#2C3E6B 55%,#1C3A2E 100%);transition:background 0.8s ease}
+.trip-hero-grain{position:absolute;inset:0;opacity:.03;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:200px}
+.trip-hero-content{position:relative;z-index:2;padding:3rem 4rem 2.5rem}
+.trip-eyebrow{font-size:.55rem;font-weight:700;text-transform:uppercase;letter-spacing:.35em;color:#86EFAC;margin-bottom:.9rem;opacity:.8}
 .trip-name{font-size:.68rem;display:none}
-.trip-dest{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,5vw,4.2rem);font-weight:700;color:#fff;line-height:1.0;margin-bottom:1.2rem;text-shadow:0 4px 32px rgba(0,0,0,.4)}
-.trip-dest em{font-style:italic;background:linear-gradient(135deg,#5EEAD4,#BAE6FD);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:inline}
-.trip-chips{display:flex;gap:.45rem;flex-wrap:wrap}
-.chip{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:100px;padding:.28rem .8rem;display:inline-flex;gap:.4rem;align-items:center;backdrop-filter:blur(6px)}
-.chip-l{font-size:.55rem;color:rgba(255,255,255,.5);font-weight:600;text-transform:uppercase;letter-spacing:.06em}
-.chip-v{font-size:.75rem;font-weight:700;color:#fff}
-.trip-actions{position:absolute;top:1.4rem;right:1.8rem;display:flex;gap:.45rem}
-.trip-action-btn{padding:.4rem .85rem;border:1px solid rgba(255,255,255,.2);border-radius:100px;background:rgba(0,0,0,.25);color:rgba(255,255,255,.85);font-size:.68rem;font-weight:600;cursor:pointer;transition:all .2s;backdrop-filter:blur(10px)}
-.trip-action-btn:hover{background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.4)}
-.trip-action-btn.added{background:rgba(45,212,191,.25);border-color:var(--teal);color:var(--teal)}
+.trip-dest{font-family:var(--font-display);font-size:clamp(2.6rem,5.5vw,4.8rem);font-weight:400;color:#fff;line-height:1.02;margin-bottom:1.4rem;text-shadow:0 4px 40px rgba(0,0,0,.5);letter-spacing:-.04em}
+.trip-dest em{font-style:italic;background:linear-gradient(135deg,#A7F3D0,#67E8F9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:inline}
+.trip-chips{display:flex;gap:.4rem;flex-wrap:wrap}
+.chip{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.14);border-radius:7px;padding:.25rem .75rem;display:inline-flex;gap:.35rem;align-items:center;backdrop-filter:blur(8px)}
+.chip-l{font-size:.5rem;color:rgba(255,255,255,.42);font-weight:700;text-transform:uppercase;letter-spacing:.1em}
+.chip-v{font-size:.72rem;font-weight:700;color:#fff}
+.trip-actions{position:absolute;top:1.4rem;right:1.8rem;display:flex;gap:.4rem}
+.trip-action-btn{padding:.38rem .82rem;border:1px solid rgba(255,255,255,.18);border-radius:8px;background:rgba(0,0,0,.22);color:rgba(255,255,255,.82);font-size:.65rem;font-weight:600;cursor:pointer;transition:all .2s;backdrop-filter:blur(10px)}
+.trip-action-btn:hover{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.4)}
+.trip-action-btn.added{background:rgba(74,124,89,.32);border-color:#86EFAC;color:#86EFAC}
 
 /* ── ITINERARY ── */
-.itin-wrap{max-width:860px;margin:0 auto;padding:2.5rem 2rem}
-.itin-intro{font-family:'Playfair Display',serif;font-size:1.05rem;font-style:italic;color:var(--ink2);line-height:1.8;padding:1.5rem 2rem;background:var(--white);border-radius:var(--r);border:1.5px solid var(--border);margin-bottom:2rem;box-shadow:var(--shadow)}
+.itin-wrap{max-width:880px;margin:0 auto;padding:2.8rem 2rem}
+.itin-intro{font-family:var(--font-prose);font-size:1.12rem;font-style:italic;color:var(--ink2);line-height:1.88;padding:1.8rem 2.2rem;background:var(--warm-white);border-radius:var(--r-lg);border:1px solid var(--border);margin-bottom:2.2rem;box-shadow:var(--shadow);position:relative}
+.itin-intro::before{content:'"';font-family:var(--font-display);font-size:4rem;color:var(--sage-light);position:absolute;top:-.5rem;left:1.5rem;line-height:1}
 
-/* Day card — editorial guide style */
-.day-card{background:var(--white);border:1.5px solid var(--border);border-radius:20px;overflow:hidden;margin-bottom:2rem;box-shadow:var(--shadow);transition:box-shadow .2s}
-.day-card:hover{box-shadow:var(--shadow-md)}
-.day-header{display:flex;align-items:stretch;min-height:72px}
-.day-num-col{width:64px;flex-shrink:0;background:linear-gradient(160deg,var(--ink),#1E3A5F);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.15rem;padding:.8rem 0}
-.day-num-big{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:#fff;line-height:1}
-.day-num-word{font-size:.5rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.4)}
-.day-title-col{flex:1;padding:1rem 1.4rem;display:flex;align-items:center;border-bottom:1.5px solid var(--border);background:linear-gradient(90deg,#F8FAFC,#fff)}
-.day-title{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--ink);line-height:1.3}
-/* Moment blocks: morning / afternoon / evening */
+/* Day card — Cartoville editorial */
+.day-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;margin-bottom:2.2rem;box-shadow:var(--shadow);transition:box-shadow .25s,transform .25s}
+.day-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px)}
+.day-header{display:flex;align-items:stretch;min-height:78px}
+.day-num-col{width:70px;flex-shrink:0;background:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.12rem;padding:.9rem 0}
+.day-num-big{font-family:var(--font-display);font-size:2.1rem;font-weight:400;color:#fff;line-height:1;letter-spacing:-.04em}
+.day-num-word{font-size:.42rem;font-weight:700;text-transform:uppercase;letter-spacing:.2em;color:rgba(255,255,255,.35)}
+.day-title-col{flex:1;padding:.85rem 1.6rem;display:flex;flex-direction:column;justify-content:center;border-bottom:1px solid var(--border);background:var(--warm-white)}
+.day-title{font-family:var(--font-display);font-size:1.1rem;font-weight:400;color:var(--ink);line-height:1.25;letter-spacing:-.02em}
+.day-story{font-family:var(--font-prose);font-size:.82rem;font-style:italic;color:var(--sage-dark);margin-top:.35rem;line-height:1.55;opacity:.85}
+/* Moment blocks */
 .day-moments{padding:0}
 .moment{display:flex;align-items:flex-start;gap:0;border-bottom:1px solid var(--border)}
 .moment:last-of-type{border-bottom:none}
-.moment-time{width:64px;flex-shrink:0;padding:1.1rem 0;display:flex;flex-direction:column;align-items:center;gap:.35rem;border-right:1px solid var(--border)}
-.moment-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center}
-.moment-dot svg{width:13px;height:13px;fill:none;stroke:#fff;stroke-width:2.2}
-.moment-m .moment-dot{background:linear-gradient(135deg,#F59E0B,#FCD34D)}
-.moment-a .moment-dot{background:linear-gradient(135deg,#0F766E,#2DD4BF)}
-.moment-e .moment-dot{background:linear-gradient(135deg,#4338CA,#818CF8)}
-.moment-label{font-size:.48rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
-.moment-body{flex:1;padding:1.1rem 1.4rem 1rem}
-.moment-text{font-size:.9rem;line-height:1.9;color:var(--ink2)}
-.moment-text strong{color:var(--ink);font-weight:600}
-/* Off-the-beaten-path gem */
-.day-gem{display:flex;align-items:flex-start;gap:.8rem;padding:.9rem 1.4rem;background:linear-gradient(90deg,#F0FDF4,#ECFDF5);border-top:1px solid #BBF7D0}
-.day-gem-ico{width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,#065F46,#10B981);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.1rem}
+.moment-time{width:70px;flex-shrink:0;padding:1.2rem 0;display:flex;flex-direction:column;align-items:center;gap:.4rem;border-right:1px solid var(--border);background:var(--sand)}
+.moment-dot{width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center}
+.moment-dot svg{width:13px;height:13px;fill:none;stroke:#fff;stroke-width:2}
+.moment-m .moment-dot{background:linear-gradient(135deg,#C97B3A,#F59E0B)}
+.moment-a .moment-dot{background:linear-gradient(135deg,#4A7C59,#34D399)}
+.moment-e .moment-dot{background:linear-gradient(135deg,#2C3E6B,#818CF8)}
+.moment-label{font-size:.42rem;font-weight:700;text-transform:uppercase;letter-spacing:.18em;color:var(--muted)}
+.moment-body{flex:1;padding:1.3rem 1.8rem 1.2rem}
+.moment-text{font-family:var(--font-prose);font-size:1.04rem;line-height:1.92;color:var(--ink2)}
+.moment-text strong{color:var(--ink);font-weight:600;font-style:normal}
+/* Hidden storytelling hook — shown inline in prompt output */
+.day-story{font-family:var(--font-prose);font-size:.92rem;font-style:italic;color:var(--sage-dark);margin-top:.6rem;padding:.5rem .8rem;border-left:2px solid var(--sage-light);background:var(--sage-light);border-radius:0 6px 6px 0}
+/* Gem */
+.day-gem{display:flex;align-items:flex-start;gap:.9rem;padding:1rem 1.6rem;background:linear-gradient(90deg,var(--sage-light),var(--warm-white));border-top:1px solid #A7F3D0}
+.day-gem-ico{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--sage-dark),var(--sage));display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.1rem}
 .day-gem-ico svg{width:12px;height:12px;fill:none;stroke:#fff;stroke-width:2.2}
-.day-gem-txt{font-size:.8rem;color:#065F46;line-height:1.6;font-style:italic}
-.day-gem-txt strong{font-style:normal;font-weight:700;color:#064E3B}
-/* Day CTA */
-.day-cta{padding:.8rem 1.4rem;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:#FAFAFA}
-.day-cta-links{display:flex;gap:.5rem}
-.dql{display:inline-flex;align-items:center;gap:.3rem;padding:.3rem .75rem;border-radius:100px;font-size:.68rem;font-weight:700;text-decoration:none;border:1.5px solid var(--border);color:var(--ink2);background:#fff;transition:all .15s;white-space:nowrap}
+.day-gem-txt{font-family:var(--font-prose);font-size:.96rem;color:var(--sage-dark);line-height:1.7;font-style:italic}
+.day-gem-txt strong{font-style:normal;font-weight:700;color:#1A3A2E}
+/* Day CTA — bottom action strip */
+.day-cta{padding:.85rem 1.4rem;border-top:1px solid var(--border);background:var(--sand);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
+.day-cta-links{display:flex;gap:.38rem;flex-wrap:wrap;align-items:center}
+.dql{display:inline-flex;align-items:center;gap:.25rem;padding:.25rem .6rem;border-radius:7px;font-size:.64rem;font-weight:700;text-decoration:none;border:1.5px solid var(--border);color:var(--ink2);background:var(--white);transition:all .14s;white-space:nowrap}
 .dql:hover{border-color:var(--ink);color:var(--ink)}
-.dql svg{width:11px;height:11px;fill:none;stroke:currentColor;stroke-width:2.2;flex-shrink:0}
-.btn-add-day{display:inline-flex;align-items:center;gap:.35rem;padding:.38rem .95rem;border-radius:100px;border:2px solid var(--teal-dark);background:transparent;color:var(--teal-dark);font-size:.7rem;font-weight:700;cursor:pointer;transition:all .18s;white-space:nowrap}
-.btn-add-day:hover{background:var(--teal-dark);color:#fff}
-.btn-add-day.added{background:var(--teal-dark);color:#fff}
+.dql svg{width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:2.2;flex-shrink:0}
+.btn-add-day{display:inline-flex;align-items:center;gap:.35rem;padding:.38rem .92rem;border-radius:8px;border:2px solid var(--sage);background:transparent;color:var(--sage-dark);font-size:.69rem;font-weight:700;cursor:pointer;transition:all .18s;white-space:nowrap;font-family:var(--font-body)}
+.btn-add-day:hover{background:var(--sage);color:#fff}
+.btn-add-day.added{background:var(--sage);color:#fff;border-color:var(--sage)}
 
 /* Transport card (flight / train / car / ferry) */
-.transport-card{border-radius:20px;padding:1.5rem 1.8rem;margin-bottom:1.5rem;color:#fff}
+.transport-card{border-radius:var(--r-lg);padding:1.6rem 2rem;margin-bottom:1.5rem;color:#fff;box-shadow:var(--shadow-md)}
 .tc-top{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:1.2rem;flex-wrap:wrap}
 .tc-mode-badge{display:inline-flex;align-items:center;gap:.35rem;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:100px;padding:.22rem .75rem;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;margin-bottom:.5rem}
-.tc-route{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;line-height:1.2}
+.tc-route{font-family:var(--font-display);font-size:1.25rem;font-weight:400;line-height:1.2;letter-spacing:-.02em}
 .tc-reason{font-size:.78rem;color:rgba(255,255,255,.6);margin-top:.4rem;line-height:1.5;max-width:42ch}
 .tc-search-btn{flex-shrink:0;padding:.5rem 1.1rem;background:var(--teal);color:var(--ink);border-radius:9px;font-size:.76rem;font-weight:700;text-decoration:none;white-space:nowrap;transition:all .2s;align-self:flex-start}
 .tc-search-btn:hover{background:var(--teal-dark);color:#fff}
@@ -176,11 +185,11 @@ textarea{resize:none;height:56px;font-size:.83rem}
 .tc-mode-pill{font-size:.62rem;font-weight:700;padding:.22rem .65rem;border-radius:100px;border:1.5px solid rgba(255,255,255,.25);color:rgba(255,255,255,.65);cursor:default}
 
 /* Tips — solid colorful cards */
-.tips-section{margin-bottom:1.5rem}
-.tips-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;margin-bottom:.9rem;color:var(--ink)}
+.tips-section{margin-bottom:1.8rem}
+.tips-title{font-family:var(--font-display);font-size:1.15rem;font-weight:400;margin-bottom:1.1rem;color:var(--ink);letter-spacing:-.02em}
 .tips-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
-.tip-block{display:flex;align-items:flex-start;gap:.75rem;padding:.85rem .95rem;border-radius:14px;transition:transform .18s,box-shadow .18s;border:1px solid transparent}
-.tip-block:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
+.tip-block{display:flex;align-items:flex-start;gap:.75rem;padding:.95rem 1.1rem;border-radius:var(--r);transition:transform .2s,box-shadow .2s;border:1px solid transparent}
+.tip-block:hover{transform:translateY(-3px);box-shadow:var(--shadow-md)}
 .tip-block:nth-child(1){background:linear-gradient(135deg,#ECFDF5,#D1FAE5);border-color:#A7F3D0}
 .tip-block:nth-child(2){background:linear-gradient(135deg,#EEF2FF,#E0E7FF);border-color:#C7D2FE}
 .tip-block:nth-child(3){background:linear-gradient(135deg,#FFFBEB,#FEF3C7);border-color:#FDE68A}
@@ -196,18 +205,18 @@ textarea{resize:none;height:56px;font-size:.83rem}
 .tip-block:nth-child(5) .tip-icon{background:linear-gradient(135deg,#065F46,#10B981)}
 .tip-block:nth-child(6) .tip-icon{background:linear-gradient(135deg,#6D28D9,#A78BFA)}
 .tip-txt{flex:1;min-width:0}
-.tip-head{font-size:.79rem;font-weight:700;color:var(--ink);line-height:1.4;margin-bottom:.18rem}
-.tip-body{font-size:.73rem;color:var(--ink2);line-height:1.55}
+.tip-head{font-family:var(--font-body);font-size:.8rem;font-weight:700;color:var(--ink);line-height:1.4;margin-bottom:.2rem}
+.tip-body{font-family:var(--font-prose);font-size:.82rem;color:var(--ink2);line-height:1.6}
 
 /* Recap */
 .recap-card{background:var(--white);border:1.5px solid var(--border);border-radius:20px;overflow:hidden;margin-bottom:1.5rem;box-shadow:var(--shadow)}
 .recap-hed-bar{background:linear-gradient(135deg,#0F172A 0%,#1E293B 60%,#0F3460 100%);padding:1.15rem 1.6rem;display:flex;align-items:center;gap:.75rem}
 .recap-hed-ico{width:30px;height:30px;background:rgba(45,212,191,.18);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .recap-hed-ico svg{width:15px;height:15px;stroke:var(--teal);fill:none;stroke-width:2}
-.recap-hed{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;color:#fff;letter-spacing:.01em}
+.recap-hed{font-family:var(--font-display);font-size:1rem;font-weight:400;color:#fff;letter-spacing:-.01em}
 .recap-body{padding:1.4rem 1.6rem}
 .budget-pill{display:flex;align-items:flex-start;gap:.75rem;background:linear-gradient(135deg,#F0FDFA,#E0F2FE);border-radius:12px;padding:.85rem 1rem;margin-bottom:1.3rem;border:1px solid rgba(15,118,110,.12)}
-.budget-pill-ico{width:26px;height:26px;background:linear-gradient(135deg,var(--teal-dark),#0D9488);border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.budget-pill-ico{width:26px;height:26px;background:linear-gradient(135deg,var(--sage-dark),var(--sage));border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .budget-pill-ico svg{width:12px;height:12px;stroke:#fff;fill:none;stroke-width:2.2}
 .budget-pill-txt{font-size:.8rem;color:var(--ink2);line-height:1.55}
 /* Cost table */
@@ -224,13 +233,13 @@ textarea{resize:none;height:56px;font-size:.83rem}
 .rct-val{font-size:.8rem;font-weight:700;color:var(--ink);text-align:right;white-space:nowrap}
 .rct-total{display:grid;grid-template-columns:28px 1fr auto;align-items:center;gap:.7rem;padding:.8rem 1rem;background:linear-gradient(135deg,#0F172A,#1E3A5F)}
 .rct-total-label{font-size:.78rem;font-weight:700;color:rgba(255,255,255,.7)}
-.rct-total-val{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;background:linear-gradient(135deg,var(--teal),#67E8F9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-align:right;white-space:nowrap}
+.rct-total-val{font-family:var(--font-display);font-size:1.1rem;font-weight:700;background:linear-gradient(135deg,var(--teal),#67E8F9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-align:right;white-space:nowrap}
 /* Day recap timeline */
 .day-recap-list{display:flex;flex-direction:column;gap:0;margin-bottom:1.3rem;border:1.5px solid var(--border);border-radius:var(--r);overflow:hidden}
 .dr-row{display:flex;align-items:center;gap:.8rem;padding:.65rem 1rem;border-bottom:1px solid var(--border);transition:background .15s;cursor:default}
 .dr-row:last-child{border-bottom:none}
 .dr-row:hover{background:linear-gradient(90deg,var(--teal-light),transparent)}
-.dr-n{width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,var(--teal-dark),#0D9488);color:#fff;font-size:.6rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 2px 6px rgba(15,118,110,.3)}
+.dr-n{width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,var(--sage-dark),var(--sage));color:#fff;font-size:.6rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 2px 6px rgba(15,118,110,.3)}
 .dr-txt{font-size:.79rem;color:var(--ink2);line-height:1.35;flex:1}
 .dr-cost{font-size:.7rem;font-weight:700;color:var(--teal-dark);white-space:nowrap;background:var(--teal-light);padding:.12rem .5rem;border-radius:100px}
 /* Accommodation */
@@ -248,7 +257,7 @@ textarea{resize:none;height:56px;font-size:.83rem}
 
 /* Experiences — colorful card style */
 .exp-section{margin-bottom:1.5rem}
-.exp-hed{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;margin-bottom:.35rem}
+.exp-hed{font-family:var(--font-display);font-size:1.15rem;font-weight:400;margin-bottom:.35rem;letter-spacing:-.02em}
 .exp-sub{font-size:.8rem;color:var(--muted);margin-bottom:1rem}
 .exp-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.75rem}
 .exp-card{background:var(--white);border:1.5px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;transition:all .2s}
@@ -267,7 +276,7 @@ textarea{resize:none;height:56px;font-size:.83rem}
 .exp-type-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:.3rem}
 .exp-type{font-size:.56rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--teal-dark)}
 .exp-price{font-size:.75rem;font-weight:700;color:var(--ink);background:var(--bg);padding:.1rem .5rem;border-radius:6px;border:1px solid var(--border)}
-.exp-name{font-family:'Playfair Display',serif;font-size:.9rem;font-weight:700;margin-bottom:.3rem;line-height:1.3}
+.exp-name{font-family:var(--font-display);font-size:.92rem;font-weight:400;margin-bottom:.3rem;line-height:1.25;letter-spacing:-.015em}
 .exp-tagline{font-size:.75rem;color:var(--ink2);line-height:1.55;flex:1;margin-bottom:.7rem}
 .exp-meta{display:flex;justify-content:space-between;font-size:.7rem;color:var(--muted);margin-bottom:.7rem}
 .exp-btns{display:flex;flex-direction:column;gap:.35rem}
@@ -278,32 +287,32 @@ textarea{resize:none;height:56px;font-size:.83rem}
 .exp-cart.added{background:var(--teal-dark);border-color:var(--teal-dark);color:#fff}
 
 /* Bottom CTA — "¿Listo para X?" redesign */
-.bottom-cta{background:linear-gradient(135deg,#0F172A 0%,#1E3A5F 60%,#0F766E 100%);border-radius:20px;padding:2.4rem 2.5rem;margin-bottom:1.5rem;color:#fff;position:relative;overflow:hidden}
+.bottom-cta{background:linear-gradient(145deg,#1C1C2E 0%,#2C3E6B 58%,#1C3A2E 100%);border-radius:20px;padding:2.4rem 2.5rem;margin-bottom:1.5rem;color:#fff;position:relative;overflow:hidden}
 .bottom-cta::before{content:'';position:absolute;top:-60px;right:-60px;width:280px;height:280px;background:radial-gradient(circle,rgba(45,212,191,.12),transparent 70%);border-radius:50%;pointer-events:none}
 .bcta-eyebrow{font-size:.58rem;font-weight:800;text-transform:uppercase;letter-spacing:.28em;color:var(--teal);margin-bottom:.65rem;opacity:.9}
-.bcta-h{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:700;line-height:1.1;margin-bottom:.5rem}
+.bcta-h{font-family:var(--font-display);font-size:1.9rem;font-weight:400;line-height:1.08;margin-bottom:.6rem;letter-spacing:-.03em}
 .bcta-sub{font-size:.88rem;color:rgba(255,255,255,.52);margin-bottom:1.6rem;line-height:1.55}
 .bcta-actions{display:flex;flex-wrap:wrap;gap:.65rem;align-items:center}
-.bcta-btn{padding:.7rem 1.3rem;border-radius:10px;font-size:.82rem;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:.38rem;transition:all .2s;cursor:pointer;border:none;font-family:'Inter',sans-serif}
-.bcta-btn.p{background:var(--teal);color:var(--ink)}
-.bcta-btn.p:hover{background:#14B8A6;color:#fff}
+.bcta-btn{padding:.7rem 1.3rem;border-radius:10px;font-size:.82rem;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:.38rem;transition:all .2s;cursor:pointer;border:none;font-family:var(--font-body)}
+.bcta-btn.p{background:var(--sage);color:#fff}
+.bcta-btn.p:hover{background:var(--sage-dark);color:#fff}
 .bcta-btn.s{background:rgba(255,255,255,.09);color:#fff;border:1px solid rgba(255,255,255,.22)}
 .bcta-btn.s:hover{background:rgba(255,255,255,.18)}
 .bcta-btn.recap{background:linear-gradient(135deg,rgba(45,212,191,.18),rgba(45,212,191,.08));color:var(--teal);border:1.5px solid rgba(45,212,191,.35);font-size:.79rem}
 .bcta-btn.recap:hover{background:linear-gradient(135deg,rgba(45,212,191,.28),rgba(45,212,191,.15));border-color:var(--teal)}
 .bcta-divider{width:1px;height:1.5rem;background:rgba(255,255,255,.15);margin:0 .15rem}
 
-/* ── CHECKOUT ── */
+/* ── CHECKOUT — matches Image 2 design ── */
 #checkoutPage{display:none;min-height:100vh;background:var(--bg);padding-top:56px}
-.co-wrap{max-width:960px;margin:0 auto;padding:2.5rem 2rem}
-.co-back{display:inline-flex;align-items:center;gap:.35rem;background:none;border:none;color:var(--muted);font-size:.83rem;font-weight:600;cursor:pointer;padding:0;margin-bottom:1.5rem;transition:color .18s}
+.co-wrap{max-width:1060px;margin:0 auto;padding:2.5rem 2rem}
+.co-back{display:inline-flex;align-items:center;gap:.38rem;background:none;border:none;color:var(--muted);font-size:.82rem;font-weight:600;cursor:pointer;padding:0;margin-bottom:2rem;transition:color .18s}
 .co-back:hover{color:var(--ink)}
-.co-h{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:700;margin-bottom:.3rem}
-.co-sub{font-size:.88rem;color:var(--muted);margin-bottom:2rem}
-.co-grid{display:grid;grid-template-columns:1fr 340px;gap:2rem;align-items:start}
-.co-left{display:flex;flex-direction:column;gap:1.2rem}
-.co-box{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r);padding:1.4rem}
-.co-box-h{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;margin-bottom:1.1rem}
+.co-h{font-family:var(--font-display);font-size:2.4rem;font-weight:400;margin-bottom:.4rem;letter-spacing:-.04em;line-height:1.05}
+.co-sub{font-family:var(--font-prose);font-size:1rem;color:var(--ink2);margin-bottom:2.5rem;font-style:italic}
+.co-grid{display:grid;grid-template-columns:1fr 380px;gap:2.5rem;align-items:start}
+.co-left{display:flex;flex-direction:column;gap:1.4rem}
+.co-box{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);padding:1.6rem;box-shadow:var(--shadow)}
+.co-box-h{font-family:var(--font-display);font-size:1.1rem;font-weight:400;margin-bottom:1.3rem;letter-spacing:-.02em;color:var(--ink)}
 .book-links{display:flex;flex-direction:column;gap:.6rem}
 .bl-row{display:flex;align-items:center;gap:.8rem;padding:.85rem;background:var(--bg);border:1px solid var(--border);border-radius:var(--r);transition:all .18s}
 .bl-row:hover{border-color:var(--teal-dark)}
@@ -311,15 +320,15 @@ textarea{resize:none;height:56px;font-size:.83rem}
 .bl-body{flex:1}
 .bl-name{font-weight:700;font-size:.85rem}
 .bl-desc{font-size:.7rem;color:var(--muted);margin-top:.08rem}
-.bl-btn{padding:.4rem .85rem;background:var(--ink);color:#fff;border-radius:8px;font-size:.7rem;font-weight:700;text-decoration:none;white-space:nowrap}
+.bl-btn{padding:.38rem .85rem;background:var(--sage-dark);color:#fff;border-radius:8px;font-size:.69rem;font-weight:700;text-decoration:none;white-space:nowrap;transition:opacity .18s}
 .bl-btn:hover{opacity:.85}
 .send-desc{font-size:.83rem;color:var(--ink2);line-height:1.6;margin-bottom:1rem}
-.btn-send{width:100%;padding:.85rem;border:none;border-radius:var(--r);background:linear-gradient(135deg,var(--teal-dark),#0D9488);color:#fff;font-family:'Inter',sans-serif;font-weight:700;font-size:.87rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.45rem}
+.btn-send{width:100%;padding:.88rem;border:none;border-radius:var(--r);background:linear-gradient(135deg,var(--sage-dark),var(--sage));color:#fff;font-family:var(--font-body);font-weight:700;font-size:.87rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.45rem;box-shadow:0 4px 16px rgba(45,90,61,.25)}
 .btn-send:hover{opacity:.92}
 .send-ok{background:var(--teal-light);border:1px solid rgba(15,118,110,.2);border-radius:var(--r);padding:.95rem;font-size:.83rem;color:var(--teal-dark);margin-top:.9rem;line-height:1.6;display:none}
 /* Cart summary */
-.cart-sum{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r);padding:1.4rem;position:sticky;top:74px}
-.cart-sum-h{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;margin-bottom:1rem}
+.cart-sum{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);padding:1.8rem;position:sticky;top:74px;box-shadow:var(--shadow)}
+.cart-sum-h{font-family:var(--font-display);font-size:1.2rem;font-weight:400;margin-bottom:1.2rem;letter-spacing:-.025em;color:var(--ink)}
 .cart-dest-row{display:flex;align-items:center;gap:.8rem;padding:.85rem;background:var(--bg);border-radius:var(--r);border:1px solid var(--border);margin-bottom:1.1rem}
 .cart-dest-img{width:52px;height:52px;border-radius:9px;object-fit:cover;flex-shrink:0;background:var(--border)}
 .cart-dest-name{font-weight:700;font-size:.88rem}
@@ -328,7 +337,7 @@ textarea{resize:none;height:56px;font-size:.83rem}
 .cart-line:last-of-type{border:none}
 .cart-total-row{display:flex;justify-content:space-between;align-items:center;padding-top:.75rem;border-top:2px solid var(--ink);margin-top:.3rem}
 .cart-total-n{font-weight:700}
-.cart-total-v{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:var(--teal-dark)}
+.cart-total-v{font-family:var(--font-display);font-size:1.45rem;font-weight:400;color:var(--coral);letter-spacing:-.02em}
 .cart-empty-note{font-size:.78rem;color:var(--muted);margin-top:.8rem;font-style:italic}
 .cart-items-block{margin-top:.9rem;border-top:1px solid var(--border);padding-top:.75rem}
 .ci-row{display:flex;align-items:center;gap:.35rem;padding:.42rem .3rem;border-bottom:1px solid var(--border)}
@@ -346,18 +355,18 @@ textarea{resize:none;height:56px;font-size:.83rem}
 .ci-aff-act{background:#F0FDFA;color:var(--teal-dark);border:1px solid #99F6E4}.ci-aff-act:hover{background:var(--teal-dark);color:#fff}
 .ci-aff-rest{background:#FFF7ED;color:#C2410C;border:1px solid #FED7AA}.ci-aff-rest:hover{background:#C2410C;color:#fff}
 .ci-action-block{display:flex;flex-direction:column;gap:.45rem;margin-top:.75rem;padding-top:.75rem;border-top:1px solid var(--border)}
-.ci-action-main{width:100%;padding:.7rem;border:none;border-radius:10px;background:linear-gradient(135deg,var(--teal-dark),#0D9488);color:#fff;font-weight:700;font-size:.8rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.38rem;transition:opacity .2s}.ci-action-main:hover{opacity:.9}
+.ci-action-main{width:100%;padding:.7rem;border:none;border-radius:10px;background:linear-gradient(135deg,var(--sage-dark),var(--sage));color:#fff;font-weight:700;font-size:.8rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.38rem;transition:opacity .2s}.ci-action-main:hover{opacity:.9}
 .ci-action-sec{width:100%;padding:.55rem;border:1.5px solid var(--border);border-radius:10px;background:#fff;color:var(--ink);font-weight:600;font-size:.76rem;cursor:pointer;transition:all .18s}.ci-action-sec:hover{border-color:var(--ink)}
 .ci-del{background:none;border:none;color:var(--muted);cursor:pointer;font-size:.7rem;padding:.1rem .25rem;flex-shrink:0}
 .ci-del:hover{color:#F87171}
 .ci-grand-total{display:flex;justify-content:space-between;align-items:center;padding:.7rem .3rem .15rem;border-top:2px solid var(--border);margin-top:.3rem;font-size:.76rem;font-weight:700;color:var(--ink)}
-.ci-total-num{font-size:1.1rem;font-family:'Playfair Display',serif;color:var(--teal-dark)}
+.ci-total-num{font-size:1.15rem;font-family:var(--font-display);color:var(--coral)}
 .ci-footer-btns{display:flex;gap:.45rem;margin-top:.5rem}
 .ci-fb{flex:1;padding:.4rem;border-radius:9px;border:1.5px solid var(--border);background:#fff;font-size:.7rem;font-weight:700;cursor:pointer;transition:all .18s;color:var(--ink2)}
 .ci-fb:hover{border-color:var(--teal-dark);color:var(--teal-dark);background:#F0FDFA}
 .guarantees{margin-top:1rem;border-top:1px solid var(--border);padding-top:.85rem;display:flex;flex-direction:column;gap:.32rem}
 .guar{display:flex;align-items:center;gap:.4rem;font-size:.72rem;color:var(--muted)}
-.guar::before{content:"✓";color:#10B981;font-weight:700;flex-shrink:0}
+.guar::before{content:"✓";color:var(--sage);font-weight:700;flex-shrink:0;margin-right:.1rem}
 .share-row{margin-top:.9rem;padding-top:.9rem;border-top:1px solid var(--border)}
 .share-btn{width:100%;padding:.58rem;border:1.5px solid var(--border);border-radius:9px;background:transparent;font-size:.78rem;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.35rem;transition:all .18s}
 .share-btn:hover{border-color:var(--ink)}
@@ -366,11 +375,11 @@ textarea{resize:none;height:56px;font-size:.83rem}
 #savedPanel{position:fixed;top:0;right:-380px;width:340px;height:100vh;background:var(--white);box-shadow:-4px 0 28px rgba(15,23,42,.11);z-index:200;transition:right .28s ease;display:flex;flex-direction:column;border-left:1px solid var(--border)}
 #savedPanel.open{right:0}
 .sp-hd{padding:1.3rem 1.4rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
-.sp-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700}
+.sp-title{font-family:var(--font-display);font-size:1.05rem;font-weight:400;letter-spacing:-.015em}
 .sp-close{background:none;border:none;font-size:1.1rem;cursor:pointer;color:var(--muted)}
 .sp-list{flex:1;overflow-y:auto;padding:.9rem}
 .sp-item{background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:.9rem;margin-bottom:.7rem;position:relative}
-.sp-dest{font-family:'Playfair Display',serif;font-size:.9rem;font-weight:700}
+.sp-dest{font-family:var(--font-display);font-size:.95rem;font-weight:400;letter-spacing:-.015em}
 .sp-meta{font-size:.7rem;color:var(--muted);margin-top:.18rem}
 .sp-del{position:absolute;top:.65rem;right:.65rem;background:none;border:none;color:var(--muted);cursor:pointer;font-size:.8rem}
 .sp-del:hover{color:#F87171}
@@ -386,21 +395,19 @@ textarea{resize:none;height:56px;font-size:.83rem}
 
 @media(max-width:960px){
   .hero{grid-template-columns:1fr;min-height:auto}
-  .hero-left{padding:4rem 1.5rem 2.5rem;min-height:38vh}
-  .hero-right{padding:2rem 1.5rem}
+  .hero-left{padding:4.5rem 2rem 3rem;min-height:40vh}
+  .hero-right{padding:2.5rem 2rem;border-left:none;border-top:1px solid var(--border)}
   .co-grid{grid-template-columns:1fr}
   .cart-sum{position:static}
-  .flight-grid{grid-template-columns:1fr 1fr}
-  .tips-grid,.exp-grid{grid-template-columns:1fr 1fr}
+  .tips-grid-2,.exp-grid{grid-template-columns:1fr 1fr}
 }
 @media(max-width:640px){
   .g2{grid-template-columns:1fr}
-  .tips-grid,.exp-grid{grid-template-columns:1fr}
-  .trip-hero-content{padding:1.5rem}
-  .itin-wrap{padding:1.5rem 1rem}
-  .flight-grid{grid-template-columns:1fr}
-  .bottom-cta{flex-direction:column;align-items:flex-start}
-  nav{padding:.65rem 1rem}
+  .tips-grid-2,.exp-grid{grid-template-columns:1fr}
+  .trip-hero-content{padding:2rem 1.5rem 1.5rem}
+  .itin-wrap{padding:1.8rem 1rem}
+  nav{padding:.6rem 1rem}
+  .bottom-cta{padding:1.8rem 1.5rem}
 }
 
 /* ── MEMORIA DE VIAJE MODAL ── */
@@ -409,11 +416,11 @@ textarea{resize:none;height:56px;font-size:.83rem}
 #memoriaModal .m-overlay{position:absolute;inset:0;background:rgba(10,14,25,.72);backdrop-filter:blur(6px)}
 #memoriaModal .m-box{position:relative;width:100%;max-width:480px;background:#fff;border-radius:24px;overflow:hidden;box-shadow:0 32px 80px rgba(10,14,25,.35);animation:mup .32s cubic-bezier(.34,1.56,.64,1) both}
 @keyframes mup{from{opacity:0;transform:translateY(28px) scale(.97)}to{opacity:1;transform:none}}
-.m-top{background:linear-gradient(135deg,#0F172A 0%,#1E3A5F 60%,#0F766E 100%);padding:2.2rem 2rem 1.8rem;text-align:center;position:relative}
+.m-top{background:linear-gradient(145deg,#1C1C2E 0%,#2C3E6B 55%,#1C3A2E 100%);padding:2.4rem 2.2rem 2rem;text-align:center;position:relative}
 .m-close{position:absolute;top:.9rem;right:1rem;background:rgba(255,255,255,.1);border:none;color:rgba(255,255,255,.6);width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:.85rem;display:flex;align-items:center;justify-content:center;transition:all .2s}
 .m-close:hover{background:rgba(255,255,255,.2);color:#fff}
-.m-trip-name{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:#fff;line-height:1.2;margin-bottom:.35rem}
-.m-trip-dest{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.14em;background:linear-gradient(135deg,var(--teal),#67E8F9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.8rem}
+.m-trip-name{font-family:var(--font-display);font-size:1.6rem;font-weight:400;color:#fff;line-height:1.15;margin-bottom:.4rem;letter-spacing:-.03em}
+.m-trip-dest{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.2em;background:linear-gradient(135deg,#A7F3D0,#67E8F9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.9rem}
 .m-chips-row{display:flex;gap:.4rem;justify-content:center;flex-wrap:wrap}
 .m-chip{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:100px;padding:.22rem .7rem;font-size:.65rem;color:rgba(255,255,255,.75)}
 .m-body{padding:1.6rem 2rem 2rem}
@@ -424,16 +431,16 @@ textarea{resize:none;height:56px;font-size:.83rem}
 .m-feat-ico{width:22px;height:22px;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.05rem}
 .m-feat-ico svg{width:11px;height:11px;fill:none;stroke:white;stroke-width:2.5}
 .m-input-row{display:flex;flex-direction:column;gap:.6rem;margin-bottom:1rem}
-.m-input{width:100%;padding:.7rem 1rem;border:1.5px solid var(--border);border-radius:12px;font-size:.85rem;font-family:'Inter',sans-serif;color:var(--ink);outline:none;box-sizing:border-box;transition:border-color .18s}
+.m-input{width:100%;padding:.7rem 1rem;border:1.5px solid var(--border);border-radius:12px;font-size:.85rem;font-family:var(--font-body);color:var(--ink);outline:none;box-sizing:border-box;transition:border-color .18s}
 .m-input:focus{border-color:var(--teal-dark)}
-.m-cta{width:100%;padding:.85rem;border:none;border-radius:14px;background:linear-gradient(135deg,#0F766E,#0D9488);color:#fff;font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;cursor:pointer;transition:opacity .2s;letter-spacing:.01em}
+.m-cta{width:100%;padding:.85rem;border:none;border-radius:14px;background:linear-gradient(135deg,var(--sage-dark),var(--sage));color:#fff;font-family:var(--font-display);font-size:1rem;font-weight:700;cursor:pointer;transition:opacity .2s;letter-spacing:.01em}
 .m-cta:hover{opacity:.92}
 .m-cta:disabled{opacity:.5;cursor:default}
 .m-skip{display:block;text-align:center;margin-top:.85rem;font-size:.73rem;color:var(--muted);cursor:pointer;transition:color .18s}
 .m-skip:hover{color:var(--ink)}
 .m-ok{display:none;text-align:center;padding:1.2rem 0 .5rem}
 .m-ok-ico{font-size:2rem;margin-bottom:.4rem}
-.m-ok-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--ink);margin-bottom:.4rem}
+.m-ok-title{font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:var(--ink);margin-bottom:.4rem}
 .m-ok-sub{font-size:.8rem;color:var(--ink2);line-height:1.6}
 .m-pdf-btn{display:inline-flex;align-items:center;gap:.4rem;margin-top:1rem;padding:.55rem 1.2rem;border:1.5px solid var(--teal-dark);border-radius:100px;color:var(--teal-dark);font-size:.76rem;font-weight:700;cursor:pointer;background:transparent;transition:all .18s}
 .m-pdf-btn:hover{background:var(--teal-dark);color:#fff}
@@ -452,7 +459,7 @@ textarea{resize:none;height:56px;font-size:.83rem}
 .unverified{border-left:3px solid #FCD34D;padding-left:.6rem;font-style:italic;color:var(--ink2)}
 .unverified::before{content:'⚠ ';font-style:normal;font-size:.7rem;color:#B45309}
 .map-section{margin-bottom:1.5rem}
-.map-section-hed{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;margin-bottom:.9rem;color:var(--ink);display:flex;align-items:center;gap:.5rem}
+.map-section-hed{font-family:var(--font-display);font-size:1rem;font-weight:700;margin-bottom:.9rem;color:var(--ink);display:flex;align-items:center;gap:.5rem}
 .map-section-hed span{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;background:linear-gradient(135deg,var(--teal-dark),var(--teal));color:#fff;padding:.15rem .55rem;border-radius:100px}
 #travelMap{width:100%;height:320px;border-radius:16px;border:1.5px solid var(--border);overflow:hidden;box-shadow:var(--shadow)}
 .map-legend{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.6rem}
@@ -461,9 +468,9 @@ textarea{resize:none;height:56px;font-size:.83rem}
 
 /* ── Full recap summary card ── */
 .full-recap-card{background:var(--white);border:1.5px solid var(--border);border-radius:20px;overflow:hidden;margin-bottom:1.5rem;box-shadow:var(--shadow)}
-.full-recap-hero{background:linear-gradient(135deg,#0F172A 0%,#1E3A5F 55%,#0F766E 100%);padding:1.5rem 1.8rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
-.full-recap-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:#fff}
-.full-recap-total{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;background:linear-gradient(135deg,var(--teal),#67E8F9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-align:right}
+.full-recap-hero{background:linear-gradient(145deg,#1C1C2E 0%,#2C3E6B 55%,#1C3A2E 100%);padding:1.5rem 1.8rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.full-recap-title{font-family:var(--font-display);font-size:1.15rem;font-weight:400;color:#fff;letter-spacing:-.02em}
+.full-recap-total{font-family:var(--font-display);font-size:1.65rem;font-weight:400;background:linear-gradient(135deg,#A7F3D0,#67E8F9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-align:right;letter-spacing:-.02em}
 .full-recap-total-label{font-size:.58rem;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.08em;text-align:right;margin-bottom:.2rem}
 .full-recap-body{padding:1.5rem 1.8rem}
 .full-recap-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.65rem;margin-bottom:1.3rem}
@@ -482,13 +489,13 @@ textarea{resize:none;height:56px;font-size:.83rem}
 .frg-ico.fo{background:linear-gradient(135deg,#B45309,#FCD34D)}
 .frg-ico.re{background:linear-gradient(135deg,#7E22CE,#A855F7)}
 .frg-ico.gr{background:linear-gradient(135deg,#0F766E,#2DD4BF)}
-.full-recap-email-bar{background:linear-gradient(135deg,#0F172A,#0F3460);border-radius:14px;padding:1.2rem 1.4rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.full-recap-email-bar{background:linear-gradient(145deg,#1C1C2E,#2C3E6B);border-radius:14px;padding:1.2rem 1.4rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
 .freb-left{display:flex;align-items:center;gap:.7rem}
 .freb-ico{font-size:1.3rem}
 .freb-txt strong{display:block;color:#fff;font-size:.85rem;margin-bottom:.15rem}
 .freb-txt span{color:rgba(255,255,255,.5);font-size:.7rem}
 .freb-right{display:flex;gap:.45rem;flex-wrap:wrap}
-.freb-input{padding:.45rem .9rem;border-radius:9px;border:1.5px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);color:#fff;font-size:.8rem;outline:none;width:180px;font-family:'Inter',sans-serif}
+.freb-input{padding:.45rem .9rem;border-radius:9px;border:1.5px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);color:#fff;font-size:.8rem;outline:none;width:180px;font-family:var(--font-body)}
 .freb-input::placeholder{color:rgba(255,255,255,.3)}
 .freb-input:focus{border-color:var(--teal)}
 .freb-btn{padding:.45rem 1rem;background:var(--teal-dark);color:#fff;border:none;border-radius:9px;font-size:.76rem;font-weight:700;cursor:pointer;white-space:nowrap}
@@ -503,7 +510,7 @@ textarea{resize:none;height:56px;font-size:.83rem}
 .reb-txt strong{display:block;color:#fff;font-size:.87rem;margin-bottom:.1rem}
 .reb-txt span{color:rgba(255,255,255,.5);font-size:.72rem}
 .reb-right{display:flex;gap:.5rem;align-items:center;flex-shrink:0;flex-wrap:wrap}
-.reb-input{padding:.48rem .9rem;border-radius:9px;border:1.5px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);color:#fff;font-size:.82rem;outline:none;width:190px;font-family:'Inter',sans-serif;transition:border-color .18s}
+.reb-input{padding:.48rem .9rem;border-radius:9px;border:1.5px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);color:#fff;font-size:.82rem;outline:none;width:190px;font-family:var(--font-body);transition:border-color .18s}
 .reb-input::placeholder{color:rgba(255,255,255,.32)}
 .reb-input:focus{border-color:var(--teal)}
 .reb-send{padding:.48rem 1rem;background:var(--teal-dark);color:#fff;border:none;border-radius:9px;font-size:.78rem;font-weight:700;cursor:pointer;white-space:nowrap;transition:opacity .18s}
@@ -513,9 +520,9 @@ textarea{resize:none;height:56px;font-size:.83rem}
 .reb-ok{color:var(--teal);font-weight:600;font-size:.88rem;text-align:center;padding:.4rem 0}
 /* ── Experience micro-buttons inside moments ── */
 .moment-exp-btns{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.7rem;padding-top:.55rem;border-top:1px solid var(--border)}
-.exp-micro{display:inline-flex;align-items:center;gap:.3rem;padding:.28rem .65rem;border-radius:100px;font-size:.64rem;font-weight:700;cursor:pointer;border:1.5px solid transparent;transition:all .18s;white-space:nowrap;background:#F8FAFC;border-color:var(--border);color:var(--ink2)}
-.exp-micro:hover{border-color:var(--teal-dark);color:var(--teal-dark);background:#F0FDFA}
-.exp-micro.in-cart{background:var(--teal-dark);border-color:var(--teal-dark);color:#fff}
+.exp-micro{display:inline-flex;align-items:center;gap:.28rem;padding:.26rem .62rem;border-radius:7px;font-size:.63rem;font-weight:700;cursor:pointer;border:1.5px solid var(--border);transition:all .18s;white-space:nowrap;background:var(--white);color:var(--ink2);font-family:var(--font-body)}
+.exp-micro:hover{border-color:var(--sage);color:var(--sage-dark);background:var(--sage-light)}
+.exp-micro.in-cart{background:var(--sage);border-color:var(--sage);color:#fff}
 .exp-micro svg{width:9px;height:9px;fill:none;stroke:currentColor;stroke-width:2.5;flex-shrink:0}
 </style>
 </head>
@@ -552,22 +559,47 @@ textarea{resize:none;height:56px;font-size:.83rem}
     <p class="co-sub" data-i="checkoutSub"></p>
     <div class="co-grid">
       <div class="co-left">
+        <!-- Contact info — Image 2 style -->
         <div class="co-box">
           <div class="co-box-h" data-i="contactTitle"></div>
-          <div class="fg"><label data-i="cName"></label><input type="text" id="cNameInput" data-i-ph="cNamePh"/></div>
-          <div class="fg"><label data-i="cEmail"></label><input type="email" id="cEmailInput" data-i-ph="cEmailPh"/></div>
+          <div style="display:flex;flex-direction:column;gap:.9rem">
+            <div class="fg" style="margin:0">
+              <label style="display:flex;align-items:center;gap:.4rem;margin-bottom:.4rem;font-size:.7rem;font-weight:700;color:var(--ink2)">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <span data-i="cName"></span>
+              </label>
+              <input type="text" id="cNameInput" data-i-ph="cNamePh" style="font-size:.9rem"/>
+            </div>
+            <div class="fg" style="margin:0">
+              <label style="display:flex;align-items:center;gap:.4rem;margin-bottom:.4rem;font-size:.7rem;font-weight:700;color:var(--ink2)">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                <span data-i="cEmail"></span>
+              </label>
+              <input type="email" id="cEmailInput" data-i-ph="cEmailPh" style="font-size:.9rem"/>
+            </div>
+          </div>
         </div>
+        <!-- Reserve links -->
         <div class="co-box">
           <div class="co-box-h" data-i="reserveTitle"></div>
           <div class="book-links" id="reserveLinks"></div>
         </div>
+        <!-- Send + Confirm — Image 2 style -->
         <div class="co-box">
           <div class="co-box-h" data-i="sendTitle"></div>
           <p class="send-desc" data-i="sendDesc"></p>
-          <button class="btn-send" id="btnSend" onclick="sendItinerary()"><span data-i="sendBtn"></span></button>
-          <div class="send-ok" id="sendOk"></div>
+          <div style="background:var(--sage-light);border:1px solid rgba(74,124,89,.18);border-radius:var(--r);padding:.85rem 1rem;margin-bottom:1.2rem;font-size:.82rem;color:var(--sage-dark);display:flex;align-items:center;gap:.5rem">
+            <span style="font-size:1.1rem">🔒</span>
+            <span id="sendSecureNote"></span>
+          </div>
+          <button class="btn-send" id="btnSend" onclick="sendItinerary()" style="background:linear-gradient(135deg,#2C3E6B,var(--sage));font-size:.88rem;padding:1rem">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            <span data-i="sendBtn"></span>
+          </button>
+          <div class="send-ok" id="sendOk" style="margin-top:.8rem"></div>
         </div>
       </div>
+      <!-- Right summary panel — Image 2 style -->
       <div><div class="cart-sum" id="cartBox"></div></div>
     </div>
   </div>
@@ -576,7 +608,7 @@ textarea{resize:none;height:56px;font-size:.83rem}
 <!-- HERO FORM -->
 <section class="hero">
   <div class="hero-left">
-    <div class="hero-badge"><span style="width:6px;height:6px;background:var(--teal);border-radius:50%;display:inline-block"></span><span data-i="badge"></span></div>
+    <div class="hero-badge"><span style="width:6px;height:6px;background:#86EFAC;border-radius:50%;display:inline-block"></span><span data-i="badge"></span></div>
     <h1 data-i="h1a"></h1>
     <p class="hero-sub" data-i="heroSub"></p>
     <div class="hero-stats">
@@ -677,10 +709,10 @@ textarea{resize:none;height:56px;font-size:.83rem}
 const I18N={
   es:{
     badge:'Viajes con criterio. Sin turismo de masas.',
-    h1a:'Hay destinos.\nY hay lugares que\n<em>te cambian.</em>',
-    heroSub:'Cuéntanos cómo quieres viajar. Te damos un plan concreto, con alma — no una lista de atracciones.',
+    h1a:'Algunos sitios\nse visitan. Otros\n<em>te habitan.</em>',
+    heroSub:'Cuéntanos cómo quieres viajar. Hacemos el plan concreto — con alma, con criterio, con esa cosa que las guías no tienen.',
     proof1:'Viajeros',proof2:'Destinos',proof3:'Valoración',
-    formTitle:'¿A dónde quieres ir?',formSub:'Cuanto más nos cuentes, mejor el plan.',
+    formTitle:'¿Adónde te lleva esta vez?',formSub:'Cuanto más nos cuentes, más tuyo sale el plan.',
     labelFrom:'Sales desde',labelTo:'Destino',phFrom:'Madrid…',phTo:'París, Tokio, Lisboa…',
     labelDepart:'Salida',labelReturn:'Vuelta',
     labelFlexible:'¿Fechas flexibles?',flexNo:'Fechas fijas',flexYes:'Flexible ±3 días',
@@ -688,45 +720,45 @@ const I18N={
     tSolo:'Solo/a',tCouple:'En pareja',tFriends:'Con amigos',tFamily:'En familia',
     bLow:'Con cabeza',bMid:'Sin obsesionarse',bHigh:'Con margen',bPremium:'Sin límites',
     labelStyle:'Estilo de viaje',labelNotes:'Notas (opcional)',
-    phNotes:'Odio los museos masificados. Soy vegetariano…',
-    btnGen:'Crear mi plan de viaje',navSaved:'Mis viajes',
-    cartLabel:'Mi viaje',addToMyTrip:'+ Añadir a mi viaje',addedToTrip:'✓ Añadido',
-    expBookBtn:'Reservar →',expLoadingMsg:'Buscando experiencias…',
-    expTitle:'Experiencias recomendadas',expSub:'De pago, seleccionadas para este viaje.',
-    checkoutTitle:'Mi viaje',checkoutSub:'Todo en un lugar para reservar fácilmente.',
-    contactTitle:'Tus datos',cName:'Nombre',cEmail:'Email',cNamePh:'Tu nombre',cEmailPh:'tu@email.com',
-    reserveTitle:'Reservar cada parte',sendTitle:'Recibir por email',
-    sendDesc:'Te enviamos el itinerario completo, listo para llevar en el móvil.',
-    sendBtn:'📩 Enviar a mi email',backBtn:'Volver',
+    phNotes:'Odio los museos masificados. Soy vegetariano. Me interesan los barrios que no salen en TripAdvisor…',
+    btnGen:'Construir mi itinerario',navSaved:'Mis viajes',
+    cartLabel:'Mi viaje',addToMyTrip:'+ Apuntar esto',addedToTrip:'✓ Apuntado',
+    expBookBtn:'Reservar →',expLoadingMsg:'Seleccionando lo mejor…',
+    expTitle:'Experiencias que valen la pena',expSub:'Curadas para este viaje. Reserva directamente.',
+    checkoutTitle:'Finalizar reserva',checkoutSub:'Solo un paso más para confirmar tu aventura.',
+    contactTitle:'Información de contacto',cName:'Nombre completo',cEmail:'Email',cNamePh:'Juan Pérez',cEmailPh:'juan@example.com',
+    reserveTitle:'Reservar cada parte',sendTitle:'Información de pago',
+    sendDesc:'Tu itinerario se guarda y puedes recuperarlo con el enlace que te enviamos.',
+    sendBtn:'Confirmar y recibir mi plan →',backBtn:'Volver',
     cartSummaryTitle:'Resumen',cartEmpty:'Añade experiencias o días al viaje',
-    g1:'Cancelación gratuita hasta 48h',g2:'Mejor precio garantizado',g3:'Soporte durante tu viaje',
+    g1:'Cancelación gratuita hasta 48h',g2:'Mejor precio garantizado',g3:'Soporte 24/7 durante tu viaje',
     shareTrip:'🔗 Compartir plan',
     saveBtnLabel:'🗂 Guardar',saveBtnDone:'✅ Guardado',printBtn:'🖨 PDF',
-    loadMsgs:['Abriendo rutas que los guías locales guardan para sí…','Descartando todo lo que sale en la primera página de Google…','Calibrando el equilibrio entre aventura y comodidad…','Buscando el restaurante donde comen los que saben…','Eliminando los clichés uno a uno…','Añadiendo ese detalle que convierte un viaje en un recuerdo…','Revisando horarios, precios y esa magia indefinible…','Listo. Tu plan no se parece al de nadie.'],
-    dayLabel:'Día',addDayBtn:'+ Añadir a mi viaje',addedDayBtn:'✓ Añadido',
-    tipsTitle:'Antes de salir',
-    recapTitle:'Resumen del plan',budgetFitLabel:'¿Encaja con tu presupuesto?',
-    dayRecapLabel:'Día a día',stayLabel:'Dónde dormir',bookHotel:'Ver hoteles →',
-    ctaTitle:(d)=>`¿Listo para ${d}?`,ctaSub:'El plan es tuyo. Solo falta reservar.',
-    ctaFlights:'✈️ Vuelos',ctaHotels:'🏨 Hoteles',
+    loadMsgs:['Abriendo rutas que los guías locales guardan para sí…','Descartando todo lo que sale en la primera página de Google…','Buscando el café donde escribió el que vivió allí de verdad…','Calibrando el equilibrio entre aventura y comodidad…','Encontrando el restaurante donde comen los que saben…','Eliminando clichés. Añadiendo criterio.','Ese detalle que convierte un viaje en un recuerdo…','Listo. Tu plan no se parece al de nadie.'],
+    dayLabel:'Día',addDayBtn:'+ Guardar este día',addedDayBtn:'✓ Guardado',
+    tipsTitle:'Lo que los guías no te cuentan',
+    recapTitle:'Tu plan al completo',budgetFitLabel:'¿Encaja con tu presupuesto?',
+    dayRecapLabel:'Día a día',stayLabel:'Dónde dormir',bookHotel:'Ver alojamientos →',
+    ctaTitle:(d)=>`${d} te está esperando.`,ctaSub:'Tu itinerario está listo. Cada día tiene su lógica, cada momento su razón. Solo falta el billete.',
+    ctaFlights:'✈ Buscar vuelos',ctaHotels:'🏨 Ver alojamientos',
     tags:['🏛️ Cultura','🍷 Gastronomía','🏔️ Naturaleza','🚂 Slow travel','🏖️ Playa','🌆 Ciudad','🧘 Desconexión','🌙 Noche','❤️ Romántico','👨‍👩‍👧 Familia'],
     travelerMap:{solo:'solo/a',couple:'en pareja',friends:'con amigos',family:'en familia'},
     budgetMap:{low:'con cabeza',mid:'sin obsesionarse',high:'con margen',premium:'sin límites'},
     reserveLinks:[
-      {ico:'✈️',name:'Vuelos',desc:'Busca y compara precios',type:'flight',btn:'Buscar'},
-      {ico:'🏨',name:'Hoteles',desc:'Con cancelación gratuita',type:'hotel',btn:'Ver hoteles'},
-      {ico:'🎟️',name:'Actividades',desc:'Experiencias verificadas',type:'act',btn:'Explorar'},
-      {ico:'🚂',name:'Trenes',desc:'Rail passes y conexiones',type:'train',btn:'Ver trenes'},
-      {ico:'🚗',name:'Coche',desc:'Sin comisiones ocultas',type:'car',btn:'Ver coches'},
+      {ico:'✈️',name:'Vuelos',desc:'Busca y compara sin comisiones',type:'flight',btn:'Buscar'},
+      {ico:'🏨',name:'Alojamiento',desc:'Hoteles, apartamentos, boutiques',type:'hotel',btn:'Ver opciones'},
+      {ico:'🎟️',name:'Experiencias',desc:'Reservadas y verificadas',type:'act',btn:'Explorar'},
+      {ico:'🚂',name:'Trenes',desc:'Interrail, Renfe, Eurostar',type:'train',btn:'Ver trenes'},
+      {ico:'🚗',name:'Coche de alquiler',desc:'Sin letra pequeña',type:'car',btn:'Ver coches'},
     ],
-    promptIntro:'Eres un periodista de viajes con alma literaria, criterio curado y conocimiento real de los destinos. No escribes guías, escribes experiencias. Tu estilo: directo, sensorial, inesperado. Mezclas lo gratuito con lo que vale cada euro. Nunca usas clichés.',
+    promptIntro:'Eres un escritor de viajes con la voz de un corresponsal literario — piensa en Pico Iyer cruzado con un amigo local que conoce cada rincón. Tu misión: crear itinerarios que se lean como un relato de viaje con alma, no como una guía turística. Cada momento del día tiene un ritmo, una atmósfera, una emoción concreta. Combinas lo local y auténtico con lo sorprendente, lo gratuito con lo que vale cada céntimo. NUNCA clichés turísticos. Escribes con detalles sensoriales específicos — aromas, texturas, sonidos, luz de determinada hora. Cada día tiene UN TITULAR LITERARIO memorable (no descriptivo) y una narrativa que explica por qué esta secuencia de momentos tiene sentido juntos y qué hace especial este día en particular. El mini-storytelling al inicio de cada día (1-2 frases) debe evocar la atmósfera y prometer algo.',
   },
   en:{
     badge:'Travel with taste. Not with the crowds.',
-    h1a:'There are destinations.\nAnd there are places\n<em>that stay with you.</em>',
-    heroSub:'Tell us how you want to travel. We\'ll give you a real plan — not a list of tourist traps.',
+    h1a:'Some places\nyou visit. Others\n<em>stay inside you.</em>',
+    heroSub:'Tell us how you want to travel. We build a real plan — with soul, with taste, with that quality no guidebook has.',
     proof1:'Travellers',proof2:'Destinations',proof3:'Rating',
-    formTitle:'Where do you want to go?',formSub:'The more you share, the better the plan.',
+    formTitle:'Where is it calling you?',formSub:'The more you share, the more personal the plan.',
     labelFrom:'From',labelTo:'To',phFrom:'London…',phTo:'Paris, Tokyo, Lisbon…',
     labelDepart:'Departure',labelReturn:'Return',
     labelFlexible:'Flexible dates?',flexNo:'Fixed',flexYes:'Flexible ±3 days',
@@ -734,45 +766,45 @@ const I18N={
     tSolo:'Solo',tCouple:'Couple',tFriends:'Friends',tFamily:'Family',
     bLow:'Mindful',bMid:'Comfortable',bHigh:'Generous',bPremium:'No limits',
     labelStyle:'Trip vibe',labelNotes:'Notes (optional)',
-    phNotes:'Hate crowded museums. Vegetarian…',
-    btnGen:'Build my travel plan',navSaved:'My trips',
-    cartLabel:'My trip',addToMyTrip:'+ Add to my trip',addedToTrip:'✓ Added',
-    expBookBtn:'Book now →',expLoadingMsg:'Finding experiences…',
-    expTitle:'Recommended experiences',expSub:'Paid, curated for this trip.',
-    checkoutTitle:'My trip',checkoutSub:'Everything in one place to book easily.',
-    contactTitle:'Your details',cName:'Name',cEmail:'Email',cNamePh:'Your name',cEmailPh:'you@email.com',
-    reserveTitle:'Book each part',sendTitle:'Get it by email',
-    sendDesc:'We\'ll send your full itinerary, ready to take on your phone.',
-    sendBtn:'📩 Send to my email',backBtn:'Back',
+    phNotes:'Hate crowded museums. Vegetarian. Interested in neighbourhoods that don\'t appear in TripAdvisor…',
+    btnGen:'Build my itinerary',navSaved:'My trips',
+    cartLabel:'My trip',addToMyTrip:'+ Note this',addedToTrip:'✓ Noted',
+    expBookBtn:'Book now →',expLoadingMsg:'Selecting the best…',
+    expTitle:'Experiences worth having',expSub:'Curated for this trip. Book directly.',
+    checkoutTitle:'Finalise booking',checkoutSub:'One last step to confirm your adventure.',
+    contactTitle:'Contact information',cName:'Full name',cEmail:'Email',cNamePh:'Jane Smith',cEmailPh:'jane@example.com',
+    reserveTitle:'Book each part',sendTitle:'Payment information',
+    sendDesc:'Your itinerary is saved and you can always recover it from the link we send you.',
+    sendBtn:'Confirm and get my plan →',backBtn:'Back',
     cartSummaryTitle:'Summary',cartEmpty:'Add experiences or days to your trip',
-    g1:'Free cancellation up to 48h',g2:'Best price guaranteed',g3:'Support during your trip',
+    g1:'Free cancellation up to 48h',g2:'Best price guaranteed',g3:'24/7 support during your trip',
     shareTrip:'🔗 Share plan',
     saveBtnLabel:'🗂 Save',saveBtnDone:'✅ Saved',printBtn:'🖨 PDF',
-    loadMsgs:['Opening routes that local guides keep to themselves…','Crossing out everything on page one of Google…','Finding the restaurant where the people who know eat…','Calibrating adventure against comfort…','Removing clichés one by one…','Adding the detail that turns a trip into a memory…','Checking hours, prices, and that indefinable magic…','Done. Your plan looks like no one else\'s.'],
-    dayLabel:'Day',addDayBtn:'+ Add to my trip',addedDayBtn:'✓ Added',
-    tipsTitle:'Before you leave',
-    recapTitle:'Plan summary',budgetFitLabel:'Budget fit',
-    dayRecapLabel:'Day by day',stayLabel:'Where to stay',bookHotel:'Browse hotels →',
-    ctaTitle:(d)=>`Ready for ${d}?`,ctaSub:'The plan is yours. All that\'s left is booking.',
-    ctaFlights:'✈️ Flights',ctaHotels:'🏨 Hotels',
+    loadMsgs:['Opening routes that local guides keep to themselves…','Crossing out everything on page one of Google…','Finding the café where the writer who actually lived there used to work…','Calibrating adventure against comfort…','The restaurant where the people who know eat…','Removing clichés. Adding taste.','That detail that turns a trip into a memory…','Done. Your plan looks like no one else\'s.'],
+    dayLabel:'Day',addDayBtn:'+ Save this day',addedDayBtn:'✓ Saved',
+    tipsTitle:'What the guides don\'t tell you',
+    recapTitle:'Your complete plan',budgetFitLabel:'Budget fit',
+    dayRecapLabel:'Day by day',stayLabel:'Where to stay',bookHotel:'Browse accommodation →',
+    ctaTitle:(d)=>`${d} is waiting for you.`,ctaSub:'Your itinerary is alive. Every day has its logic, every moment its reason. Just add a flight.',
+    ctaFlights:'✈ Find flights',ctaHotels:'🏨 Find accommodation',
     tags:['🏛️ Culture','🍷 Food & Wine','🏔️ Nature','🚂 Slow travel','🏖️ Beach','🌆 City','🧘 Slow down','🌙 Nightlife','❤️ Romance','👨‍👩‍👧 Family'],
     travelerMap:{solo:'solo',couple:'as a couple',friends:'with friends',family:'as a family'},
     budgetMap:{low:'on a mindful budget',mid:'comfortable',high:'with room to splurge',premium:'no limits'},
     reserveLinks:[
-      {ico:'✈️',name:'Flights',desc:'Search and compare prices',type:'flight',btn:'Search'},
-      {ico:'🏨',name:'Hotels',desc:'Free cancellation available',type:'hotel',btn:'Browse'},
-      {ico:'🎟️',name:'Activities',desc:'Verified experiences',type:'act',btn:'Explore'},
-      {ico:'🚂',name:'Trains',desc:'Rail passes and connections',type:'train',btn:'Browse'},
+      {ico:'✈️',name:'Flights',desc:'Search and compare — no fees',type:'flight',btn:'Search'},
+      {ico:'🏨',name:'Accommodation',desc:'Hotels, apartments, boutiques',type:'hotel',btn:'Browse'},
+      {ico:'🎟️',name:'Experiences',desc:'Booked and verified',type:'act',btn:'Explore'},
+      {ico:'🚂',name:'Trains',desc:'Interrail, Eurostar, local rail',type:'train',btn:'Browse'},
       {ico:'🚗',name:'Car rental',desc:'No hidden fees',type:'car',btn:'Browse'},
     ],
-    promptIntro:'You are a literary travel journalist with genuine knowledge of destinations. Not a guidebook writer — an experienced traveller with taste. Style: direct, sensory, surprising. Mix free and paid. Never use clichés.',
+    promptIntro:'You are a literary travel writer — think Pico Iyer crossed with a knowledgeable local friend. Your mission: create itineraries that read like travel essays with soul, not tourist guides. Each part of the day has a rhythm, atmosphere, specific emotion. Mix authentic local secrets with surprises, free with genuinely worth-every-penny. NEVER tourist clichés. Write with specific sensory details — scents, textures, sounds, light at a certain hour. Each day has ONE MEMORABLE LITERARY HEADLINE (evocative, not descriptive) and a narrative explaining why this sequence of moments makes sense together. Include a 1-2 sentence mini-storytelling hook at the start of each day evoking atmosphere and promising something.',
   },
   fr:{
     badge:'Voyager autrement. Loin des foules.',
-    h1a:'Il y a des destinations.\nEt il y a des endroits\n<em>qui vous transforment.</em>',
-    heroSub:'Dites-nous comment vous voulez voyager. On vous donne un plan concret — pas une liste de clichés.',
+    h1a:'Certains endroits\nse visitent. D\'autres\n<em>vous habitent.</em>',
+    heroSub:'Dites-nous comment vous voulez voyager. On vous donne un plan concret — avec âme, avec goût, avec cette chose que les guides n\'ont pas.',
     proof1:'Voyageurs',proof2:'Destinations',proof3:'Note',
-    formTitle:'Où voulez-vous aller ?',formSub:'Plus vous nous en dites, meilleur est le plan.',
+    formTitle:'Où vous appelle-t-il ?',formSub:'Plus vous nous en dites, plus le plan vous ressemble.',
     labelFrom:'Depuis',labelTo:'Destination',phFrom:'Paris…',phTo:'Tokyo, Lisbonne, Barcelone…',
     labelDepart:'Départ',labelReturn:'Retour',
     labelFlexible:'Dates flexibles ?',flexNo:'Fixes',flexYes:'Flexible ±3 jours',
@@ -780,38 +812,38 @@ const I18N={
     tSolo:'Seul(e)',tCouple:'En couple',tFriends:'Entre amis',tFamily:'En famille',
     bLow:'Malin',bMid:'À l\'aise',bHigh:'Généreux',bPremium:'Sans limites',
     labelStyle:'Ambiance du voyage',labelNotes:'Notes (optionnel)',
-    phNotes:'Je fuis les musées bondés. Végétarien…',
-    btnGen:'Créer mon plan',navSaved:'Mes voyages',
-    cartLabel:'Mon voyage',addToMyTrip:'+ Ajouter à mon voyage',addedToTrip:'✓ Ajouté',
-    expBookBtn:'Réserver →',expLoadingMsg:'Recherche d\'expériences…',
-    expTitle:'Expériences recommandées',expSub:'Payantes, sélectionnées pour ce voyage.',
-    checkoutTitle:'Mon voyage',checkoutSub:'Tout en un endroit pour réserver facilement.',
-    contactTitle:'Vos coordonnées',cName:'Prénom',cEmail:'Email',cNamePh:'Votre prénom',cEmailPh:'vous@email.com',
-    reserveTitle:'Réserver chaque étape',sendTitle:'Recevoir par email',
-    sendDesc:'On vous envoie l\'itinéraire complet, prêt à emporter sur votre téléphone.',
-    sendBtn:'📩 Envoyer à mon email',backBtn:'Retour',
+    phNotes:'Je fuis les musées bondés. Végétarien. Je cherche les quartiers qui ne sont pas sur TripAdvisor…',
+    btnGen:'Construire mon itinéraire',navSaved:'Mes voyages',
+    cartLabel:'Mon voyage',addToMyTrip:'+ Noter ça',addedToTrip:'✓ Noté',
+    expBookBtn:'Réserver →',expLoadingMsg:'Sélection des meilleures…',
+    expTitle:'Expériences qui en valent la peine',expSub:'Sélectionnées pour ce voyage. Réservation directe.',
+    checkoutTitle:'Finaliser la réservation',checkoutSub:'Une dernière étape pour confirmer votre aventure.',
+    contactTitle:'Informations de contact',cName:'Nom complet',cEmail:'Email',cNamePh:'Marie Dupont',cEmailPh:'marie@example.com',
+    reserveTitle:'Réserver chaque étape',sendTitle:'Informations de paiement',
+    sendDesc:'Votre itinéraire est sauvegardé et vous pouvez le retrouver via le lien qu\'on vous envoie.',
+    sendBtn:'Confirmer et recevoir mon plan →',backBtn:'Retour',
     cartSummaryTitle:'Résumé',cartEmpty:'Ajoutez des expériences ou des jours',
-    g1:'Annulation gratuite jusqu\'à 48h',g2:'Meilleur prix garanti',g3:'Assistance pendant votre voyage',
+    g1:'Annulation gratuite jusqu\'à 48h',g2:'Meilleur prix garanti',g3:'Assistance 24/7 pendant votre voyage',
     shareTrip:'🔗 Partager le plan',
     saveBtnLabel:'🗂 Sauvegarder',saveBtnDone:'✅ Sauvegardé',printBtn:'🖨 PDF',
-    loadMsgs:['Ouverture des routes que les guides locaux gardent pour eux…','Suppression de tout ce qui apparaît en première page…','Le restaurant où mangent ceux qui savent…','Calibration aventure — confort…','Clichés éliminés un à un…','Le détail qui fait le souvenir…','Vérification des horaires, prix et magie…','Prêt. Votre plan ne ressemble à aucun autre.'],
-    dayLabel:'Jour',addDayBtn:'+ Ajouter à mon voyage',addedDayBtn:'✓ Ajouté',
-    tipsTitle:'Avant de partir',
-    recapTitle:'Résumé du plan',budgetFitLabel:'Budget adapté ?',
-    dayRecapLabel:'Jour par jour',stayLabel:'Où dormir',bookHotel:'Voir les hôtels →',
-    ctaTitle:(d)=>`Prêt pour ${d} ?`,ctaSub:'Le plan est là. Il ne reste plus qu\'à réserver.',
-    ctaFlights:'✈️ Vols',ctaHotels:'🏨 Hôtels',
+    loadMsgs:['Ouverture des routes que les guides locaux gardent pour eux…','On supprime tout ce qui apparaît en première page…','Le café où écrivait celui qui y a vraiment vécu…','Calibration aventure — confort…','Le restaurant où mangent ceux qui savent…','Clichés éliminés. Goût ajouté.','Le détail qui fait le souvenir…','Prêt. Votre plan ne ressemble à aucun autre.'],
+    dayLabel:'Jour',addDayBtn:'+ Garder ce jour',addedDayBtn:'✓ Gardé',
+    tipsTitle:'Ce que les guides ne vous disent pas',
+    recapTitle:'Votre plan complet',budgetFitLabel:'Budget adapté ?',
+    dayRecapLabel:'Jour par jour',stayLabel:'Où dormir',bookHotel:'Voir l\'hébergement →',
+    ctaTitle:(d)=>`${d} vous attend.`,ctaSub:'Votre itinéraire est prêt. Chaque jour pensé, chaque instant anticipé — il ne manque plus que le billet.',
+    ctaFlights:'✈ Chercher des vols',ctaHotels:'🏨 Voir l\'hébergement',
     tags:['🏛️ Culture','🍷 Gastronomie','🏔️ Nature','🚂 Slow travel','🏖️ Plage','🌆 Ville','🧘 Déconnexion','🌙 Soirées','❤️ Romantique','👨‍👩‍👧 Famille'],
     travelerMap:{solo:'en solo',couple:'en couple',friends:'entre amis',family:'en famille'},
     budgetMap:{low:'budget malin',mid:'à l\'aise',high:'avec de la marge',premium:'sans limite'},
     reserveLinks:[
-      {ico:'✈️',name:'Vols',desc:'Recherchez et comparez',type:'flight',btn:'Chercher'},
-      {ico:'🏨',name:'Hôtels',desc:'Annulation gratuite',type:'hotel',btn:'Voir'},
-      {ico:'🎟️',name:'Activités',desc:'Expériences vérifiées',type:'act',btn:'Explorer'},
-      {ico:'🚂',name:'Trains',desc:'Passes et connexions',type:'train',btn:'Voir'},
-      {ico:'🚗',name:'Voiture',desc:'Sans frais cachés',type:'car',btn:'Voir'},
+      {ico:'✈️',name:'Vols',desc:'Recherchez et comparez — sans frais',type:'flight',btn:'Chercher'},
+      {ico:'🏨',name:'Hébergement',desc:'Hôtels, appartements, boutiques',type:'hotel',btn:'Voir'},
+      {ico:'🎟️',name:'Expériences',desc:'Réservées et vérifiées',type:'act',btn:'Explorer'},
+      {ico:'🚂',name:'Trains',desc:'Interrail, Eurostar, trains locaux',type:'train',btn:'Voir'},
+      {ico:'🚗',name:'Location de voiture',desc:'Sans frais cachés',type:'car',btn:'Voir'},
     ],
-    promptIntro:'Tu es un journaliste de voyage littéraire avec une vraie connaissance des destinations. Pas un guide touristique — un voyageur avec du goût. Style : direct, sensoriel, surprenant. Mélange gratuit et payant. Jamais de clichés.',
+    promptIntro:'Tu es un écrivain voyageur à la voix d\'un correspondant littéraire — pense Sylvain Tesson croisé avec un ami local qui connaît chaque recoin. Ta mission : créer des itinéraires qui se lisent comme des carnets de voyage avec âme, pas des guides touristiques. Chaque moment de la journée a un rythme, une atmosphère, une émotion précise. Mélange secrets locaux et surprises, gratuit et vaut-chaque-centime. JAMAIS de clichés. Écris avec des détails sensoriels — parfums, textures, sons, lumière d\'une certaine heure. Chaque jour a UN TITRE LITTÉRAIRE MÉMORABLE (évocateur, pas descriptif) et une narration expliquant pourquoi cette séquence a du sens. Mini-storytelling d\'entrée de 1-2 phrases.',
   }
 };
 
@@ -820,6 +852,8 @@ function detectLang(){const s=localStorage.getItem('ts_lang');if(s&&I18N[s])retu
 function t(k){return I18N[lang]?.[k]??I18N.es[k]??k;}
 function setLang(l){lang=l;localStorage.setItem('ts_lang',l);applyLang();}
 function applyLang(){
+  const sn=document.getElementById('sendSecureNote');
+  if(sn)sn.textContent={es:'Tu itinerario se envía de forma segura. No guardamos datos bancarios.',en:'Your itinerary is sent securely. We never store your payment details.',fr:'Votre itinéraire est envoyé en toute sécurité. Aucune donnée bancaire conservée.'}[lang]||'';
   document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('on',b.textContent.toLowerCase()===lang));
   document.querySelectorAll('[data-i]').forEach(el=>{
     const k=el.getAttribute('data-i'),v=t(k);
@@ -926,7 +960,7 @@ function renderCartBox(){
   document.getElementById('cartBox').innerHTML=`
     <div class="cart-sum-h">${t('cartSummaryTitle')}</div>
     <div class="cart-dest-row">
-      <div class="cart-dest-img" style="${(()=>{const g=getDestGrad(dest);return `background:linear-gradient(135deg,${g.c[0]},${g.c[1]},${g.c[2]})`;})()};display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-family:'Playfair Display',serif;font-weight:700;color:rgba(255,255,255,.9);font-size:.7rem;text-transform:uppercase;letter-spacing:.08em">${dest.slice(0,3)}</div>
+      <div class="cart-dest-img" style="${(()=>{const g=getDestGrad(dest);return `background:linear-gradient(135deg,${g.c[0]},${g.c[1]},${g.c[2]})`;})()};display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-family:var(--font-display);font-weight:700;color:rgba(255,255,255,.9);font-size:.7rem;text-transform:uppercase;letter-spacing:.08em">${dest.slice(0,3)}</div>
       <div><div class="cart-dest-name">${dest}</div><div class="cart-dest-meta">${origin} · ${days} ${nightW} · ${tMap[tKey]||tKey}</div><div class="cart-dest-meta" style="color:var(--teal-dark);font-weight:600;margin-top:.1rem">${bMap[bKey]||bKey}</div></div>
     </div>
     ${total>0?`<div class="cart-total-row"><span class="cart-total-n">${totalW}</span><span class="cart-total-v">~€${total}</span></div>`:''}
@@ -948,26 +982,44 @@ function renderReserveLinks(){
 
 async function sendItinerary(){
   const email=document.getElementById('cEmailInput').value.trim();
-  if(!email){document.getElementById('cEmailInput').style.borderColor='#F87171';document.getElementById('cEmailInput').focus();return;}
+  if(!email||!email.includes('@')){document.getElementById('cEmailInput').style.borderColor='#F87171';document.getElementById('cEmailInput').focus();return;}
   const name=document.getElementById('cNameInput').value.trim();
   const dest=document.getElementById('dest').value.trim();
+  // Auto-save trip so the link works
+  if(currentTrip&&!currentTrip.tripId){
+    currentTrip.tripId='ts_'+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+    try{localStorage.setItem('ts_trip_'+currentTrip.tripId,JSON.stringify(currentTrip));}catch(e){}
+    const idx=saved.findIndex(s=>s.dest===currentTrip.dest);
+    if(idx>=0)saved[idx]=currentTrip;else saved.unshift(currentTrip);
+    if(saved.length>30)saved.length=30;
+    saveSaved();updateSavedCount();
+  }
+  const tripUrl = currentTrip?.tripId ? getTripUrl(currentTrip.tripId) : window.location.href;
   const btn=document.getElementById('btnSend');
   const span=btn.querySelector('span');
   btn.disabled=true;span.textContent={es:'Enviando…',en:'Sending…',fr:'Envoi…'}[lang];
   try{
     const r=await fetch('/api/email',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({name,email,tripName:document.getElementById('tripName')?.textContent||dest,dest,
-        departDate:document.getElementById('df').value,returnDate:document.getElementById('dt').value,
-        travelers:document.getElementById('travelers')?.value||'',lang})});
+      body:JSON.stringify({name,email,
+        tripName:currentTrip?.tripName||document.getElementById('tripDestDisplay')?.textContent||dest,
+        dest,departDate:document.getElementById('df').value,returnDate:document.getElementById('dt').value,
+        travelers:document.getElementById('travelers')?.value||'',lang,
+        tripId:currentTrip?.tripId||'',
+        tripUrl,  // ← enlace de recuperación incluido en el email
+        itinerary:currentTrip?.introHTML||''
+      })});
     const j=await r.json();
     btn.style.display='none';
     const ok=document.getElementById('sendOk');ok.style.display='block';
-    ok.innerHTML={es:`✅ Listo, ${name||'viajero'}. Revisa tu bandeja de ${email}.`,
-      en:`✅ Done, ${name||'traveller'}. Check your inbox at ${email}.`,
-      fr:`✅ C'est parti ! Vérifiez ${email}.`}[lang];
+    ok.innerHTML=`<div style="background:var(--sage-light);border:1px solid rgba(74,124,89,.2);border-radius:var(--r);padding:1.1rem 1.2rem;display:flex;flex-direction:column;gap:.5rem">
+      <div style="font-weight:700;color:var(--sage-dark);font-size:.88rem">${{es:`✅ Listo, ${name||'viajero'}. Revisa ${email}`,en:`✅ Done, ${name||'traveller'}. Check ${email}`,fr:`✅ C'est parti ! Vérifiez ${email}`}[lang]}</div>
+      <div style="font-size:.76rem;color:var(--ink2)">${{es:'El email incluye tu itinerario y un enlace para recuperar este viaje desde cualquier dispositivo.',en:'The email includes your itinerary and a link to recover this trip on any device.',fr:'L\'email contient votre itinéraire et un lien pour retrouver ce voyage sur n\'importe quel appareil.'}[lang]}</div>
+    </div>`;
   }catch(e){
-    btn.disabled=false;span.textContent={es:'Enviar itinerario',en:'Send itinerary',fr:'Envoyer'}[lang];
+    btn.disabled=false;span.textContent=t('sendBtn');
     console.error('Email error:',e);
+    const ok=document.getElementById('sendOk');ok.style.display='block';
+    ok.innerHTML=`<div class="err-box">${{es:'Error al enviar. Intenta de nuevo o guarda el enlace manualmente.',en:'Send error. Try again or save the link manually.',fr:'Erreur d\'envoi. Réessayez ou sauvegardez le lien manuellement.'}[lang]}</div>`;
   }
 }
 
@@ -1007,10 +1059,13 @@ function quickSendEmail(){
   }).catch(()=>{if(btn){btn.textContent='\u2192';btn.disabled=false;}});
 }
 function shareTrip(){
+  // Auto-save to get tripId
+  if(currentTrip&&!currentTrip.tripId) saveCurrentTrip();
   const dest=document.getElementById('dest').value.trim();
-  const msg={es:`🌍 Mi plan de viaje a ${dest} — Travel Studio`,en:`🌍 My trip plan to ${dest} — Travel Studio`,fr:`🌍 Mon plan pour ${dest} — Travel Studio`}[lang];
-  if(navigator.share)navigator.share({title:'Travel Studio',text:msg,url:window.location.href});
-  else navigator.clipboard.writeText(window.location.href).then(()=>{});
+  const tripUrl=currentTrip?.tripId?getTripUrl(currentTrip.tripId):window.location.href;
+  const msg={es:`🌍 Mi plan para ${dest} — Travel Studio`,en:`🌍 My trip plan to ${dest} — Travel Studio`,fr:`🌍 Mon plan pour ${dest} — Travel Studio`}[lang];
+  if(navigator.share)navigator.share({title:'Travel Studio',text:msg,url:tripUrl});
+  else navigator.clipboard.writeText(tripUrl).then(()=>showToast({es:'Enlace copiado al portapapeles',en:'Link copied to clipboard',fr:'Lien copié'}[lang]));
 }
 
 // ═══════════════════════════════════
@@ -1020,7 +1075,7 @@ let flexDates=false;
 function setFlex(v){flexDates=v;document.getElementById('flexYes').classList.toggle('on',v);document.getElementById('flexNo').classList.toggle('on',!v);}
 
 // ═══════════════════════════════════
-// SAVED TRIPS
+// SAVED TRIPS — sistema robusto con ID permanente
 // ═══════════════════════════════════
 let saved=JSON.parse(localStorage.getItem('ts_saved')||'[]'),currentTrip=null;
 function saveSaved(){localStorage.setItem('ts_saved',JSON.stringify(saved));}
@@ -1029,11 +1084,15 @@ function openSaved(){renderSavedList();document.getElementById('savedPanel').cla
 function closeSaved(){document.getElementById('savedPanel').classList.remove('open');document.getElementById('overlay').classList.remove('on');}
 function renderSavedList(){
   const el=document.getElementById('savedList');
-  if(!saved.length){el.innerHTML=`<div class="sp-empty">🗺️<br>Sin viajes guardados</div>`;return;}
+  if(!saved.length){el.innerHTML=`<div class="sp-empty">🗺️<br>${{es:'Sin viajes guardados',en:'No saved trips',fr:'Aucun voyage sauvegardé'}[lang]}</div>`;return;}
   el.innerHTML=saved.map((s,i)=>`<div class="sp-item">
     <button class="sp-del" onclick="deleteTrip(${i})">✕</button>
-    <div class="sp-dest">${s.dest}</div><div class="sp-meta">${s.days} días · ${s.date}</div>
-    <button class="sp-load" onclick="loadTrip(${i})">Ver →</button>
+    <div class="sp-dest">${s.dest}</div>
+    <div class="sp-meta">${s.days||'?'} ${{es:'días',en:'days',fr:'jours'}[lang]} · ${s.date||''}</div>
+    <div style="display:flex;gap:.4rem;margin-top:.6rem;flex-wrap:wrap">
+      <button class="sp-load" onclick="loadTrip(${i})">${{es:'Ver plan →',en:'View plan →',fr:'Voir le plan →'}[lang]}</button>
+      ${s.tripId?`<button class="sp-load" style="background:var(--sage-light);color:var(--sage-dark);border-color:var(--sage)" onclick="copyTripLink('${s.tripId}')">🔗 ${{es:'Enlace',en:'Link',fr:'Lien'}[lang]}</button>`:''}
+    </div>
   </div>`).join('');
 }
 function deleteTrip(i){saved.splice(i,1);saveSaved();updateSavedCount();renderSavedList();}
@@ -1042,20 +1101,67 @@ function loadTrip(i){
   document.getElementById('dest').value=s.dest||'';
   document.getElementById('origin').value=s.origin||'';
   if(s.resultHTML){
-    renderResult(s);
+    renderResult(s);currentTrip=s;
     setTimeout(()=>document.getElementById('resultSection').scrollIntoView({behavior:'smooth'}),150);
   }
   closeSaved();
 }
+function copyTripLink(tripId){
+  const url=getTripUrl(tripId);
+  navigator.clipboard.writeText(url).then(()=>{
+    const msg={es:'¡Enlace copiado! Comparte con quien quieras.',en:'Link copied! Share it with anyone.',fr:'Lien copié ! Partagez-le.'}[lang];
+    showToast(msg);
+  }).catch(()=>{ prompt('Copia este enlace:', getTripUrl(tripId)); });
+}
+function showToast(msg){
+  let t=document.getElementById('tsToast');
+  if(!t){t=document.createElement('div');t.id='tsToast';Object.assign(t.style,{position:'fixed',bottom:'1.5rem',left:'50%',transform:'translateX(-50%)',background:var_('--ink'),color:'#fff',padding:'.65rem 1.2rem',borderRadius:'10px',fontSize:'.82rem',fontWeight:'600',zIndex:'9999',boxShadow:'0 4px 20px rgba(0,0,0,.25)',opacity:'0',transition:'opacity .2s'});document.body.appendChild(t);}
+  t.textContent=msg;t.style.opacity='1';
+  clearTimeout(t._to);t._to=setTimeout(()=>{t.style.opacity='0';},2800);
+}
+function var_(name){return getComputedStyle(document.documentElement).getPropertyValue(name).trim()||'#1C1C2E';}
+
 function saveCurrentTrip(){
   if(!currentTrip)return;
-  const idx=saved.findIndex(s=>s.dest===currentTrip.dest);
-  if(idx>=0)saved.splice(idx,1);
-  saved.unshift(currentTrip);
-  if(saved.length>20)saved.length=20;
+  // Generate permanent tripId if not already set
+  if(!currentTrip.tripId){
+    currentTrip.tripId = 'ts_' + Date.now().toString(36) + Math.random().toString(36).slice(2,6);
+  }
+  // Also persist full trip by ID in localStorage
+  try { localStorage.setItem('ts_trip_'+currentTrip.tripId, JSON.stringify(currentTrip)); } catch(e){}
+  // Update or prepend in saved list
+  const idx=saved.findIndex(s=>s.tripId===currentTrip.tripId||s.dest===currentTrip.dest);
+  if(idx>=0) saved[idx]=currentTrip; else saved.unshift(currentTrip);
+  if(saved.length>30)saved.length=30;
   saveSaved();updateSavedCount();
   const btn=document.getElementById('btnSave');
   if(btn){btn.textContent=t('saveBtnDone');btn.classList.add('added');}
+  // Update URL without reload
+  const newUrl=window.location.pathname+'#viaje='+currentTrip.tripId;
+  window.history.replaceState(null,'',newUrl);
+  showToast({es:'Viaje guardado. Comparte el enlace de la barra de direcciones.',en:'Trip saved. Share the URL from your address bar.',fr:'Voyage sauvegardé. Partagez l\'URL.'}[lang]);
+}
+
+function getTripUrl(tripId){
+  return window.location.origin + window.location.pathname + '#viaje=' + tripId;
+}
+
+function checkTripFromUrl(){
+  const hash = window.location.hash;
+  if(!hash.startsWith('#viaje='))return;
+  const id = hash.slice(7);
+  if(!id) return;
+  // Try dedicated localStorage key first (most reliable)
+  try {
+    const raw = localStorage.getItem('ts_trip_'+id);
+    if(raw){ const trip=JSON.parse(raw); if(trip&&trip.resultHTML){ setTimeout(()=>{renderResult(trip);currentTrip=trip;document.getElementById('resultSection').scrollIntoView({behavior:'smooth'});},300); return; }}
+  } catch(e){}
+  // Fallback: scan saved list
+  const found = saved.find(s=>s.tripId===id);
+  if(found&&found.resultHTML){ setTimeout(()=>{renderResult(found);currentTrip=found;document.getElementById('resultSection').scrollIntoView({behavior:'smooth'});},300); return; }
+  // Trip not in this browser — show helpful message
+  const msg={es:'Este viaje fue creado en otro dispositivo. Genera uno nuevo o importa el código.',en:'This trip was created on another device. Generate a new one or import the code.',fr:'Ce voyage a été créé sur un autre appareil.'}[lang||'es'];
+  console.info('Trip not found locally for id:',id, '—', msg);
 }
 updateSavedCount();
 
@@ -1572,6 +1678,24 @@ function parseTimeline(text,dest,origin){
         return [...found].slice(0,5);
       }
 
+      // Extract day story/hook — first italic sentence or first short paragraph before morning block
+      function extractDayStory(rawContent){
+        // Look for lines starting with > or italic *text* before the morning block
+        const quoteMatch=rawContent.match(/^>\s*(.+)/m);
+        if(quoteMatch) return quoteMatch[1].trim();
+        // First italic phrase *...*
+        const italicMatch=rawContent.match(/(?<!\*)\*([^*\n]{20,120})\*(?!\*)/);
+        if(italicMatch) return italicMatch[1].trim();
+        // First short sentence (under 120 chars) before a moment marker
+        const lines=rawContent.split('\n').map(l=>l.trim()).filter(l=>l&&!l.startsWith('**')&&!l.startsWith('#'));
+        const first=lines[0]||'';
+        if(first.length>20&&first.length<130&&!mornRE.test(first)&&!aftnRE.test(first)&&!evRE.test(first)){
+          return first.replace(/\*\*(.+?)\*\*/g,'$1');
+        }
+        return '';
+      }
+      const dayStory = extractDayStory(content);
+
       // Collect ALL named experiences from all moments for bottom card buttons
       const addICO_local='<svg viewBox="0 0 24 24" style="width:9px;height:9px;fill:none;stroke:currentColor;stroke-width:2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>';
       function allDayExpBtns(moments, dayN) {
@@ -1624,6 +1748,7 @@ function parseTimeline(text,dest,origin){
           </div>
           <div class="day-title-col">
             <div class="day-title">${title}</div>
+            ${dayStory?`<div class="day-story">${dayStory}</div>`:''}
           </div>
         </div>
         <div class="day-moments">${momentsHTML}</div>
@@ -2120,6 +2245,14 @@ Max 1000 words. Write entirely in ${wl}.`;
       tripName,heroImg,chipsHTML,introHTML,transportHTML,timelineHTML,tipsHTML,recapHTML,ctaHTML,expHTML:'',resultHTML:true};
 
     renderResult(currentTrip);
+    // Auto-save immediately with a tripId so the URL always works
+    currentTrip.tripId = 'ts_' + Date.now().toString(36) + Math.random().toString(36).slice(2,6);
+    try { localStorage.setItem('ts_trip_'+currentTrip.tripId, JSON.stringify(currentTrip)); } catch(e){}
+    const idx2=saved.findIndex(s=>s.dest===currentTrip.dest);
+    if(idx2>=0)saved[idx2]=currentTrip;else saved.unshift(currentTrip);
+    if(saved.length>30)saved.length=30;
+    saveSaved();updateSavedCount();
+    window.history.replaceState(null,'',window.location.pathname+'#viaje='+currentTrip.tripId);
     setTimeout(()=>document.getElementById('resultSection').scrollIntoView({behavior:'smooth',block:'start'}),200);
     // Populate recap totals
     setTimeout(()=>populateFullRecap(recapHTML),500);
@@ -2345,22 +2478,22 @@ function _generatePDF() {
 
   // ─── Palette ───
   const C = {
-    ink:   [15,23,42],   ink2:  [71,85,105],
-    teal:  [15,118,110], teal2: [45,212,191],
-    bg:    [248,250,252], brd:  [226,232,240],
-    white: [255,255,255], amber: [180,83,9],
-    ind:   [67,56,202],  green: [6,95,70],
-    red:   [190,18,60],  muted: [148,163,184],
-    navy:  [15,23,62],
+    ink:   [28,28,46],   ink2:  [74,85,104],
+    teal:  [74,124,89],  teal2: [167,243,208],  // sage as "teal"
+    bg:    [250,250,247], brd:  [229,223,211],
+    white: [255,255,255], amber: [201,123,58],
+    ind:   [44,62,107],  green: [45,90,61],
+    red:   [232,93,74],  muted: [156,163,175],
+    navy:  [28,28,46],
   };
   const DAY_PAL = [
-    {h:[15,23,42],   acc:[45,212,191],  bg:[240,253,250]},
-    {h:[67,56,202],  acc:[165,180,252], bg:[238,242,255]},
-    {h:[180,83,9],   acc:[252,211,77],  bg:[255,251,235]},
-    {h:[6,95,70],    acc:[110,231,183], bg:[240,253,244]},
-    {h:[190,18,60],  acc:[252,165,165], bg:[255,241,242]},
-    {h:[3,105,161],  acc:[125,211,252], bg:[240,249,255]},
-    {h:[88,28,135],  acc:[216,180,254], bg:[250,245,255]},
+    {h:[28,28,46],   acc:[167,243,208], bg:[238,245,240]},  // navy/sage
+    {h:[74,124,89],  acc:[252,211,77],  bg:[255,251,235]},  // sage/amber
+    {h:[201,123,58], acc:[165,180,252], bg:[238,242,255]},  // amber/indigo
+    {h:[44,62,107],  acc:[252,165,165], bg:[255,241,242]},  // navy/coral
+    {h:[74,124,89],  acc:[125,211,252], bg:[240,249,255]},  // sage/sky
+    {h:[201,123,58], acc:[216,180,254], bg:[250,245,255]},  // amber/purple
+    {h:[28,28,46],   acc:[110,231,183], bg:[240,253,244]},  // navy/green
   ];
 
   // ─── Helpers ───
@@ -2398,7 +2531,7 @@ function _generatePDF() {
   doc.setFillColor(...C.teal);
   // Draw a large triangle top-right
   doc.triangle(W-70,0, W,0, W,90, 'F');
-  doc.setFillColor(45,212,191);
+  doc.setFillColor(167,243,208);
   doc.triangle(W-40,0, W,0, W,50, 'F');
 
   // Left bold stripe
@@ -2672,11 +2805,14 @@ async function sendFullRecapEmail(){
   if(!email||!email.includes('@')){emailEl.style.borderColor='#F87171';emailEl.focus();return;}
   const btn=emailEl.nextElementSibling;if(btn)btn.disabled=true;
   try{
+    // Save trip before sending email so URL works
+    if(currentTrip&&!currentTrip.tripId){ saveCurrentTrip(); }
+    const tripUrl = currentTrip?.tripId ? getTripUrl(currentTrip.tripId) : '';
     await fetch('/api/email',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({email,tripName:currentTrip?.tripName||currentTrip?.dest||'',dest:currentTrip?.dest||'',lang})});
+      body:JSON.stringify({email,tripName:currentTrip?.tripName||currentTrip?.dest||'',dest:currentTrip?.dest||'',lang,tripUrl})});
     emailEl.value='';
     const ok=document.createElement('div');ok.className='freb-ok';
-    ok.textContent={es:'✓ Enviado',en:'✓ Sent',fr:'✓ Envoyé'}[lang]||'✓ Enviado';
+    ok.textContent={es:'✓ En camino a tu bandeja',en:'✓ On its way to your inbox',fr:'✓ En route vers votre boîte mail'}[lang]||'✓ Enviado';
     emailEl.parentNode.replaceChild(ok,emailEl);
     if(btn)btn.remove();
   }catch(e){if(btn)btn.disabled=false;}
@@ -2687,6 +2823,8 @@ async function sendFullRecapEmail(){
 // ═══════════════════════════════════
 lang=detectLang();
 applyLang();
+// Check for trip recovery from URL on load
+setTimeout(checkTripFromUrl, 400);
 </script>
 
 <!-- ── MEMORIA DE VIAJE MODAL ── -->
