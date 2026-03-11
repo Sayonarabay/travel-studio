@@ -157,7 +157,18 @@ textarea{resize:none;height:56px;font-size:.83rem}
 .day-recap-list{display:flex;flex-direction:column;gap:.45rem;margin-bottom:1.4rem}
 .dr-row{display:flex;align-items:flex-start;gap:.7rem;padding:.6rem .8rem;background:var(--bg);border-radius:10px}
 .dr-n{width:22px;height:22px;border-radius:50%;background:var(--ink);color:#fff;font-size:.65rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.dr-txt{font-size:.81rem;color:var(--ink2);line-height:1.5}
+.dr-txt{font-size:.81rem;color:var(--ink2);line-height:1.5;flex:1}
+.dr-cost{font-size:.76rem;font-weight:700;color:var(--teal-dark);white-space:nowrap;margin-left:.4rem}
+/* Cost breakdown table */
+.recap-cost-table{border:1.5px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:1.2rem}
+.rct-row{display:grid;grid-template-columns:1.6rem 1fr auto;align-items:center;gap:.6rem;padding:.65rem 1rem;border-bottom:1px solid var(--border);font-size:.83rem}
+.rct-row:last-of-type{border-bottom:none}
+.rct-ico{font-size:1rem;text-align:center}
+.rct-label{color:var(--ink2)}
+.rct-val{font-weight:600;color:var(--ink);text-align:right;white-space:nowrap}
+.rct-total{display:grid;grid-template-columns:1.6rem 1fr auto;align-items:center;gap:.6rem;padding:.75rem 1rem;background:var(--ink);font-size:.88rem}
+.rct-total-val{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--teal);text-align:right;white-space:nowrap}
+.accom-price{display:inline-block;background:var(--teal-light);color:var(--teal-dark);border-radius:6px;padding:.1rem .45rem;font-size:.7rem;font-weight:700;margin:0 .4rem .15rem 0;vertical-align:middle}
 .accom-hed{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:.8rem}
 .accom-list{display:flex;flex-direction:column;gap:.6rem}
 .accom-row{display:flex;align-items:center;gap:.7rem;padding:.8rem;background:var(--bg);border-radius:var(--r);border:1px solid var(--border)}
@@ -842,26 +853,108 @@ function orig(o){return o&&o!=='home'?o:'—';}
 // ═══════════════════════════════════
 function buildRecap(block,dest){
   const get=k=>{const m=block.match(new RegExp(k+':\\s*(.+)'));return m?m[1].trim():'';};
-  const budget=get('BUDGET_MATCH');
+  // Pricing fields
+  const flightCost  = get('FLIGHT_COST');
+  const hotelCost   = get('HOTEL_COST');
+  const expCost     = get('EXP_COST');
+  const foodCost    = get('FOOD_COST');
+  const totalEst    = get('TOTAL_ESTIMATE');
+  const budgetMatch = get('BUDGET_MATCH');
+  // Day recap — between DAY_RECAP: and ACCOMMODATION:
   const dayRaw=block.match(/DAY_RECAP:\s*([\s\S]*?)(?=\nACCOMMODATION:|$)/);
   const dayLines=dayRaw?dayRaw[1].trim().split('\n').filter(l=>l.trim()):[];
+  // Accommodation — from ACCOMMODATION: to end
   const accomRaw=block.match(/ACCOMMODATION:\s*([\s\S]*)$/);
   const accomLines=accomRaw?accomRaw[1].trim().split('\n').filter(l=>l.trim()):[];
-  const dayCards=dayLines.map((l,i)=>{
-    const c=l.replace(/^[-•*\d.)]\s*(Day|Día|Jour)\s*\d+:\s*/i,'').replace(/^[-•*\d.)]\s*/,'');
-    return`<div class="dr-row"><div class="dr-n">${i+1}</div><div class="dr-txt">${c}</div></div>`;
+
+  const L={
+    flights:{es:'Vuelos',en:'Flights',fr:'Vols'},
+    hotel:{es:'Alojamiento',en:'Accommodation',fr:'Hébergement'},
+    exp:{es:'Experiencias',en:'Experiences',fr:'Expériences'},
+    food:{es:'Comida y bebida',en:'Food & drink',fr:'Repas & boissons'},
+    total:{es:'Total estimado',en:'Estimated total',fr:'Total estimé'},
+    perPax:{es:'por persona',en:'per person',fr:'par personne'},
+    budgetFit:{es:'¿Encaja el presupuesto?',en:'Budget fit',fr:'Budget adapté ?'},
+    dayByDay:{es:'Día a día',en:'Day by day',fr:'Jour par jour'},
+    stay:{es:'Dónde dormir',en:'Where to stay',fr:'Où dormir'},
+    viewHotels:{es:'Ver hoteles →',en:'Hotels →',fr:'Hôtels →'},
+  };
+  const l=k=>L[k]?.[lang]||L[k]?.es||k;
+
+  // Cost breakdown rows
+  const costRows=[
+    {ico:'✈️', label:l('flights'), val:flightCost},
+    {ico:'🏨', label:l('hotel'),   val:hotelCost},
+    {ico:'🎟️', label:l('exp'),     val:expCost},
+    {ico:'🍽️', label:l('food'),    val:foodCost},
+  ].filter(r=>r.val);
+
+  const costTable = costRows.length ? `
+    <div class="recap-cost-table">
+      ${costRows.map(r=>`
+        <div class="rct-row">
+          <span class="rct-ico">${r.ico}</span>
+          <span class="rct-label">${r.label}</span>
+          <span class="rct-val">${r.val}</span>
+        </div>`).join('')}
+      ${totalEst?`<div class="rct-total">
+        <span></span>
+        <span style="font-weight:700">${l('total')}</span>
+        <span class="rct-total-val">${totalEst}</span>
+      </div>`:''}
+    </div>` : '';
+
+  const budgetPill = budgetMatch ? `
+    <div class="budget-pill">
+      <div class="budget-pill-ico">💰</div>
+      <div><div style="font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--teal-dark);margin-bottom:.2rem">${l('budgetFit')}</div>
+      <div class="budget-pill-txt">${budgetMatch}</div></div>
+    </div>` : '';
+
+  const dayCards = dayLines.map((line,i)=>{
+    const c=line.replace(/^[-•*\d.)]\s*(Day|Día|Jour)\s*\d+:\s*/i,'').replace(/^[-•*\d.)]\s*/,'');
+    // Try to extract cost from end of line (e.g. "— ~€120/person" or "~€80")
+    const costMatch=c.match(/(~?€[\d,–€\/\s\w]+)$/);
+    const costStr=costMatch?costMatch[1].trim():'';
+    const desc=costStr?c.slice(0,c.lastIndexOf(costStr)).replace(/[—–\s]+$/,''):c;
+    return`<div class="dr-row">
+      <div class="dr-n">${i+1}</div>
+      <div class="dr-txt">${desc}</div>
+      ${costStr?`<div class="dr-cost">${costStr}</div>`:''}
+    </div>`;
   }).join('');
-  const accomCards=accomLines.slice(0,3).map(l=>{
+
+  const accomCards = accomLines.slice(0,3).map(l=>{
     const c=l.replace(/^[-•*\d.)]\s*/,'');
-    const parts=c.split(/[,—–]/);
-    const name=parts[0]?.trim()||c;const rest=parts.slice(1).join(' · ').trim();
-    return`<div class="accom-row"><div class="accom-ico">🏨</div><div class="accom-txt"><strong>${name}</strong>${rest||''}</div><a class="accom-lnk" href="${affUrl('hotel',dest,'')}" target="_blank">${{es:'Ver',en:'View',fr:'Voir'}[lang]} →</a></div>`;
+    // Split on first comma or em dash to get name vs details
+    const sepIdx=c.search(/[,—–]/);
+    const name=sepIdx>0?c.slice(0,sepIdx).trim():c;
+    const rest=sepIdx>0?c.slice(sepIdx+1).trim():'';
+    // Extract price if present (e.g. €70–120/night)
+    const priceMatch=rest.match(/€[\d,–€\/\s\w]+\/night|€[\d,–]+\/nuit|€[\d,–]+\/noche/i);
+    const price=priceMatch?priceMatch[0]:'';
+    const desc=price?rest.replace(price,'').replace(/^[,·\s]+/,'').trim():rest;
+    return`<div class="accom-row">
+      <div class="accom-ico">🏨</div>
+      <div class="accom-txt">
+        <strong>${name}</strong>
+        ${price?`<span class="accom-price">${price}</span>`:''}
+        ${desc?`<span style="color:var(--ink2)">${desc}</span>`:''}
+      </div>
+      <a class="accom-lnk" href="${affUrl('hotel',dest,'')}" target="_blank">${{es:'Ver',en:'View',fr:'Voir'}[lang]} →</a>
+    </div>`;
   }).join('');
+
   return`<div class="recap-card">
     <div class="recap-hed">📋 ${t('recapTitle')}</div>
-    ${budget?`<div class="budget-pill"><div class="budget-pill-ico">💰</div><div class="budget-pill-txt">${budget}</div></div>`:''}
-    ${dayCards?`<div style="font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:.7rem">${t('dayRecapLabel')}</div><div class="day-recap-list">${dayCards}</div>`:''}
-    ${accomLines.length?`<div class="accom-hed">${t('stayLabel')}</div><div class="accom-list">${accomCards}</div>`:''}
+    ${costTable}
+    ${budgetPill}
+    ${dayCards?`<div class="accom-hed" style="margin-top:1.4rem">${l('dayByDay')}</div><div class="day-recap-list">${dayCards}</div>`:''}
+    ${accomLines.length?`<div class="accom-hed" style="margin-top:1.4rem">${l('stay')}</div>
+      <div style="display:flex;justify-content:flex-end;margin-bottom:.6rem">
+        <a class="accom-lnk" href="${affUrl('hotel',dest,'')}" target="_blank">${l('viewHotels')}</a>
+      </div>
+      <div class="accom-list">${accomCards}</div>`:''}
   </div>`;
 }
 
@@ -938,15 +1031,31 @@ function getExpImg(name,type){
   return EXP_IMG.tour;
 }
 
-async function loadExperiences(dest,travelers,budget){
+async function loadExperiences(dest,travelers,budget,month,tKey){
   const sec=document.getElementById('expSection');
   sec.innerHTML=`<div style="text-align:center;padding:1.5rem;color:var(--muted)"><div class="dots" style="justify-content:center;margin-bottom:.5rem"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>${t('expLoadingMsg')}</div>`;
   const wl=lang==='fr'?'French':lang==='en'?'English':'Spanish';
-  const prompt=`Travel expert. Trip to "${dest}" (${travelers}, ${budget}). Suggest 6 paid bookable experiences. Respond ONLY with JSON array, no markdown:
-[{"name":"name in ${wl}","type":"tour|food|museum|night|boat|bike|cook|hike|nature","tagline":"1 sentence in ${wl}","duration":"e.g. 3h","price":"e.g. from €45","rating":"4.8"}]
-Specific to ${dest}. Mix types. JSON only.`;
+
+  const epersona={
+    solo:    {es:'Solo/a — tours en grupo pequeño para conocer gente, talleres, visitas que no son raras hacerlas solo.',en:'Solo — small group tours to meet people, workshops, activities that work well solo.',fr:'Solo — petits groupes pour rencontrer des gens, ateliers, visites qui fonctionnent seul.'},
+    couple:  {es:'En pareja — experiencias románticas o íntimas, tours privados o pequeños, actividades mejores de dos.',en:'Couple — romantic or intimate experiences, private or small group tours, activities better as two.',fr:'En couple — expériences romantiques ou intimes, tours privés, activités à deux.'},
+    friends: {es:'Con amigos — experiencias de grupo memorables, tours privados, actividades con componente social.',en:'Friends group — memorable group experiences, private tours, activities with a social element.',fr:'Entre amis — expériences de groupe mémorables, tours privés, activités avec composante sociale.'},
+    family:  {es:'En familia con niños — experiencias aptas para niños que también disfruten adultos. Sin horarios nocturnos.',en:'Family with kids — kid-friendly experiences adults also enjoy. No late-night.',fr:'En famille — expériences adaptées aux enfants que les adultes apprécient aussi.'},
+  };
+  const ep=(epersona[tKey]||epersona.couple)[lang]||(epersona[tKey]||epersona.couple).es;
+  const seasonNote=month?`Only suggest experiences available and enjoyable in ${month} in ${dest}.`:'';
+
+  const prompt=`Travel expert. Trip to "${dest}" (${travelers}, ${budget}${month?', '+month:''}).
+Profile: ${ep}
+${seasonNote}
+
+Suggest 6 REAL bookable paid experiences that actually exist in ${dest} on GetYourGuide or Viator. No invented names.
+Respond ONLY with JSON array, no markdown:
+[{"name":"Real name in ${wl}","type":"tour|food|museum|night|boat|bike|cook|hike|nature","tagline":"1 sentence in ${wl}","duration":"e.g. 3h","price":"from €45 per person","rating":"4.7"}]
+Rules: realistic prices for ${dest}, mix of types (max 2 same), all suit ${travelers}, all available ${month||'this season'}. JSON only.`;
+
   try{
-    const res=await fetch('/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:700,messages:[{role:'user',content:prompt}]})});
+    const res=await fetch('/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:800,messages:[{role:'user',content:prompt}]})});
     const data=await res.json();
     const raw=(data.content||[]).map(b=>b.text||'').join('').replace(/```json|```/g,'').trim();
     const exps=JSON.parse(raw);
@@ -960,7 +1069,6 @@ Specific to ${dest}. Mix types. JSON only.`;
         const url=`https://www.getyourguide.es/s/?q=${encodeURIComponent(e.name+' '+dest)}${AFF.gyg_partner_id?'&partner_id='+AFF.gyg_partner_id:''}`;
         const rawPrice=e.price||'';
         const priceNum=parseInt(rawPrice.replace(/[^0-9]/g,''))||0;
-        const eid=`exp-${i}`;
         return`<div class="exp-card">
           <div class="exp-img-wrap">
             <img src="${img}" alt="${e.name}" loading="lazy" onerror="this.style.display='none'"/>
@@ -973,7 +1081,7 @@ Specific to ${dest}. Mix types. JSON only.`;
             <div class="exp-meta"><span>⏱ ${e.duration||'—'}</span><span>★ ${e.rating||'4.8'}</span></div>
             <div class="exp-btns">
               <a class="exp-book" href="${url}" target="_blank" rel="noopener">${t('expBookBtn')}</a>
-              <button class="exp-cart" id="ecart-${i}" onclick="toggleExpCart(${i},'${e.name.replace(/'/g,'\\u0027')}','${rawPrice}',${priceNum},'${url}')">${t('addToMyTrip')}</button>
+              <button class="exp-cart" id="ecart-${i}" onclick="toggleExpCart(${i},'${e.name.replace(/'/g,'\u0027')}','${rawPrice}',${priceNum},'${url}')">${t('addToMyTrip')}</button>
             </div>
           </div>
         </div>`;
@@ -1054,50 +1162,119 @@ async function gen(){
   const ow=lang==='fr'?'Hors des sentiers':lang==='en'?'Off the beaten path':'Fuera de ruta';
   const flexNote=flexDates?{es:'Fechas flexibles ±3 días.',en:'Dates flexible ±3 days.',fr:'Dates flexibles ±3 jours.'}[lang]:'';
 
+  // ── Build traveler context ──
+  const numTravelers = {solo:1,couple:2,friends:4,family:3}[tKey]||1;
+  const isGroup = tKey==='friends';
+  const isSolo = tKey==='solo';
+  const isCouple = tKey==='couple';
+  const isFamily = tKey==='family';
+
+  // Budget ranges per person per day (realistic)
+  const budgetRanges = {
+    low:  {hotel:[30,70],  food:[20,35],  exp:[0,25],  flightMult:0.7},
+    mid:  {hotel:[70,150], food:[35,60],  exp:[25,60],  flightMult:1.0},
+    high: {hotel:[150,300],food:[60,120], exp:[60,150], flightMult:1.4},
+    premium:{hotel:[300,700],food:[120,250],exp:[150,400],flightMult:2.0},
+  };
+  const br = budgetRanges[bKey]||budgetRanges.mid;
+  const pax = numTravelers;
+
+  // Traveler persona instructions
+  const travelerPersona = {
+    solo: {
+      es: `El viajero va SOLO/A. Adapta TODO: experiencias para una persona (no awkward para grupos), alojamientos con ambiente social (hostels bien valorados, pequeños hoteles con bar), restaurantes donde sentarse en la barra es un placer, actividades donde conocer gente. El título del viaje debe resonar con la aventura en solitario. Los precios son SIEMPRE por 1 persona.`,
+      en: `Traveller is going SOLO. Adapt EVERYTHING: solo-friendly experiences (not awkward alone), social accommodation (well-rated hostels, small hotels with bars), restaurants where sitting at the bar is a pleasure, activities where meeting people is natural. Trip title should resonate with solo adventure. Prices always per 1 person.`,
+      fr: `Le voyageur part SEUL(E). Adaptez TOUT : expériences solo-friendly, hébergements sociaux (auberges bien notées, petits hôtels avec bar), restaurants où s'asseoir au comptoir est un plaisir, activités propices aux rencontres. Le titre doit résonner avec l'aventure solo. Prix toujours par 1 personne.`
+    },
+    couple: {
+      es: `El viaje es EN PAREJA. Adapta TODO: experiencias románticas o íntimas (no en grupos grandes), cenas con ambiente, alojamientos con carácter (no cadenas genéricas), actividades que se disfrutan mejor de dos. El título debe tener algo de romanticismo o intimidad. Los precios son SIEMPRE por 2 personas en total.`,
+      en: `Trip is for a COUPLE. Adapt EVERYTHING: romantic or intimate experiences (not big group tours), atmospheric dinners, characterful accommodation (not generic chains), activities better enjoyed as two. Title should have romance or intimacy. Prices always for 2 people total.`,
+      fr: `Le voyage est EN COUPLE. Adaptez TOUT : expériences romantiques ou intimes, dîners avec ambiance, hébergements avec du caractère, activités mieux vécues à deux. Le titre doit avoir une touche romantique. Prix toujours pour 2 personnes au total.`
+    },
+    friends: {
+      es: `El viaje es CON AMIGOS (grupo de ${numTravelers} personas aprox.). Adapta TODO: experiencias de grupo que sean memorables, opciones para compartir (cenas largas, tours privados, actividades de equipo), alojamientos con espacios comunes, bares y nightlife si la ocasión lo permite. El título debe tener energía de grupo. Los precios son POR PERSONA, y menciona el total del grupo cuando sea relevante.`,
+      en: `Trip is WITH FRIENDS (group of ~${numTravelers}). Adapt EVERYTHING: group experiences that are memorable, shareable options (long dinners, private tours, team activities), accommodation with common spaces, bars and nightlife where appropriate. Title should have group energy. Prices per person, mention group total when relevant.`,
+      fr: `Le voyage est ENTRE AMIS (groupe d'environ ${numTravelers} personnes). Adaptez TOUT : expériences de groupe mémorables, options à partager (longs dîners, tours privés, activités d'équipe), hébergements avec espaces communs, bars et soirées selon l'occasion. Prix par personne, mentionnez le total groupe si pertinent.`
+    },
+    family: {
+      es: `El viaje es EN FAMILIA (con niños). Adapta TODO: experiencias aptas para niños y que también disfruten los adultos, horarios más tempranos, alojamientos con comodidades familiares, restaurantes accesibles, actividades interactivas. Nada que sea solo para adultos. El título debe ser familiar e inspirador. Precios por familia (2 adultos + 2 niños aprox.).`,
+      en: `Trip is FAMILY (with children). Adapt EVERYTHING: kid-friendly experiences adults also enjoy, earlier schedules, family-friendly accommodation, accessible restaurants, interactive activities. Nothing adults-only. Title should be family-friendly and inspiring. Prices per family (approx. 2 adults + 2 kids).`,
+      fr: `Le voyage est EN FAMILLE (avec enfants). Adaptez TOUT : expériences adaptées aux enfants que les adultes apprécient aussi, horaires plus tôt, hébergements familiaux, restaurants accessibles, activités interactives. Rien pour adultes uniquement. Prix par famille (2 adultes + 2 enfants env.).`
+    }
+  };
+  const persona = travelerPersona[tKey]?.[lang] || travelerPersona[tKey]?.es || '';
+
+  // Season context
+  const seasonContext = mes ? {
+    es: `Es ${mes}. Ten en cuenta: clima real de ${dest} en esa época, eventos o festivales locales si los hay, temporada alta/baja (impacto en precios y afluencia), qué ropa recomendar, qué actividades son ideales o no recomendables en esa estación.`,
+    en: `It's ${mes}. Consider: actual weather in ${dest} at that time, local events or festivals, peak/off-peak season (impact on prices and crowds), what to pack, which activities shine or to avoid that season.`,
+    fr: `C'est ${mes}. Tenez compte : météo réelle à ${dest} à cette période, événements ou festivals locaux, haute/basse saison (impact sur les prix et l'affluence), quoi emporter, quelles activités sont idéales ou déconseillées cette saison.`
+  }[lang] : '';
+
   const prompt=`${t('promptIntro')}
 
+TRAVELER PROFILE — THIS IS CRITICAL, adapt every single word to this:
+${persona}
+
 TRIP:
-- From: ${origin} (departure only)
+- From: ${origin} (departure only — no activities there)
 - To: ${dest}
-- Days: ${days}${fechaStr?'\n- Dates: '+fechaStr:''}
-- Travelers: ${tStr}
-- Budget: ${bStr}
-- Vibe: ${styles}${extra?'\n- From traveller: '+extra:''}${flexNote?'\n- '+flexNote:''}
+- Duration: ${days} days
+${fechaStr?'- Dates: '+fechaStr:''}
+- Budget level: ${bStr} (hotel ~€${br.hotel[0]}–${br.hotel[1]}/night, food ~€${br.food[0]}–${br.food[1]}/day/person, experiences ~€${br.exp[0]}–${br.exp[1]}/person)
+- Style: ${styles}
+${extra?'- From traveller: '+extra:''}
+${flexNote?'- '+flexNote:''}
 
-WRITE IN ${wl}. Literary travel journalism style. Concrete, sensory, unexpected. Real place names. Mix free and paid. No clichés.
-DO NOT use [BOOK:...] tags — no inline links. Just write the text.
+${seasonContext?'SEASON CONTEXT: '+seasonContext:''}
 
-FORMAT (exact):
-TRIP_NAME: [creative 3-4 word trip name in ${wl}, e.g. "Lost in Kyoto", "Seven Days in Lisbon"]
+PRICE RULES — be precise:
+- All prices in euros, realistic for ${dest} in ${mes||'current season'}
+- Adjust ALL prices for the ${bStr} budget level (not generic estimates)
+- For accommodation: price per room/night (not per person unless hostel dorm)
+- For experiences: price per person
+- For restaurants: total bill for the group (${pax} people)
+- Always clarify: "per person", "per room", "for ${pax}", etc.
+- Flight price range: realistic from ${origin} for ${pax} ${pax===1?'person':'people'} round-trip, ${mes||''}
 
-[2-3 evocative opening lines about ${dest}${mes?' in '+mes:''} — no heading]
+DO NOT use [BOOK:...] tags. No inline links. Just write.
+
+FORMAT (exact — drives the UI):
+TRIP_NAME: [creative 3-5 word trip name in ${wl} that reflects the traveler profile and destination, e.g. "${isCouple?'Deux nuits à Venise, pour toujours':isSolo?'Solo en Tokio':isFamily?'Roma en familia':'Entre amis à Lisbonne'}"]
+
+[2-3 evocative opening lines about ${dest}${mes?' in '+mes:''} — written for ${tStr}, no heading]
 
 ### FLIGHT_INFO
 OUTBOUND: ${origin} → ${dest}
-BEST_TIME: [when to arrive at airport]
-PRICE_RANGE: [realistic round-trip price from ${origin} in euros]
-BOOK_TIP: [1 sentence on best time to book]
+BEST_TIME: [when to arrive at airport — practical tip]
+PRICE_RANGE: [realistic total price for ${pax} ${pax===1?'person':'people'} round-trip, e.g. "€${Math.round(120*br.flightMult*pax)}–€${Math.round(280*br.flightMult*pax)} total for ${pax}"]
+BOOK_TIP: [1 sentence — best moment to book for this season and budget]
 RETURN: ${dest} → ${origin}
-RETURN_TIP: [1 sentence on the return leg]
+RETURN_TIP: [practical return tip — airport time, terminal, baggage, etc.]
 ### END_FLIGHT
 
-### ${dw} 1 — [Evocative title]
-**${mw}:** ...
-**${aw}:** ...
-**${ew}:** ...
-🔍 *${ow}:* [local gem]
+### ${dw} 1 — [Evocative title, written for ${tStr}]
+**${mw}:** [specific, adapted to ${tStr}]
+**${aw}:** [specific, mix paid/free, adapted to ${tStr}]
+**${ew}:** [restaurant or activity with name, adapted to ${tStr}, mention approx. cost for the group]
+🔍 *${ow}:* [something genuinely local and unexpected, relevant for ${tStr}]
 
-[repeat for all ${days} days]
+[repeat for all ${days} days — each day adapted to the traveler profile]
 
 ### ${lang==='fr'?'Conseils pratiques':lang==='en'?'Practical tips':'Consejos prácticos'}
-- [5 bullets: flights booking, getting around, avoid, ${mes||'season'} tip, free unmissable]
+- [5 bullets — at least 2 specific to ${tStr}: booking flights, getting around, ${mes?mes+' specific tip':'season tip'}, what to avoid, one free unmissable thing adapted to ${tStr}]
 
 ### RECAP
-BUDGET_MATCH: [1 honest sentence on budget fit]
-DAY_RECAP: [one line per day: "${dw} 1: X + Y + Z — ~€N"]
-ACCOMMODATION: [3 specific options: name, neighbourhood, price/night, why]
+FLIGHT_COST: [e.g. "€${Math.round(160*br.flightMult*pax)}–€${Math.round(320*br.flightMult*pax)} total for ${pax}"]
+HOTEL_COST: [e.g. "€${br.hotel[0]}–€${br.hotel[1]}/night × ${days-1} nights = ~€${Math.round((br.hotel[0]+br.hotel[1])/2*(days-1))} total"]
+EXP_COST: [e.g. "€${br.exp[0]}–€${br.exp[1]}/person × ${pax} = ~€${Math.round((br.exp[0]+br.exp[1])/2*pax)} for main experiences"]
+FOOD_COST: [e.g. "~€${Math.round((br.food[0]+br.food[1])/2*pax*days)} total (${days} days × €${br.food[0]}–€${br.food[1]}/day/person × ${pax})"]
+TOTAL_ESTIMATE: [e.g. "~€X–€Y total for ${pax} ${pax===1?'person':'people'}"]
+BUDGET_MATCH: [1 honest sentence: does the plan actually fit the ${bStr} budget? Be specific.]
+DAY_RECAP: [one line per day adapted to ${tStr}: "${dw} 1: [what + for whom] — ~€N/person"]
+ACCOMMODATION: [3 options matching the ${bStr} budget and ${tStr} profile: name, neighbourhood, €X–Y/night, 1 sentence why it suits ${tStr}]
 
-Max 1000 words. ${wl} only.`;
+Max 1100 words. Write entirely in ${wl}.`;
 
   try{
     const res=await fetch('/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},
@@ -1153,7 +1330,7 @@ Max 1000 words. ${wl} only.`;
     renderResult(currentTrip);
     setTimeout(()=>document.getElementById('resultSection').scrollIntoView({behavior:'smooth',block:'start'}),200);
 
-    loadExperiences(dest,tStr,bStr).then(()=>{
+    loadExperiences(dest,tStr,bStr,mes,tKey).then(()=>{
       if(currentTrip){currentTrip.expHTML=document.getElementById('expSection').innerHTML;}
     });
 
