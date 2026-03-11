@@ -124,7 +124,20 @@ textarea{resize:none;height:56px;font-size:.82rem}
 .day-intro{padding:1rem 1.4rem 1rem 1.6rem;border-bottom:1px solid var(--border);background:linear-gradient(135deg,#FDFCF9,#F7F5F0);display:flex;gap:.85rem;align-items:flex-start}
 .day-intro-accent{width:3px;flex-shrink:0;align-self:stretch;background:linear-gradient(180deg,var(--amber),var(--sage));border-radius:2px;min-height:2rem;margin:.1rem 0}
 .day-intro-text{font-family:var(--font-prose);font-size:.96rem;color:var(--ink2);line-height:1.9;font-style:italic}
-/* Moment blocks */
+/* Day places strip — read-only chips, no cart */
+.day-places{padding:.65rem 1.4rem;border-top:1px solid var(--border);background:var(--bg);display:flex;flex-wrap:wrap;gap:.32rem}
+.place-chip{font-size:.62rem;font-weight:600;color:var(--muted);background:var(--white);border:1px solid var(--border);border-radius:6px;padding:.2rem .55rem;letter-spacing:.01em}
+/* Moment blocks — text-only, no emoji icons */
+.moment{display:grid;grid-template-columns:80px 1fr;border-top:1px solid var(--border)}
+.moment-time{padding:1.1rem .8rem 1.1rem 1.4rem;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:.2rem;border-right:1px solid var(--border)}
+.moment-dot{display:none}
+.moment-label{font-size:.52rem;font-weight:800;text-transform:uppercase;letter-spacing:.18em;color:var(--muted)}
+.moment-m .moment-label{color:#B45309}
+.moment-a .moment-label{color:#0F766E}
+.moment-e .moment-label{color:#4338CA}
+.moment-body{padding:1.1rem 1.6rem}
+.moment-text{font-family:var(--font-prose);font-size:.97rem;color:var(--ink2);line-height:1.9}
+.moment-text strong{font-weight:700;color:var(--ink);font-style:normal}
 /* Gem */
 .day-gem{display:flex;align-items:flex-start;gap:.9rem;padding:1rem 1.6rem;background:linear-gradient(90deg,var(--sage-light),var(--warm-white));border-top:1px solid #A7F3D0}
 .day-gem-ico{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--sage-dark),var(--sage));display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.1rem}
@@ -200,8 +213,39 @@ textarea{resize:none;height:56px;font-size:.82rem}
 /* Remove old icon styles */
 .tip-icon{display:none}
 
-/* Recap */
-.recap-card{background:var(--white);border:1.5px solid var(--border);border-radius:20px;overflow:hidden;margin-bottom:1.5rem;box-shadow:var(--shadow)}
+/* ── BOOKING RECAP — menú final ── */
+.booking-recap{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;margin-bottom:2rem;box-shadow:var(--shadow)}
+.br-header{padding:1.6rem 2rem 1.4rem;background:linear-gradient(135deg,#0F172A 0%,#1E293B 60%,#0F3460 100%)}
+.br-eyebrow{font-size:.52rem;font-weight:800;text-transform:uppercase;letter-spacing:.22em;color:rgba(167,243,208,.7);margin-bottom:.5rem}
+.br-title{font-family:var(--font-display);font-size:1.25rem;font-weight:400;color:#fff;letter-spacing:-.025em;margin-bottom:.3rem}
+.br-sub{font-size:.72rem;color:rgba(255,255,255,.4)}
+.br-list{padding:.5rem 0}
+.br-section-lbl{font-size:.52rem;font-weight:800;text-transform:uppercase;letter-spacing:.2em;color:var(--muted);padding:.9rem 2rem .4rem;border-top:1px solid var(--border)}
+.br-section-lbl:first-child{border-top:none;padding-top:1.1rem}
+.br-row{display:flex;align-items:center;gap:.9rem;padding:.75rem 2rem;transition:background .15s}
+.br-row:hover{background:var(--bg)}
+.br-ico{font-size:1.1rem;width:22px;text-align:center;flex-shrink:0}
+.br-info{flex:1;min-width:0}
+.br-label{font-size:.84rem;font-weight:700;color:var(--ink)}
+.br-detail{font-size:.71rem;color:var(--muted);margin-top:.07rem}
+.br-right{display:flex;flex-direction:column;align-items:flex-end;gap:.32rem;flex-shrink:0}
+.br-price{font-family:var(--font-display);font-size:1rem;font-weight:400;color:var(--ink);letter-spacing:-.02em}
+.br-btn{font-size:.65rem;font-weight:700;padding:.26rem .7rem;border-radius:7px;text-decoration:none;white-space:nowrap;transition:all .15s;display:inline-block}
+.br-btn-flight{background:#EFF6FF;color:#1D4ED8;border:1px solid #BFDBFE}.br-btn-flight:hover{background:#1D4ED8;color:#fff}
+.br-btn-hotel{background:#F0FDF4;color:#065F46;border:1px solid #BBF7D0}.br-btn-hotel:hover{background:#065F46;color:#fff}
+.br-btn-act{background:#F0FDFA;color:var(--teal-dark);border:1px solid #99F6E4}.br-btn-act:hover{background:var(--teal-dark);color:#fff}
+.br-btn-train{background:#F5F3FF;color:#5B21B6;border:1px solid #DDD6FE}.br-btn-train:hover{background:#5B21B6;color:#fff}
+.br-btn-car{background:#FFFBEB;color:#B45309;border:1px solid #FDE68A}.br-btn-car:hover{background:#B45309;color:#fff}
+.br-total-row{display:flex;justify-content:space-between;align-items:center;padding:1.1rem 2rem;border-top:2px solid var(--ink);margin:0 0 0}
+.br-total-lbl{font-size:.78rem;font-weight:700;color:var(--ink);text-transform:uppercase;letter-spacing:.06em}
+.br-total-val{font-family:var(--font-display);font-size:2rem;font-weight:400;color:var(--ink);letter-spacing:-.03em;line-height:1}
+.br-total-pp{font-size:.7rem;font-weight:400;color:var(--muted);margin-left:.2rem;font-family:var(--font-body)}
+.br-note{padding:.6rem 2rem 1rem;font-size:.68rem;color:var(--muted);line-height:1.55;border-top:1px solid var(--border)}
+.br-email-row{display:flex;gap:.55rem;padding:0 2rem 1.5rem}
+.br-email-btn{flex:1;padding:.72rem;border:none;border-radius:10px;background:linear-gradient(135deg,#0F172A,#2C3E6B);color:#fff;font-size:.78rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.4rem;transition:opacity .2s;font-family:var(--font-body)}
+.br-email-btn:hover{opacity:.88}
+.br-pdf-btn{padding:.72rem 1.1rem;border:1.5px solid var(--border);border-radius:10px;background:#fff;color:var(--ink);font-size:.76rem;font-weight:600;cursor:pointer;font-family:var(--font-body);transition:all .18s}
+.br-pdf-btn:hover{border-color:var(--ink)}
 .recap-hed-bar{background:linear-gradient(135deg,#0F172A 0%,#1E293B 60%,#0F3460 100%);padding:1.15rem 1.6rem;display:flex;align-items:center;gap:.75rem}
 .recap-hed-ico{width:30px;height:30px;background:rgba(45,212,191,.18);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .recap-hed-ico svg{width:15px;height:15px;stroke:var(--teal);fill:none;stroke-width:2}
@@ -698,6 +742,7 @@ textarea{resize:none;height:56px;font-size:.82rem}
     <div id="tipsSection"></div>
     <div id="recapSection"></div>
     <div id="expSection"></div>
+    <div id="bookingRecap"></div>
     <div id="bottomCta"></div>
   </div>
 </section>
@@ -1167,22 +1212,119 @@ function getTripUrl(tripId){
   return window.location.origin + window.location.pathname + '#viaje=' + tripId;
 }
 
+// ── Guardar viaje en servidor (Vercel KV o fallback a localStorage) ──
+async function saveTripToServer(trip){
+  if(!trip?.tripId) return false;
+  try{
+    const res = await fetch('/api/trip', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        tripId: trip.tripId,
+        data: {
+          tripName: trip.tripName,
+          dest: trip.dest,
+          origin: trip.origin,
+          travelers: trip.travelers,
+          days: trip.days,
+          date: trip.date,
+          introHTML: trip.introHTML,
+          transportHTML: trip.transportHTML,
+          timelineHTML: trip.timelineHTML,
+          tipsHTML: trip.tipsHTML,
+          recapHTML: trip.recapHTML,
+          ctaHTML: trip.ctaHTML,
+          chipsHTML: trip.chipsHTML,
+          heroImg: trip.heroImg,
+          resultHTML: true,
+          lang: lang,
+          savedAt: new Date().toISOString(),
+        }
+      })
+    });
+    return res.ok;
+  } catch(e){
+    console.warn('Server save failed, using localStorage only:', e);
+    return false;
+  }
+}
+
+async function loadTripFromServer(tripId){
+  try{
+    const res = await fetch('/api/trip?id='+encodeURIComponent(tripId));
+    if(!res.ok) return null;
+    const data = await res.json();
+    return data?.trip || null;
+  } catch(e){
+    return null;
+  }
+}
+
 function checkTripFromUrl(){
   const hash = window.location.hash;
   if(!hash.startsWith('#viaje='))return;
   const id = hash.slice(7);
   if(!id) return;
-  // Try dedicated localStorage key first (most reliable)
+
+  // 1. Try localStorage first (fastest, works on same device)
   try {
     const raw = localStorage.getItem('ts_trip_'+id);
-    if(raw){ const trip=JSON.parse(raw); if(trip&&trip.resultHTML){ setTimeout(()=>{renderResult(trip);currentTrip=trip;document.getElementById('resultSection').scrollIntoView({behavior:'smooth'});},300); return; }}
+    if(raw){
+      const trip=JSON.parse(raw);
+      if(trip?.resultHTML){
+        setTimeout(()=>{renderResult(trip);currentTrip=trip;document.getElementById('resultSection').scrollIntoView({behavior:'smooth'});},300);
+        return;
+      }
+    }
   } catch(e){}
-  // Fallback: scan saved list
+
+  // 2. Try saved list
   const found = saved.find(s=>s.tripId===id);
-  if(found&&found.resultHTML){ setTimeout(()=>{renderResult(found);currentTrip=found;document.getElementById('resultSection').scrollIntoView({behavior:'smooth'});},300); return; }
-  // Trip not in this browser — show helpful message
-  const msg={es:'Este viaje fue creado en otro dispositivo. Genera uno nuevo o importa el código.',en:'This trip was created on another device. Generate a new one or import the code.',fr:'Ce voyage a été créé sur un autre appareil.'}[lang||'es'];
-  console.info('Trip not found locally for id:',id, '—', msg);
+  if(found?.resultHTML){
+    setTimeout(()=>{renderResult(found);currentTrip=found;document.getElementById('resultSection').scrollIntoView({behavior:'smooth'});},300);
+    return;
+  }
+
+  // 3. Try server (other device, cleared cache, etc.)
+  _showRecoveryBanner(id);
+  loadTripFromServer(id).then(trip=>{
+    if(trip?.resultHTML){
+      _hideRecoveryBanner();
+      renderResult(trip);
+      currentTrip=trip;
+      // Cache locally for next time
+      try{localStorage.setItem('ts_trip_'+id, JSON.stringify(trip));}catch(e){}
+      setTimeout(()=>document.getElementById('resultSection').scrollIntoView({behavior:'smooth'}),300);
+    } else {
+      _showRecoveryNotFound(id);
+    }
+  });
+}
+
+function _showRecoveryBanner(id){
+  const sec = document.getElementById('resultSection');
+  if(!sec) return;
+  sec.classList.add('on');
+  sec.innerHTML = `<div style="max-width:600px;margin:4rem auto;padding:2rem;background:#fff;border-radius:16px;border:1px solid #E2E8F0;box-shadow:0 4px 24px rgba(0,0,0,.08);text-align:center">
+    <div style="font-size:1.8rem;margin-bottom:.8rem">🔍</div>
+    <div style="font-family:var(--font-display);font-size:1.2rem;margin-bottom:.5rem;color:var(--ink)">${{es:'Recuperando tu viaje…',en:'Recovering your trip…',fr:'Récupération de votre voyage…'}[lang||'es']}</div>
+    <div style="font-size:.82rem;color:var(--muted)">${id}</div>
+    <div class="dots" style="justify-content:center;margin-top:1.2rem"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+  </div>`;
+}
+function _hideRecoveryBanner(){
+  const sec = document.getElementById('resultSection');
+  if(sec) sec.innerHTML = '';
+}
+function _showRecoveryNotFound(id){
+  const sec = document.getElementById('resultSection');
+  if(!sec) return;
+  sec.innerHTML = `<div style="max-width:600px;margin:4rem auto;padding:2rem;background:#fff;border-radius:16px;border:1px solid #E2E8F0;box-shadow:0 4px 24px rgba(0,0,0,.08);text-align:center">
+    <div style="font-size:1.8rem;margin-bottom:.8rem">⚠️</div>
+    <div style="font-family:var(--font-display);font-size:1.1rem;margin-bottom:.6rem;color:var(--ink)">${{es:'Viaje no encontrado',en:'Trip not found',fr:'Voyage introuvable'}[lang||'es']}</div>
+    <div style="font-size:.82rem;color:var(--muted);margin-bottom:1.2rem;line-height:1.6">${{es:'Este viaje no está disponible. Puede que haya expirado o que haya sido creado en otro navegador sin guardar en servidor.',en:'This trip is not available. It may have expired or was created without server storage.',fr:'Ce voyage n\'est pas disponible. Il a peut-être expiré.'}[lang||'es']}</div>
+    <button onclick="document.getElementById('resultSection').classList.remove('on');window.history.replaceState(null,'',window.location.pathname);window.scrollTo({top:0,behavior:'smooth'})" style="padding:.6rem 1.4rem;background:var(--ink);color:#fff;border:none;border-radius:9px;font-size:.82rem;font-weight:700;cursor:pointer">${{es:'← Crear nuevo viaje',en:'← Create new trip',fr:'← Créer un voyage'}[lang||'es']}</button>
+  </div>`;
 }
 updateSavedCount();
 
@@ -1744,15 +1886,12 @@ function parseTimeline(text,dest,origin){
       const gemText=_extractGem(rawContent);
 
       const allPlaces=_extractPlaceNames(rawContent);
-      const expBtnsHTML=allPlaces.map((name,idx)=>{
-        const id=`exp-d${dayCount}-${idx}`;
-        const safeN=name.replace(/'/g,'\u2019').replace(/"/g,'&quot;');
-        return `<button class="exp-micro" id="${id}" onclick="toggleExpCart('${id}','${safeN}',0,'📍')">${addICO}${safeN}</button>`;
+      const placeChipsHTML=allPlaces.map(name=>{
+        return `<span class="place-chip">${name}</span>`;
       }).join('');
 
       const hotelLbl={es:'Hotel',en:'Hotel',fr:'Hôtel'}[lang]||'Hotel';
       const dayLbl={es:'Día',en:'Day',fr:'Jour'}[lang];
-      const hId=`hotel-d${dayCount}`,aId=`airbnb-d${dayCount}`;
       const gemLabel={es:'Fuera de ruta',en:'Hidden gem',fr:'Hors des sentiers'}[lang];
       const safeTitle=title.replace(/'/g,'\u2019');
 
@@ -1784,16 +1923,7 @@ function parseTimeline(text,dest,origin){
           <div class="day-gem-ico">${SVG.gem}</div>
           <div class="day-gem-txt"><strong>${gemLabel}:</strong> ${gemText}</div>
         </div>`:''}
-        <div class="day-cta">
-          <div class="day-cta-links">
-            ${expBtnsHTML}
-            <button class="exp-micro" id="${hId}" onclick="toggleExpCart('${hId}','🏨 ${hotelLbl} — ${dayLbl} ${dayCount}',0,'🏨')" style="background:linear-gradient(135deg,#F0FDF4,#DCFCE7);border-color:#BBF7D0;color:#065F46">🏨 ${hotelLbl}</button>
-            <button class="exp-micro" id="${aId}" onclick="toggleExpCart('${aId}','🏠 Airbnb — ${dayLbl} ${dayCount}',0,'🏠')" style="background:linear-gradient(135deg,#FFF1F2,#FFE4E6);border-color:#FECDD3;color:#BE123C">🏠 Airbnb</button>
-          </div>
-          <button class="btn-add-day" id="addbtn-${dayCount}" onclick="toggleDayCart(${dayCount},'${safeTitle}')">
-            ${t('addDayBtn')}
-          </button>
-        </div>
+        ${placeChipsHTML?`<div class="day-places">${placeChipsHTML}</div>`:''}
       </div>`;
     }
     else if(/^#{1,3}\s*(Consejo|Tip|Avant|Practical|Pratique|Conseil|Lo que|What|Ce que)/i.test(part)){
@@ -1829,6 +1959,117 @@ function getExpImg(name,type){
   if(/hike|trek|walk|randon/.test(n))return EXP_IMG.hike;
   if(/nature|park|garden|jardin/.test(n))return EXP_IMG.nature;
   return EXP_IMG.tour;
+}
+
+// ═══════════════════════════════════
+// BOOKING RECAP — menú final del viaje
+// ═══════════════════════════════════
+function buildBookingRecap(s){
+  const sec = document.getElementById('bookingRecap');
+  if(!sec) return;
+
+  const dest = s.dest || '';
+  const origin = s.origin || '';
+  const dfv = document.getElementById('df').value;
+  const dtv = document.getElementById('dt').value;
+  const days = dfv&&dtv ? Math.max(1,Math.round((new Date(dtv)-new Date(dfv))/86400000)) : (s.days||7);
+  const tKey = document.getElementById('travelers').value;
+  const bKey = document.getElementById('budget').value;
+  const tMap = t('travelerMap');
+  const bMap = t('budgetMap');
+
+  // Labels
+  const L = {
+    title:    {es:'Todo lo que necesitas reservar',en:'Everything you need to book',fr:'Tout ce que vous devez réserver'}[lang],
+    sub:      {es:`${dest} · ${days} noches · ${tMap[tKey]||tKey} · ${bMap[bKey]||bKey}`,en:`${dest} · ${days} nights · ${tMap[tKey]||tKey} · ${bMap[bKey]||bKey}`,fr:`${dest} · ${days} nuits · ${tMap[tKey]||tKey} · ${bMap[bKey]||bKey}`}[lang],
+    flight:   {es:'Vuelos',en:'Flights',fr:'Vols'}[lang],
+    stay:     {es:'Alojamiento',en:'Where to stay',fr:'Hébergement'}[lang],
+    act:      {es:'Experiencias',en:'Activities',fr:'Activités'}[lang],
+    total:    {es:'Total estimado',en:'Estimated total',fr:'Total estimé'}[lang],
+    search:   {es:'Buscar →',en:'Search →',fr:'Chercher →'}[lang],
+    book:     {es:'Reservar →',en:'Book →',fr:'Réserver →'}[lang],
+    explore:  {es:'Explorar →',en:'Explore →',fr:'Explorer →'}[lang],
+    perPerson:{es:'/persona',en:'/person',fr:'/personne'}[lang],
+    note:     {es:'Precios orientativos. Los precios reales dependen de disponibilidad y fechas.',en:'Indicative prices. Actual prices depend on availability and dates.',fr:'Prix indicatifs. Les prix réels dépendent de la disponibilité et des dates.'}[lang],
+  };
+
+  // Budget ranges per category
+  const budgetMulti = {low:1, mid:1.6, high:2.4, premium:3.8};
+  const bm = budgetMulti[bKey]||1.6;
+  const baseFlightPP = Math.round(120 * bm / 10) * 10;
+  const baseHotelPerNight = Math.round(55 * bm / 5) * 5;
+  const baseActPP = Math.round(35 * bm / 5) * 5;
+  const flightTotal = baseFlightPP * 2; // approx round-trip × 2 per person? simplify: per person shown
+  const hotelTotal = baseHotelPerNight * days;
+  const actTotal = baseActPP * 3; // 3 activities avg
+
+  const grandTotal = flightTotal + hotelTotal + actTotal;
+
+  function row(ico, label, detail, price, url, btnLabel, cls){
+    return `<div class="br-row">
+      <div class="br-ico">${ico}</div>
+      <div class="br-info">
+        <div class="br-label">${label}</div>
+        <div class="br-detail">${detail}</div>
+      </div>
+      <div class="br-right">
+        <div class="br-price">~€${price}</div>
+        <a class="br-btn ${cls}" href="${url}" target="_blank" rel="noopener">${btnLabel}</a>
+      </div>
+    </div>`;
+  }
+
+  const flightUrl = affUrl('flight', dest, origin);
+  const hotelUrl  = affUrl('hotel', dest, '');
+  const actUrl    = affUrl('act', dest, '');
+  const trainUrl  = affUrl('train', dest, origin);
+  const carUrl    = affUrl('car', dest, origin);
+
+  const flightDetail = {es:`${origin} → ${dest}, ida y vuelta`,en:`${origin} → ${dest}, return`,fr:`${origin} → ${dest}, aller-retour`}[lang];
+  const hotelDetail  = {es:`${days} noches en ${dest}`,en:`${days} nights in ${dest}`,fr:`${days} nuits à ${dest}`}[lang];
+  const actDetail    = {es:`3 experiencias seleccionadas`,en:`3 curated activities`,fr:`3 expériences sélectionnées`}[lang];
+  const trainDetail  = {es:`Tren ${origin} → ${dest}`,en:`Train ${origin} → ${dest}`,fr:`Train ${origin} → ${dest}`}[lang];
+  const carDetail    = {es:`Coche de alquiler para ${days} días`,en:`Car rental for ${days} days`,fr:`Location voiture ${days} jours`}[lang];
+
+  // Decide transport rows based on days/budget
+  const showTrain = days <= 5 && ['low','mid'].includes(bKey);
+  const showCar   = days >= 5;
+
+  const flightRow = row('✈', L.flight,   flightDetail, flightTotal, flightUrl, L.search, 'br-btn-flight');
+  const hotelRow  = row('🏨', L.stay,    hotelDetail,  hotelTotal,  hotelUrl,  L.book,   'br-btn-hotel');
+  const actRow    = row('🎟', L.act,     actDetail,    actTotal,    actUrl,    L.explore,'br-btn-act');
+  const trainRow  = showTrain ? row('🚂', {es:'Tren',en:'Train',fr:'Train'}[lang], trainDetail, Math.round(60*bm/5)*5, trainUrl, L.search, 'br-btn-train') : '';
+  const carRow    = showCar   ? row('🚗', {es:'Coche',en:'Car rental',fr:'Voiture'}[lang], carDetail, Math.round(40*bm*days/5)*5, carUrl, L.search, 'br-btn-car') : '';
+
+  sec.innerHTML = `<div class="booking-recap">
+    <div class="br-header">
+      <div class="br-eyebrow">${{es:'Resumen',en:'Summary',fr:'Résumé'}[lang]}</div>
+      <div class="br-title">${L.title}</div>
+      <div class="br-sub">${L.sub}</div>
+    </div>
+    <div class="br-list">
+      <div class="br-section-lbl">${{es:'Transporte',en:'Transport',fr:'Transport'}[lang]}</div>
+      ${flightRow}
+      ${trainRow}
+      ${carRow}
+      <div class="br-section-lbl">${L.stay}</div>
+      ${hotelRow}
+      <div class="br-section-lbl">${L.act}</div>
+      ${actRow}
+    </div>
+    <div class="br-total-row">
+      <div class="br-total-lbl">${L.total}</div>
+      <div class="br-total-val">~€${grandTotal.toLocaleString()}<span class="br-total-pp">${L.perPerson}</span></div>
+    </div>
+    <div class="br-note">${L.note}</div>
+    <div class="br-email-row">
+      <button class="br-email-btn" onclick="document.getElementById('esbEmail')?.closest('.email-save-block')?.scrollIntoView({behavior:'smooth'})">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px"><path d="M22 2L11 13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        ${({es:'Recibir este plan por email',en:'Email me this plan',fr:'Recevoir ce plan par email'})[lang]}
+      </button>
+      <button class="br-pdf-btn" onclick="downloadPDF()">PDF</button>
+    </div>
+  </div>`;
 }
 
 async function loadExperiences(dest,travelers,budget,month,tKey){
@@ -1981,6 +2222,8 @@ function renderResult(s){
   document.getElementById('expSection').innerHTML=s.expHTML||'';
   document.getElementById('bottomCta').innerHTML=s.ctaHTML||'';
   document.getElementById('resultSection').classList.add('on');
+  // Build booking recap (always fresh from current trip data)
+  setTimeout(()=>buildBookingRecap(s), 100);
 
   // Pre-fill modal name/email if stored
   const storedEmail = localStorage.getItem('ts_user_email');
@@ -2008,7 +2251,7 @@ async function gen(){
   document.getElementById('loadBox').classList.add('on');
   document.getElementById('resultSection').classList.remove('on');
   document.getElementById('tripHero').style.display='none';
-  ['flightCard','timeline','tipsSection','recapSection','expSection','bottomCta'].forEach(id=>document.getElementById(id).innerHTML='');
+  ['flightCard','timeline','tipsSection','recapSection','expSection','bookingRecap','bottomCta'].forEach(id=>document.getElementById(id).innerHTML='');
 
   const msgs=t('loadMsgs');let mi=0;
   const ltxtEl=document.getElementById('ltxt');
@@ -2366,6 +2609,11 @@ Max 1000 words. Write entirely in ${wl}.`;
     if(saved.length>30)saved.length=30;
     saveSaved();updateSavedCount();
     window.history.replaceState(null,'',window.location.pathname+'#viaje='+currentTrip.tripId);
+    // Save to server so link works on any device
+    saveTripToServer(currentTrip).then(ok=>{
+      if(ok) console.info('Trip saved to server:', currentTrip.tripId);
+      else console.warn('Server save failed — trip only in localStorage');
+    });
     setTimeout(()=>document.getElementById('resultSection').scrollIntoView({behavior:'smooth',block:'start'}),200);
     // Populate recap totals
     setTimeout(()=>populateFullRecap(recapHTML),500);
@@ -2380,6 +2628,7 @@ Max 1000 words. Write entirely in ${wl}.`;
 
     loadExperiences(dest,tStr,bStr,mes,tKey).then(()=>{
       if(currentTrip){currentTrip.expHTML=document.getElementById('expSection').innerHTML;}
+      buildBookingRecap(currentTrip||{dest,origin,days});
     });
 
   }catch(e){
@@ -2697,7 +2946,7 @@ function _generatePDF() {
 
   // Bottom bar content
   sf(10,'bold',[255,255,255]);
-  tx('travel-studio.vercel.app', W/2, H-26, {align:'center'});
+  tx(window.location.hostname||'travel-studio-xi.vercel.app', W/2, H-26, {align:'center'});
   sf(7,'normal',C.teal2);
   tx({es:'Tu viaje, con criterio.',en:'Your trip, curated.',fr:'Votre voyage, avec critère.'}[lang||'es'], W/2, H-18, {align:'center'});
 
