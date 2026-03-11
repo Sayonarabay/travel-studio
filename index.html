@@ -76,20 +76,22 @@ textarea{resize:none;height:56px;font-size:.83rem}
 #resultSection.on{display:block}
 
 /* Trip hero header */
-.trip-hero{position:relative;height:380px;overflow:hidden;margin-bottom:0}
-.trip-hero-img{width:100%;height:100%;object-fit:cover;display:block}
-.trip-hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,14,25,.88) 0%,rgba(10,14,25,.3) 50%,transparent 100%)}
-.trip-hero-content{position:absolute;bottom:0;left:0;right:0;padding:2.5rem 3rem}
-.trip-name{font-family:'Playfair Display',serif;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--teal);margin-bottom:.5rem}
-.trip-dest{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:700;color:#fff;line-height:1.05;margin-bottom:.8rem}
-.trip-dest em{font-style:italic;color:var(--teal)}
-.trip-chips{display:flex;gap:.5rem;flex-wrap:wrap}
-.chip{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:.32rem .75rem;display:inline-flex;flex-direction:column}
-.chip-l{font-size:.54rem;color:rgba(255,255,255,.45);font-weight:600;text-transform:uppercase;letter-spacing:.07em}
-.chip-v{font-size:.78rem;font-weight:700;color:#fff}
-.trip-actions{position:absolute;top:1.2rem;right:1.5rem;display:flex;gap:.5rem}
-.trip-action-btn{padding:.45rem .9rem;border:1px solid rgba(255,255,255,.25);border-radius:8px;background:rgba(255,255,255,.08);color:rgba(255,255,255,.85);font-size:.72rem;font-weight:600;cursor:pointer;transition:all .2s;backdrop-filter:blur(8px)}
-.trip-action-btn:hover{background:rgba(255,255,255,.18)}
+.trip-hero{position:relative;height:440px;overflow:hidden;margin-bottom:0}
+.trip-hero-img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 8s ease}
+.trip-hero:hover .trip-hero-img{transform:scale(1.04)}
+.trip-hero-overlay{position:absolute;inset:0;background:linear-gradient(160deg,rgba(10,14,25,.15) 0%,rgba(10,14,25,.5) 50%,rgba(10,14,25,.93) 100%)}
+.trip-hero-content{position:absolute;bottom:0;left:0;right:0;padding:2.8rem 3.5rem}
+.trip-name{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.18em;color:var(--teal);margin-bottom:.6rem;opacity:.9}
+.trip-dest{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,4.5vw,3.8rem);font-weight:700;color:#fff;line-height:1.0;margin-bottom:1rem;text-shadow:0 2px 20px rgba(0,0,0,.3)}
+.trip-dest em{font-style:italic;background:linear-gradient(135deg,var(--teal),#67E8F9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.trip-chips{display:flex;gap:.45rem;flex-wrap:wrap}
+.chip{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:100px;padding:.28rem .8rem;display:inline-flex;gap:.4rem;align-items:center;backdrop-filter:blur(6px)}
+.chip-l{font-size:.55rem;color:rgba(255,255,255,.5);font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+.chip-v{font-size:.75rem;font-weight:700;color:#fff}
+.trip-actions{position:absolute;top:1.4rem;right:1.8rem;display:flex;gap:.45rem}
+.trip-action-btn{padding:.4rem .85rem;border:1px solid rgba(255,255,255,.2);border-radius:100px;background:rgba(0,0,0,.25);color:rgba(255,255,255,.85);font-size:.68rem;font-weight:600;cursor:pointer;transition:all .2s;backdrop-filter:blur(10px)}
+.trip-action-btn:hover{background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.4)}
+.trip-action-btn.added{background:rgba(45,212,191,.25);border-color:var(--teal);color:var(--teal)}
 
 /* ── ITINERARY ── */
 .itin-wrap{max-width:860px;margin:0 auto;padding:2.5rem 2rem}
@@ -139,49 +141,67 @@ textarea{resize:none;height:56px;font-size:.83rem}
 
 /* Tips */
 .tips-section{margin-bottom:1.5rem}
-.tips-title{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;margin-bottom:1rem}
-.tips-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.9rem}
-.tip-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r);padding:1.1rem;position:relative;overflow:hidden}
-.tip-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
-.tip-card:nth-child(1)::before{background:var(--teal-dark)}
-.tip-card:nth-child(2)::before{background:#818CF8}
-.tip-card:nth-child(3)::before{background:#F59E0B}
-.tip-card:nth-child(4)::before{background:#F87171}
-.tip-card:nth-child(5)::before{background:#10B981}
-.tip-card:nth-child(6)::before{background:#8B5CF6}
-.tip-ico{font-size:1.4rem;margin-bottom:.4rem}
-.tip-head{font-size:.82rem;font-weight:700;color:var(--ink);line-height:1.35;margin-bottom:.3rem}
-.tip-body{font-size:.76rem;color:var(--ink2);line-height:1.6}
+.tips-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;margin-bottom:.9rem;color:var(--ink)}
+.tips-list{display:flex;flex-direction:column;gap:.5rem}
+.tip-row{display:flex;align-items:flex-start;gap:.9rem;padding:.75rem 1rem;background:var(--white);border:1px solid var(--border);border-radius:12px;transition:all .18s}
+.tip-row:hover{border-color:var(--teal-dark);box-shadow:var(--shadow)}
+.tip-icon{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.tip-icon svg{width:15px;height:15px}
+.tip-row:nth-child(1) .tip-icon{background:linear-gradient(135deg,#0F766E,#0D9488)}
+.tip-row:nth-child(2) .tip-icon{background:linear-gradient(135deg,#4338CA,#818CF8)}
+.tip-row:nth-child(3) .tip-icon{background:linear-gradient(135deg,#B45309,#F59E0B)}
+.tip-row:nth-child(4) .tip-icon{background:linear-gradient(135deg,#BE123C,#F87171)}
+.tip-row:nth-child(5) .tip-icon{background:linear-gradient(135deg,#065F46,#10B981)}
+.tip-row:nth-child(6) .tip-icon{background:linear-gradient(135deg,#5B21B6,#8B5CF6)}
+.tip-txt{flex:1}
+.tip-head{font-size:.82rem;font-weight:700;color:var(--ink);line-height:1.35}
 
 /* Recap */
-.recap-card{background:var(--white);border:1.5px solid var(--border);border-radius:20px;padding:1.8rem;margin-bottom:1.5rem;box-shadow:var(--shadow)}
-.recap-hed{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;margin-bottom:1.1rem}
-.budget-pill{display:flex;align-items:flex-start;gap:.7rem;background:var(--teal-light);border-radius:var(--r);padding:.9rem 1.1rem;margin-bottom:1.2rem}
-.budget-pill-ico{font-size:1.1rem;flex-shrink:0;margin-top:.1rem}
-.budget-pill-txt{font-size:.83rem;color:var(--ink2);line-height:1.55}
-.day-recap-list{display:flex;flex-direction:column;gap:.45rem;margin-bottom:1.4rem}
-.dr-row{display:flex;align-items:flex-start;gap:.7rem;padding:.6rem .8rem;background:var(--bg);border-radius:10px}
-.dr-n{width:22px;height:22px;border-radius:50%;background:var(--ink);color:#fff;font-size:.65rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.dr-txt{font-size:.81rem;color:var(--ink2);line-height:1.5;flex:1}
-.dr-cost{font-size:.76rem;font-weight:700;color:var(--teal-dark);white-space:nowrap;margin-left:.4rem}
-/* Cost breakdown table */
-.recap-cost-table{border:1.5px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:1.2rem}
-.rct-row{display:grid;grid-template-columns:1.6rem 1fr auto;align-items:center;gap:.6rem;padding:.65rem 1rem;border-bottom:1px solid var(--border);font-size:.83rem}
+.recap-card{background:var(--white);border:1.5px solid var(--border);border-radius:20px;overflow:hidden;margin-bottom:1.5rem;box-shadow:var(--shadow)}
+.recap-hed-bar{background:linear-gradient(135deg,#0F172A 0%,#1E293B 60%,#0F3460 100%);padding:1.15rem 1.6rem;display:flex;align-items:center;gap:.75rem}
+.recap-hed-ico{width:30px;height:30px;background:rgba(45,212,191,.18);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.recap-hed-ico svg{width:15px;height:15px;stroke:var(--teal);fill:none;stroke-width:2}
+.recap-hed{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;color:#fff;letter-spacing:.01em}
+.recap-body{padding:1.4rem 1.6rem}
+.budget-pill{display:flex;align-items:flex-start;gap:.75rem;background:linear-gradient(135deg,#F0FDFA,#E0F2FE);border-radius:12px;padding:.85rem 1rem;margin-bottom:1.3rem;border:1px solid rgba(15,118,110,.12)}
+.budget-pill-ico{width:26px;height:26px;background:linear-gradient(135deg,var(--teal-dark),#0D9488);border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.budget-pill-ico svg{width:12px;height:12px;stroke:#fff;fill:none;stroke-width:2.2}
+.budget-pill-txt{font-size:.8rem;color:var(--ink2);line-height:1.55}
+/* Cost table */
+.recap-cost-table{border:1.5px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:1.3rem}
+.rct-row{display:grid;grid-template-columns:28px 1fr auto;align-items:center;gap:.7rem;padding:.6rem 1rem;border-bottom:1px solid var(--border)}
 .rct-row:last-of-type{border-bottom:none}
-.rct-ico{font-size:1rem;text-align:center}
-.rct-label{color:var(--ink2)}
-.rct-val{font-weight:600;color:var(--ink);text-align:right;white-space:nowrap}
-.rct-total{display:grid;grid-template-columns:1.6rem 1fr auto;align-items:center;gap:.6rem;padding:.75rem 1rem;background:var(--ink);font-size:.88rem}
-.rct-total-val{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--teal);text-align:right;white-space:nowrap}
-.accom-price{display:inline-block;background:var(--teal-light);color:var(--teal-dark);border-radius:6px;padding:.1rem .45rem;font-size:.7rem;font-weight:700;margin:0 .4rem .15rem 0;vertical-align:middle}
-.accom-hed{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:.8rem}
-.accom-list{display:flex;flex-direction:column;gap:.6rem}
-.accom-row{display:flex;align-items:center;gap:.7rem;padding:.8rem;background:var(--bg);border-radius:var(--r);border:1px solid var(--border)}
-.accom-ico{font-size:1.2rem;flex-shrink:0}
-.accom-txt{flex:1;font-size:.82rem;color:var(--ink2);line-height:1.45}
-.accom-txt strong{color:var(--ink);display:block;margin-bottom:.1rem}
-.accom-lnk{padding:.35rem .75rem;border:1.5px solid var(--teal-dark);border-radius:7px;color:var(--teal-dark);font-size:.7rem;font-weight:700;text-decoration:none;white-space:nowrap}
-.accom-lnk:hover{background:var(--teal-light)}
+.rct-ico{width:26px;height:26px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.rct-ico svg{width:13px;height:13px;stroke:#fff;fill:none;stroke-width:2}
+.rct-ico.fl{background:linear-gradient(135deg,#1D4ED8,#60A5FA)}
+.rct-ico.ho{background:linear-gradient(135deg,#065F46,#34D399)}
+.rct-ico.ex{background:linear-gradient(135deg,#BE123C,#F87171)}
+.rct-ico.fo{background:linear-gradient(135deg,#B45309,#FCD34D)}
+.rct-label{font-size:.8rem;color:var(--ink2);font-weight:500}
+.rct-val{font-size:.8rem;font-weight:700;color:var(--ink);text-align:right;white-space:nowrap}
+.rct-total{display:grid;grid-template-columns:28px 1fr auto;align-items:center;gap:.7rem;padding:.8rem 1rem;background:linear-gradient(135deg,#0F172A,#1E3A5F)}
+.rct-total-label{font-size:.78rem;font-weight:700;color:rgba(255,255,255,.7)}
+.rct-total-val{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;background:linear-gradient(135deg,var(--teal),#67E8F9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-align:right;white-space:nowrap}
+/* Day recap timeline */
+.day-recap-list{display:flex;flex-direction:column;gap:0;margin-bottom:1.3rem;border:1.5px solid var(--border);border-radius:var(--r);overflow:hidden}
+.dr-row{display:flex;align-items:center;gap:.8rem;padding:.65rem 1rem;border-bottom:1px solid var(--border);transition:background .15s;cursor:default}
+.dr-row:last-child{border-bottom:none}
+.dr-row:hover{background:linear-gradient(90deg,var(--teal-light),transparent)}
+.dr-n{width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,var(--teal-dark),#0D9488);color:#fff;font-size:.6rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 2px 6px rgba(15,118,110,.3)}
+.dr-txt{font-size:.79rem;color:var(--ink2);line-height:1.35;flex:1}
+.dr-cost{font-size:.7rem;font-weight:700;color:var(--teal-dark);white-space:nowrap;background:var(--teal-light);padding:.12rem .5rem;border-radius:100px}
+/* Accommodation */
+.accom-hed{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:.65rem}
+.accom-list{display:flex;flex-direction:column;gap:.5rem}
+.accom-row{display:flex;align-items:center;gap:.75rem;padding:.75rem;background:var(--bg);border-radius:12px;border:1px solid var(--border);transition:all .18s}
+.accom-row:hover{border-color:var(--teal-dark);background:#fff;box-shadow:var(--shadow)}
+.accom-ico{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,#065F46,#34D399);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.accom-ico svg{width:14px;height:14px;stroke:#fff;fill:none;stroke-width:2}
+.accom-txt{flex:1;font-size:.8rem;color:var(--ink2);line-height:1.4}
+.accom-txt strong{color:var(--ink);display:block;font-size:.83rem;margin-bottom:.12rem}
+.accom-price{display:inline-block;background:linear-gradient(135deg,var(--teal-light),#CFFAFE);color:var(--teal-dark);border-radius:5px;padding:.08rem .4rem;font-size:.67rem;font-weight:700;margin:0 .3rem .08rem 0;vertical-align:middle}
+.accom-lnk{padding:.3rem .7rem;border:1.5px solid var(--teal-dark);border-radius:100px;color:var(--teal-dark);font-size:.67rem;font-weight:700;text-decoration:none;white-space:nowrap;transition:all .18s}
+.accom-lnk:hover{background:var(--teal-dark);color:#fff}
 
 /* Experiences */
 .exp-section{margin-bottom:1.5rem}
@@ -782,23 +802,53 @@ function activeTags(){return[...document.querySelectorAll('.tag.on')].map(b=>b.t
 // ═══════════════════════════════════
 // Curated keywords per day topic + per dest for hero
 const UNSPLASH_ACCESS_KEY=''; // optional, works without it via source.unsplash.com
+// Unsplash curated photo IDs by destination keyword (reliable, no 404)
+const DEST_PHOTOS={
+  paris:['photo-1502602898657-3e91760cbb34','photo-1499856871958-5b9627545d1a','photo-1501854140801-50d01698950b'],
+  tokyo:['photo-1540959733332-eab4deabeeaf','photo-1490806843957-31f4c9a91c65','photo-1513407030348-c983a97b98d8'],
+  rome:['photo-1555992336-03a23c7b20ee','photo-1531572753322-ad063cecc140','photo-1552832230-c0197dd311b5'],
+  barcelona:['photo-1583422409516-2895a77efded','photo-1464790719320-516ecd75af6c','photo-1551887196-72e32bfc7bf3'],
+  london:['photo-1513635269975-59663e0ac1ad','photo-1529655683826-aba9b3e77383','photo-1486325212027-8081e485255e'],
+  lisbon:['photo-1558370781-d6196591e1f5','photo-1548707309-dcebeab9ea9b','photo-1513326738677-b964603b136d'],
+  amsterdam:['photo-1534351590666-13e3e96b5017','photo-1576924542622-772281b13240','photo-1512470876302-972faa2aa9a4'],
+  new_york:['photo-1496442226666-8d4d0e62e6e9','photo-1534430480872-3498386e7856','photo-1500916434205-0c77489c6cf7'],
+  berlin:['photo-1560969184-10fe8719e047','photo-1587330979470-3595ac045ab0','photo-1481833761820-0509d3217039'],
+  madrid:['photo-1543783207-ec64e4d95325','photo-1558618666-fcd25c85cd64','photo-1539037116277-4db20889f2d4'],
+  default:['photo-1469854523086-cc02fe5d8800','photo-1476514525535-07fb3b4ae5f1','photo-1501555088652-021faa106b9b'],
+};
+function getDestPhotos(dest){
+  const k=dest.toLowerCase().replace(/\s+/g,'_').replace(/[àáâ]/g,'a').replace(/[éèê]/g,'e').replace(/[ó]/g,'o');
+  for(const key of Object.keys(DEST_PHOTOS)){if(k.includes(key))return DEST_PHOTOS[key];}
+  return DEST_PHOTOS.default;
+}
 function heroImgUrl(dest){
-  const q=encodeURIComponent(dest+' travel landscape');
-  return`https://source.unsplash.com/1400x600/?${q}`;
+  const photos=getDestPhotos(dest);
+  return`https://images.unsplash.com/${photos[0]}?w=1400&h=600&fit=crop&q=80`;
 }
 function dayImgUrl(dest,dayTitle,dayNum){
-  // Infer image category from day title keywords
   const title=(dayTitle||'').toLowerCase();
-  let q=dest;
-  if(/museum|arte|musée|kunst|gallery|galería/.test(title))q=dest+' museum art';
-  else if(/market|mercado|marché|food|gastro/.test(title))q=dest+' market food';
-  else if(/beach|playa|plage|coast|mer/.test(title))q=dest+' beach coast';
-  else if(/mountain|monta|montagne|hike|trek/.test(title))q=dest+' mountain nature';
-  else if(/night|noche|nuit|bar|cocktail/.test(title))q=dest+' night city lights';
-  else if(/canal|river|rivière|río|water/.test(title))q=dest+' water canal';
-  else if(/historic|historic|viejo|vieux|old town/.test(title))q=dest+' historic old town';
-  else q=dest+' travel street';
-  return`https://source.unsplash.com/900x400/?${encodeURIComponent(q)}&sig=${dayNum}`;
+  // Map category to curated photo IDs
+  const catPhotos={
+    food:['photo-1555396273-367ea4eb4db5','photo-1414235077428-338989a2e8c0','photo-1504674900247-0877df9cc836'],
+    museum:['photo-1554907984-15263bfd63bd','photo-1518998053901-5348d3961a04','photo-1513364776144-60967b0f800f'],
+    beach:['photo-1507525428034-b723cf961d3e','photo-1519046904884-53103b34b206','photo-1474644447519-1ac030d0f6df'],
+    mountain:['photo-1551632811-561732d1e306','photo-1464822759023-fed622ff2c3b','photo-1506905925346-21bda4d32df4'],
+    night:['photo-1516450360452-9312f5e86fc7','photo-1541992783798-e6e68e8b3c25','photo-1540575467063-178a50c2df87'],
+    canal:['photo-1534351590666-13e3e96b5017','photo-1540959733332-eab4deabeeaf','photo-1499856871958-5b9627545d1a'],
+    historic:['photo-1555992336-03a23c7b20ee','photo-1531572753322-ad063cecc140','photo-1558370781-d6196591e1f5'],
+    street:['photo-1476514525535-07fb3b4ae5f1','photo-1483450388369-9ed95738483c','photo-1495562569060-2eec283d3618'],
+  };
+  let cat='street';
+  if(/food|gastro|market|mercado|marché|wine|eat|comer/.test(title))cat='food';
+  else if(/museum|art|gallery|musée|galería|arte/.test(title))cat='museum';
+  else if(/beach|playa|plage|coast|mar|sea/.test(title))cat='beach';
+  else if(/mountain|monta|hike|trek|nature|nature/.test(title))cat='mountain';
+  else if(/night|noche|nuit|bar|club|cocktail/.test(title))cat='night';
+  else if(/canal|river|rivière|río|water|lake/.test(title))cat='canal';
+  else if(/historic|old|viejo|ancient|temple|castl/.test(title))cat='historic';
+  const photos=catPhotos[cat];
+  const pick=photos[dayNum%photos.length];
+  return`https://images.unsplash.com/${pick}?w=900&h=400&fit=crop&q=75`;
 }
 
 // ═══════════════════════════════════
@@ -807,26 +857,33 @@ function dayImgUrl(dest,dayTitle,dayNum){
 function parseTips(text){
   if(!text.trim())return'';
   const lines=text.split('\n').map(l=>l.replace(/^[-•*\d.)]\s*/,'').trim()).filter(Boolean);
+  const SVG_ICONS={
+    flight:'<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M20 12h-3l-4-8H9l2 8H7l-2-2H2l2 4-2 4h3l2-2h4l-2 8h4l4-8h3a2 2 0 000-4z"/></svg>',
+    weather:'<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>',
+    transport:'<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 12h16M12 4v16"/></svg>',
+    money:'<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.5 9.5C9.5 8.1 10.6 7 12 7s2.5 1.1 2.5 2.5S13.4 12 12 12s-2.5 1.1-2.5 2.5S10.6 17 12 17s2.5-1.1 2.5-2.5"/></svg>',
+    safe:'<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>',
+    food:'<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 002-2V2M7 2v20M21 15V2a5 5 0 00-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/></svg>',
+    tip:'<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>',
+  };
   const iconMap=[
-    {k:['flight','vuelo','billet','reserv','book','anticip','cuando'],ico:'✈️',l:{es:'Cuándo reservar',en:'When to book',fr:'Quand réserver'}},
-    {k:['climat','weather','clima','temps','rain','lluvia','saison','season'],ico:'🌤️',l:{es:'Clima',en:'Weather',fr:'Météo'}},
-    {k:['transport','metro','bus','tren','train','taxi','getting around'],ico:'🚇',l:{es:'Transporte',en:'Getting around',fr:'Transport'}},
-    {k:['money','dinero','cash','prix','price','tarjeta','card','€','$'],ico:'💶',l:{es:'Presupuesto',en:'Budget',fr:'Budget'}},
-    {k:['safe','segur','sécur','avoid','evita','éviter'],ico:'🔒',l:{es:'Seguridad',en:'Safety',fr:'Sécurité'}},
-    {k:['free','gratis','gratuit','no cost'],ico:'🎁',l:{es:'Gratis',en:'Free',fr:'Gratuit'}},
-    {k:['eat','comer','manger','restaurant','food','gastro','mercado'],ico:'🍽️',l:{es:'Gastronomía',en:'Food',fr:'Gastronomie'}},
+    {k:['flight','vuelo','billet','reserv','book','anticip','cuando','reservar'],cat:'flight'},
+    {k:['climat','weather','clima','temps','rain','lluvia','saison','season','temperature'],cat:'weather'},
+    {k:['transport','metro','bus','tren','train','taxi','getting around','moverse'],cat:'transport'},
+    {k:['money','dinero','cash','prix','price','tarjeta','card','€','$','budget'],cat:'money'},
+    {k:['safe','segur','sécur','avoid','evita','éviter','scam','timo'],cat:'safe'},
+    {k:['eat','comer','manger','restaurant','food','gastro','mercado','cuisine'],cat:'food'},
   ];
-  const used=new Set();const def=['💡','🗺️','⚡','🌟'];let di=0;
-  const cards=lines.slice(0,6).map(txt=>{
-    let ico='',label='';
-    for(const m of iconMap){if(m.k.some(k=>txt.toLowerCase().includes(k))&&!used.has(m.ico)){ico=m.ico;label=m.l[lang]||m.l.es;used.add(m.ico);break;}}
-    if(!ico){ico=def[di%def.length];label='Tip';di++;}
-    const dot=txt.search(/[.!?]/);
-    const head=dot>0&&dot<85?txt.slice(0,dot+1):txt.slice(0,72)+(txt.length>72?'…':'');
-    const body=dot>0&&dot<85?txt.slice(dot+1).trim():'';
-    return`<div class="tip-card"><div class="tip-ico">${ico}</div><div class="tip-head">${head}</div>${body?`<div class="tip-body">${body}</div>`:''}</div>`;
+  const used=new Set();const defCats=['tip','tip','tip'];let di=0;
+  const cards=lines.slice(0,5).map(txt=>{
+    let cat='';
+    for(const m of iconMap){if(m.k.some(k=>txt.toLowerCase().includes(k))&&!used.has(m.cat)){cat=m.cat;used.add(m.cat);break;}}
+    if(!cat){cat=defCats[di%defCats.length];di++;}
+    // Keep tip text short: max 90 chars
+    const head=txt.length>90?txt.slice(0,88)+'…':txt;
+    return`<div class="tip-row"><div class="tip-icon">${SVG_ICONS[cat]||SVG_ICONS.tip}</div><div class="tip-txt"><div class="tip-head">${head}</div></div></div>`;
   }).join('');
-  return`<div class="tips-section"><div class="tips-title">${t('tipsTitle')}</div><div class="tips-grid">${cards}</div></div>`;
+  return`<div class="tips-section"><div class="tips-title">${t('tipsTitle')}</div><div class="tips-list">${cards}</div></div>`;
 }
 
 // ═══════════════════════════════════
@@ -912,6 +969,7 @@ function buildRecap(block,dest){
 
   const L={
     flights:{es:'Vuelos',en:'Flights',fr:'Vols'},
+    flights:{es:'Vuelos',en:'Flights',fr:'Vols'},
     hotel:{es:'Alojamiento',en:'Accommodation',fr:'Hébergement'},
     exp:{es:'Experiencias',en:'Experiences',fr:'Expériences'},
     food:{es:'Comida y bebida',en:'Food & drink',fr:'Repas & boissons'},
@@ -926,32 +984,40 @@ function buildRecap(block,dest){
 
   // Cost breakdown rows
   const costRows=[
-    {ico:'🚆', label:{es:'Transporte',en:'Transport',fr:'Transport'}[lang]||'Transport', val:transportCost},
-    {ico:'🗺️', label:{es:'Transporte local',en:'Local transport',fr:'Transport local'}[lang]||'Local', val:localTranspCost},
-    {ico:'🏨', label:l('hotel'),   val:hotelCost},
-    {ico:'🎟️', label:l('exp'),     val:expCost},
-    {ico:'🍽️', label:l('food'),    val:foodCost},
+    {svgKey:'flight', cls:'fl', label:l('flights'), val:flightCost},
+    {svgKey:'hotel',  cls:'ho', label:l('hotel'),   val:hotelCost},
+    {svgKey:'exp',    cls:'ex', label:l('exp'),     val:expCost},
+    {svgKey:'food',   cls:'fo', label:l('food'),    val:foodCost},
   ].filter(r=>r.val);
 
+  // SVG icons for cost table
+  const SVG={
+    flight:'<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M20 12h-3l-4-8H9l2 8H7l-2-2H2l2 4-2 4h3l2-2h4l-2 8h4l4-8h3a2 2 0 000-4z"/></svg>',
+    hotel:'<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>',
+    exp:'<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',
+    food:'<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 002-2V2M7 2v20M21 15V2a5 5 0 00-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/></svg>',
+    money:'<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.5 9.5C9.5 8.1 10.6 7 12 7s2.5 1.1 2.5 2.5S13.4 12 12 12s-2.5 1.1-2.5 2.5S10.6 17 12 17s2.5-1.1 2.5-2.5"/></svg>',
+    accom:'<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M20 9V7a2 2 0 00-2-2H6a2 2 0 00-2 2v2"/><path d="M4 22V11a1 1 0 011-1h14a1 1 0 011 1v11"/><path d="M2 22h20M7 13v4h10v-4"/></svg>',
+  };
   const costTable = costRows.length ? `
     <div class="recap-cost-table">
       ${costRows.map(r=>`
         <div class="rct-row">
-          <span class="rct-ico">${r.ico}</span>
+          <div class="rct-ico ${r.cls}">${SVG[r.svgKey]||''}</div>
           <span class="rct-label">${r.label}</span>
           <span class="rct-val">${r.val}</span>
         </div>`).join('')}
       ${totalEst?`<div class="rct-total">
-        <span></span>
-        <span style="font-weight:700">${l('total')}</span>
+        <div></div>
+        <span class="rct-total-label">${l('total')}</span>
         <span class="rct-total-val">${totalEst}</span>
       </div>`:''}
     </div>` : '';
 
   const budgetPill = budgetMatch ? `
     <div class="budget-pill">
-      <div class="budget-pill-ico">💰</div>
-      <div><div style="font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--teal-dark);margin-bottom:.2rem">${l('budgetFit')}</div>
+      <div class="budget-pill-ico">${SVG.money}</div>
+      <div><div style="font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--teal-dark);margin-bottom:.2rem">${l('budgetFit')}</div>
       <div class="budget-pill-txt">${budgetMatch}</div></div>
     </div>` : '';
 
@@ -968,37 +1034,43 @@ function buildRecap(block,dest){
     </div>`;
   }).join('');
 
+  const accomSVG='<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M20 9V7a2 2 0 00-2-2H6a2 2 0 00-2 2v2"/><path d="M4 22V11a1 1 0 011-1h14a1 1 0 011 1v11"/><path d="M2 22h20M7 13v4h10v-4"/></svg>';
   const accomCards = accomLines.slice(0,3).map(l=>{
     const c=l.replace(/^[-•*\d.)]\s*/,'');
-    // Split on first comma or em dash to get name vs details
     const sepIdx=c.search(/[,—–]/);
     const name=sepIdx>0?c.slice(0,sepIdx).trim():c;
     const rest=sepIdx>0?c.slice(sepIdx+1).trim():'';
-    // Extract price if present (e.g. €70–120/night)
     const priceMatch=rest.match(/€[\d,–€\/\s\w]+\/night|€[\d,–]+\/nuit|€[\d,–]+\/noche/i);
     const price=priceMatch?priceMatch[0]:'';
     const desc=price?rest.replace(price,'').replace(/^[,·\s]+/,'').trim():rest;
     return`<div class="accom-row">
-      <div class="accom-ico">🏨</div>
+      <div class="accom-ico">${accomSVG}</div>
       <div class="accom-txt">
         <strong>${name}</strong>
         ${price?`<span class="accom-price">${price}</span>`:''}
-        ${desc?`<span style="color:var(--ink2)">${desc}</span>`:''}
+        ${desc?`<span>${desc}</span>`:''}
       </div>
       <a class="accom-lnk" href="${affUrl('hotel',dest,'')}" target="_blank">${{es:'Ver',en:'View',fr:'Voir'}[lang]} →</a>
     </div>`;
   }).join('');
 
+  const recapSVG='<svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>';
+  const hotelSVG='<svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>';
   return`<div class="recap-card">
-    <div class="recap-hed">📋 ${t('recapTitle')}</div>
-    ${costTable}
-    ${budgetPill}
-    ${dayCards?`<div class="accom-hed" style="margin-top:1.4rem">${l('dayByDay')}</div><div class="day-recap-list">${dayCards}</div>`:''}
-    ${accomLines.length?`<div class="accom-hed" style="margin-top:1.4rem">${l('stay')}</div>
-      <div style="display:flex;justify-content:flex-end;margin-bottom:.6rem">
+    <div class="recap-hed-bar">
+      <div class="recap-hed-ico">${recapSVG}</div>
+      <div class="recap-hed">📋 ${t('recapTitle')}</div>
+    </div>
+    <div class="recap-body">
+      ${costTable}
+      ${budgetPill}
+      ${dayCards?`<div class="accom-hed" style="margin-top:1.2rem">${l('dayByDay')}</div><div class="day-recap-list">${dayCards}</div>`:''}
+      ${accomLines.length?`<div style="display:flex;align-items:center;justify-content:space-between;margin-top:1.2rem;margin-bottom:.65rem">
+        <div class="accom-hed" style="margin:0">${l('stay')}</div>
         <a class="accom-lnk" href="${affUrl('hotel',dest,'')}" target="_blank">${l('viewHotels')}</a>
       </div>
       <div class="accom-list">${accomCards}</div>`:''}
+    </div>
   </div>`;
 }
 
