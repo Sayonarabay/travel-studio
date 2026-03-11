@@ -1592,155 +1592,131 @@ function buildRecap(block,dest){
 }
 
 // ═══════════════════════════════════
-// TIMELINE
+// TIMELINE — text helpers (defined once, outside loop)
 // ═══════════════════════════════════
+function _stripAllTags(txt){
+  return (txt||'')
+    .replace(/\[(MAPS|WIKI|OFFICIAL|BOOKING|TA)\]/g,'')
+    .replace(/\[BOOK:[^\]]+\]/g,'')
+    .replace(/\*{0,2}(Fuera de ruta|Off the beaten path|Hors des sentiers|Gem)\*{0,2}:[^\n]*/gi,'')
+    .replace(/^🔍[^\n]*/gm,'')
+    .replace(/  +/g,' ')
+    .trim();
+}
+function _renderText(txt){
+  return _stripAllTags(txt)
+    .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+    .replace(/\n+/g,' ')
+    .replace(/\s{2,}/g,' ')
+    .trim();
+}
+function _extractPlaceNames(rawText){
+  const found=new Set();
+  const re=/\*\*([^*\n]{3,45}?)\*\*/g;
+  let m;
+  while((m=re.exec(rawText))!==null){
+    const s=m[1].trim();
+    if(s.length>3&&s.length<45&&!/^(Mañana|Tarde|Noche|Morning|Afternoon|Evening|Matin|Après-midi|Soir|Día|Day|Jour|Fuera|Off the|Hors)/i.test(s))
+      found.add(s);
+  }
+  return [...found].slice(0,6);
+}
+function _extractDayStory(rawContent){
+  const momentMarkerRE=/\*{1,2}(?:mañana|tarde|noche|morning|afternoon|evening|matin|après-midi|soir)[^:]*:/i;
+  const markerPos=rawContent.search(momentMarkerRE);
+  const beforeMarker=markerPos>0?rawContent.slice(0,markerPos):rawContent;
+  const cleaned=_stripAllTags(beforeMarker)
+    .replace(/\*{1,2}[^*\n]+\*{1,2}/g,'')
+    .replace(/^>\s*/gm,'')
+    .trim();
+  const lines=cleaned.split(/\n+/).map(l=>l.trim()).filter(l=>
+    l.length>=28&&l.length<=145&&
+    !/(maps|wiki|official|booking|\[|\]|🔍|\*)/i.test(l)
+  );
+  return lines[0]||'';
+}
+function _extractGem(rawContent){
+  const re=/(?:🔍\s*|(?:\*{0,2}(?:Fuera de ruta|Off the beaten path|Hors des sentiers|Gem)\*{0,2}\s*:\s*))([^\n]+)/i;
+  const m=rawContent.match(re);
+  if(!m)return'';
+  return _renderText(m[1]);
+}
+
 function parseTimeline(text,dest,origin){
   const parts=text.split(/(#{1,3}[^\n]+)/g).filter(s=>s.trim());
   let html='',dayCount=0,tipsHTML='',introHTML='';
+
+  const SVG={
+    sun:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>',
+    aft:'<svg viewBox="0 0 24 24"><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/><circle cx="12" cy="12" r="5"/></svg>',
+    moon:'<svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>',
+    gem:'<svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>',
+  };
+  const addICO='<svg viewBox="0 0 24 24" style="width:9px;height:9px;fill:none;stroke:currentColor;stroke-width:2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>';
+
   for(let i=0;i<parts.length;i++){
     const part=parts[i].trim();if(!part)continue;
+
     if(/^#{1,3}\s*(Day|Día|Jour)\s+\d+/i.test(part)){
       dayCount++;
-      const title=part.replace(/^#+\s*/,'').trim().replace(/^(Day|Día|Jour)\s+\d+[\s—–-]*/i,'');
-      const content=parts[i+1]&&!parts[i+1].startsWith('#')?parts[i+1].trim():'';
-      if(content)i++;
+      const title=part.replace(/^#+\s*/,'').trim().replace(/^(Day|Día|Jour)\s+\d+[\s\u2014\u2013:-]*/i,'').trim();
+      const rawContent=parts[i+1]&&!parts[i+1].startsWith('#')?parts[i+1].trim():'';
+      if(rawContent)i++;
 
-      // Parse moment blocks: **Mañana/Morning/Matin:** ... **Tarde/Afternoon/Après-midi:** ... **Noche/Evening/Soir:** ...
       const mKeys={es:['mañana','tarde','noche'],en:['morning','afternoon','evening'],fr:['matin','après-midi','soir']};
       const mk=mKeys[lang]||mKeys.es;
-      // Strip BOOK tags, keep source tags for rendering
-      const cleanContent=content.replace(/\[BOOK:[^\]]+\]/g,'').replace(/🔍[^\n]*/g,'').trim();
-
-      // Convert source tags to HTML badges
-      function renderSrcTags(txt){
-        return txt
-          .replace(/\[MAPS\]/g,'<span class="src src-maps">📍 Maps</span>')
-          .replace(/\[WIKI\]/g,'<span class="src src-wiki">📖 Wiki</span>')
-          .replace(/\[OFFICIAL\]/g,'<span class="src src-official">🌐 Official</span>')
-          .replace(/\[BOOKING\]/g,'<span class="src src-booking">🎟 Booking</span>')
-          .replace(/\[TA\]/g,'<span class="src src-ta">⭐ TripAdv.</span>');
-      }
-
-      // Also extract 🔍 gem line (after renderSrcTags is defined)
-      const gemMatch=content.match(/🔍[^\n]+/);
-      const gemRaw=gemMatch?renderSrcTags(gemMatch[0].replace(/^🔍\s*\*?[^:*]+\*?:\s*/i,'').replace(/\*\*?(.+?)\*\*?/g,'<strong>$1</strong>').trim()):'';
-      const mornRE=new RegExp(`\\*{1,2}(${mk[0]})[^:]*:\\*{0,2}\\s*`,'i');
-      const aftnRE=new RegExp(`\\*{1,2}(${mk[1]})[^:]*:\\*{0,2}\\s*`,'i');
-      const evRE  =new RegExp(`\\*{1,2}(${mk[2]})[^:]*:\\*{0,2}\\s*`,'i');
-      function extractBlock(text,startRE,endREs){
-        const sm=text.search(startRE);if(sm<0)return'';
-        const afterStart=text.slice(sm).replace(startRE,'');
-        let end=afterStart.length;
-        for(const re of endREs){const m=afterStart.search(re);if(m>0&&m<end)end=m;}
-        const raw=afterStart.slice(0,end).trim().replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,' ');
-        return renderSrcTags(raw);
-      }
-      const morn=extractBlock(cleanContent,mornRE,[aftnRE,evRE]);
-      const aftn=extractBlock(cleanContent,aftnRE,[evRE,mornRE]);
-      const evng=extractBlock(cleanContent,evRE,[mornRE,aftnRE]);
-      // Fallback: if no moment markers, show as single block
-      const hasMoments=morn||aftn||evng;
-      const fallbackText=hasMoments?'':renderSrcTags(cleanContent.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\n{2,}/g,'</p><p>').replace(/\n/g,'<br/>'));
-
-      // SVG icons
-      const sunSVG='<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>';
-      const aftSVG='<svg viewBox="0 0 24 24"><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/><circle cx="12" cy="12" r="5"/></svg>';
-      const moonSVG='<svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>';
-      const gemSVG='<svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>';
-      const flightSVG='<svg viewBox="0 0 24 24"><path d="M20 12h-3l-4-8H9l2 8H7l-2-2H2l2 4-2 4h3l2-2h4l-2 8h4l4-8h3a2 2 0 000-4z"/></svg>';
-      const hotelSVG='<svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>';
-
       const mLabels={es:['Mañana','Tarde','Noche'],en:['Morning','Afternoon','Evening'],fr:['Matin','Après-midi','Soir']};
       const ml=mLabels[lang]||mLabels.es;
       const dayWord={es:'Día',en:'Day',fr:'Jour'}[lang]||'Day';
-      const dayId=`day-${dayCount}`;
 
-      // Extract named experiences from text (bold phrases + capitalized names)
-      function extractExps(txt){
-        if(!txt) return [];
-        const found=new Set();
-        // Bold phrases: **Name** or *Name*
-        const boldRe=/\*{1,2}([^*\n]{4,40}?)\*{1,2}/g;
-        let m;
-        while((m=boldRe.exec(txt))!==null){
-          const s=m[1].trim();
-          if(s.length>3&&s.length<42&&!/^(Mañana|Tarde|Noche|Morning|Afternoon|Evening|Matin|Après)/i.test(s))found.add(s);
-        }
-        // Capitalized multi-word nouns (e.g. "Palais Royal", "Mercado de San Miguel")
-        const capRe=/([A-ZÁÉÍÓÚÀÂÄÈÊËÎÏÔÙÛÜÑ][a-záéíóúàâäèêëîïôùûüñA-ZÁÉÍÓÚÀÂÄÈÊËÎÏÔÙÛÜÑ]+(?:\s+(?:de|del|du|des|van|von|di|di|le|la|el|los|las|the|of|da|das|dos)?\s*[A-ZÁÉÍÓÚÀÂÄÈÊËÎÏÔÙÛÜÑ][a-záéíóúàâäèêëîïôùûüñA-ZÁÉÍÓÚÀÂÄÈÊËÎÏÔÙÛÜÑ]+){1,4})/g;
-        while((m=capRe.exec(txt))!==null){
-          const s=m[1].trim();
-          if(s.length>5&&s.length<50&&!found.has(s)&&found.size<8
-            &&!/^(Después|Luego|Antes|Durante|También|Aunque|Además|Visita|Toma|Sube|Baja|Entra|Sal|Come|Cena|Desayuna|En|La|El|Los|Las|Un|Una|Para|Con|Por|Sin|Al|Del|Desde|Hasta|Si|No|Its|The|This|That|From|Take|Visit|Go|Walk|Head)/i.test(s)){
-            found.add(s);
-          }
-        }
-        return [...found].slice(0,5);
+      const mRE=[
+        new RegExp(`\\*{1,2}(${mk[0]})[^:]*:\\*{0,2}\\s*`,'i'),
+        new RegExp(`\\*{1,2}(${mk[1]})[^:]*:\\*{0,2}\\s*`,'i'),
+        new RegExp(`\\*{1,2}(${mk[2]})[^:]*:\\*{0,2}\\s*`,'i'),
+      ];
+
+      function getMoment(raw,startRE,endREs){
+        const pos=raw.search(startRE);if(pos<0)return'';
+        const after=raw.slice(pos).replace(startRE,'');
+        let end=after.length;
+        for(const re of endREs){const p=after.search(re);if(p>0&&p<end)end=p;}
+        return _renderText(after.slice(0,end));
       }
 
-      // Extract day story/hook — first italic sentence or first short paragraph before morning block
-      function extractDayStory(rawContent){
-        // Look for lines starting with > or italic *text* before the morning block
-        const quoteMatch=rawContent.match(/^>\s*(.+)/m);
-        if(quoteMatch) return quoteMatch[1].trim();
-        // First italic phrase *...*
-        const italicMatch=rawContent.match(/(?<!\*)\*([^*\n]{20,120})\*(?!\*)/);
-        if(italicMatch) return italicMatch[1].trim();
-        // First short sentence (under 120 chars) before a moment marker
-        const lines=rawContent.split('\n').map(l=>l.trim()).filter(l=>l&&!l.startsWith('**')&&!l.startsWith('#'));
-        const first=lines[0]||'';
-        if(first.length>20&&first.length<130&&!mornRE.test(first)&&!aftnRE.test(first)&&!evRE.test(first)){
-          return first.replace(/\*\*(.+?)\*\*/g,'$1');
-        }
-        return '';
-      }
-      const dayStory = extractDayStory(content);
+      const morn=getMoment(rawContent,mRE[0],[mRE[1],mRE[2]]);
+      const aftn=getMoment(rawContent,mRE[1],[mRE[2],mRE[0]]);
+      const evng=getMoment(rawContent,mRE[2],[mRE[0],mRE[1]]);
+      const hasMoments=morn||aftn||evng;
+      const fallback=hasMoments?'':_renderText(rawContent);
 
-      // Collect ALL named experiences from all moments for bottom card buttons
-      const addICO_local='<svg viewBox="0 0 24 24" style="width:9px;height:9px;fill:none;stroke:currentColor;stroke-width:2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>';
-      function allDayExpBtns(moments, dayN) {
-        const allExps = new Map(); // name -> id
-        moments.forEach(m => {
-          if(!m.text) return;
-          extractExps(m.text).forEach((name, i) => {
-            if(!allExps.has(name)) {
-              allExps.set(name, `exp-${dayN}-${m.key}-${i}`);
-            }
-          });
-        });
-        if(!allExps.size) return '';
-        const btns = [...allExps.entries()].map(([name, id]) => {
-          const safeN = name.replace(/'/g,'\u0027').replace(/"/g,'&quot;');
-          return `<button class="exp-micro" id="${id}" onclick="toggleExpCart('${id}','${safeN}',0,'🎯')">${addICO_local}${name}</button>`;
-        }).join('');
-        return btns;
-      }
+      const dayStory=_extractDayStory(rawContent);
+      const gemText=_extractGem(rawContent);
 
-      const allMoments = [
-        {cls:'moment-m',svg:sunSVG, label:ml[0], text:morn, key:'m'},
-        {cls:'moment-a',svg:aftSVG, label:ml[1], text:aftn, key:'a'},
-        {cls:'moment-e',svg:moonSVG,label:ml[2], text:evng, key:'e'},
-      ].filter(m=>m.text);
+      const allPlaces=_extractPlaceNames(rawContent);
+      const expBtnsHTML=allPlaces.map((name,idx)=>{
+        const id=`exp-d${dayCount}-${idx}`;
+        const safeN=name.replace(/'/g,'\u2019').replace(/"/g,'&quot;');
+        return `<button class="exp-micro" id="${id}" onclick="toggleExpCart('${id}','${safeN}',0,'📍')">${addICO}${safeN}</button>`;
+      }).join('');
 
-      const momentsHTML=hasMoments?allMoments.map(m=>`
+      const hotelLbl={es:'Hotel',en:'Hotel',fr:'Hôtel'}[lang]||'Hotel';
+      const dayLbl={es:'Día',en:'Day',fr:'Jour'}[lang];
+      const hId=`hotel-d${dayCount}`,aId=`airbnb-d${dayCount}`;
+      const gemLabel={es:'Fuera de ruta',en:'Hidden gem',fr:'Hors des sentiers'}[lang];
+      const safeTitle=title.replace(/'/g,'\u2019');
+
+      const momentsHTML=hasMoments?[
+        {cls:'moment-m',svg:SVG.sun,lbl:ml[0],txt:morn},
+        {cls:'moment-a',svg:SVG.aft,lbl:ml[1],txt:aftn},
+        {cls:'moment-e',svg:SVG.moon,lbl:ml[2],txt:evng},
+      ].filter(m=>m.txt).map(m=>`
         <div class="moment ${m.cls}">
-          <div class="moment-time">
-            <div class="moment-dot">${m.svg}</div>
-            <div class="moment-label">${m.label}</div>
-          </div>
-          <div class="moment-body">
-            <div class="moment-text">${m.text}</div>
-          </div>
+          <div class="moment-time"><div class="moment-dot">${m.svg}</div><div class="moment-label">${m.lbl}</div></div>
+          <div class="moment-body"><div class="moment-text">${m.txt}</div></div>
         </div>`).join('')
-      :`<div style="padding:1.1rem 1.4rem;font-size:.9rem;line-height:1.9;color:var(--ink2)"><p>${fallbackText}</p></div>`;
+      :`<div style="padding:1.2rem 1.6rem;font-family:var(--font-prose);font-size:1rem;line-height:1.9;color:var(--ink2)"><p>${fallback}</p></div>`;
 
-      const expBtnsAll = allDayExpBtns(allMoments, dayCount);
-      const hotelLabel = lang==='fr'?'Hôtel':lang==='en'?'Hotel':'Hotel';
-      const airbnbLabel = 'Airbnb';
-      const hotelId = `hotel-day-${dayCount}`;
-      const airbnbId = `airbnb-day-${dayCount}`;
-
-      html+=`<div class="day-card" id="${dayId}">
+      html+=`<div class="day-card" id="day-${dayCount}">
         <div class="day-header">
           <div class="day-num-col">
             <div class="day-num-big">${dayCount}</div>
@@ -1752,34 +1728,33 @@ function parseTimeline(text,dest,origin){
           </div>
         </div>
         <div class="day-moments">${momentsHTML}</div>
-        ${gemRaw?`<div class="day-gem">
-          <div class="day-gem-ico">${gemSVG}</div>
-          <div class="day-gem-txt"><strong>${{es:'Fuera de ruta',en:'Off the beaten path',fr:'Hors des sentiers'}[lang]||'Off the beaten path'}:</strong> ${gemRaw}</div>
+        ${gemText?`<div class="day-gem">
+          <div class="day-gem-ico">${SVG.gem}</div>
+          <div class="day-gem-txt"><strong>${gemLabel}:</strong> ${gemText}</div>
         </div>`:''}
         <div class="day-cta">
           <div class="day-cta-links">
-            ${expBtnsAll}
-            <button class="exp-micro" id="${hotelId}" onclick="toggleExpCart('${hotelId}','🏨 ${hotelLabel} — ${lang==='fr'?'Jour':lang==='en'?'Day':'Día'} ${dayCount}',0,'🏨')" style="background:linear-gradient(135deg,#F0FDF4,#DCFCE7);border-color:#BBF7D0;color:#065F46">🏨 ${hotelLabel}</button>
-            <button class="exp-micro" id="${airbnbId}" onclick="toggleExpCart('${airbnbId}','🏠 Airbnb — ${lang==='fr'?'Jour':lang==='en'?'Day':'Día'} ${dayCount}',0,'🏠')" style="background:linear-gradient(135deg,#FFF1F2,#FFE4E6);border-color:#FECDD3;color:#BE123C">🏠 ${airbnbLabel}</button>
+            ${expBtnsHTML}
+            <button class="exp-micro" id="${hId}" onclick="toggleExpCart('${hId}','🏨 ${hotelLbl} — ${dayLbl} ${dayCount}',0,'🏨')" style="background:linear-gradient(135deg,#F0FDF4,#DCFCE7);border-color:#BBF7D0;color:#065F46">🏨 ${hotelLbl}</button>
+            <button class="exp-micro" id="${aId}" onclick="toggleExpCart('${aId}','🏠 Airbnb — ${dayLbl} ${dayCount}',0,'🏠')" style="background:linear-gradient(135deg,#FFF1F2,#FFE4E6);border-color:#FECDD3;color:#BE123C">🏠 Airbnb</button>
           </div>
-          <button class="btn-add-day" id="addbtn-${dayCount}" onclick="toggleDayCart(${dayCount},'${title.replace(/'/g,'\u0027')}')">
+          <button class="btn-add-day" id="addbtn-${dayCount}" onclick="toggleDayCart(${dayCount},'${safeTitle}')">
             ${t('addDayBtn')}
           </button>
         </div>
       </div>`;
     }
-    else if(/^#{1,3}\s*(Consejo|Tips?|Avant|Practical|Pratique)/i.test(part)){
-      const content=parts[i+1]&&!parts[i+1].startsWith('#')?parts[i+1].trim():'';
-      if(content)i++;
-      tipsHTML=parseTips(content);
+    else if(/^#{1,3}\s*(Consejo|Tip|Avant|Practical|Pratique|Conseil|Lo que|What|Ce que)/i.test(part)){
+      const tipContent=parts[i+1]&&!parts[i+1].startsWith('#')?parts[i+1].trim():'';
+      if(tipContent)i++;
+      if(tipContent)tipsHTML=parseTips(tipContent);
     }
     else if(dayCount===0&&!part.startsWith('#')){
-      introHTML=part.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+      introHTML=_renderText(part);
     }
   }
   return{html,tipsHTML,introHTML};
 }
-
 function toggleDayCart(dayNum,title){
   const id=`day-${dayNum}`;
   const btn=document.getElementById(`addbtn-${dayNum}`);
