@@ -127,14 +127,25 @@ textarea{resize:none;height:56px;font-size:.83rem}
 .day-gem-txt{font-size:.8rem;color:#065F46;line-height:1.6;font-style:italic}
 .day-gem-txt strong{font-style:normal;font-weight:700;color:#064E3B}
 /* Day CTA — single clean action */
-.day-cta{padding:.8rem 1.4rem;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:#FAFAFA}
-.day-cta-links{display:flex;gap:.5rem}
-.dql{display:inline-flex;align-items:center;gap:.3rem;padding:.3rem .75rem;border-radius:100px;font-size:.68rem;font-weight:700;text-decoration:none;border:1.5px solid var(--border);color:var(--ink2);background:#fff;transition:all .15s;white-space:nowrap}
-.dql:hover{border-color:var(--ink);color:var(--ink)}
+.day-cta{padding:.65rem 1.4rem .85rem;border-top:1px solid var(--border);background:#FAFAFA}
+.day-cta-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:.5rem}
+.day-cta-links{display:flex;gap:.4rem;flex-wrap:wrap}
+.dql{display:inline-flex;align-items:center;gap:.3rem;padding:.28rem .7rem;border-radius:100px;font-size:.67rem;font-weight:700;text-decoration:none;border:1.5px solid var(--border);color:var(--ink2);background:#fff;transition:all .15s;white-space:nowrap}
+.dql:hover{border-color:var(--teal-dark);color:var(--teal-dark)}
 .dql svg{width:11px;height:11px;fill:none;stroke:currentColor;stroke-width:2.2;flex-shrink:0}
-.btn-add-day{display:inline-flex;align-items:center;gap:.35rem;padding:.38rem .95rem;border-radius:100px;border:2px solid var(--teal-dark);background:transparent;color:var(--teal-dark);font-size:.7rem;font-weight:700;cursor:pointer;transition:all .18s;white-space:nowrap}
-.btn-add-day:hover{background:var(--teal-dark);color:#fff}
-.btn-add-day.added{background:var(--teal-dark);color:#fff}
+.btn-add-day{display:inline-flex;align-items:center;gap:.35rem;padding:.3rem .85rem;border-radius:100px;border:1.5px solid var(--teal-dark);background:transparent;color:var(--teal-dark);font-size:.67rem;font-weight:700;cursor:pointer;transition:all .18s;white-space:nowrap}
+.btn-add-day:hover,.btn-add-day.added{background:var(--teal-dark);color:#fff}
+.day-items{display:flex;flex-wrap:wrap;gap:.38rem}
+.day-item{display:inline-flex;align-items:center;border-radius:9px;overflow:hidden;border:1.5px solid var(--border);background:#fff;transition:border-color .15s;max-width:240px}
+.day-item:hover{border-color:var(--teal-dark)}
+.day-item-ico{width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:.8rem;background:#F1F5F9;flex-shrink:0}
+.day-item-name{font-size:.68rem;font-weight:600;color:var(--ink);padding:0 .3rem;line-height:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:130px}
+.day-item-price{font-size:.61rem;color:var(--muted);padding-right:.3rem;white-space:nowrap}
+.day-item-add{display:flex;align-items:center;justify-content:center;width:26px;height:26px;background:transparent;border:none;border-left:1.5px solid var(--border);cursor:pointer;color:var(--teal-dark);transition:all .18s;flex-shrink:0}
+.day-item-add:hover{background:var(--teal-dark);color:#fff}
+.day-item-add svg{width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:2.8}
+.day-item.in-cart{border-color:var(--teal-dark);background:#F0FDFA}
+.day-item.in-cart .day-item-add{background:var(--teal-dark);color:#fff}
 
 /* Transport card (flight / train / car / ferry) */
 .transport-card{border-radius:20px;padding:1.5rem 1.8rem;margin-bottom:1.5rem;color:#fff}
@@ -824,6 +835,26 @@ function toggleExpCart(btnId, name, priceNum, ico){
   updateCartUI();
 }
 
+function toggleItemCart(id,name,price,ico){
+  const el=document.getElementById(id);
+  if(!el) return;
+  const btn=el.querySelector('.day-item-add');
+  const inCart=el.classList.contains('in-cart');
+  const addS='<svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>';
+  const chkS='<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>';
+  if(inCart){
+    el.classList.remove('in-cart');
+    if(btn) btn.innerHTML=addS;
+    cart=cart.filter(i=>i.id!==id);
+  } else {
+    el.classList.add('in-cart');
+    if(btn) btn.innerHTML=chkS;
+    const priceNum=price?parseFloat(price.replace(/[^0-9.]/g,''))||0:0;
+    cart.push({id,name,price:price||'',priceNum,ico:ico||'📍'});
+  }
+  updateCartUI();
+}
+
 function shareTrip(){
   const dest=document.getElementById('dest').value.trim();
   const msg={es:`🌍 Mi plan de viaje a ${dest} — Travel Studio`,en:`🌍 My trip plan to ${dest} — Travel Studio`,fr:`🌍 Mon plan pour ${dest} — Travel Studio`}[lang];
@@ -1229,56 +1260,74 @@ function parseTimeline(text,dest,origin){
       const dayId=`day-${dayCount}`;
 
       // Extract named experiences from text (bold phrases + capitalized names)
-      function extractExps(txt){
-        if(!txt) return [];
-        const found=new Set();
-        // Bold phrases: **Name** or *Name*
-        const boldRe=/\*{1,2}([^*\n]{4,40}?)\*{1,2}/g;
+      function detectItems(allTxt,dayN){
+        const items=[],seen=new Set();
+        function getPrice(ctx){
+          const pm=ctx.match(/[~\u2248]?\s*\u20ac\s*(\d[\d.,]*(?:\/\w+)?)/);
+          if(pm) return '\u20ac'+pm[1];
+          if(/gratuit|free|gratis/i.test(ctx)) return {es:'Gratis',en:'Free',fr:'Gratuit'}[lang]||'Gratis';
+          return '';
+        }
+        function getIco(ctx,name){
+          const c=(ctx+name).toLowerCase();
+          if(/restaur|dinner|cena|lunch|almuerz|brasserie|bistrot|bar\b|tavern|trattoria|bodega/i.test(c)) return'\uD83C\uDF7D';
+          if(/hotel|hostal|airbnb|alojam|appartm/i.test(c)) return'\uD83C\uDFE8';
+          if(/mus\u00e9e|museum|museo|palais|palace|palacio|castle/i.test(c)) return'\uD83C\uDFDB';
+          if(/plage|beach|playa|cala|baignade|surf|snorkel/i.test(c)) return'\uD83C\uDFD6';
+          if(/randonn|hike|sentier|trail|camino/i.test(c)) return'\uD83E\uDD7E';
+          if(/march\u00e9|market|mercad/i.test(c)) return'\uD83D\uDED2';
+          if(/concert|spectacle|theatre|teatro|flamenco/i.test(c)) return'\uD83C\uDFAD';
+          if(/tour|crois|bateau|boat|cruise/i.test(c)) return'\uD83D\uDEA2';
+          if(/spa|massage|thermes|hammam/i.test(c)) return'\u2668\uFE0F';
+          return'\uD83D\uDCCD';
+        }
+        const boldRe=/\*{1,2}([^*\n]{3,45}?)\*{1,2}/g;
         let m;
-        while((m=boldRe.exec(txt))!==null){
-          const s=m[1].trim();
-          if(s.length>3&&s.length<42&&!/^(Mañana|Tarde|Noche|Morning|Afternoon|Evening|Matin|Après)/i.test(s))found.add(s);
+        while((m=boldRe.exec(allTxt))!==null){
+          const name=m[1].trim();
+          if(name.length<3||name.length>50||seen.has(name.toLowerCase())) continue;
+          if(/^(ma\u00f1ana|tarde|noche|morning|afternoon|evening|matin|apr\u00e8s|jour|day|d\u00eda)/i.test(name)) continue;
+          seen.add(name.toLowerCase());
+          const ctx=allTxt.slice(Math.max(0,m.index-60),m.index+name.length+80);
+          items.push({id:`item-${dayN}-${items.length}`,name,ico:getIco(ctx,name),price:getPrice(ctx)});
         }
-        // Capitalized multi-word nouns (e.g. "Palais Royal", "Mercado de San Miguel")
-        const capRe=/([A-ZÁÉÍÓÚÀÂÄÈÊËÎÏÔÙÛÜÑ][a-záéíóúàâäèêëîïôùûüñA-ZÁÉÍÓÚÀÂÄÈÊËÎÏÔÙÛÜÑ]+(?:\s+(?:de|del|du|des|van|von|di|di|le|la|el|los|las|the|of|da|das|dos)?\s*[A-ZÁÉÍÓÚÀÂÄÈÊËÎÏÔÙÛÜÑ][a-záéíóúàâäèêëîïôùûüñA-ZÁÉÍÓÚÀÂÄÈÊËÎÏÔÙÛÜÑ]+){1,4})/g;
-        while((m=capRe.exec(txt))!==null){
-          const s=m[1].trim();
-          if(s.length>5&&s.length<50&&!found.has(s)&&found.size<8
-            &&!/^(Después|Luego|Antes|Durante|También|Aunque|Además|Visita|Toma|Sube|Baja|Entra|Sal|Come|Cena|Desayuna|En|La|El|Los|Las|Un|Una|Para|Con|Por|Sin|Al|Del|Desde|Hasta|Si|No|Its|The|This|That|From|Take|Visit|Go|Walk|Head)/i.test(s)){
-            found.add(s);
-          }
+        const capRe=/\b([A-Z\u00C0-\u00D6\u00D8-\u00DE][a-z\u00C0-\u00FF]+(?:\s+(?:de|del|du|des|di|van|le|la|el|los|las|the|i|y)?\s*[A-Z\u00C0-\u00D6\u00D8-\u00DE][a-z\u00C0-\u00FF]+){1,3})\b/g;
+        while((m=capRe.exec(allTxt))!==null&&items.length<8){
+          const name=m[1].trim();
+          if(name.length<5||name.length>50||seen.has(name.toLowerCase())) continue;
+          if(/^(Despu|Luego|Antes|Durante|Tambi|Adem|Visita|Toma|Sube|Come|Cena|En|La|El|Los|Las|Un|Para|Con|Por|Al|Del|Si|No|The|This|Take|Visit|Head|Walk|From|After|Before|Once|Then|Next)/i.test(name)) continue;
+          seen.add(name.toLowerCase());
+          const ctx=allTxt.slice(Math.max(0,m.index-40),m.index+name.length+60);
+          items.push({id:`item-${dayN}-${items.length}`,name,ico:getIco(ctx,name),price:getPrice(ctx)});
         }
-        return [...found].slice(0,5);
+        return items.slice(0,8);
       }
-
-      const addICO='<svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>';
-      const checkICO='<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>';
-
-      function expBtnsHTML(txt, dayN, momentKey){
-        const exps=extractExps(txt);
-        if(!exps.length) return '';
-        const btns=exps.map((name,i)=>{
-          const safeN=name.replace(/'/g,'\u0027').replace(/"/g,'&quot;');
-          const id=`exp-${dayN}-${momentKey}-${i}`;
-          return `<button class="exp-micro" id="${id}" onclick="toggleExpCart('${id}','${safeN}',0,'🎯')">${addICO}${name}</button>`;
-        }).join('');
-        return `<div class="moment-exp-btns">${btns}</div>`;
+      const allDayText=[morn,aftn,evng,gemRaw].filter(Boolean).join(' ');
+      const dayItems=detectItems(allDayText,dayCount);
+      const addSVG='<svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>';
+      const chkSVG='<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>';
+      function itemChipsHTML(items){
+        if(!items.length) return '';
+        const lbl={es:'A\u00f1adir',en:'Add',fr:'Ajouter'}[lang]||'A\u00f1adir';
+        return '<div class="day-items">'+items.map(it=>{
+          const safeN=it.name.replace(/'/g,'\u0027').replace(/"/g,'&quot;');
+          const safeP=(it.price||'').replace(/'/g,'\u0027');
+          return `<div class="day-item" id="${it.id}">
+            <div class="day-item-ico">${it.ico}</div>
+            <div class="day-item-name">${it.name}</div>
+            ${it.price?`<div class="day-item-price">${it.price}</div>`:''}
+            <button class="day-item-add" onclick="toggleItemCart('${it.id}','${safeN}','${safeP}','${it.ico}')" title="${lbl}">${addSVG}</button>
+          </div>`;
+        }).join('')+'</div>';
       }
-
       const momentsHTML=hasMoments?[
-        {cls:'moment-m',svg:sunSVG, label:ml[0], text:morn, key:'m'},
-        {cls:'moment-a',svg:aftSVG, label:ml[1], text:aftn, key:'a'},
-        {cls:'moment-e',svg:moonSVG,label:ml[2], text:evng, key:'e'},
+        {cls:'moment-m',svg:sunSVG,label:ml[0],text:morn},
+        {cls:'moment-a',svg:aftSVG,label:ml[1],text:aftn},
+        {cls:'moment-e',svg:moonSVG,label:ml[2],text:evng},
       ].filter(m=>m.text).map(m=>`
         <div class="moment ${m.cls}">
-          <div class="moment-time">
-            <div class="moment-dot">${m.svg}</div>
-            <div class="moment-label">${m.label}</div>
-          </div>
-          <div class="moment-body">
-            <div class="moment-text">${m.text}</div>
-            ${expBtnsHTML(m.text, dayCount, m.key)}
-          </div>
+          <div class="moment-time"><div class="moment-dot">${m.svg}</div><div class="moment-label">${m.label}</div></div>
+          <div class="moment-body"><div class="moment-text">${m.text}</div></div>
         </div>`).join('')
       :`<div style="padding:1rem 1.4rem;font-size:.87rem;line-height:1.8;color:var(--ink2)"><p>${fallbackText}</p></div>`;
 
@@ -1298,13 +1347,16 @@ function parseTimeline(text,dest,origin){
           <div class="day-gem-txt"><strong>${{es:'Fuera de ruta',en:'Off the beaten path',fr:'Hors des sentiers'}[lang]||'Off the beaten path'}:</strong> ${gemRaw}</div>
         </div>`:''}
         <div class="day-cta">
-          <div class="day-cta-links">
-            ${dayCount===1?`<a class="dql" href="${affUrl('flight',dest,origin)}" target="_blank">${flightSVG} ${lang==='fr'?'Vols':lang==='en'?'Flights':'Vuelos'}</a>`:''}
-            <a class="dql" href="${affUrl('hotel',dest,'')}" target="_blank">${hotelSVG} ${lang==='fr'?'Hôtels':lang==='en'?'Hotels':'Hoteles'}</a>
+          <div class="day-cta-top">
+            <div class="day-cta-links">
+              ${dayCount===1?`<a class="dql" href="${affUrl('flight',dest,origin)}" target="_blank">${flightSVG} ${lang==='fr'?'Vols':lang==='en'?'Flights':'Vuelos'}</a>`:''}
+              <a class="dql" href="${affUrl('hotel',dest,'')}" target="_blank">${hotelSVG} ${lang==='fr'?'Hôtels':lang==='en'?'Hotels':'Hoteles'}</a>
+            </div>
+            <button class="btn-add-day" id="addbtn-${dayCount}" onclick="toggleDayCart(${dayCount},'${title.replace(/'/g,'\u0027')}')">
+              ${t('addDayBtn')}
+            </button>
           </div>
-          <button class="btn-add-day" id="addbtn-${dayCount}" onclick="toggleDayCart(${dayCount},'${title.replace(/'/g,'\u0027')}')">
-            ${t('addDayBtn')}
-          </button>
+          ${itemChipsHTML(dayItems)}
         </div>
       </div>`;
     }
