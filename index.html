@@ -1120,13 +1120,11 @@ function parseTimeline(text,dest,origin){
       const mKeys={es:['mañana','tarde','noche'],en:['morning','afternoon','evening'],fr:['matin','après-midi','soir']};
       const mk=mKeys[lang]||mKeys.es;
       // Also extract 🔍 gem line
-      const gemMatch=content.match(/🔍[^
-]+/);
+      const gemMatch=content.match(/🔍[^\n]+/);
       const gemRaw=gemMatch?gemMatch[0].replace(/^🔍\s*\*?[^:*]+\*?:\s*/i,'').replace(/\*\*?(.+?)\*\*?/g,'<strong>$1</strong>').trim():'';
 
       // Split content into moment sections
-      const cleanContent=content.replace(/\[BOOK:[^\]]+\]/g,'').replace(/🔍[^
-]*/g,'').trim();
+      const cleanContent=content.replace(/\[BOOK:[^\]]+\]/g,'').replace(/🔍[^\n]*/g,'').trim();
       const mornRE=new RegExp(`\\*{1,2}(${mk[0]})[^:]*:\\*{0,2}\\s*`,'i');
       const aftnRE=new RegExp(`\\*{1,2}(${mk[1]})[^:]*:\\*{0,2}\\s*`,'i');
       const evRE  =new RegExp(`\\*{1,2}(${mk[2]})[^:]*:\\*{0,2}\\s*`,'i');
@@ -1135,17 +1133,14 @@ function parseTimeline(text,dest,origin){
         const afterStart=text.slice(sm).replace(startRE,'');
         let end=afterStart.length;
         for(const re of endREs){const m=afterStart.search(re);if(m>0&&m<end)end=m;}
-        return afterStart.slice(0,end).trim().replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/
-/g,' ');
+        return afterStart.slice(0,end).trim().replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,' ');
       }
       const morn=extractBlock(cleanContent,mornRE,[aftnRE,evRE]);
       const aftn=extractBlock(cleanContent,aftnRE,[evRE,mornRE]);
       const evng=extractBlock(cleanContent,evRE,[mornRE,aftnRE]);
       // Fallback: if no moment markers, show as single block
       const hasMoments=morn||aftn||evng;
-      const fallbackText=hasMoments?'':cleanContent.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/
-{2,}/g,'</p><p>').replace(/
-/g,'<br/>');
+      const fallbackText=hasMoments?'':cleanContent.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\n{2,}/g,'</p><p>').replace(/\n/g,'<br/>');
 
       // SVG icons
       const sunSVG='<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>';
