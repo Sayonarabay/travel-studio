@@ -142,42 +142,15 @@ textarea{resize:none;height:56px;font-size:.83rem}
 .day-gem-ico svg{width:12px;height:12px;fill:none;stroke:#fff;stroke-width:2.2}
 .day-gem-txt{font-size:.8rem;color:#065F46;line-height:1.6;font-style:italic}
 .day-gem-txt strong{font-style:normal;font-weight:700;color:#064E3B}
-/* Day CTA — improved with activity type buttons */
-.day-cta{padding:.9rem 1.4rem;border-top:1px solid var(--border);background:linear-gradient(90deg,#F8FAFC,#fff)}
-.day-cta-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:.6rem}
-.day-cta-links{display:flex;gap:.4rem;flex-wrap:wrap}
+/* Day CTA */
+.day-cta{padding:.8rem 1.4rem;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:#FAFAFA}
+.day-cta-links{display:flex;gap:.5rem}
 .dql{display:inline-flex;align-items:center;gap:.3rem;padding:.3rem .75rem;border-radius:100px;font-size:.68rem;font-weight:700;text-decoration:none;border:1.5px solid var(--border);color:var(--ink2);background:#fff;transition:all .15s;white-space:nowrap}
 .dql:hover{border-color:var(--ink);color:var(--ink)}
 .dql svg{width:11px;height:11px;fill:none;stroke:currentColor;stroke-width:2.2;flex-shrink:0}
 .btn-add-day{display:inline-flex;align-items:center;gap:.35rem;padding:.38rem .95rem;border-radius:100px;border:2px solid var(--teal-dark);background:transparent;color:var(--teal-dark);font-size:.7rem;font-weight:700;cursor:pointer;transition:all .18s;white-space:nowrap}
 .btn-add-day:hover{background:var(--teal-dark);color:#fff}
 .btn-add-day.added{background:var(--teal-dark);color:#fff}
-/* Activity add buttons row */
-.day-add-row{display:flex;flex-wrap:wrap;gap:.35rem;padding-top:.6rem;border-top:1px solid var(--border)}
-.day-add-label{font-size:.58rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;width:100%;margin-bottom:.1rem}
-.btn-add-act{display:inline-flex;align-items:center;gap:.3rem;padding:.32rem .75rem;border-radius:100px;font-size:.67rem;font-weight:700;cursor:pointer;border:1.5px solid transparent;transition:all .18s;white-space:nowrap}
-.btn-add-act svg{width:9px;height:9px;fill:none;stroke:currentColor;stroke-width:2.5;flex-shrink:0}
-.btn-add-act.hotel{background:linear-gradient(135deg,#F0FDF4,#ECFDF5);border-color:#BBF7D0;color:#065F46}
-.btn-add-act.hotel:hover{background:linear-gradient(135deg,#065F46,#10B981);color:#fff;border-color:transparent}
-.btn-add-act.hotel.added{background:linear-gradient(135deg,#065F46,#10B981);color:#fff;border-color:transparent}
-.btn-add-act.airbnb{background:linear-gradient(135deg,#FFF1F2,#FFE4E6);border-color:#FECDD3;color:#BE123C}
-.btn-add-act.airbnb:hover{background:linear-gradient(135deg,#BE123C,#F43F5E);color:#fff;border-color:transparent}
-.btn-add-act.airbnb.added{background:linear-gradient(135deg,#BE123C,#F43F5E);color:#fff;border-color:transparent}
-.btn-add-act.car{background:linear-gradient(135deg,#EFF6FF,#DBEAFE);border-color:#BFDBFE;color:#1D4ED8}
-.btn-add-act.car:hover{background:linear-gradient(135deg,#1D4ED8,#3B82F6);color:#fff;border-color:transparent}
-.btn-add-act.car.added{background:linear-gradient(135deg,#1D4ED8,#3B82F6);color:#fff;border-color:transparent}
-.btn-add-act.train{background:linear-gradient(135deg,#F5F3FF,#EDE9FE);border-color:#DDD6FE;color:#5B21B6}
-.btn-add-act.train:hover{background:linear-gradient(135deg,#5B21B6,#7C3AED);color:#fff;border-color:transparent}
-.btn-add-act.train.added{background:linear-gradient(135deg,#5B21B6,#7C3AED);color:#fff;border-color:transparent}
-.btn-add-act.dinner{background:linear-gradient(135deg,#FFFBEB,#FEF3C7);border-color:#FDE68A;color:#B45309}
-.btn-add-act.dinner:hover{background:linear-gradient(135deg,#B45309,#D97706);color:#fff;border-color:transparent}
-.btn-add-act.dinner.added{background:linear-gradient(135deg,#B45309,#D97706);color:#fff;border-color:transparent}
-.btn-add-act.free{background:linear-gradient(135deg,#F0FDFA,#CCFBF1);border-color:#99F6E4;color:#0F766E}
-.btn-add-act.free:hover{background:linear-gradient(135deg,#0F766E,#14B8A6);color:#fff;border-color:transparent}
-.btn-add-act.free.added{background:linear-gradient(135deg,#0F766E,#14B8A6);color:#fff;border-color:transparent}
-.btn-add-act.rental{background:linear-gradient(135deg,#FDF4FF,#FAE8FF);border-color:#E9D5FF;color:#7E22CE}
-.btn-add-act.rental:hover{background:linear-gradient(135deg,#7E22CE,#A855F7);color:#fff;border-color:transparent}
-.btn-add-act.rental.added{background:linear-gradient(135deg,#7E22CE,#A855F7);color:#fff;border-color:transparent}
 
 /* Transport card (flight / train / car / ferry) */
 .transport-card{border-radius:20px;padding:1.5rem 1.8rem;margin-bottom:1.5rem;color:#fff}
@@ -464,7 +437,18 @@ textarea{resize:none;height:56px;font-size:.83rem}
 .m-pdf-btn:hover{background:var(--teal-dark);color:#fff}
 .m-pdf-btn svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:2}
 
-/* ── OpenStreetMap travel map ── */
+/* ── Verifiability: source badges & disclaimer ── */
+.verify-note{display:flex;align-items:flex-start;gap:.6rem;padding:.7rem 1rem;background:#FFFBEB;border:1.5px solid #FDE68A;border-radius:12px;margin-bottom:1.5rem;font-size:.72rem;color:#92400E;line-height:1.55}
+.verify-note strong{color:#78350F;font-weight:700}
+.verify-note-ico{font-size:1rem;flex-shrink:0;margin-top:.05rem}
+.src{display:inline-flex;align-items:center;gap:.2rem;font-size:.6rem;font-weight:700;padding:.1rem .4rem;border-radius:4px;vertical-align:middle;margin-left:.25rem;text-decoration:none;white-space:nowrap}
+.src-maps{background:#E8F5E9;color:#2E7D32;border:1px solid #A5D6A7}
+.src-wiki{background:#E3F2FD;color:#1565C0;border:1px solid #90CAF9}
+.src-official{background:#F3E5F5;color:#6A1B9A;border:1px solid #CE93D8}
+.src-booking{background:#E8EAF6;color:#283593;border:1px solid #9FA8DA}
+.src-ta{background:#FFF3E0;color:#E65100;border:1px solid #FFCC80}
+.unverified{border-left:3px solid #FCD34D;padding-left:.6rem;font-style:italic;color:var(--ink2)}
+.unverified::before{content:'⚠ ';font-style:normal;font-size:.7rem;color:#B45309}
 .map-section{margin-bottom:1.5rem}
 .map-section-hed{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;margin-bottom:.9rem;color:var(--ink);display:flex;align-items:center;gap:.5rem}
 .map-section-hed span{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;background:linear-gradient(135deg,var(--teal-dark),var(--teal));color:#fff;padding:.15rem .55rem;border-radius:100px}
@@ -678,6 +662,10 @@ textarea{resize:none;height:56px;font-size:.83rem}
     <div class="itin-intro" id="itinIntro" style="display:none"></div>
     <div id="flightCard"></div>
     <div id="mapSection"></div>
+    <div id="verifyDisclaimer" class="verify-note" style="display:none">
+      <div class="verify-note-ico">🔍</div>
+      <div class="verify-note-txt"></div>
+    </div>
     <div id="timeline"></div>
     <div id="tipsSection"></div>
     <div id="recapSection"></div>
@@ -1506,12 +1494,22 @@ function parseTimeline(text,dest,origin){
       // Parse moment blocks: **Mañana/Morning/Matin:** ... **Tarde/Afternoon/Après-midi:** ... **Noche/Evening/Soir:** ...
       const mKeys={es:['mañana','tarde','noche'],en:['morning','afternoon','evening'],fr:['matin','après-midi','soir']};
       const mk=mKeys[lang]||mKeys.es;
-      // Also extract 🔍 gem line
-      const gemMatch=content.match(/🔍[^\n]+/);
-      const gemRaw=gemMatch?gemMatch[0].replace(/^🔍\s*\*?[^:*]+\*?:\s*/i,'').replace(/\*\*?(.+?)\*\*?/g,'<strong>$1</strong>').trim():'';
-
-      // Split content into moment sections
+      // Strip BOOK tags, keep source tags for rendering
       const cleanContent=content.replace(/\[BOOK:[^\]]+\]/g,'').replace(/🔍[^\n]*/g,'').trim();
+
+      // Convert source tags to HTML badges
+      function renderSrcTags(txt){
+        return txt
+          .replace(/\[MAPS\]/g,'<span class="src src-maps">📍 Maps</span>')
+          .replace(/\[WIKI\]/g,'<span class="src src-wiki">📖 Wiki</span>')
+          .replace(/\[OFFICIAL\]/g,'<span class="src src-official">🌐 Official</span>')
+          .replace(/\[BOOKING\]/g,'<span class="src src-booking">🎟 Booking</span>')
+          .replace(/\[TA\]/g,'<span class="src src-ta">⭐ TripAdv.</span>');
+      }
+
+      // Also extract 🔍 gem line (after renderSrcTags is defined)
+      const gemMatch=content.match(/🔍[^\n]+/);
+      const gemRaw=gemMatch?renderSrcTags(gemMatch[0].replace(/^🔍\s*\*?[^:*]+\*?:\s*/i,'').replace(/\*\*?(.+?)\*\*?/g,'<strong>$1</strong>').trim()):'';
       const mornRE=new RegExp(`\\*{1,2}(${mk[0]})[^:]*:\\*{0,2}\\s*`,'i');
       const aftnRE=new RegExp(`\\*{1,2}(${mk[1]})[^:]*:\\*{0,2}\\s*`,'i');
       const evRE  =new RegExp(`\\*{1,2}(${mk[2]})[^:]*:\\*{0,2}\\s*`,'i');
@@ -1520,14 +1518,15 @@ function parseTimeline(text,dest,origin){
         const afterStart=text.slice(sm).replace(startRE,'');
         let end=afterStart.length;
         for(const re of endREs){const m=afterStart.search(re);if(m>0&&m<end)end=m;}
-        return afterStart.slice(0,end).trim().replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,' ');
+        const raw=afterStart.slice(0,end).trim().replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,' ');
+        return renderSrcTags(raw);
       }
       const morn=extractBlock(cleanContent,mornRE,[aftnRE,evRE]);
       const aftn=extractBlock(cleanContent,aftnRE,[evRE,mornRE]);
       const evng=extractBlock(cleanContent,evRE,[mornRE,aftnRE]);
       // Fallback: if no moment markers, show as single block
       const hasMoments=morn||aftn||evng;
-      const fallbackText=hasMoments?'':cleanContent.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\n{2,}/g,'</p><p>').replace(/\n/g,'<br/>');
+      const fallbackText=hasMoments?'':renderSrcTags(cleanContent.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\n{2,}/g,'</p><p>').replace(/\n/g,'<br/>'));
 
       // SVG icons
       const sunSVG='<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>';
@@ -1612,25 +1611,13 @@ function parseTimeline(text,dest,origin){
           <div class="day-gem-txt"><strong>${{es:'Fuera de ruta',en:'Off the beaten path',fr:'Hors des sentiers'}[lang]||'Off the beaten path'}:</strong> ${gemRaw}</div>
         </div>`:''}
         <div class="day-cta">
-          <div class="day-cta-top">
-            <div class="day-cta-links">
-              ${dayCount===1?`<a class="dql" href="${affUrl('flight',dest,origin)}" target="_blank">${flightSVG} ${lang==='fr'?'Vols':lang==='en'?'Flights':'Vuelos'}</a>`:''}
-              <a class="dql" href="${affUrl('hotel',dest,'')}" target="_blank">${hotelSVG} ${lang==='fr'?'Hôtels':lang==='en'?'Hotels':'Hoteles'}</a>
-            </div>
-            <button class="btn-add-day" id="addbtn-${dayCount}" onclick="toggleDayCart(${dayCount},'${title.replace(/'/g,'\u0027')}')">
-              ${t('addDayBtn')}
-            </button>
+          <div class="day-cta-links">
+            ${dayCount===1?`<a class="dql" href="${affUrl('flight',dest,origin)}" target="_blank">${flightSVG} ${lang==='fr'?'Vols':lang==='en'?'Flights':'Vuelos'}</a>`:''}
+            <a class="dql" href="${affUrl('hotel',dest,'')}" target="_blank">${hotelSVG} ${lang==='fr'?'Hôtels':lang==='en'?'Hotels':'Hoteles'}</a>
           </div>
-          <div class="day-add-row">
-            <div class="day-add-label">${{es:'Añadir a mi viaje →',en:'Add to my trip →',fr:'Ajouter au voyage →'}[lang]}</div>
-            <button class="btn-add-act hotel" id="act-hotel-${dayCount}" onclick="toggleActCart('act-hotel-${dayCount}','🏨 ${lang==='fr'?'Hôtel':lang==='en'?'Hotel':'Hotel'} — Día ${dayCount}','','🏨')">🏨 ${lang==='fr'?'Hôtel':lang==='en'?'Hotel':'Hotel'}</button>
-            <button class="btn-add-act airbnb" id="act-airbnb-${dayCount}" onclick="toggleActCart('act-airbnb-${dayCount}','🏠 Airbnb — Día ${dayCount}','','🏠')">🏠 Airbnb</button>
-            <button class="btn-add-act car" id="act-car-${dayCount}" onclick="toggleActCart('act-car-${dayCount}','🚗 ${lang==='fr'?'Voiture':lang==='en'?'Car':''} — Día ${dayCount}','','🚗')">🚗 ${lang==='fr'?'Voiture':lang==='en'?'Car':'Coche'}</button>
-            <button class="btn-add-act train" id="act-train-${dayCount}" onclick="toggleActCart('act-train-${dayCount}','🚂 ${lang==='fr'?'Train':lang==='en'?'Train':'Tren'} — Día ${dayCount}','','🚂')">🚂 ${lang==='fr'?'Train':lang==='en'?'Train':'Tren'}</button>
-            <button class="btn-add-act dinner" id="act-dinner-${dayCount}" onclick="toggleActCart('act-dinner-${dayCount}','🍽️ ${lang==='fr'?'Dîner':lang==='en'?'Dinner':'Cena'} — Día ${dayCount}','','🍽️')">🍽️ ${lang==='fr'?'Dîner':lang==='en'?'Dinner':'Cena'}</button>
-            <button class="btn-add-act free" id="act-free-${dayCount}" onclick="toggleActCart('act-free-${dayCount}','🎫 ${lang==='fr'?'Activité gratuite':lang==='en'?'Free activity':'Actividad gratis'} — Día ${dayCount}','','🎫')">🎫 ${lang==='fr'?'Gratuit':lang==='en'?'Free':'Gratis'}</button>
-            <button class="btn-add-act rental" id="act-rental-${dayCount}" onclick="toggleActCart('act-rental-${dayCount}','🚲 ${lang==='fr'?'Location':lang==='en'?'Rental':'Alquiler'} — Día ${dayCount}','','🚲')">🚲 ${lang==='fr'?'Location':lang==='en'?'Rental':'Alquiler'}</button>
-          </div>
+          <button class="btn-add-day" id="addbtn-${dayCount}" onclick="toggleDayCart(${dayCount},'${title.replace(/'/g,'\u0027')}')">
+            ${t('addDayBtn')}
+          </button>
         </div>
       </div>`;
     }
@@ -1651,17 +1638,6 @@ function toggleDayCart(dayNum,title){
   const btn=document.getElementById(`addbtn-${dayNum}`);
   const added=toggleCart(id,`${t('dayLabel')} ${dayNum}: ${title}`,'',0,'🗓️');
   if(btn){btn.textContent=added?t('addedDayBtn'):t('addDayBtn');btn.classList.toggle('added',added);}
-}
-
-function toggleActCart(btnId,label,price,ico){
-  const btn=document.getElementById(btnId);
-  if(!btn)return;
-  const added=toggleCart(btnId,label,price,0,ico);
-  btn.classList.toggle('added',added);
-  const checkMark=added?'✓ ':'';
-  // Keep the original emoji + text but prepend checkmark
-  const orig=btn.textContent.replace(/^✓\s*/,'');
-  btn.textContent=checkMark+orig;
 }
 
 // ═══════════════════════════════════
@@ -1771,10 +1747,21 @@ function renderResult(s){
   document.getElementById('btnSave').textContent=t('saveBtnLabel');
   document.getElementById('btnSave').classList.remove('added');
   tripHero.style.display='block';
-  // Intro
+  // Intro + disclaimer
   const intro=document.getElementById('itinIntro');
   if(s.introHTML){intro.innerHTML=s.introHTML;intro.style.display='block';}
   else intro.style.display='none';
+  // Verifiability disclaimer
+  const disc=document.getElementById('verifyDisclaimer');
+  if(disc){
+    const msg={
+      es:'<strong>Sobre el rigor de este plan:</strong> Los lugares, restaurantes y actividades mencionados son reales y verificables. Aun así, confirma siempre horarios, precios y disponibilidad antes de reservar — pueden cambiar.',
+      en:'<strong>About accuracy:</strong> The places, restaurants and activities mentioned are real and verifiable. Always confirm opening hours, prices and availability before booking — things change.',
+      fr:'<strong>Sur la fiabilité de ce plan :</strong> Les lieux, restaurants et activités mentionnés sont réels et vérifiables. Confirmez toujours les horaires, prix et disponibilités avant de réserver.',
+    };
+    disc.querySelector('.verify-note-txt').innerHTML=msg[lang]||msg.es;
+    disc.style.display='flex';
+  }
   // Content
   document.getElementById('flightCard').innerHTML=s.transportHTML||s.flightHTML||'';
   document.getElementById('mapSection').innerHTML='';
@@ -1919,26 +1906,40 @@ ${flexNote?'- '+flexNote:''}
 
 ${seasonContext?'SEASON: '+seasonContext:''}
 
+━━ VERIFIABILITY — THIS IS NON-NEGOTIABLE ━━
+Every specific place, restaurant, museum, experience or landmark you mention MUST be real and currently operating.
+After EACH place name, add a source tag in this exact format:
+  [MAPS] = verifiable on Google Maps / OpenStreetMap
+  [WIKI] = has a Wikipedia article
+  [OFFICIAL] = has an official website
+  [BOOKING] = bookable on GetYourGuide, Viator, or Booking
+  [TA] = listed on TripAdvisor with reviews
+
+Example of correct usage:
+  "Start at the **Museo Nacional del Prado**[MAPS][WIKI][OFFICIAL] — arrive before 10h to beat the queues."
+  "Dinner at **Sobrino de Botín**[MAPS][TA] (est. 1725, Guinness record oldest restaurant) — reserve ahead, ~€45pp."
+
+If you are not confident a specific place exists and operates today, DO NOT mention it by name.
+Write instead as a type of experience: "find a local vermouth bar in the Malasaña neighbourhood" — never invent a name.
+Horarios, precios y disponibilidad pueden cambiar — no escribas afirmaciones definitivas sobre horas exactas de apertura.
+
 ━━ TRANSPORT INTELLIGENCE ━━
 The traveller leaves from HOME in ${origin}, not from a hotel. Think carefully about the best way to GET THERE from ${origin} to ${dest}:
-
-- If distance < 600km and a good train exists (e.g. Paris→Amsterdam, Madrid→Barcelona, London→Paris): RECOMMEND TRAIN as primary option. It is often faster door-to-door, no airport hassle, city centre to city centre.
-- If driving makes sense (e.g. road trip, coastal route, countryside, <5h drive, ${isGroup||isFamily?'group shares cost':''}): RECOMMEND CAR as primary or secondary option.
+- If distance < 600km and a good train exists: RECOMMEND TRAIN. Faster door-to-door, no airport hassle.
+- If driving makes sense (road trip, coastal, countryside, <5h, ${isGroup||isFamily?'group shares cost':''}): RECOMMEND CAR.
 - If flight is the only realistic option (>800km, no good ground connection): recommend FLIGHT.
-- Never suggest starting activities from the origin city hotel — the traveller is going FROM HOME to the destination.
 
 Also think about LOCAL TRANSPORT at the destination:
-- City destination (Paris, Amsterdam, Tokyo...): metro/walk/bike. Suggest renting a bike or e-scooter if it fits the vibe.
-- Coastal / island destination: car rental or scooter rental can unlock access to hidden beaches.
-- Mountain / rural destination: car rental is often essential.
-- Road trip across a region: car is the whole point.
+- City: metro/walk/bike. Suggest renting a bike or e-scooter if it fits.
+- Coastal / island: car rental or scooter.
+- Mountain / rural: car often essential.
 
 ━━ PRICE RULES ━━
 - All prices in euros, realistic for ${dest} in ${mes||'current season'}
 - Accommodation: price per room/night
 - Experiences: price per person
 - Restaurants: total bill for ${pax} people
-- Transport to destination: total for ${pax} ${pax===1?'person':'people'} (one way or return as appropriate)
+- Transport: total for ${pax} ${pax===1?'person':'people'}
 
 DO NOT use [BOOK:...] tags. No inline links.
 
@@ -1948,41 +1949,41 @@ TRIP_NAME: [creative 3-5 word name in ${wl} for ${tStr} going to ${dest}]
 [2-3 evocative opening lines about ${dest}${mes?' in '+mes:''} for ${tStr} — no heading]
 
 ### TRANSPORT_INFO
-MODE: [flight|train|car|ferry — the BEST option for this specific journey]
+MODE: [flight|train|car|ferry]
 ROUTE: ${origin} → ${dest}
-MODE_REASON: [1 sentence: why this is the best way to get there — be specific about time, price, convenience]
-OUTBOUND_DETAIL: [specific info: train name/operator OR flight duration OR drive time + route highlights]
-PRICE_RANGE: [realistic total for ${pax} ${pax===1?'person':'people'} round-trip/return]
-BOOK_TIP: [1 sentence on when/how to book for best price]
-RETURN_DETAIL: [return tip — timing, operator, any difference vs outbound]
-LOCAL_TRANSPORT: [what to use once AT the destination: metro+walk? rent a bike? rent a car/scooter? why?]
-LOCAL_TRANSPORT_COST: [realistic cost for local transport for ${pax} for the ${days} days]
-CAR_RENTAL_NEEDED: [If car needed at destination: pickup location, category (compact/SUV/etc), estimated total for ${days} days, best agency for ${dest}, AND return logistics (where/when to drop off to not miss departure). Write exactly "no" if car is not needed.]
+MODE_REASON: [1 sentence: why this is the best option — specific about time, price, convenience]
+OUTBOUND_DETAIL: [specific: train operator/name OR flight duration OR drive time + route]
+PRICE_RANGE: [realistic total for ${pax} ${pax===1?'person':'people'} round-trip]
+BOOK_TIP: [when/how to book for best price]
+RETURN_DETAIL: [return tip]
+LOCAL_TRANSPORT: [what to use once AT the destination and why]
+LOCAL_TRANSPORT_COST: [realistic cost for local transport for ${pax} for ${days} days]
+CAR_RENTAL_NEEDED: [If car needed: pickup, category, estimated total, best agency, return logistics. Write "no" if not needed.]
 ### END_TRANSPORT
 
 ### ${dw} 1 — [Evocative title for ${tStr}]
-**${mw}:** [specific, adapted to ${tStr}]
-**${aw}:** [specific, mix paid/free, adapted to ${tStr}]
-**${ew}:** [restaurant or activity with name, adapted to ${tStr}, approx. cost for ${pax}]
-🔍 *${ow}:* [genuine local gem relevant for ${tStr}]
+**${mw}:** [specific, with real place names + source tags]
+**${aw}:** [specific, mix paid/free, with real place names + source tags]
+**${ew}:** [restaurant with name + source tags, ~cost for ${pax}]
+🔍 *${ow}:* [genuine local gem — real place + source tag]
 
 [repeat for all ${days} days — each day adapted to the traveler profile, NO activities in origin city]
 
 ### ${lang==='fr'?'Conseils pratiques':lang==='en'?'Practical tips':'Consejos prácticos'}
-- [6 insider tips. ZERO generic advice ('book early','bring sunscreen','stay hydrated'). Each must be concrete and specific to ${dest}. Required: (1) end-of-trip logistics — if car rental: fuel policy, where/when to return it before departure; if train: validation rules, pass tips; (2) a local rule or custom tourists constantly break in ${dest}; (3) a specific place + specific time to AVOID and why; (4) cash vs card reality in ${dest} — name specific areas or types of shops; (5) one tip tailored specifically to ${tStr}; (6) one counterintuitive fact about ${dest} that changes how you plan the trip. Name real places, real rules, real exceptions.]
+- [6 insider tips. ZERO generic advice. Each concrete and specific to ${dest}. No source tags needed here — but all named places must be real.]
 
 ### RECAP
-TRANSPORT_COST: [total transport to/from destination for ${pax}, e.g. "€X–Y total for ${pax} by train/flight/car"]
-LOCAL_TRANSPORT_COST: [local transport at destination for ${pax} for ${days} days]
+TRANSPORT_COST: [total transport to/from for ${pax}]
+LOCAL_TRANSPORT_COST: [local transport for ${pax} for ${days} days]
 HOTEL_COST: [€X–Y/night × ${days-1} nights = ~€Z total]
-EXP_COST: [€X–Y/person × ${pax} = ~€Z for main experiences]
+EXP_COST: [€X–Y/person × ${pax} = ~€Z]
 FOOD_COST: [~€Z total, ${days} days × €X–Y/person × ${pax}]
 TOTAL_ESTIMATE: [~€X–€Y total for ${pax} ${pax===1?'person':'people'}]
 BUDGET_MATCH: [1 honest sentence: does it fit the ${bStr} budget?]
 DAY_RECAP: [one line per day: "${dw} 1: X + Y + Z — ~€N/person"]
-ACCOMMODATION: [3 options for ${bStr} budget + ${tStr}: name, neighbourhood, €X–Y/night, why it suits ${tStr}]
+ACCOMMODATION: [3 real, named, currently-operating options for ${bStr} + ${tStr}: name[MAPS], neighbourhood, €X–Y/night, why it suits ${tStr}]
 
-Max 900 words. Write entirely in ${wl}.`;
+Max 1000 words. Write entirely in ${wl}.`;
 
   function setProgress(pct){
     const bar=document.getElementById('streamBar');
@@ -2065,37 +2066,25 @@ Max 900 words. Write entirely in ${wl}.`;
     <div class="full-recap-card" id="fullRecapCard">
       <div class="full-recap-hero">
         <div>
-          <div style="font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.45);margin-bottom:.35rem">${{es:'RESUMEN COMPLETO DEL VIAJE',en:'FULL TRIP SUMMARY',fr:'RÉCAPITULATIF COMPLET'}[lang]}</div>
-          <div class="full-recap-title">${tripName||dest}</div>
-          <div style="font-size:.73rem;color:rgba(255,255,255,.5);margin-top:.3rem">${dfv?`${fmtD(dfv)} → ${fmtD(dtv)}`:''} · ${tStr}</div>
+          <div style="font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.45);margin-bottom:.35rem">${{es:'TOTAL ESTIMADO DEL VIAJE',en:'ESTIMATED TRIP TOTAL',fr:'TOTAL ESTIMÉ DU VOYAGE'}[lang]}</div>
+          <div class="full-recap-total" id="fullRecapTotal">&nbsp;</div>
+          <div style="font-size:.7rem;color:rgba(255,255,255,.4);margin-top:.25rem">${tStr} · ${days} ${lang==='fr'?'jours':lang==='en'?'days':'días'}</div>
         </div>
-        <div>
-          <div class="full-recap-total-label">${{es:'TOTAL ESTIMADO',en:'ESTIMATED TOTAL',fr:'TOTAL ESTIMÉ'}[lang]}</div>
-          <div class="full-recap-total" id="fullRecapTotal">—</div>
+        <div style="display:flex;flex-direction:column;gap:.5rem;align-items:flex-end">
+          <button class="trip-action-btn" onclick="downloadPDF()">📄 PDF</button>
         </div>
       </div>
-      <div class="full-recap-body">
-        <div class="full-recap-grid" id="fullRecapGrid">
-          <div class="frg-item"><div class="frg-ico fl">✈️</div><div class="frg-body"><div class="frg-label">${{es:'Vuelos',en:'Flights',fr:'Vols'}[lang]}</div><div class="frg-val" id="frg-fl">—</div></div></div>
-          <div class="frg-item"><div class="frg-ico ho">🏨</div><div class="frg-body"><div class="frg-label">${{es:'Alojamiento',en:'Accommodation',fr:'Hébergement'}[lang]}</div><div class="frg-val" id="frg-ho">—</div></div></div>
-          <div class="frg-item"><div class="frg-ico tr">🚂</div><div class="frg-body"><div class="frg-label">${{es:'Trenes / Transporte',en:'Trains / Transport',fr:'Trains / Transport'}[lang]}</div><div class="frg-val" id="frg-tr">—</div></div></div>
-          <div class="frg-item"><div class="frg-ico ca">🚗</div><div class="frg-body"><div class="frg-label">${{es:'Coche / Alquiler',en:'Car / Rental',fr:'Voiture / Location'}[lang]}</div><div class="frg-val" id="frg-ca">—</div></div></div>
-          <div class="frg-item"><div class="frg-ico ex">🎟️</div><div class="frg-body"><div class="frg-label">${{es:'Actividades',en:'Activities',fr:'Activités'}[lang]}</div><div class="frg-val" id="frg-ex">—</div></div></div>
-          <div class="frg-item"><div class="frg-ico fo">🍽️</div><div class="frg-body"><div class="frg-label">${{es:'Comidas y cenas',en:'Food & dinners',fr:'Repas & dîners'}[lang]}</div><div class="frg-val" id="frg-fo">—</div></div></div>
+      <div class="full-recap-email-bar">
+        <div class="freb-left">
+          <div class="freb-ico">📧</div>
+          <div class="freb-txt">
+            <strong>${{es:'Recibir este plan por email',en:'Get this plan by email',fr:'Recevoir ce plan par email'}[lang]}</strong>
+            <span>${{es:'Itinerario completo · PDF descargable',en:'Full itinerary · Downloadable PDF',fr:'Itinéraire complet · PDF téléchargeable'}[lang]}</span>
+          </div>
         </div>
-        <div class="full-recap-email-bar">
-          <div class="freb-left">
-            <div class="freb-ico">📧</div>
-            <div class="freb-txt">
-              <strong>${{es:'Recibir este plan por email',en:'Get this plan by email',fr:'Recevoir ce plan par email'}[lang]}</strong>
-              <span>${{es:'Itinerario · PDF · Alertas de precio',en:'Itinerary · PDF · Price alerts',fr:'Itinéraire · PDF · Alertes prix'}[lang]}</span>
-            </div>
-          </div>
-          <div class="freb-right">
-            <input type="email" id="fullRecapEmail" class="freb-input" placeholder="${{es:'tu@email.com',en:'you@email.com',fr:'toi@email.com'}[lang]}"/>
-            <button class="freb-btn" onclick="sendFullRecapEmail()">${{es:'Enviar →',en:'Send →',fr:'Envoyer →'}[lang]}</button>
-            <button class="freb-pdf" onclick="downloadPDF()">PDF ↓</button>
-          </div>
+        <div class="freb-right">
+          <input type="email" id="fullRecapEmail" class="freb-input" placeholder="${{es:'tu@email.com',en:'you@email.com',fr:'toi@email.com'}[lang]}"/>
+          <button class="freb-btn" onclick="sendFullRecapEmail()">${{es:'Enviar →',en:'Send →',fr:'Envoyer →'}[lang]}</button>
         </div>
       </div>
     </div>`;
@@ -2106,12 +2095,8 @@ Max 900 words. Write entirely in ${wl}.`;
 
     renderResult(currentTrip);
     setTimeout(()=>document.getElementById('resultSection').scrollIntoView({behavior:'smooth',block:'start'}),200);
-
-    // Initialize OpenStreetMap
-    setTimeout(()=>initTravelMap(dest, days),400);
-
-    // Populate full recap grid from recapHTML data
-    setTimeout(()=>populateFullRecap(recapHTML),600);
+    // Populate recap totals
+    setTimeout(()=>populateFullRecap(recapHTML),500);
     setTimeout(()=>openMemoria({
       tripName:tripName,
       dest,
@@ -2668,88 +2653,6 @@ function _generatePDF() {
 
   const fn = (tN+'-'+dest).replace(/[^a-zA-Z0-9 ]/g,'').replace(/\s+/g,'-').toLowerCase();
   doc.save(fn+'.pdf');
-}
-
-// ═══════════════════════════════════
-// OPENSTREETMAP
-// ═══════════════════════════════════
-let mapInstance=null;
-function initTravelMap(dest,days){
-  const sec=document.getElementById('mapSection');
-  if(!sec)return;
-  // Only show if Leaflet is loadable
-  const label={es:'Mapa del viaje',en:'Travel map',fr:'Carte du voyage'}[lang]||'Mapa';
-  const badge={es:'OpenStreetMap',en:'OpenStreetMap',fr:'OpenStreetMap'}[lang];
-  sec.innerHTML=`<div class="map-section">
-    <div class="map-section-hed">🗺️ ${label} <span>${badge}</span></div>
-    <div id="travelMap"></div>
-    <div class="map-legend" id="mapLegend"></div>
-  </div>`;
-
-  // Load Leaflet CSS
-  if(!document.getElementById('leafletCSS')){
-    const lc=document.createElement('link');lc.id='leafletCSS';lc.rel='stylesheet';
-    lc.href='https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css';
-    document.head.appendChild(lc);
-  }
-  // Load Leaflet JS
-  if(window.L){_renderMap(dest,days);return;}
-  const ls=document.createElement('script');
-  ls.src='https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js';
-  ls.onload=()=>_renderMap(dest,days);
-  ls.onerror=()=>{sec.innerHTML='';};
-  document.head.appendChild(ls);
-}
-
-async function _renderMap(dest,days){
-  if(mapInstance){try{mapInstance.remove();}catch(e){}mapInstance=null;}
-  try{
-    // Geocode destination via Nominatim
-    const r=await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(dest)}&format=json&limit=1`);
-    const data=await r.json();
-    if(!data||!data[0])return;
-    const {lat,lon,display_name}=data[0];
-    const centerLat=parseFloat(lat),centerLon=parseFloat(lon);
-
-    const mapEl=document.getElementById('travelMap');
-    if(!mapEl)return;
-    mapInstance=L.map('travelMap',{zoomControl:true,scrollWheelZoom:false}).setView([centerLat,centerLon],12);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-      attribution:'© <a href="https://openstreetmap.org">OpenStreetMap</a>',
-      maxZoom:19
-    }).addTo(mapInstance);
-
-    // Main destination marker
-    const mainIcon=L.divIcon({className:'',html:`<div style="width:36px;height:36px;background:linear-gradient(135deg,#0F766E,#2DD4BF);border-radius:50% 50% 50% 0;transform:rotate(-45deg);border:3px solid #fff;box-shadow:0 3px 12px rgba(15,118,110,.4)"><div style="transform:rotate(45deg);color:#fff;font-size:13px;display:flex;align-items:center;justify-content:center;height:100%">📍</div></div>`,iconSize:[36,36],iconAnchor:[18,36]});
-    L.marker([centerLat,centerLon],{icon:mainIcon}).addTo(mapInstance)
-      .bindPopup(`<strong>${dest}</strong><br><small>${display_name.split(',').slice(0,2).join(',')}</small>`).openPopup();
-
-    // Extract day locations from timeline
-    const dayCards=document.querySelectorAll('.day-card');
-    const colors=['#F59E0B','#4338CA','#BE123C','#065F46','#0369A1','#7E22CE','#B45309'];
-    const legendEl=document.getElementById('mapLegend');
-    let legendHTML='';
-
-    // Parse locations from day card text (simplified: use day titles as markers nearby)
-    const boundPoints=[[centerLat,centerLon]];
-    dayCards.forEach((card,i)=>{
-      const title=card.querySelector('.day-title')?.textContent||`Day ${i+1}`;
-      const color=colors[i%colors.length];
-      const offset=[(Math.random()-.5)*.08,(Math.random()-.5)*.08];
-      const dayLat=centerLat+offset[0];const dayLon=centerLon+offset[1];
-      boundPoints.push([dayLat,dayLon]);
-      const dayIcon=L.divIcon({className:'',html:`<div style="width:26px;height:26px;background:${color};border-radius:50%;border:2.5px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.25);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:11px;font-family:Inter,sans-serif">${i+1}</div>`,iconSize:[26,26],iconAnchor:[13,13]});
-      L.marker([dayLat,dayLon],{icon:dayIcon}).addTo(mapInstance).bindPopup(`<strong>Día ${i+1}</strong><br>${title}`);
-      legendHTML+=`<div class="map-leg-item"><div class="map-leg-dot" style="background:${color}"></div>Día ${i+1}: ${title.slice(0,28)}${title.length>28?'…':''}</div>`;
-    });
-
-    if(legendEl) legendEl.innerHTML=legendHTML;
-
-    // Fit bounds
-    if(boundPoints.length>1){
-      setTimeout(()=>{try{mapInstance.fitBounds(L.latLngBounds(boundPoints),{padding:[20,20]});}catch(e){}},200);
-    }
-  }catch(e){document.getElementById('mapSection').innerHTML='';}
 }
 
 // ═══════════════════════════════════
