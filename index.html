@@ -119,18 +119,23 @@ textarea{resize:none;height:56px;font-size:.83rem}
 .btn-add-day:hover{background:var(--ink);color:#fff}
 .btn-add-day.added{background:var(--teal-dark);border-color:var(--teal-dark);color:#fff}
 
-/* Flight card */
-.flight-card{background:linear-gradient(135deg,#0F172A,#1E3A5F);border-radius:20px;padding:1.5rem 2rem;margin-bottom:1.5rem;color:#fff}
-.flight-top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:1.2rem}
-.flight-route-big{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700}
-.flight-search-btn{padding:.5rem 1.1rem;background:var(--teal);color:var(--ink);border-radius:9px;font-size:.76rem;font-weight:700;text-decoration:none;white-space:nowrap;transition:all .2s}
-.flight-search-btn:hover{background:var(--teal-dark);color:#fff}
-.flight-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
-.flight-item{display:flex;flex-direction:column;gap:.2rem}
-.fi-ico{font-size:.95rem}
-.fi-label{font-size:.58rem;color:rgba(255,255,255,.4);font-weight:600;text-transform:uppercase;letter-spacing:.07em}
-.fi-val{font-size:.82rem;color:rgba(255,255,255,.9);line-height:1.45}
-.flight-return{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.1);padding-top:.9rem;margin-top:.3rem}
+/* Transport card (flight / train / car / ferry) */
+.transport-card{border-radius:20px;padding:1.5rem 1.8rem;margin-bottom:1.5rem;color:#fff}
+.tc-top{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:1.2rem;flex-wrap:wrap}
+.tc-mode-badge{display:inline-flex;align-items:center;gap:.35rem;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:100px;padding:.22rem .75rem;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;margin-bottom:.5rem}
+.tc-route{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;line-height:1.2}
+.tc-reason{font-size:.78rem;color:rgba(255,255,255,.6);margin-top:.4rem;line-height:1.5;max-width:42ch}
+.tc-search-btn{flex-shrink:0;padding:.5rem 1.1rem;background:var(--teal);color:var(--ink);border-radius:9px;font-size:.76rem;font-weight:700;text-decoration:none;white-space:nowrap;transition:all .2s;align-self:flex-start}
+.tc-search-btn:hover{background:var(--teal-dark);color:#fff}
+.tc-grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.tc-item{display:flex;align-items:flex-start;gap:.6rem}
+.tc-item-ico{font-size:1rem;flex-shrink:0;margin-top:.1rem}
+.tc-item-l{font-size:.58rem;color:rgba(255,255,255,.4);font-weight:700;text-transform:uppercase;letter-spacing:.07em;margin-bottom:.15rem}
+.tc-item-v{font-size:.82rem;color:rgba(255,255,255,.88);line-height:1.5}
+.tc-local{margin-top:1rem;border-top:1px solid rgba(255,255,255,.1);padding-top:.9rem;display:flex;align-items:flex-start;gap:.8rem;flex-wrap:wrap}
+.tc-local-label{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,.45);white-space:nowrap;margin-top:.15rem}
+.tc-local-detail{font-size:.82rem;color:rgba(255,255,255,.82);line-height:1.5;flex:1}
+.tc-local-cost{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:6px;padding:.1rem .5rem;font-size:.72rem;font-weight:700;margin-left:.4rem;white-space:nowrap}
 
 /* Tips */
 .tips-section{margin-bottom:1.5rem}
@@ -825,28 +830,65 @@ function parseTips(text){
 }
 
 // ═══════════════════════════════════
-// FLIGHT CARD
+// TRANSPORT CARD (flight / train / car / ferry)
 // ═══════════════════════════════════
-function buildFlightCard(block,dest,origin){
+function buildTransportCard(block,dest,origin){
   const get=k=>{const m=block.match(new RegExp(k+':\\s*(.+)'));return m?m[1].trim():'';};
-  const outbound=get('OUTBOUND')||`${origin} → ${dest}`;
-  const price=get('PRICE_RANGE'),bestTime=get('BEST_TIME'),bookTip=get('BOOK_TIP'),returnTip=get('RETURN_TIP');
-  const searchW={es:'Buscar vuelos →',en:'Search flights →',fr:'Chercher des vols →'}[lang];
-  return`<div class="flight-card">
-    <div class="flight-top">
-      <div><div style="font-size:.65rem;color:rgba(255,255,255,.4);font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.3rem">✈️ ${outbound}</div>
-      <div class="flight-route-big">${orig(origin)} → ${dest}</div></div>
-      <a class="flight-search-btn" href="${affUrl('flight',dest,origin)}" target="_blank" rel="noopener">${searchW}</a>
+  const mode=(get('MODE')||'flight').toLowerCase();
+  const route=get('ROUTE')||`${origin} → ${dest}`;
+  const modeReason=get('MODE_REASON');
+  const outDetail=get('OUTBOUND_DETAIL');
+  const price=get('PRICE_RANGE');
+  const bookTip=get('BOOK_TIP');
+  const returnDetail=get('RETURN_DETAIL');
+  const localTransport=get('LOCAL_TRANSPORT');
+  const localCost=get('LOCAL_TRANSPORT_COST');
+
+  const modeConfig={
+    flight: {ico:'✈️', color:'#0F172A',  gradEnd:'#1E3A5F', label:{es:'Vuelo',en:'Flight',fr:'Vol'}, searchLabel:{es:'Buscar vuelos →',en:'Search flights →',fr:'Chercher des vols →'}, affType:'flight'},
+    train:  {ico:'🚂', color:'#1A3A2A',  gradEnd:'#0D4429', label:{es:'Tren',en:'Train',fr:'Train'}, searchLabel:{es:'Buscar trenes →',en:'Search trains →',fr:'Chercher des trains →'}, affType:'train'},
+    car:    {ico:'🚗', color:'#1A1A3A',  gradEnd:'#2D1B69', label:{es:'Coche',en:'Car',fr:'Voiture'}, searchLabel:{es:'Comparar coches →',en:'Compare cars →',fr:'Comparer les voitures →'}, affType:'car'},
+    ferry:  {ico:'⛴️', color:'#0A2A3A',  gradEnd:'#0C3854', label:{es:'Ferry',en:'Ferry',fr:'Ferry'}, searchLabel:{es:'Buscar ferries →',en:'Search ferries →',fr:'Chercher des ferries →'}, affType:'flight'},
+  };
+  const cfg=modeConfig[mode]||modeConfig.flight;
+  const searchUrl=affUrl(cfg.affType,dest,origin);
+
+  const localIco={metro:'🚇',walk:'🚶',bike:'🚲',scooter:'🛵',car:'🚗',bus:'🚌',tram:'🚊'}[
+    Object.keys({metro:1,walk:1,bike:1,scooter:1,car:1,bus:1,tram:1}).find(k=>localTransport?.toLowerCase().includes(k))||'metro'
+  ]||'🗺️';
+
+  const L={
+    outbound:{es:'Ida',en:'Outbound',fr:'Aller'},
+    whyBest:{es:'¿Por qué esta opción?',en:'Why this option',fr:'Pourquoi ce choix'},
+    price:{es:'Precio total ida y vuelta',en:'Total return price',fr:'Prix aller-retour total'},
+    bookTip:{es:'Cuándo reservar',en:'When to book',fr:'Quand réserver'},
+    returning:{es:'Vuelta',en:'Return',fr:'Retour'},
+    localMove:{es:'Moverse por',en:'Getting around',fr:'Se déplacer à'},
+    localCostL:{es:'Coste transporte local',en:'Local transport cost',fr:'Coût transport local'},
+  };
+  const lbl=k=>L[k]?.[lang]||L[k]?.es;
+
+  return`<div class="transport-card" style="background:linear-gradient(135deg,${cfg.color},${cfg.gradEnd})">
+    <div class="tc-top">
+      <div>
+        <div class="tc-mode-badge">${cfg.ico} ${cfg.label[lang]||cfg.label.es}</div>
+        <div class="tc-route">${route}</div>
+        ${modeReason?`<div class="tc-reason">${modeReason}</div>`:''}
+      </div>
+      <a class="tc-search-btn" href="${searchUrl}" target="_blank" rel="noopener">${cfg.searchLabel[lang]||cfg.searchLabel.es}</a>
     </div>
-    <div class="flight-grid">
-      ${price?`<div class="flight-item"><div class="fi-ico">💶</div><div class="fi-label">${{es:'Precio estimado',en:'Est. price',fr:'Prix estimé'}[lang]}</div><div class="fi-val">${price}</div></div>`:''}
-      ${bestTime?`<div class="flight-item"><div class="fi-ico">🕐</div><div class="fi-label">${{es:'En el aeropuerto',en:'Airport arrival',fr:'Aéroport'}[lang]}</div><div class="fi-val">${bestTime}</div></div>`:''}
-      ${bookTip?`<div class="flight-item"><div class="fi-ico">📅</div><div class="fi-label">${{es:'Cuándo reservar',en:'When to book',fr:'Quand réserver'}[lang]}</div><div class="fi-val">${bookTip}</div></div>`:''}
-      ${returnTip?`<div class="flight-item flight-return"><div class="fi-ico">🔄</div><div class="fi-label">${{es:'Vuelo de vuelta',en:'Return flight',fr:'Vol retour'}[lang]}</div><div class="fi-val">${returnTip}</div></div>`:''}
+    <div class="tc-grid">
+      ${outDetail?`<div class="tc-item"><div class="tc-item-ico">🗓️</div><div><div class="tc-item-l">${lbl('outbound')}</div><div class="tc-item-v">${outDetail}</div></div></div>`:''}
+      ${price?`<div class="tc-item"><div class="tc-item-ico">💶</div><div><div class="tc-item-l">${lbl('price')}</div><div class="tc-item-v">${price}</div></div></div>`:''}
+      ${bookTip?`<div class="tc-item"><div class="tc-item-ico">📅</div><div><div class="tc-item-l">${lbl('bookTip')}</div><div class="tc-item-v">${bookTip}</div></div></div>`:''}
+      ${returnDetail?`<div class="tc-item" style="grid-column:1/-1;border-top:1px solid rgba(255,255,255,.1);padding-top:.8rem;margin-top:.2rem"><div class="tc-item-ico">🔄</div><div><div class="tc-item-l">${lbl('returning')}</div><div class="tc-item-v">${returnDetail}</div></div></div>`:''}
     </div>
+    ${localTransport?`<div class="tc-local">
+      <div class="tc-local-label">${localIco} ${lbl('localMove')} ${dest}</div>
+      <div class="tc-local-detail">${localTransport}${localCost?` <span class="tc-local-cost">${localCost}</span>`:''}</div>
+    </div>`:''}
   </div>`;
 }
-function orig(o){return o&&o!=='home'?o:'—';}
 
 // ═══════════════════════════════════
 // RECAP
@@ -854,7 +896,8 @@ function orig(o){return o&&o!=='home'?o:'—';}
 function buildRecap(block,dest){
   const get=k=>{const m=block.match(new RegExp(k+':\\s*(.+)'));return m?m[1].trim():'';};
   // Pricing fields
-  const flightCost  = get('FLIGHT_COST');
+  const transportCost = get('TRANSPORT_COST')||get('FLIGHT_COST'); // support both
+  const localTranspCost = get('LOCAL_TRANSPORT_COST');
   const hotelCost   = get('HOTEL_COST');
   const expCost     = get('EXP_COST');
   const foodCost    = get('FOOD_COST');
@@ -883,7 +926,8 @@ function buildRecap(block,dest){
 
   // Cost breakdown rows
   const costRows=[
-    {ico:'✈️', label:l('flights'), val:flightCost},
+    {ico:'🚆', label:{es:'Transporte',en:'Transport',fr:'Transport'}[lang]||'Transport', val:transportCost},
+    {ico:'🗺️', label:{es:'Transporte local',en:'Local transport',fr:'Transport local'}[lang]||'Local', val:localTranspCost},
     {ico:'🏨', label:l('hotel'),   val:hotelCost},
     {ico:'🎟️', label:l('exp'),     val:expCost},
     {ico:'🍽️', label:l('food'),    val:foodCost},
@@ -1117,7 +1161,7 @@ function renderResult(s){
   if(s.introHTML){intro.innerHTML=s.introHTML;intro.style.display='block';}
   else intro.style.display='none';
   // Content
-  document.getElementById('flightCard').innerHTML=s.flightHTML||'';
+  document.getElementById('flightCard').innerHTML=s.transportHTML||s.flightHTML||'';
   document.getElementById('timeline').innerHTML=s.timelineHTML||'';
   document.getElementById('tipsSection').innerHTML=s.tipsHTML||'';
   document.getElementById('recapSection').innerHTML=s.recapHTML||'';
@@ -1213,68 +1257,84 @@ async function gen(){
 
   const prompt=`${t('promptIntro')}
 
-TRAVELER PROFILE — THIS IS CRITICAL, adapt every single word to this:
+TRAVELER PROFILE — adapt every single word to this:
 ${persona}
 
 TRIP:
-- From: ${origin} (departure only — no activities there)
-- To: ${dest}
+- Home city / origin: ${origin}
+- Destination: ${dest}
 - Duration: ${days} days
 ${fechaStr?'- Dates: '+fechaStr:''}
-- Budget level: ${bStr} (hotel ~€${br.hotel[0]}–${br.hotel[1]}/night, food ~€${br.food[0]}–${br.food[1]}/day/person, experiences ~€${br.exp[0]}–${br.exp[1]}/person)
+- Budget: ${bStr} (hotel ~€${br.hotel[0]}–${br.hotel[1]}/night, food ~€${br.food[0]}–${br.food[1]}/day/person, experiences ~€${br.exp[0]}–${br.exp[1]}/person)
 - Style: ${styles}
-${extra?'- From traveller: '+extra:''}
+${extra?'- Traveller notes: '+extra:''}
 ${flexNote?'- '+flexNote:''}
 
-${seasonContext?'SEASON CONTEXT: '+seasonContext:''}
+${seasonContext?'SEASON: '+seasonContext:''}
 
-PRICE RULES — be precise:
+━━ TRANSPORT INTELLIGENCE ━━
+The traveller leaves from HOME in ${origin}, not from a hotel. Think carefully about the best way to GET THERE from ${origin} to ${dest}:
+
+- If distance < 600km and a good train exists (e.g. Paris→Amsterdam, Madrid→Barcelona, London→Paris): RECOMMEND TRAIN as primary option. It is often faster door-to-door, no airport hassle, city centre to city centre.
+- If driving makes sense (e.g. road trip, coastal route, countryside, <5h drive, ${isGroup||isFamily?'group shares cost':''}): RECOMMEND CAR as primary or secondary option.
+- If flight is the only realistic option (>800km, no good ground connection): recommend FLIGHT.
+- Never suggest starting activities from the origin city hotel — the traveller is going FROM HOME to the destination.
+
+Also think about LOCAL TRANSPORT at the destination:
+- City destination (Paris, Amsterdam, Tokyo...): metro/walk/bike. Suggest renting a bike or e-scooter if it fits the vibe.
+- Coastal / island destination: car rental or scooter rental can unlock access to hidden beaches.
+- Mountain / rural destination: car rental is often essential.
+- Road trip across a region: car is the whole point.
+
+━━ PRICE RULES ━━
 - All prices in euros, realistic for ${dest} in ${mes||'current season'}
-- Adjust ALL prices for the ${bStr} budget level (not generic estimates)
-- For accommodation: price per room/night (not per person unless hostel dorm)
-- For experiences: price per person
-- For restaurants: total bill for the group (${pax} people)
-- Always clarify: "per person", "per room", "for ${pax}", etc.
-- Flight price range: realistic from ${origin} for ${pax} ${pax===1?'person':'people'} round-trip, ${mes||''}
+- Accommodation: price per room/night
+- Experiences: price per person
+- Restaurants: total bill for ${pax} people
+- Transport to destination: total for ${pax} ${pax===1?'person':'people'} (one way or return as appropriate)
 
-DO NOT use [BOOK:...] tags. No inline links. Just write.
+DO NOT use [BOOK:...] tags. No inline links.
 
-FORMAT (exact — drives the UI):
-TRIP_NAME: [creative 3-5 word trip name in ${wl} that reflects the traveler profile and destination, e.g. "${isCouple?'Deux nuits à Venise, pour toujours':isSolo?'Solo en Tokio':isFamily?'Roma en familia':'Entre amis à Lisbonne'}"]
+━━ FORMAT (exact) ━━
+TRIP_NAME: [creative 3-5 word name in ${wl} for ${tStr} going to ${dest}]
 
-[2-3 evocative opening lines about ${dest}${mes?' in '+mes:''} — written for ${tStr}, no heading]
+[2-3 evocative opening lines about ${dest}${mes?' in '+mes:''} for ${tStr} — no heading]
 
-### FLIGHT_INFO
-OUTBOUND: ${origin} → ${dest}
-BEST_TIME: [when to arrive at airport — practical tip]
-PRICE_RANGE: [realistic total price for ${pax} ${pax===1?'person':'people'} round-trip, e.g. "€${Math.round(120*br.flightMult*pax)}–€${Math.round(280*br.flightMult*pax)} total for ${pax}"]
-BOOK_TIP: [1 sentence — best moment to book for this season and budget]
-RETURN: ${dest} → ${origin}
-RETURN_TIP: [practical return tip — airport time, terminal, baggage, etc.]
-### END_FLIGHT
+### TRANSPORT_INFO
+MODE: [flight|train|car|ferry — the BEST option for this specific journey]
+ROUTE: ${origin} → ${dest}
+MODE_REASON: [1 sentence: why this is the best way to get there — be specific about time, price, convenience]
+OUTBOUND_DETAIL: [specific info: train name/operator OR flight duration OR drive time + route highlights]
+PRICE_RANGE: [realistic total for ${pax} ${pax===1?'person':'people'} round-trip/return]
+BOOK_TIP: [1 sentence on when/how to book for best price]
+RETURN_DETAIL: [return tip — timing, operator, any difference vs outbound]
+LOCAL_TRANSPORT: [what to use once AT the destination: metro+walk? rent a bike? rent a car/scooter? why?]
+LOCAL_TRANSPORT_COST: [realistic cost for local transport for ${pax} for the ${days} days]
+### END_TRANSPORT
 
-### ${dw} 1 — [Evocative title, written for ${tStr}]
+### ${dw} 1 — [Evocative title for ${tStr}]
 **${mw}:** [specific, adapted to ${tStr}]
 **${aw}:** [specific, mix paid/free, adapted to ${tStr}]
-**${ew}:** [restaurant or activity with name, adapted to ${tStr}, mention approx. cost for the group]
-🔍 *${ow}:* [something genuinely local and unexpected, relevant for ${tStr}]
+**${ew}:** [restaurant or activity with name, adapted to ${tStr}, approx. cost for ${pax}]
+🔍 *${ow}:* [genuine local gem relevant for ${tStr}]
 
-[repeat for all ${days} days — each day adapted to the traveler profile]
+[repeat for all ${days} days — each day adapted to the traveler profile, NO activities in origin city]
 
 ### ${lang==='fr'?'Conseils pratiques':lang==='en'?'Practical tips':'Consejos prácticos'}
-- [5 bullets — at least 2 specific to ${tStr}: booking flights, getting around, ${mes?mes+' specific tip':'season tip'}, what to avoid, one free unmissable thing adapted to ${tStr}]
+- [5 bullets incl. transport tip, ${mes?mes+' tip':'season tip'}, 2 specific to ${tStr}, 1 free unmissable]
 
 ### RECAP
-FLIGHT_COST: [e.g. "€${Math.round(160*br.flightMult*pax)}–€${Math.round(320*br.flightMult*pax)} total for ${pax}"]
-HOTEL_COST: [e.g. "€${br.hotel[0]}–€${br.hotel[1]}/night × ${days-1} nights = ~€${Math.round((br.hotel[0]+br.hotel[1])/2*(days-1))} total"]
-EXP_COST: [e.g. "€${br.exp[0]}–€${br.exp[1]}/person × ${pax} = ~€${Math.round((br.exp[0]+br.exp[1])/2*pax)} for main experiences"]
-FOOD_COST: [e.g. "~€${Math.round((br.food[0]+br.food[1])/2*pax*days)} total (${days} days × €${br.food[0]}–€${br.food[1]}/day/person × ${pax})"]
-TOTAL_ESTIMATE: [e.g. "~€X–€Y total for ${pax} ${pax===1?'person':'people'}"]
-BUDGET_MATCH: [1 honest sentence: does the plan actually fit the ${bStr} budget? Be specific.]
-DAY_RECAP: [one line per day adapted to ${tStr}: "${dw} 1: [what + for whom] — ~€N/person"]
-ACCOMMODATION: [3 options matching the ${bStr} budget and ${tStr} profile: name, neighbourhood, €X–Y/night, 1 sentence why it suits ${tStr}]
+TRANSPORT_COST: [total transport to/from destination for ${pax}, e.g. "€X–Y total for ${pax} by train/flight/car"]
+LOCAL_TRANSPORT_COST: [local transport at destination for ${pax} for ${days} days]
+HOTEL_COST: [€X–Y/night × ${days-1} nights = ~€Z total]
+EXP_COST: [€X–Y/person × ${pax} = ~€Z for main experiences]
+FOOD_COST: [~€Z total, ${days} days × €X–Y/person × ${pax}]
+TOTAL_ESTIMATE: [~€X–€Y total for ${pax} ${pax===1?'person':'people'}]
+BUDGET_MATCH: [1 honest sentence: does it fit the ${bStr} budget?]
+DAY_RECAP: [one line per day: "${dw} 1: X + Y + Z — ~€N/person"]
+ACCOMMODATION: [3 options for ${bStr} budget + ${tStr}: name, neighbourhood, €X–Y/night, why it suits ${tStr}]
 
-Max 1100 words. Write entirely in ${wl}.`;
+Max 1150 words. Write entirely in ${wl}.`;
 
   try{
     const res=await fetch('/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},
@@ -1292,10 +1352,14 @@ Max 1100 words. Write entirely in ${wl}.`;
     const nameMatch=raw.match(/TRIP_NAME:\s*(.+)/);
     if(nameMatch){tripName=nameMatch[1].trim();main=main.replace(nameMatch[0],'').trim();}
 
-    // Extract FLIGHT_INFO block
-    let flightHTML='';
-    const flightMatch=main.match(/###\s*FLIGHT_INFO\s*([\s\S]*?)###\s*END_FLIGHT/);
-    if(flightMatch){flightHTML=buildFlightCard(flightMatch[1],dest,origin);main=main.replace(flightMatch[0],'').trim();}
+    // Extract TRANSPORT_INFO block (new format) or FLIGHT_INFO (legacy fallback)
+    let transportHTML='';
+    const transportMatch=main.match(/###\s*TRANSPORT_INFO\s*([\s\S]*?)###\s*END_TRANSPORT/);
+    if(transportMatch){transportHTML=buildTransportCard(transportMatch[1],dest,origin);main=main.replace(transportMatch[0],'').trim();}
+    else{
+      const flightMatch=main.match(/###\s*FLIGHT_INFO\s*([\s\S]*?)###\s*END_FLIGHT/);
+      if(flightMatch){transportHTML=buildTransportCard(flightMatch[1],dest,origin);main=main.replace(flightMatch[0],'').trim();}
+    }
 
     // Extract RECAP
     let recapHTML='';
@@ -1325,7 +1389,7 @@ Max 1100 words. Write entirely in ${wl}.`;
 
     const heroImg=heroImgUrl(dest);
     currentTrip={dest,origin,days,travelers:tStr,date:new Date().toLocaleDateString(),
-      tripName,heroImg,chipsHTML,introHTML,flightHTML,timelineHTML,tipsHTML,recapHTML,ctaHTML,expHTML:'',resultHTML:true};
+      tripName,heroImg,chipsHTML,introHTML,transportHTML,timelineHTML,tipsHTML,recapHTML,ctaHTML,expHTML:'',resultHTML:true};
 
     renderResult(currentTrip);
     setTimeout(()=>document.getElementById('resultSection').scrollIntoView({behavior:'smooth',block:'start'}),200);
