@@ -173,29 +173,32 @@ textarea{resize:none;height:56px;font-size:.82rem}
 .tc-mode-pills{display:flex;gap:.4rem;flex-wrap:wrap}
 .tc-mode-pill{font-size:.62rem;font-weight:700;padding:.22rem .65rem;border-radius:100px;border:1.5px solid rgba(255,255,255,.25);color:rgba(255,255,255,.65);cursor:default}
 
-/* Tips — solid colorful cards */
-.tips-section{margin-bottom:1.8rem}
-.tips-title{font-family:var(--font-display);font-size:1.15rem;font-weight:400;margin-bottom:1.1rem;color:var(--ink);letter-spacing:-.02em}
-.tips-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
-.tip-block{display:flex;align-items:flex-start;gap:.75rem;padding:.95rem 1.1rem;border-radius:var(--r);transition:transform .2s,box-shadow .2s;border:1px solid transparent}
-.tip-block:hover{transform:translateY(-3px);box-shadow:var(--shadow-md)}
-.tip-block:nth-child(1){background:linear-gradient(135deg,#ECFDF5,#D1FAE5);border-color:#A7F3D0}
-.tip-block:nth-child(2){background:linear-gradient(135deg,#EEF2FF,#E0E7FF);border-color:#C7D2FE}
-.tip-block:nth-child(3){background:linear-gradient(135deg,#FFFBEB,#FEF3C7);border-color:#FDE68A}
-.tip-block:nth-child(4){background:linear-gradient(135deg,#FFF1F2,#FFE4E6);border-color:#FECDD3}
-.tip-block:nth-child(5){background:linear-gradient(135deg,#F0FDF4,#DCFCE7);border-color:#BBF7D0}
-.tip-block:nth-child(6){background:linear-gradient(135deg,#FAF5FF,#F3E8FF);border-color:#E9D5FF}
-.tip-icon{width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.05rem}
-.tip-icon svg{width:13px;height:13px;fill:none;stroke:white;stroke-width:2.2}
-.tip-block:nth-child(1) .tip-icon{background:linear-gradient(135deg,#059669,#34D399)}
-.tip-block:nth-child(2) .tip-icon{background:linear-gradient(135deg,#4338CA,#818CF8)}
-.tip-block:nth-child(3) .tip-icon{background:linear-gradient(135deg,#D97706,#FCD34D)}
-.tip-block:nth-child(4) .tip-icon{background:linear-gradient(135deg,#BE123C,#F87171)}
-.tip-block:nth-child(5) .tip-icon{background:linear-gradient(135deg,#065F46,#10B981)}
-.tip-block:nth-child(6) .tip-icon{background:linear-gradient(135deg,#6D28D9,#A78BFA)}
-.tip-txt{flex:1;min-width:0}
-.tip-head{font-family:var(--font-body);font-size:.8rem;font-weight:700;color:var(--ink);line-height:1.4;margin-bottom:.2rem}
-.tip-body{font-family:var(--font-prose);font-size:.82rem;color:var(--ink2);line-height:1.6}
+/* Tips — minimal editorial style */
+.tips-section{margin-bottom:2rem}
+.tips-section-header{display:flex;align-items:baseline;gap:.8rem;margin-bottom:1.1rem}
+.tips-title{font-family:var(--font-display);font-size:1.05rem;font-weight:400;color:var(--ink);letter-spacing:-.02em}
+.tips-title-rule{flex:1;height:1px;background:var(--border)}
+.tips-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:.55rem}
+.tip-block{padding:1rem 1.2rem 1.1rem;border-radius:12px;transition:transform .18s,box-shadow .18s;border:1px solid transparent;position:relative;overflow:hidden;cursor:default}
+.tip-block::before{content:'';position:absolute;inset:0;opacity:.04;pointer-events:none}
+.tip-block:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
+.tip-block:nth-child(1){background:linear-gradient(135deg,#F0FDF9 0%,#DCFCE7 100%);border-color:#A7F3D0}
+.tip-block:nth-child(2){background:linear-gradient(135deg,#EFF6FF 0%,#DBEAFE 100%);border-color:#BFDBFE}
+.tip-block:nth-child(3){background:linear-gradient(135deg,#FEFCE8 0%,#FEF9C3 100%);border-color:#FDE68A}
+.tip-block:nth-child(4){background:linear-gradient(135deg,#FFF7ED 0%,#FFEDD5 100%);border-color:#FED7AA}
+.tip-block:nth-child(5){background:linear-gradient(135deg,#FAF5FF 0%,#F3E8FF 100%);border-color:#E9D5FF}
+.tip-block:nth-child(6){background:linear-gradient(135deg,#FFF1F2 0%,#FFE4E6 100%);border-color:#FECDD3}
+.tip-num{font-family:var(--font-display);font-size:.62rem;font-weight:400;letter-spacing:.1em;color:var(--muted);margin-bottom:.45rem;text-transform:uppercase}
+.tip-block:nth-child(1) .tip-num{color:#059669}
+.tip-block:nth-child(2) .tip-num{color:#2563EB}
+.tip-block:nth-child(3) .tip-num{color:#D97706}
+.tip-block:nth-child(4) .tip-num{color:#EA580C}
+.tip-block:nth-child(5) .tip-num{color:#7C3AED}
+.tip-block:nth-child(6) .tip-num{color:#BE123C}
+.tip-head{font-size:.83rem;font-weight:700;color:var(--ink);line-height:1.35;margin-bottom:.35rem}
+.tip-body{font-family:var(--font-prose);font-size:.82rem;color:var(--ink2);line-height:1.65}
+/* Remove old icon styles */
+.tip-icon{display:none}
 
 /* Recap */
 .recap-card{background:var(--white);border:1.5px solid var(--border);border-radius:20px;overflow:hidden;margin-bottom:1.5rem;box-shadow:var(--shadow)}
@@ -244,36 +247,37 @@ textarea{resize:none;height:56px;font-size:.82rem}
 .accom-lnk{padding:.3rem .7rem;border:1.5px solid var(--teal-dark);border-radius:100px;color:var(--teal-dark);font-size:.67rem;font-weight:700;text-decoration:none;white-space:nowrap;transition:all .18s}
 .accom-lnk:hover{background:var(--teal-dark);color:#fff}
 
-/* Experiences — colorful card style */
+/* Experiences — editorial photo cards */
 .exp-section{margin-bottom:1.5rem}
-.exp-hed{font-family:var(--font-display);font-size:1.15rem;font-weight:400;margin-bottom:.35rem;letter-spacing:-.02em}
-.exp-sub{font-size:.8rem;color:var(--muted);margin-bottom:1rem}
-.exp-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.75rem}
-.exp-card{background:var(--white);border:1.5px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;transition:all .2s}
-.exp-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px)}
-.exp-card-header{height:6px;width:100%}
-.exp-card-tour .exp-card-header{background:linear-gradient(90deg,#0F766E,#2DD4BF)}
-.exp-card-food .exp-card-header{background:linear-gradient(90deg,#B45309,#F59E0B)}
-.exp-card-museum .exp-card-header{background:linear-gradient(90deg,#4338CA,#818CF8)}
-.exp-card-night .exp-card-header{background:linear-gradient(90deg,#1D4ED8,#60A5FA)}
-.exp-card-boat .exp-card-header{background:linear-gradient(90deg,#0369A1,#38BDF8)}
-.exp-card-bike .exp-card-header{background:linear-gradient(90deg,#065F46,#34D399)}
-.exp-card-cook .exp-card-header{background:linear-gradient(90deg,#BE123C,#F87171)}
-.exp-card-hike .exp-card-header{background:linear-gradient(90deg,#713F12,#D97706)}
-.exp-card-nature .exp-card-header{background:linear-gradient(90deg,#14532D,#4ADE80)}
-.exp-body{padding:.9rem 1rem;flex:1;display:flex;flex-direction:column}
-.exp-type-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:.3rem}
-.exp-type{font-size:.56rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--teal-dark)}
-.exp-price{font-size:.75rem;font-weight:700;color:var(--ink);background:var(--bg);padding:.1rem .5rem;border-radius:6px;border:1px solid var(--border)}
-.exp-name{font-family:var(--font-display);font-size:.92rem;font-weight:400;margin-bottom:.3rem;line-height:1.25;letter-spacing:-.015em}
-.exp-tagline{font-size:.75rem;color:var(--ink2);line-height:1.55;flex:1;margin-bottom:.7rem}
-.exp-meta{display:flex;justify-content:space-between;font-size:.7rem;color:var(--muted);margin-bottom:.7rem}
-.exp-btns{display:flex;flex-direction:column;gap:.35rem}
-.exp-book{width:100%;padding:.5rem;border:none;border-radius:9px;background:var(--teal-dark);color:#fff;font-size:.74rem;font-weight:700;cursor:pointer;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:.3rem;transition:opacity .2s}
-.exp-book:hover{opacity:.88}
-.exp-cart{width:100%;padding:.45rem;border:2px solid var(--ink);border-radius:9px;background:transparent;color:var(--ink);font-size:.72rem;font-weight:700;cursor:pointer;transition:all .18s;display:flex;align-items:center;justify-content:center;gap:.3rem}
-.exp-cart:hover{background:var(--ink);color:#fff}
-.exp-cart.added{background:var(--teal-dark);border-color:var(--teal-dark);color:#fff}
+.exp-section-header{display:flex;align-items:baseline;gap:.8rem;margin-bottom:1.1rem}
+.exp-hed{font-family:var(--font-display);font-size:1.05rem;font-weight:400;color:var(--ink);letter-spacing:-.02em}
+.exp-hed-rule{flex:1;height:1px;background:var(--border)}
+.exp-sub{font-size:.75rem;color:var(--muted);margin-bottom:1rem}
+.exp-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.8rem}
+.exp-card{background:var(--white);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;transition:all .22s;cursor:pointer}
+.exp-card:hover{box-shadow:var(--shadow-md);transform:translateY(-3px)}
+/* Photo area */
+.exp-photo{height:120px;position:relative;overflow:hidden;flex-shrink:0}
+.exp-photo img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
+.exp-card:hover .exp-photo img{transform:scale(1.05)}
+.exp-photo-grad{position:absolute;inset:0;background:linear-gradient(to top,rgba(15,23,42,.55) 0%,transparent 55%)}
+.exp-photo-type{position:absolute;top:.55rem;left:.55rem;padding:.18rem .55rem;background:rgba(15,23,42,.72);border-radius:100px;font-size:.55rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.9);backdrop-filter:blur(4px)}
+.exp-photo-rating{position:absolute;bottom:.55rem;right:.6rem;display:flex;align-items:center;gap:.25rem;color:#fff;font-size:.72rem;font-weight:700}
+.exp-photo-rating svg{width:11px;height:11px;fill:#F59E0B;stroke:none}
+.exp-body{padding:.8rem 1rem;flex:1;display:flex;flex-direction:column}
+.exp-name{font-family:var(--font-display);font-size:.9rem;font-weight:400;margin-bottom:.28rem;line-height:1.25;letter-spacing:-.015em;color:var(--ink)}
+.exp-tagline{font-size:.75rem;color:var(--ink2);line-height:1.55;flex:1;margin-bottom:.65rem;font-family:var(--font-prose)}
+.exp-meta-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:.65rem}
+.exp-duration{font-size:.68rem;color:var(--muted);display:flex;align-items:center;gap:.28rem}
+.exp-duration svg{width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:2;opacity:.6}
+.exp-price-tag{font-size:.78rem;font-weight:700;color:var(--ink);background:var(--bg);padding:.12rem .5rem;border-radius:6px;border:1px solid var(--border)}
+.exp-btns{display:flex;gap:.45rem}
+.exp-book{flex:1;padding:.48rem;border:none;border-radius:8px;background:var(--ink);color:#fff;font-size:.73rem;font-weight:700;cursor:pointer;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:.28rem;transition:all .18s}
+.exp-book:hover{background:#2C3E6B;color:#fff}
+.exp-book svg{width:11px;height:11px;fill:none;stroke:currentColor;stroke-width:2.5;flex-shrink:0}
+.exp-cart{padding:.48rem .75rem;border:1.5px solid var(--border);border-radius:8px;background:transparent;color:var(--ink);font-size:.72rem;font-weight:700;cursor:pointer;transition:all .18s;white-space:nowrap}
+.exp-cart:hover{border-color:var(--sage);color:var(--sage-dark)}
+.exp-cart.added{background:var(--sage);border-color:var(--sage);color:#fff}
 
 /* Bottom CTA — "¿Listo para X?" redesign */
 .bottom-cta{background:linear-gradient(145deg,#1C1C2E 0%,#2C3E6B 58%,#1C3A2E 100%);border-radius:20px;padding:2.4rem 2.5rem;margin-bottom:1.5rem;color:#fff;position:relative;overflow:hidden}
@@ -315,48 +319,43 @@ textarea{resize:none;height:56px;font-size:.82rem}
 .btn-send{width:100%;padding:.88rem;border:none;border-radius:var(--r);background:linear-gradient(135deg,var(--sage-dark),var(--sage));color:#fff;font-family:var(--font-body);font-weight:700;font-size:.87rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.45rem;box-shadow:0 4px 16px rgba(45,90,61,.25)}
 .btn-send:hover{opacity:.92}
 .send-ok{background:var(--teal-light);border:1px solid rgba(15,118,110,.2);border-radius:var(--r);padding:.95rem;font-size:.83rem;color:var(--teal-dark);margin-top:.9rem;line-height:1.6;display:none}
-/* Cart summary */
-.cart-sum{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);padding:1.8rem;position:sticky;top:74px;box-shadow:var(--shadow)}
-.cart-sum-h{font-family:var(--font-display);font-size:1.2rem;font-weight:400;margin-bottom:1.2rem;letter-spacing:-.025em;color:var(--ink)}
-.cart-dest-row{display:flex;align-items:center;gap:.8rem;padding:.85rem;background:var(--bg);border-radius:var(--r);border:1px solid var(--border);margin-bottom:1.1rem}
-.cart-dest-img{width:52px;height:52px;border-radius:9px;object-fit:cover;flex-shrink:0;background:var(--border)}
-.cart-dest-name{font-weight:700;font-size:.88rem}
-.cart-dest-meta{font-size:.7rem;color:var(--muted);margin-top:.1rem}
-.cart-line{display:flex;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid var(--border);font-size:.82rem}
-.cart-line:last-of-type{border:none}
-.cart-total-row{display:flex;justify-content:space-between;align-items:center;padding-top:.75rem;border-top:2px solid var(--ink);margin-top:.3rem}
-.cart-total-n{font-weight:700}
-.cart-total-v{font-family:var(--font-display);font-size:1.45rem;font-weight:400;color:var(--coral);letter-spacing:-.02em}
-.cart-empty-note{font-size:.78rem;color:var(--muted);margin-top:.8rem;font-style:italic}
-.cart-items-block{margin-top:.9rem;border-top:1px solid var(--border);padding-top:.75rem}
-.ci-row{display:flex;align-items:center;gap:.35rem;padding:.42rem .3rem;border-bottom:1px solid var(--border)}
-.ci-row:last-child{border:none}
-.ci-ico{font-size:.85rem;flex-shrink:0;width:18px;text-align:center}
-.ci-info{flex:1;min-width:0}
-.ci-name{font-size:.74rem;font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.ci-price{font-size:.62rem;color:var(--muted);margin-top:.05rem}
-.ci-aff{display:inline-flex;align-items:center;font-size:.63rem;font-weight:700;text-decoration:none;padding:.2rem .5rem;border-radius:7px;white-space:nowrap;flex-shrink:0;transition:all .15s;gap:.18rem}
-.ci-aff:hover{opacity:.8}
-.ci-aff-flight{background:#EFF6FF;color:#1D4ED8;border:1px solid #BFDBFE}.ci-aff-flight:hover{background:#1D4ED8;color:#fff}
-.ci-aff-train{background:#F5F3FF;color:#5B21B6;border:1px solid #DDD6FE}.ci-aff-train:hover{background:#5B21B6;color:#fff}
-.ci-aff-hotel{background:#F0FDF4;color:#065F46;border:1px solid #BBF7D0}.ci-aff-hotel:hover{background:#065F46;color:#fff}
-.ci-aff-car{background:#FFFBEB;color:#B45309;border:1px solid #FDE68A}.ci-aff-car:hover{background:#B45309;color:#fff}
-.ci-aff-act{background:#F0FDFA;color:var(--teal-dark);border:1px solid #99F6E4}.ci-aff-act:hover{background:var(--teal-dark);color:#fff}
-.ci-aff-rest{background:#FFF7ED;color:#C2410C;border:1px solid #FED7AA}.ci-aff-rest:hover{background:#C2410C;color:#fff}
-.ci-action-block{display:flex;flex-direction:column;gap:.45rem;margin-top:.75rem;padding-top:.75rem;border-top:1px solid var(--border)}
-.ci-action-main{width:100%;padding:.7rem;border:none;border-radius:10px;background:linear-gradient(135deg,var(--sage-dark),var(--sage));color:#fff;font-weight:700;font-size:.8rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.38rem;transition:opacity .2s}.ci-action-main:hover{opacity:.9}
-.ci-action-sec{width:100%;padding:.55rem;border:1.5px solid var(--border);border-radius:10px;background:#fff;color:var(--ink);font-weight:600;font-size:.76rem;cursor:pointer;transition:all .18s}.ci-action-sec:hover{border-color:var(--ink)}
-.ci-del{background:none;border:none;color:var(--muted);cursor:pointer;font-size:.7rem;padding:.1rem .25rem;flex-shrink:0}
-.ci-del:hover{color:#F87171}
-.ci-grand-total{display:flex;justify-content:space-between;align-items:center;padding:.7rem .3rem .15rem;border-top:2px solid var(--border);margin-top:.3rem;font-size:.76rem;font-weight:700;color:var(--ink)}
-.ci-total-num{font-size:1.15rem;font-family:var(--font-display);color:var(--coral)}
-.ci-footer-btns{display:flex;gap:.45rem;margin-top:.5rem}
-.ci-fb{flex:1;padding:.4rem;border-radius:9px;border:1.5px solid var(--border);background:#fff;font-size:.7rem;font-weight:700;cursor:pointer;transition:all .18s;color:var(--ink2)}
-.ci-fb:hover{border-color:var(--teal-dark);color:var(--teal-dark);background:#F0FDFA}
-.guarantees{margin-top:1rem;border-top:1px solid var(--border);padding-top:.85rem;display:flex;flex-direction:column;gap:.32rem}
-.guar{display:flex;align-items:center;gap:.4rem;font-size:.72rem;color:var(--muted)}
-.guar::before{content:"✓";color:var(--sage);font-weight:700;flex-shrink:0;margin-right:.1rem}
-.share-row{margin-top:.9rem;padding-top:.9rem;border-top:1px solid var(--border)}
+/* ── Checkout cart box — new cob- design ── */
+.cob-dest-banner{padding:1.3rem 1.6rem;border-radius:var(--r-lg) var(--r-lg) 0 0;color:#fff}
+.cob-dest-name{font-family:var(--font-display);font-size:1.3rem;font-weight:400;letter-spacing:-.03em;margin-bottom:.15rem}
+.cob-dest-meta{font-size:.7rem;color:rgba(255,255,255,.6)}
+.cob-total{font-family:var(--font-display);font-size:1.5rem;font-weight:400;color:#fff;margin-top:.4rem;background:linear-gradient(135deg,#A7F3D0,#67E8F9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.cob-body{padding:1.2rem 1.4rem;display:flex;flex-direction:column;gap:.6rem}
+.cob-section{}
+.cob-section-lbl{font-size:.57rem;font-weight:800;text-transform:uppercase;letter-spacing:.18em;color:var(--muted);padding:.4rem 0 .5rem;border-bottom:1px solid var(--border);margin-bottom:.4rem}
+.cob-item{display:flex;align-items:center;gap:.6rem;padding:.6rem .5rem;border-radius:9px;border:1px solid var(--border);background:var(--bg);transition:border-color .15s}
+.cob-item:hover{border-color:var(--teal-dark)}
+.cob-item-ico{font-size:.9rem;width:18px;text-align:center;flex-shrink:0}
+.cob-item-info{flex:1;min-width:0}
+.cob-item-name{font-size:.76rem;font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cob-item-price{font-size:.65rem;color:var(--muted);margin-top:.05rem}
+.cob-book-btn{flex-shrink:0;font-size:.62rem;font-weight:700;padding:.22rem .6rem;border-radius:7px;text-decoration:none;white-space:nowrap;transition:all .15s}
+.book-flight{background:#EFF6FF;color:#1D4ED8;border:1px solid #BFDBFE}.book-flight:hover{background:#1D4ED8;color:#fff}
+.book-train{background:#F5F3FF;color:#5B21B6;border:1px solid #DDD6FE}.book-train:hover{background:#5B21B6;color:#fff}
+.book-car{background:#FFFBEB;color:#B45309;border:1px solid #FDE68A}.book-car:hover{background:#B45309;color:#fff}
+.book-hotel{background:#F0FDF4;color:#065F46;border:1px solid #BBF7D0}.book-hotel:hover{background:#065F46;color:#fff}
+.book-act{background:#F0FDFA;color:var(--teal-dark);border:1px solid #99F6E4}.book-act:hover{background:var(--teal-dark);color:#fff}
+.cob-del{background:none;border:none;color:var(--muted);cursor:pointer;padding:.2rem .25rem;flex-shrink:0;border-radius:5px;transition:all .15s}
+.cob-del:hover{color:#F87171;background:#FFF1F2}
+.cob-grand-total{display:flex;justify-content:space-between;align-items:center;padding:.7rem .5rem .2rem;border-top:2px solid var(--ink);margin-top:.2rem;font-size:.78rem;font-weight:700;color:var(--ink)}
+.cob-total-num{font-size:1.15rem;font-family:var(--font-display);color:var(--coral);letter-spacing:-.02em}
+.cob-empty{text-align:center;padding:1.5rem .5rem}
+.cob-empty-ico{font-size:2rem;margin-bottom:.6rem}
+.cob-empty-txt{font-size:.78rem;color:var(--muted);line-height:1.6}
+.cob-actions{display:flex;gap:.45rem;margin-top:.4rem}
+.cob-send-btn{flex:1;padding:.72rem;border:none;border-radius:10px;background:linear-gradient(135deg,#0F172A,#2C3E6B);color:#fff;font-size:.78rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.38rem;transition:opacity .2s;font-family:var(--font-body)}
+.cob-send-btn:hover{opacity:.88}
+.cob-pdf-btn{padding:.72rem 1rem;border:1.5px solid var(--border);border-radius:10px;background:#fff;color:var(--ink);font-size:.76rem;font-weight:600;cursor:pointer;transition:all .18s;font-family:var(--font-body)}
+.cob-pdf-btn:hover{border-color:var(--ink)}
+.cob-guarantees{display:flex;flex-direction:column;gap:.25rem;margin-top:.3rem}
+.cob-guar{font-size:.68rem;color:var(--muted)}
+.cob-share{margin-top:.5rem;padding-top:.8rem;border-top:1px solid var(--border)}
+.cob-share-btn{width:100%;padding:.48rem;border:1.5px solid var(--border);border-radius:9px;background:#fff;font-size:.72rem;font-weight:600;cursor:pointer;color:var(--ink);transition:all .18s;font-family:var(--font-body)}
+.cob-share-btn:hover{border-color:var(--teal-dark);color:var(--teal-dark)}
 .share-btn{width:100%;padding:.58rem;border:1.5px solid var(--border);border-radius:9px;background:transparent;font-size:.78rem;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.35rem;transition:all .18s}
 .share-btn:hover{border-color:var(--ink)}
 
@@ -752,7 +751,7 @@ const I18N={
       {ico:'🚂',name:'Trenes',desc:'Interrail, Renfe, Eurostar',type:'train',btn:'Ver trenes'},
       {ico:'🚗',name:'Coche de alquiler',desc:'Sin letra pequeña',type:'car',btn:'Ver coches'},
     ],
-    promptIntro:'Eres un escritor de viajes con la voz de un corresponsal literario — piensa en Pico Iyer cruzado con un amigo local que conoce cada rincón. Tu misión: crear itinerarios que se lean como un relato de viaje con alma, no como una guía turística. Cada momento del día tiene un ritmo, una atmósfera, una emoción concreta. Combinas lo local y auténtico con lo sorprendente, lo gratuito con lo que vale cada céntimo. NUNCA clichés turísticos. Escribes con detalles sensoriales específicos — aromas, texturas, sonidos, luz de determinada hora. Cada día tiene UN TITULAR LITERARIO memorable (no descriptivo) y una narrativa que explica por qué esta secuencia de momentos tiene sentido juntos y qué hace especial este día en particular. El mini-storytelling al inicio de cada día (1-2 frases) debe evocar la atmósfera y prometer algo.',
+    promptIntro:'Eres un periodista de viajes con criterio cultural y rigor editorial. Voz: guía alternativa, no guía turística. Piensa en Time Out cruzado con un lugareño con criterio. Tu trabajo: itinerarios específicos, verificables y con perspectiva — no promesas vacías ni adjetivos inflados. Cada lugar mencionado debe existir realmente y tener algo que lo justifique. Describe con precisión: por qué este restaurante y no otro, a qué hora ir, qué pedir, cómo es el ambiente real. Evita: "imprescindible", "joya oculta", "auténtico", "encantador". Usa: datos, horarios, detalles de oficio, contexto cultural. El título de cada día es evocador pero preciso — no "Aventura en el centro" sino "El martes de los museos vacios". La introducción de cada día (1-2 frases) es una observación concreta, no poesía de pacotilla.',
   },
   en:{
     badge:'Travel with taste. Not with the crowds.',
@@ -798,7 +797,7 @@ const I18N={
       {ico:'🚂',name:'Trains',desc:'Interrail, Eurostar, local rail',type:'train',btn:'Browse'},
       {ico:'🚗',name:'Car rental',desc:'No hidden fees',type:'car',btn:'Browse'},
     ],
-    promptIntro:'You are a literary travel writer — think Pico Iyer crossed with a knowledgeable local friend. Your mission: create itineraries that read like travel essays with soul, not tourist guides. Each part of the day has a rhythm, atmosphere, specific emotion. Mix authentic local secrets with surprises, free with genuinely worth-every-penny. NEVER tourist clichés. Write with specific sensory details — scents, textures, sounds, light at a certain hour. Each day has ONE MEMORABLE LITERARY HEADLINE (evocative, not descriptive) and a narrative explaining why this sequence of moments makes sense together. Include a 1-2 sentence mini-storytelling hook at the start of each day evoking atmosphere and promising something.',
+    promptIntro:'You are a travel journalist with cultural authority and editorial rigour. Voice: alternative city guide, not tourist pamphlet — think Time Out crossed with a well-travelled local friend. Your job: specific, verifiable itineraries with perspective. Every place mentioned must really exist and have a reason to be there. Describe with precision: why this restaurant and not another, when to go, what to order, what the real atmosphere is like. Avoid: "unmissable", "hidden gem", "authentic", "charming". Use: facts, opening times, insider details, cultural context. Each day title is evocative but precise. The day intro (1-2 sentences) is a concrete observation, not hollow poetry.',
   },
   fr:{
     badge:'Voyager autrement. Loin des foules.',
@@ -844,7 +843,7 @@ const I18N={
       {ico:'🚂',name:'Trains',desc:'Interrail, Eurostar, trains locaux',type:'train',btn:'Voir'},
       {ico:'🚗',name:'Location de voiture',desc:'Sans frais cachés',type:'car',btn:'Voir'},
     ],
-    promptIntro:'Tu es un écrivain voyageur à la voix d\'un correspondant littéraire — pense Sylvain Tesson croisé avec un ami local qui connaît chaque recoin. Ta mission : créer des itinéraires qui se lisent comme des carnets de voyage avec âme, pas des guides touristiques. Chaque moment de la journée a un rythme, une atmosphère, une émotion précise. Mélange secrets locaux et surprises, gratuit et vaut-chaque-centime. JAMAIS de clichés. Écris avec des détails sensoriels — parfums, textures, sons, lumière d\'une certaine heure. Chaque jour a UN TITRE LITTÉRAIRE MÉMORABLE (évocateur, pas descriptif) et une narration expliquant pourquoi cette séquence a du sens. Mini-storytelling d\'entrée de 1-2 phrases.',
+    promptIntro:'Tu es un journaliste de voyage avec un regard culturel exigeant et une plume editoriale. Voix : guide alternatif, pas brochure touristique — pense Time Out croisé avec un local qui a du goût. Ton travail : itinéraires précis, vérifiables, avec un point de vue. Chaque lieu mentionné doit vraiment exister et mériter sa place. Décris avec précision : pourquoi ce restaurant plutôt qu\'un autre, à quelle heure y aller, quoi commander, quelle est l\'ambiance réelle. Évite : "incontournable", "pépite cachée", "authentique", "charmant". Utilise : faits, horaires, détails de métier, contexte culturel. Le titre de chaque jour est évocateur mais précis. L\'intro de chaque jour (1-2 phrases) est une observation concrète, pas de la poésie de carton.',
   }
 };
 
@@ -918,56 +917,76 @@ function renderCartBox(){
   const origin=document.getElementById('origin').value.trim()||'—';
   const dfv=document.getElementById('df').value,dtv=document.getElementById('dt').value;
   const days=dfv&&dtv?Math.max(1,Math.round((new Date(dtv)-new Date(dfv))/86400000)):7;
-  const tKey=document.getElementById('travelers').value,bKey=document.getElementById('budget').value;
-  const tMap=t('travelerMap'),bMap=t('budgetMap');
+  const tKey=document.getElementById('travelers').value;
+  const tMap=t('travelerMap');
   const total=cartTotal();
   const nightW={es:'noches',en:'nights',fr:'nuits'}[lang];
-  const totalW={es:'Total estimado',en:'Estimated total',fr:'Total estimé'}[lang];
-  function ciAff(c){
+  const grad=getDestGrad(dest);
+
+  function bookLink(c){
     const d=document.getElementById('dest').value.trim();
     const o=document.getElementById('origin').value.trim();
-    const n=(c.name||'').toLowerCase(), ic=(c.ico||'');
-    const BK={es:'Reservar',en:'Book',fr:'Réserver'}[lang]||'Book';
-    const SH={es:'Ver',en:'View',fr:'Voir'}[lang];
-    if(/flight|vuelo|vol|train|tren|ferry/i.test(n)||/✈|🚂/.test(ic)) 
-      return `<a class="ci-aff ci-aff-flight" href="${affUrl('flight',d,o)}" target="_blank">✈️ ${BK}</a>`;
-    if(/train|tren|rail/i.test(n)||ic==='🚂') 
-      return `<a class="ci-aff ci-aff-train" href="${affUrl('train',d,o)}" target="_blank">🚂 ${BK}</a>`;
-    if(/car|coche|voiture|rental|alquil|bici|bike|velo/i.test(n)||/🚗|🚲/.test(ic)) 
-      return `<a class="ci-aff ci-aff-car" href="${affUrl('car',d,o)}" target="_blank">🚗 ${BK}</a>`;
-    if(/hotel|hostal|alojam|auberge|hôtel/i.test(n)||ic==='🏨') 
-      return `<a class="ci-aff ci-aff-hotel" href="${affUrl('hotel',d,'')}" target="_blank">🏨 ${BK}</a>`;
-    if(/restaur|cena|dîner|dinner|lunch|café/i.test(n)||ic==='🍽') 
-      return `<a class="ci-aff ci-aff-rest" href="https://www.thefork.com/search#destination=${encodeURIComponent(d)}" target="_blank">🍽 ${SH}</a>`;
-    if(/muse|galerie|gallery/i.test(n)||ic==='🏛') 
-      return `<a class="ci-aff ci-aff-act" href="${affUrl('act',d,'')}" target="_blank">🎟️ ${BK}</a>`;
-    if(/tour|activ|exp|hike|beach|plage|playa|visit/i.test(n)||/📍|🏖|🥾/.test(ic)) 
-      return `<a class="ci-aff ci-aff-act" href="${affUrl('act',d,'')}" target="_blank">🎟️ ${BK}</a>`;
-    return `<a class="ci-aff ci-aff-act" href="${affUrl('act',d,'')}" target="_blank">${SH} →</a>`;
+    const n=(c.label||c.name||'').toLowerCase(), ic=(c.ico||'');
+    if(/flight|vuelo|vol/i.test(n)||ic==='✈️') return{url:affUrl('flight',d,o),lbl:{es:'Buscar vuelos',en:'Search flights',fr:'Vols'}[lang],cls:'book-flight'};
+    if(/train|tren|ferr/i.test(n)||ic==='🚆') return{url:affUrl('train',d,o),lbl:{es:'Buscar trenes',en:'Search trains',fr:'Trains'}[lang],cls:'book-train'};
+    if(/car|coche|voiture|alquil|rental/i.test(n)||ic==='🚗') return{url:affUrl('car',d,o),lbl:{es:'Comparar coches',en:'Compare cars',fr:'Voitures'}[lang],cls:'book-car'};
+    if(/hotel|hostal|hôtel|alojam|airbnb/i.test(n)||ic==='🏨'||ic==='🏠') return{url:affUrl('hotel',d,''),lbl:{es:'Ver alojamientos',en:'Find hotels',fr:'Hôtels'}[lang],cls:'book-hotel'};
+    return{url:affUrl('act',d,''),lbl:{es:'Reservar',en:'Book',fr:'Réserver'}[lang],cls:'book-act'};
   }
-  const totalLabel={es:'Total del viaje',en:'Trip total',fr:'Total voyage'}[lang];
-  const itemsHTML=cart.length?`<div class="cart-items-block">${cart.map(c=>`<div class="ci-row">
-    <span class="ci-ico">${c.ico}</span>
-    <div class="ci-info"><div class="ci-name">${c.name}</div>${c.price?`<div class="ci-price">${c.price}</div>`:''}</div>
-    ${ciAff(c)}
-    <button class="ci-del" onclick="removeFromCart('${c.id}')">✕</button>
-  </div>`).join('')}
-  <div class="ci-grand-total"><span>${totalLabel}</span><span class="ci-total-num">~€${cartTotal()}</span></div>
-  <div class="ci-action-block">
-    <button class="ci-action-main" onclick="sendItinerary()">📩 ${({es:'Enviar itinerario por email',en:'Send itinerary by email',fr:'Envoyer l’itinéraire par email'})[lang]||'Send by email'}</button>
-    <button class="ci-action-sec" onclick="closeCheckout();setTimeout(downloadPDF,200)">📄 PDF</button>
-  </div>
-  </div>`:`<p class="cart-empty-note">${t('cartEmpty')}</p>`;
+
+  function itemRow(c){
+    const bl=bookLink(c);
+    return`<div class="cob-item">
+      <span class="cob-item-ico">${c.ico||'📍'}</span>
+      <div class="cob-item-info">
+        <div class="cob-item-name">${c.label||c.name}</div>
+        ${c.price&&c.price!=='0'?`<div class="cob-item-price">${c.price}</div>`:''}
+      </div>
+      <a class="cob-book-btn ${bl.cls}" href="${bl.url}" target="_blank" rel="noopener">${bl.lbl} →</a>
+      <button class="cob-del" onclick="removeFromCart('${c.id}');renderCartBox()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:10px;height:10px"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>`;
+  }
+
+  const sl={transport:{es:'Transporte',en:'Transport',fr:'Transport'},stay:{es:'Alojamiento',en:'Stay',fr:'Hébergement'},act:{es:'Actividades',en:'Activities',fr:'Activités'}};
+  const flights=cart.filter(c=>/flight|vuelo|vol|tren|train/i.test(c.label||c.name||''));
+  const stays=cart.filter(c=>/hotel|hôtel|hostal|alojam|airbnb/i.test(c.label||c.name||'')||c.ico==='🏨'||c.ico==='🏠');
+  const acts=cart.filter(c=>!flights.includes(c)&&!stays.includes(c));
+  const hasItems=cart.length>0;
+  const emptyCta={es:'Pulsa + en los días para añadir lugares a tu viaje',en:'Tap + on day cards to add places to your trip',fr:'Appuyez sur + pour ajouter des lieux'}[lang];
+
+  const sHTML=[
+    flights.length?`<div class="cob-section"><div class="cob-section-lbl">${sl.transport[lang]}</div>${flights.map(itemRow).join('')}</div>`:'',
+    stays.length?`<div class="cob-section"><div class="cob-section-lbl">${sl.stay[lang]}</div>${stays.map(itemRow).join('')}</div>`:'',
+    acts.length?`<div class="cob-section"><div class="cob-section-lbl">${sl.act[lang]}</div>${acts.map(itemRow).join('')}</div>`:'',
+  ].filter(Boolean).join('');
+
   document.getElementById('cartBox').innerHTML=`
-    <div class="cart-sum-h">${t('cartSummaryTitle')}</div>
-    <div class="cart-dest-row">
-      <div class="cart-dest-img" style="${(()=>{const g=getDestGrad(dest);return `background:linear-gradient(135deg,${g.c[0]},${g.c[1]},${g.c[2]})`;})()};display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-family:var(--font-display);font-weight:700;color:rgba(255,255,255,.9);font-size:.7rem;text-transform:uppercase;letter-spacing:.08em">${dest.slice(0,3)}</div>
-      <div><div class="cart-dest-name">${dest}</div><div class="cart-dest-meta">${origin} · ${days} ${nightW} · ${tMap[tKey]||tKey}</div><div class="cart-dest-meta" style="color:var(--teal-dark);font-weight:600;margin-top:.1rem">${bMap[bKey]||bKey}</div></div>
+    <div class="cob-dest-banner" style="background:linear-gradient(135deg,${grad.c[0]},${grad.c[1]},${grad.c[2]})">
+      <div class="cob-dest-name">${dest}</div>
+      <div class="cob-dest-meta">${origin} · ${days} ${nightW} · ${tMap[tKey]||tKey}</div>
+      ${total>0?`<div class="cob-total">~€${total}</div>`:''}
     </div>
-    ${total>0?`<div class="cart-total-row"><span class="cart-total-n">${totalW}</span><span class="cart-total-v">~€${total}</span></div>`:''}
-    ${itemsHTML}
-    <div class="guarantees"><div class="guar">${t('g1')}</div><div class="guar">${t('g2')}</div><div class="guar">${t('g3')}</div></div>
-    <div class="share-row"><button class="share-btn" onclick="shareTrip()">${t('shareTrip')}</button></div>`;
+    <div class="cob-body">
+      ${hasItems
+        ? sHTML+`<div class="cob-grand-total"><span>${{es:'Total estimado',en:'Estimated total',fr:'Total estimé'}[lang]}</span><span class="cob-total-num">~€${total}</span></div>`
+        : `<div class="cob-empty"><div class="cob-empty-ico">🗺</div><div class="cob-empty-txt">${emptyCta}</div></div>`}
+      <div class="cob-actions">
+        <button class="cob-send-btn" onclick="sendItinerary()">
+          <svg viewBox="0 0 24 24" style="width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:2.5"><path d="M22 2L11 13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          ${({es:'Recibir plan por email',en:'Email me the plan',fr:'Recevoir par email'})[lang]}
+        </button>
+        <button class="cob-pdf-btn" onclick="closeCheckout();setTimeout(downloadPDF,200)">PDF</button>
+      </div>
+      <div id="sendOk"></div>
+      <div class="cob-guarantees">
+        <div class="cob-guar">✓ ${t('g1')}</div>
+        <div class="cob-guar">✓ ${t('g2')}</div>
+        <div class="cob-guar">✓ ${t('g3')}</div>
+      </div>
+      <div class="cob-share"><button class="cob-share-btn" onclick="shareTrip()">${t('shareTrip')}</button></div>
+    </div>`;
 }
 
 function renderReserveLinks(){
@@ -1350,38 +1369,49 @@ function dayImgUrl(dest,dayTitle,dayNum){
 // ═══════════════════════════════════
 function parseTips(text){
   if(!text.trim())return'';
-  const lines=text.split('\n').map(l=>l.replace(/^[-•*\d.)]\s*/,'').trim()).filter(Boolean);
-  const SVG_ICONS={
-    flight:'<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M20 12h-3l-4-8H9l2 8H7l-2-2H2l2 4-2 4h3l2-2h4l-2 8h4l4-8h3a2 2 0 000-4z"/></svg>',
-    weather:'<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>',
-    transport:'<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 12h16M12 4v16"/></svg>',
-    money:'<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.5 9.5C9.5 8.1 10.6 7 12 7s2.5 1.1 2.5 2.5S13.4 12 12 12s-2.5 1.1-2.5 2.5S10.6 17 12 17s2.5-1.1 2.5-2.5"/></svg>',
-    safe:'<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>',
-    food:'<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 002-2V2M7 2v20M21 15V2a5 5 0 00-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/></svg>',
-    tip:'<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>',
-  };
-  const iconMap=[
-    {k:['flight','vuelo','billet','reserv','book','anticip','cuando','reservar'],cat:'flight'},
-    {k:['climat','weather','clima','temps','rain','lluvia','saison','season','temperature'],cat:'weather'},
-    {k:['transport','metro','bus','tren','train','taxi','getting around','moverse'],cat:'transport'},
-    {k:['money','dinero','cash','prix','price','tarjeta','card','€','$','budget'],cat:'money'},
-    {k:['safe','segur','sécur','avoid','evita','éviter','scam','timo'],cat:'safe'},
-    {k:['eat','comer','manger','restaurant','food','gastro','mercado','cuisine'],cat:'food'},
+  // Split on newlines, clean up list markers
+  const lines=text.split('\n')
+    .map(l=>l.replace(/^[-•*\d.)]\s*/,'').trim())
+    .filter(l=>l.length>10);
+
+  const tipLabels=[
+    {es:'Consejo 01',en:'Tip 01',fr:'Conseil 01'},
+    {es:'Consejo 02',en:'Tip 02',fr:'Conseil 02'},
+    {es:'Consejo 03',en:'Tip 03',fr:'Conseil 03'},
+    {es:'Consejo 04',en:'Tip 04',fr:'Conseil 04'},
+    {es:'Consejo 05',en:'Tip 05',fr:'Conseil 05'},
+    {es:'Consejo 06',en:'Tip 06',fr:'Conseil 06'},
   ];
-  const used=new Set();const defCats=['tip','tip','tip'];let di=0;
-  const cards=lines.slice(0,6).map(txt=>{
-    let cat='';
-    for(const m of iconMap){if(m.k.some(k=>txt.toLowerCase().includes(k))&&!used.has(m.cat)){cat=m.cat;used.add(m.cat);break;}}
-    if(!cat){cat=defCats[di%defCats.length];di++;}
-    // Keep full tip text — no truncation
-    const head=txt;
-    // Split at first ". " to get bold head + rest body — show full text
-    const dotIdx=txt.search(/\.\s/);
-    const tipHead=dotIdx>15&&dotIdx<80?txt.slice(0,dotIdx+1):txt.slice(0,70)+(txt.length>70?'…':'');
-    const tipBody=dotIdx>15&&dotIdx<80?txt.slice(dotIdx+2).trim():'';
-    return`<div class="tip-block"><div class="tip-icon">${SVG_ICONS[cat]||SVG_ICONS.tip}</div><div class="tip-txt"><div class="tip-head">${tipHead}</div>${tipBody?`<div class="tip-body">${tipBody}</div>`:''}</div></div>`;
+
+  const cards=lines.slice(0,6).map((txt,idx)=>{
+    const lbl=(tipLabels[idx]||tipLabels[0])[lang]||tipLabels[0].es;
+    // Split into bold headline + body at first ". " or ":" or "—"
+    const sepRE=/[.:](?=\s[A-ZÁÉÍ]|\s[a-záéíóú])/;
+    const sepIdx=txt.search(sepRE);
+    let head='', body='';
+    if(sepIdx>12&&sepIdx<90){
+      head=txt.slice(0,sepIdx+1).trim();
+      body=txt.slice(sepIdx+1).trim();
+    } else {
+      // No separator — whole text is head
+      head=txt;
+      body='';
+    }
+    return`<div class="tip-block">
+      <div class="tip-num">${lbl}</div>
+      <div class="tip-head">${head}</div>
+      ${body?`<div class="tip-body">${body}</div>`:''}
+    </div>`;
   }).join('');
-  return`<div class="tips-section"><div class="tips-title">${t('tipsTitle')}</div><div class="tips-grid-2">${cards}</div></div>`;
+
+  const tipsTitle=t('tipsTitle')||{es:'Lo que nadie te cuenta',en:'What the guides don\'t say',fr:'Ce que les guides taisent'}[lang];
+  return`<div class="tips-section">
+    <div class="tips-section-header">
+      <div class="tips-title">${tipsTitle}</div>
+      <div class="tips-title-rule"></div>
+    </div>
+    <div class="tips-grid-2">${cards}</div>
+  </div>`;
 }
 
 // ═══════════════════════════════════
@@ -1806,31 +1836,42 @@ async function loadExperiences(dest,travelers,budget,month,tKey){
   sec.innerHTML=`<div style="text-align:center;padding:1.5rem;color:var(--muted)"><div class="dots" style="justify-content:center;margin-bottom:.5rem"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>${t('expLoadingMsg')}</div>`;
   const wl=lang==='fr'?'French':lang==='en'?'English':'Spanish';
 
+  // Photo keywords per experience type (Unsplash source)
+  const typePhotos={
+    tour:'travel,city,landmark',food:'food,restaurant,gastronomy',museum:'museum,art,gallery',
+    night:'nightlife,bar,cocktail',boat:'boat,sea,sailing',bike:'cycling,bicycle,travel',
+    cook:'cooking,kitchen,cuisine',hike:'hiking,mountain,nature',nature:'nature,landscape,park',
+  };
+  function expPhoto(type,name,destName){
+    const kw=typePhotos[type]||'travel,landmark';
+    const seed=encodeURIComponent(name.slice(0,20)+destName);
+    return `https://source.unsplash.com/400x240/?${kw}&sig=${seed}`;
+  }
+
   const epersona={
-    solo:    {es:'Solo/a — tours en grupo pequeño para conocer gente, talleres, visitas que no son raras hacerlas solo.',en:'Solo — small group tours to meet people, workshops, activities that work well solo.',fr:'Solo — petits groupes pour rencontrer des gens, ateliers, visites qui fonctionnent seul.'},
-    couple:  {es:'En pareja — experiencias románticas o íntimas, tours privados o pequeños, actividades mejores de dos.',en:'Couple — romantic or intimate experiences, private or small group tours, activities better as two.',fr:'En couple — expériences romantiques ou intimes, tours privés, activités à deux.'},
-    friends: {es:'Con amigos — experiencias de grupo memorables, tours privados, actividades con componente social.',en:'Friends group — memorable group experiences, private tours, activities with a social element.',fr:'Entre amis — expériences de groupe mémorables, tours privés, activités avec composante sociale.'},
-    family:  {es:'En familia con niños — experiencias aptas para niños que también disfruten adultos. Sin horarios nocturnos.',en:'Family with kids — kid-friendly experiences adults also enjoy. No late-night.',fr:'En famille — expériences adaptées aux enfants que les adultes apprécient aussi.'},
+    solo:{es:'Solo/a — preferiblemente tours en grupos pequeños (no awkward solo), talleres, actividades donde conocer gente.',en:'Solo — small group tours (not awkward alone), workshops, activities to meet people.',fr:'Solo — petits groupes, ateliers, activités pour rencontrer des gens.'},
+    couple:{es:'En pareja — experiencias íntimas o románticas, tours privados o pequeños grupos, actividades mejores de dos.',en:'Couple — intimate experiences, private tours, activities better as two.',fr:'En couple — expériences intimistes, tours privés, activités à deux.'},
+    friends:{es:'Con amigos — experiencias memorables de grupo, tours privados, actividades con componente social.',en:'Friends — memorable group experiences, private tours, social activities.',fr:'Entre amis — expériences de groupe, tours privés, activités sociales.'},
+    family:{es:'En familia con niños — aptas para todas las edades, sin horarios nocturnos, interactivas.',en:'Family — all-ages friendly, no late-night, interactive.',fr:'En famille — adapté à tous âges, interactif, sans soirées tardives.'},
   };
   const ep=(epersona[tKey]||epersona.couple)[lang]||(epersona[tKey]||epersona.couple).es;
-  const seasonNote=month?`Only suggest experiences available and enjoyable in ${month} in ${dest}.`:'';
+  const seasonNote=month?`Only experiences available in ${month} in ${dest}.`:'';
 
-  const prompt=`Travel expert. Trip to "${dest}" (${travelers}, ${budget}${month?', '+month:''}).
-Profile: ${ep}
+  const prompt=`You are a rigorous travel curator with encyclopedic knowledge of real, currently-operating experiences worldwide.
+
+Trip: "${dest}" — ${travelers}, ${budget}${month?', '+month:''}.
+Traveler profile: ${ep}
 ${seasonNote}
 
-Suggest 6 REAL, currently-operating paid experiences in ${dest}. These must be real activities you are confident exist and are bookable today on GetYourGuide or Viator — not generic descriptions, not invented names. If unsure, use the most well-known bookable experience of that type in ${dest}.
+Suggest exactly 6 REAL, verifiable, bookable experiences in ${dest}. Rules:
+- Must be real activities bookable today on GetYourGuide or Viator with 200+ actual reviews
+- NO invented names, NO generic descriptions
+- Diverse mix of types (max 2 of same type)
+- Adapted to the traveler profile above
+- Prices realistic for ${dest} ${month||'now'}
 
-Respond ONLY with a JSON array, no markdown, no preamble:
-[{"name":"Exact real bookable name in ${wl}","type":"tour|food|museum|night|boat|bike|cook|hike|nature","tagline":"1 specific sentence about what makes it worth it, in ${wl}","duration":"e.g. 3h","price":"from €45 per person","rating":"4.7"}]
-
-Rules:
-- Realistic prices for ${dest} in ${month||'current season'}
-- Mix of types (no more than 2 of the same type)
-- All experiences must suit: ${travelers}
-- All must be available in ${month||'current season'}
-- Prioritize experiences with 1000+ reviews on GetYourGuide
-- JSON only — no extra text outside the array.`;
+Respond ONLY with valid JSON array (no markdown, no text outside array):
+[{"name":"Exact bookable name in ${wl}","type":"tour|food|museum|night|boat|bike|cook|hike|nature","tagline":"1 sharp sentence on what makes it unmissable — specific, not generic","duration":"e.g. 3h","price":"from €45/person","rating":"4.8","platform":"getyourguide"}]`;
 
   try{
     const res=await fetch('/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:800,messages:[{role:'user',content:prompt}]})});
@@ -1838,27 +1879,52 @@ Rules:
     const raw=(data.content||[]).map(b=>b.text||'').join('').replace(/```json|```/g,'').trim();
     const exps=JSON.parse(raw);
     if(!Array.isArray(exps)||!exps.length)throw new Error('empty');
+
+    const expTitle={es:'Experiencias que valen la pena',en:'Experiences worth booking',fr:'Expériences qui méritent le détour'}[lang];
+    const expSubtxt={es:`Selección para ${dest} — reservable en GetYourGuide`,en:`Curated for ${dest} — bookable on GetYourGuide`,fr:`Sélection pour ${dest} — réservable sur GetYourGuide`}[lang];
+    const bookLbl={es:'Reservar en GetYourGuide',en:'Book on GetYourGuide',fr:'Réserver sur GetYourGuide'}[lang];
+    const addLbl=t('addToMyTrip');
+    const addedLbl=t('addedToTrip');
+
     sec.innerHTML=`<div class="exp-section">
-      <div class="exp-hed">${t('expTitle')}</div>
-      <div class="exp-sub">${t('expSub')}</div>
+      <div class="exp-section-header">
+        <div class="exp-hed">${expTitle}</div>
+        <div class="exp-hed-rule"></div>
+      </div>
       <div class="exp-grid">${exps.slice(0,6).map((e,i)=>{
-        const url=`https://www.getyourguide.es/s/?q=${encodeURIComponent(e.name+' '+dest)}${AFF.gyg_partner_id?'&partner_id='+AFF.gyg_partner_id:''}`;
+        const q=encodeURIComponent(e.name+' '+dest);
+        const url=`https://www.getyourguide.com/s/?q=${q}${AFF.gyg_partner_id?'&partner_id='+AFF.gyg_partner_id:''}`;
         const rawPrice=e.price||'';
         const priceNum=parseInt(rawPrice.replace(/[^0-9]/g,''))||0;
         const expType=(e.type||'tour').toLowerCase().replace(/[^a-z]/g,'');
-        return`<div class="exp-card exp-card-${expType}">
-          <div class="exp-card-header"></div>
-          <div class="exp-body">
-            <div class="exp-type-row">
-              <div class="exp-type">${(e.type||'tour').toUpperCase()}</div>
-              <div class="exp-price">${rawPrice||'—'}</div>
+        const photoUrl=expPhoto(expType,e.name,dest);
+        const typeLbl=(e.type||'tour').toUpperCase();
+        return`<div class="exp-card">
+          <div class="exp-photo">
+            <img src="${photoUrl}" alt="${e.name}" loading="lazy" onerror="this.style.background='linear-gradient(135deg,#E2E8F0,#CBD5E1)';this.style.display='none'"/>
+            <div class="exp-photo-grad"></div>
+            <div class="exp-photo-type">${typeLbl}</div>
+            <div class="exp-photo-rating">
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              ${e.rating||'4.8'}
             </div>
+          </div>
+          <div class="exp-body">
             <div class="exp-name">${e.name}</div>
             <div class="exp-tagline">${e.tagline||''}</div>
-            <div class="exp-meta"><span>⏱ ${e.duration||'—'}</span><span>★ ${e.rating||'4.8'}</span></div>
+            <div class="exp-meta-row">
+              <div class="exp-duration">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                ${e.duration||'—'}
+              </div>
+              <div class="exp-price-tag">${rawPrice||'—'}</div>
+            </div>
             <div class="exp-btns">
-              <a class="exp-book" href="${url}" target="_blank" rel="noopener">${t('expBookBtn')}</a>
-              <button class="exp-cart" id="ecart-${i}" onclick="toggleExpCart(${i},'${e.name.replace(/'/g,'\u0027')}','${rawPrice}',${priceNum},'${url}')">${t('addToMyTrip')}</button>
+              <a class="exp-book" href="${url}" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                ${bookLbl}
+              </a>
+              <button class="exp-cart" id="ecart-${i}" onclick="toggleExpCart(${i},'${e.name.replace(/'/g,'\u2019')}','${rawPrice}',${priceNum},'${url}')">${addLbl}</button>
             </div>
           </div>
         </div>`;
@@ -2115,7 +2181,7 @@ CAR_RENTAL_NEEDED: [If car needed: pickup, category, estimated total, best agenc
 [repeat for all ${days} days — each day adapted to the traveler profile, NO activities in origin city]
 
 ### ${lang==='fr'?'Conseils pratiques':lang==='en'?'Practical tips':'Consejos prácticos'}
-- [6 insider tips. ZERO generic advice. Each concrete and specific to ${dest}. No source tags needed here — but all named places must be real.]
+- [Exactly 6 insider tips. ZERO generic advice ("book in advance", "stay hydrated"). Each must be: concrete, verifiable, specific to ${dest}, and the kind of thing a journalist who lives there would tell you. Examples of good tips: specific market days, which exit of which metro, exact name of the street to eat on, what locals actually order, which queue to skip. Must start with a bold declarative sentence then expand.]
 
 ### RECAP
 TRANSPORT_COST: [total transport to/from for ${pax}]
