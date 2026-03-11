@@ -1,1 +1,10 @@
 {}
+```
+- **Commit changes**
+
+### 5. Comprueba que en GitHub ves:
+```
+api/
+  generate.js
+index.html
+vercel.json
