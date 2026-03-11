@@ -949,7 +949,9 @@ function quickSendEmail(){
   fetch('/api/email',{method:'POST',headers:{'Content-Type':'application/json'},
     body:JSON.stringify({name:'',email,tripName:document.getElementById('tripDestDisplay')?.textContent||dest,dest,
       departDate:document.getElementById('df').value,returnDate:document.getElementById('dt').value,
-      travelers:document.getElementById('travelers')?.value||'',lang})})
+      travelers:document.getElementById('travelers')?.value||'',lang,
+      tripId:currentTrip?.tripId||'',
+      tripUrl:currentTrip?.tripId?getTripUrl(currentTrip.tripId):window.location.href})})
   .then(r=>r.json()).then(()=>{
     const bar=document.getElementById('recapEmailBar');
     const ok=lang==='fr'?"\u2705 C'est parti! V\u00e9rifiez votre bo\u00eete.":lang==='en'?'\u2705 Sent! Check your inbox.':'\u2705 \u00a1Enviado! Revisa tu bandeja.';
@@ -2565,6 +2567,8 @@ async function submitMemoria() {
         travelers: memoriaData.travelers || '',
         budget: memoriaData.budget || '',
         lang,
+        tripId: currentTrip?.tripId || '',
+        tripUrl: currentTrip?.tripId ? getTripUrl(currentTrip.tripId) : window.location.href,
       })
     });
 
