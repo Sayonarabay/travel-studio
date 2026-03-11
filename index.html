@@ -64,25 +64,16 @@ textarea{resize:none;height:56px;font-size:.83rem}
 .btn-gen{width:100%;padding:.9rem;border:none;border-radius:var(--r);background:linear-gradient(135deg,var(--teal-dark),#0D9488);color:#fff;font-family:'Inter',sans-serif;font-weight:700;font-size:.88rem;cursor:pointer;transition:all .2s;margin-top:.4rem;display:flex;align-items:center;justify-content:center;gap:.45rem;box-shadow:0 4px 16px rgba(15,118,110,.28)}
 .btn-gen:hover{transform:translateY(-1px);box-shadow:0 6px 22px rgba(15,118,110,.38)}
 .btn-gen:disabled{opacity:.38;cursor:not-allowed;transform:none}
-#loadBox{display:none;padding:1.4rem 1.4rem 1.6rem;background:#fff;border-top:3px solid var(--teal-dark)}
+#loadBox{display:none;padding:.6rem 0 .4rem;background:#fff;border-top:2px solid var(--teal-dark)}
 #loadBox.on{display:block}
-.load-inner{display:flex;flex-direction:column;align-items:center;gap:.8rem;padding:.4rem 0}
-.load-top-row{display:flex;align-items:center;gap:.7rem;width:100%;justify-content:center}
-.load-orb{position:relative;width:32px;height:32px;flex-shrink:0}
-.load-orb-ring{position:absolute;inset:0;border-radius:50%;border:2px solid transparent;border-top-color:var(--teal-dark);animation:spin 1.2s linear infinite}
-.load-orb-ring.r2{inset:6px;border-top-color:var(--teal);animation-duration:0.8s;animation-direction:reverse}
-.load-orb-core{position:absolute;inset:9px;border-radius:50%;background:linear-gradient(135deg,var(--teal-dark),var(--teal))}
-@keyframes spin{to{transform:rotate(360deg)}}
-.load-dest-name{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--ink);letter-spacing:-.01em}
-.load-txt{font-size:.72rem;font-style:italic;color:var(--muted);text-align:center;max-width:38ch;line-height:1.5;transition:opacity .3s;min-height:1.2rem}
-.load-time{font-size:.6rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;text-align:center}
-.dest-fact-card{background:linear-gradient(135deg,#F0FDFA,#E0F2FE);border:1.5px solid rgba(15,118,110,.2);border-radius:14px;padding:.85rem 1.1rem;max-width:100%;text-align:left}
-.dfc-label{font-size:.56rem;font-weight:800;text-transform:uppercase;letter-spacing:.18em;color:var(--teal-dark);margin-bottom:.35rem}
-.dfc-fact{font-size:.78rem;color:var(--ink2);line-height:1.6}
-.dfc-fact strong{color:var(--ink)}
-#streamProgress{width:100%;height:3px;background:#E2E8F0;border-radius:3px;overflow:hidden;display:none}
+.load-inner{display:flex;flex-direction:column;gap:.3rem}
+#streamProgress{width:100%;height:3px;background:#E2E8F0;overflow:hidden;display:none}
 #streamProgress.on{display:block}
-#streamBar{height:100%;width:0%;background:linear-gradient(90deg,var(--teal),var(--teal-dark));border-radius:3px;transition:width .5s ease}
+#streamBar{height:100%;width:0%;background:linear-gradient(90deg,var(--teal),var(--teal-dark));transition:width .5s ease}
+.load-status-row{display:flex;align-items:center;justify-content:space-between;padding:0 .1rem}
+.load-txt{font-size:.65rem;font-style:italic;color:var(--muted);transition:opacity .3s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:78%}
+.load-time{font-size:.62rem;color:var(--muted);font-weight:600;flex-shrink:0}
+@keyframes spin{to{transform:rotate(360deg)}}
 /* Trip hero h1 */
 .trip-dest{font-family:'Playfair Display',serif;font-size:clamp(2.6rem,5vw,4.4rem);font-weight:700;color:#fff;line-height:1.0;margin-bottom:1.1rem;text-shadow:0 2px 32px rgba(0,0,0,.4)}
 .trip-dest em{font-style:italic;background:linear-gradient(135deg,#5EEAD4,#BAE6FD);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
@@ -133,8 +124,8 @@ textarea{resize:none;height:56px;font-size:.83rem}
 .moment-a .moment-dot{background:linear-gradient(135deg,#0F766E,#2DD4BF)}
 .moment-e .moment-dot{background:linear-gradient(135deg,#4338CA,#818CF8)}
 .moment-label{font-size:.48rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
-.moment-body{flex:1;padding:1rem 1.4rem}
-.moment-text{font-size:.86rem;line-height:1.8;color:var(--ink2)}
+.moment-body{flex:1;padding:1.1rem 1.4rem 1rem}
+.moment-text{font-size:.9rem;line-height:1.9;color:var(--ink2)}
 .moment-text strong{color:var(--ink);font-weight:600}
 /* Off-the-beaten-path gem */
 .day-gem{display:flex;align-items:flex-start;gap:.8rem;padding:.9rem 1.4rem;background:linear-gradient(90deg,#F0FDF4,#ECFDF5);border-top:1px solid #BBF7D0}
@@ -175,32 +166,38 @@ textarea{resize:none;height:56px;font-size:.83rem}
 .tc-cr-add{display:inline-flex;align-items:center;gap:.32rem;padding:.3rem .75rem;border-radius:100px;border:1.5px solid rgba(255,255,255,.35);background:transparent;color:#fff;font-size:.67rem;font-weight:700;cursor:pointer;transition:all .18s}
 .tc-cr-add:hover{background:rgba(255,255,255,.12)}
 .tc-cr-add svg{width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:2.5}
+/* Transport footer: add-to-trip button */
+.tc-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.7rem;margin-top:1rem;padding-top:.9rem;border-top:1px solid rgba(255,255,255,.12)}
+.tc-add-btn{display:inline-flex;align-items:center;gap:.38rem;padding:.42rem 1.1rem;border-radius:100px;border:1.5px solid rgba(255,255,255,.4);background:rgba(255,255,255,.08);color:#fff;font-size:.72rem;font-weight:700;cursor:pointer;transition:all .2s;white-space:nowrap}
+.tc-add-btn:hover{background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.7)}
+.tc-add-btn.added{background:var(--teal);border-color:var(--teal);color:var(--ink)}
+.tc-add-btn svg{width:11px;height:11px;fill:none;stroke:currentColor;stroke-width:2.5;flex-shrink:0}
+.tc-mode-pills{display:flex;gap:.4rem;flex-wrap:wrap}
+.tc-mode-pill{font-size:.62rem;font-weight:700;padding:.22rem .65rem;border-radius:100px;border:1.5px solid rgba(255,255,255,.25);color:rgba(255,255,255,.65);cursor:default}
 
-/* Tips — improved with gradients */
+/* Tips — solid colorful cards */
 .tips-section{margin-bottom:1.5rem}
-.tips-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;margin-bottom:.9rem;color:var(--ink);display:flex;align-items:center;gap:.5rem}
-.tips-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
-.tip-block{display:flex;align-items:flex-start;gap:.85rem;padding:.95rem 1rem;background:var(--white);border:1.5px solid var(--border);border-radius:14px;transition:all .22s;position:relative;overflow:hidden}
-.tip-block::before{content:'';position:absolute;inset:0;opacity:0;transition:opacity .22s;border-radius:12px}
-.tip-block:hover{border-color:transparent;box-shadow:var(--shadow-md);transform:translateY(-1px)}
-.tip-block:hover::before{opacity:1}
-.tip-block:nth-child(1)::before{background:linear-gradient(135deg,rgba(240,253,250,.9),rgba(204,251,241,.6))}
-.tip-block:nth-child(2)::before{background:linear-gradient(135deg,rgba(245,243,255,.9),rgba(237,233,254,.6))}
-.tip-block:nth-child(3)::before{background:linear-gradient(135deg,rgba(255,251,235,.9),rgba(254,243,199,.6))}
-.tip-block:nth-child(4)::before{background:linear-gradient(135deg,rgba(255,241,242,.9),rgba(254,205,211,.6))}
-.tip-block:nth-child(5)::before{background:linear-gradient(135deg,rgba(240,253,244,.9),rgba(187,247,208,.6))}
-.tip-block:nth-child(6)::before{background:linear-gradient(135deg,rgba(250,245,255,.9),rgba(233,213,255,.6))}
-.tip-icon{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.05rem;position:relative;z-index:1}
-.tip-icon svg{width:15px;height:15px;fill:none;stroke:white;stroke-width:2.2}
-.tip-block:nth-child(1) .tip-icon{background:linear-gradient(135deg,#0F766E,#2DD4BF)}
+.tips-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;margin-bottom:.9rem;color:var(--ink)}
+.tips-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+.tip-block{display:flex;align-items:flex-start;gap:.75rem;padding:.85rem .95rem;border-radius:14px;transition:transform .18s,box-shadow .18s;border:1px solid transparent}
+.tip-block:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
+.tip-block:nth-child(1){background:linear-gradient(135deg,#ECFDF5,#D1FAE5);border-color:#A7F3D0}
+.tip-block:nth-child(2){background:linear-gradient(135deg,#EEF2FF,#E0E7FF);border-color:#C7D2FE}
+.tip-block:nth-child(3){background:linear-gradient(135deg,#FFFBEB,#FEF3C7);border-color:#FDE68A}
+.tip-block:nth-child(4){background:linear-gradient(135deg,#FFF1F2,#FFE4E6);border-color:#FECDD3}
+.tip-block:nth-child(5){background:linear-gradient(135deg,#F0FDF4,#DCFCE7);border-color:#BBF7D0}
+.tip-block:nth-child(6){background:linear-gradient(135deg,#FAF5FF,#F3E8FF);border-color:#E9D5FF}
+.tip-icon{width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.05rem}
+.tip-icon svg{width:13px;height:13px;fill:none;stroke:white;stroke-width:2.2}
+.tip-block:nth-child(1) .tip-icon{background:linear-gradient(135deg,#059669,#34D399)}
 .tip-block:nth-child(2) .tip-icon{background:linear-gradient(135deg,#4338CA,#818CF8)}
-.tip-block:nth-child(3) .tip-icon{background:linear-gradient(135deg,#B45309,#F59E0B)}
+.tip-block:nth-child(3) .tip-icon{background:linear-gradient(135deg,#D97706,#FCD34D)}
 .tip-block:nth-child(4) .tip-icon{background:linear-gradient(135deg,#BE123C,#F87171)}
 .tip-block:nth-child(5) .tip-icon{background:linear-gradient(135deg,#065F46,#10B981)}
-.tip-block:nth-child(6) .tip-icon{background:linear-gradient(135deg,#5B21B6,#8B5CF6)}
-.tip-txt{flex:1;min-width:0;position:relative;z-index:1}
-.tip-head{font-size:.81rem;font-weight:700;color:var(--ink);line-height:1.4;margin-bottom:.2rem}
-.tip-body{font-size:.77rem;color:var(--ink2);line-height:1.55}
+.tip-block:nth-child(6) .tip-icon{background:linear-gradient(135deg,#6D28D9,#A78BFA)}
+.tip-txt{flex:1;min-width:0}
+.tip-head{font-size:.79rem;font-weight:700;color:var(--ink);line-height:1.4;margin-bottom:.18rem}
+.tip-body{font-size:.73rem;color:var(--ink2);line-height:1.55}
 
 /* Recap */
 .recap-card{background:var(--white);border:1.5px solid var(--border);border-radius:20px;overflow:hidden;margin-bottom:1.5rem;box-shadow:var(--shadow)}
@@ -249,23 +246,23 @@ textarea{resize:none;height:56px;font-size:.83rem}
 .accom-lnk{padding:.3rem .7rem;border:1.5px solid var(--teal-dark);border-radius:100px;color:var(--teal-dark);font-size:.67rem;font-weight:700;text-decoration:none;white-space:nowrap;transition:all .18s}
 .accom-lnk:hover{background:var(--teal-dark);color:#fff}
 
-/* Experiences */
+/* Experiences — colorful card style */
 .exp-section{margin-bottom:1.5rem}
 .exp-hed{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;margin-bottom:.35rem}
 .exp-sub{font-size:.8rem;color:var(--muted);margin-bottom:1rem}
-.exp-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.85rem}
-.exp-card{background:var(--white);border:1.5px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);display:flex;align-items:stretch;transition:all .2s}
-.exp-card:hover{box-shadow:var(--shadow-md);border-color:var(--teal-dark)}
-.exp-type-bar{width:6px;flex-shrink:0}
-.exp-card-tour .exp-type-bar{background:linear-gradient(180deg,#0F766E,#2DD4BF)}
-.exp-card-food .exp-type-bar{background:linear-gradient(180deg,#B45309,#F59E0B)}
-.exp-card-museum .exp-type-bar{background:linear-gradient(180deg,#4338CA,#818CF8)}
-.exp-card-night .exp-type-bar{background:linear-gradient(180deg,#1D4ED8,#60A5FA)}
-.exp-card-boat .exp-type-bar{background:linear-gradient(180deg,#0369A1,#38BDF8)}
-.exp-card-bike .exp-type-bar{background:linear-gradient(180deg,#065F46,#34D399)}
-.exp-card-cook .exp-type-bar{background:linear-gradient(180deg,#BE123C,#F87171)}
-.exp-card-hike .exp-type-bar{background:linear-gradient(180deg,#713F12,#D97706)}
-.exp-card-nature .exp-type-bar{background:linear-gradient(180deg,#14532D,#4ADE80)}
+.exp-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.75rem}
+.exp-card{background:var(--white);border:1.5px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;transition:all .2s}
+.exp-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px)}
+.exp-card-header{height:6px;width:100%}
+.exp-card-tour .exp-card-header{background:linear-gradient(90deg,#0F766E,#2DD4BF)}
+.exp-card-food .exp-card-header{background:linear-gradient(90deg,#B45309,#F59E0B)}
+.exp-card-museum .exp-card-header{background:linear-gradient(90deg,#4338CA,#818CF8)}
+.exp-card-night .exp-card-header{background:linear-gradient(90deg,#1D4ED8,#60A5FA)}
+.exp-card-boat .exp-card-header{background:linear-gradient(90deg,#0369A1,#38BDF8)}
+.exp-card-bike .exp-card-header{background:linear-gradient(90deg,#065F46,#34D399)}
+.exp-card-cook .exp-card-header{background:linear-gradient(90deg,#BE123C,#F87171)}
+.exp-card-hike .exp-card-header{background:linear-gradient(90deg,#713F12,#D97706)}
+.exp-card-nature .exp-card-header{background:linear-gradient(90deg,#14532D,#4ADE80)}
 .exp-body{padding:.9rem 1rem;flex:1;display:flex;flex-direction:column}
 .exp-type-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:.3rem}
 .exp-type{font-size:.56rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--teal-dark)}
@@ -280,16 +277,21 @@ textarea{resize:none;height:56px;font-size:.83rem}
 .exp-cart:hover{background:var(--ink);color:#fff}
 .exp-cart.added{background:var(--teal-dark);border-color:var(--teal-dark);color:#fff}
 
-/* Bottom CTAs */
-.bottom-cta{background:linear-gradient(135deg,#0F172A,#0F3460);border-radius:20px;padding:2.2rem;margin-bottom:1.5rem;color:#fff;display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap}
-.bcta-h{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;margin-bottom:.3rem}
-.bcta-sub{font-size:.85rem;color:rgba(255,255,255,.55)}
-.bcta-btns{display:flex;gap:.7rem;flex-wrap:wrap;flex-shrink:0}
-.bcta-btn{padding:.7rem 1.3rem;border-radius:10px;font-size:.82rem;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:.35rem;transition:all .2s}
+/* Bottom CTA — "¿Listo para X?" redesign */
+.bottom-cta{background:linear-gradient(135deg,#0F172A 0%,#1E3A5F 60%,#0F766E 100%);border-radius:20px;padding:2.4rem 2.5rem;margin-bottom:1.5rem;color:#fff;position:relative;overflow:hidden}
+.bottom-cta::before{content:'';position:absolute;top:-60px;right:-60px;width:280px;height:280px;background:radial-gradient(circle,rgba(45,212,191,.12),transparent 70%);border-radius:50%;pointer-events:none}
+.bcta-eyebrow{font-size:.58rem;font-weight:800;text-transform:uppercase;letter-spacing:.28em;color:var(--teal);margin-bottom:.65rem;opacity:.9}
+.bcta-h{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:700;line-height:1.1;margin-bottom:.5rem}
+.bcta-sub{font-size:.88rem;color:rgba(255,255,255,.52);margin-bottom:1.6rem;line-height:1.55}
+.bcta-actions{display:flex;flex-wrap:wrap;gap:.65rem;align-items:center}
+.bcta-btn{padding:.7rem 1.3rem;border-radius:10px;font-size:.82rem;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:.38rem;transition:all .2s;cursor:pointer;border:none;font-family:'Inter',sans-serif}
 .bcta-btn.p{background:var(--teal);color:var(--ink)}
 .bcta-btn.p:hover{background:#14B8A6;color:#fff}
-.bcta-btn.s{background:rgba(255,255,255,.09);color:#fff;border:1px solid rgba(255,255,255,.18)}
-.bcta-btn.s:hover{background:rgba(255,255,255,.17)}
+.bcta-btn.s{background:rgba(255,255,255,.09);color:#fff;border:1px solid rgba(255,255,255,.22)}
+.bcta-btn.s:hover{background:rgba(255,255,255,.18)}
+.bcta-btn.recap{background:linear-gradient(135deg,rgba(45,212,191,.18),rgba(45,212,191,.08));color:var(--teal);border:1.5px solid rgba(45,212,191,.35);font-size:.79rem}
+.bcta-btn.recap:hover{background:linear-gradient(135deg,rgba(45,212,191,.28),rgba(45,212,191,.15));border-color:var(--teal)}
+.bcta-divider{width:1px;height:1.5rem;background:rgba(255,255,255,.15);margin:0 .15rem}
 
 /* ── CHECKOUT ── */
 #checkoutPage{display:none;min-height:100vh;background:var(--bg);padding-top:56px}
@@ -628,15 +630,9 @@ textarea{resize:none;height:56px;font-size:.83rem}
     <div id="loadBox">
       <div class="load-inner">
         <div id="streamProgress"><div id="streamBar"></div></div>
-        <div class="load-top-row">
-          <div class="load-orb"><div class="load-orb-ring"></div><div class="load-orb-ring r2"></div><div class="load-orb-core"></div></div>
-          <div id="loadDestName" class="load-dest-name" style="display:none"></div>
-        </div>
-        <p id="ltxt" class="load-txt"></p>
-        <div id="loadTimeEst" class="load-time" style="display:none"></div>
-        <div id="destFactCard" class="dest-fact-card" style="display:none">
-          <div id="dfcLabel" class="dfc-label"></div>
-          <div id="dfcFact" class="dfc-fact"></div>
+        <div class="load-status-row">
+          <p id="ltxt" class="load-txt"></p>
+          <span id="loadTimeEst" class="load-time" style="display:none"></span>
         </div>
       </div>
     </div>
@@ -1348,6 +1344,18 @@ function buildTransportCard(block,dest,origin){
         ${{es:'Añadir a mi viaje',en:'Add to my trip',fr:'Ajouter'}[lang]}
       </button>
     </div>`:''}
+    <div class="tc-footer">
+      <div class="tc-mode-pills">
+        ${mode==='flight'?`<span class="tc-mode-pill">✈ ${lang==='fr'?'Vol':lang==='en'?'Flight':'Vuelo'}</span><span class="tc-mode-pill" style="opacity:.4">🚂 ${lang==='fr'?'Train':lang==='en'?'Train':'Tren'}</span><span class="tc-mode-pill" style="opacity:.4">🚗 ${lang==='fr'?'Voiture':lang==='en'?'Car':'Coche'}</span>`:''}
+        ${mode==='train'?`<span class="tc-mode-pill" style="opacity:.4">✈ ${lang==='fr'?'Vol':lang==='en'?'Flight':'Vuelo'}</span><span class="tc-mode-pill">🚂 ${lang==='fr'?'Train':lang==='en'?'Train':'Tren'}</span><span class="tc-mode-pill" style="opacity:.4">🚗 ${lang==='fr'?'Voiture':lang==='en'?'Car':'Coche'}</span>`:''}
+        ${mode==='car'?`<span class="tc-mode-pill" style="opacity:.4">✈ ${lang==='fr'?'Vol':lang==='en'?'Flight':'Vuelo'}</span><span class="tc-mode-pill" style="opacity:.4">🚂 ${lang==='fr'?'Train':lang==='en'?'Train':'Tren'}</span><span class="tc-mode-pill">🚗 ${lang==='fr'?'Voiture':lang==='en'?'Car':'Coche'}</span>`:''}
+        ${mode==='ferry'?`<span class="tc-mode-pill">⛴ Ferry</span>`:''}
+      </div>
+      <button class="tc-add-btn" id="tc-add-${mode}" onclick="toggleTransportCart('tc-add-${mode}','${cfg.ico} ${cfg.label[lang]||cfg.label.es}: ${route}','${price||''}','${cfg.ico}')">
+        <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        ${{es:'Añadir al viaje',en:'Add to trip',fr:'Ajouter au voyage'}[lang]}
+      </button>
+    </div>
   </div>`;
 }
 
@@ -1564,25 +1572,33 @@ function parseTimeline(text,dest,origin){
         return [...found].slice(0,5);
       }
 
-      const addICO='<svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>';
-      const checkICO='<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>';
-
-      function expBtnsHTML(txt, dayN, momentKey){
-        const exps=extractExps(txt);
-        if(!exps.length) return '';
-        const btns=exps.map((name,i)=>{
-          const safeN=name.replace(/'/g,'\u0027').replace(/"/g,'&quot;');
-          const id=`exp-${dayN}-${momentKey}-${i}`;
-          return `<button class="exp-micro" id="${id}" onclick="toggleExpCart('${id}','${safeN}',0,'🎯')">${addICO}${name}</button>`;
+      // Collect ALL named experiences from all moments for bottom card buttons
+      const addICO_local='<svg viewBox="0 0 24 24" style="width:9px;height:9px;fill:none;stroke:currentColor;stroke-width:2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>';
+      function allDayExpBtns(moments, dayN) {
+        const allExps = new Map(); // name -> id
+        moments.forEach(m => {
+          if(!m.text) return;
+          extractExps(m.text).forEach((name, i) => {
+            if(!allExps.has(name)) {
+              allExps.set(name, `exp-${dayN}-${m.key}-${i}`);
+            }
+          });
+        });
+        if(!allExps.size) return '';
+        const btns = [...allExps.entries()].map(([name, id]) => {
+          const safeN = name.replace(/'/g,'\u0027').replace(/"/g,'&quot;');
+          return `<button class="exp-micro" id="${id}" onclick="toggleExpCart('${id}','${safeN}',0,'🎯')">${addICO_local}${name}</button>`;
         }).join('');
-        return `<div class="moment-exp-btns">${btns}</div>`;
+        return btns;
       }
 
-      const momentsHTML=hasMoments?[
+      const allMoments = [
         {cls:'moment-m',svg:sunSVG, label:ml[0], text:morn, key:'m'},
         {cls:'moment-a',svg:aftSVG, label:ml[1], text:aftn, key:'a'},
         {cls:'moment-e',svg:moonSVG,label:ml[2], text:evng, key:'e'},
-      ].filter(m=>m.text).map(m=>`
+      ].filter(m=>m.text);
+
+      const momentsHTML=hasMoments?allMoments.map(m=>`
         <div class="moment ${m.cls}">
           <div class="moment-time">
             <div class="moment-dot">${m.svg}</div>
@@ -1590,10 +1606,15 @@ function parseTimeline(text,dest,origin){
           </div>
           <div class="moment-body">
             <div class="moment-text">${m.text}</div>
-            ${expBtnsHTML(m.text, dayCount, m.key)}
           </div>
         </div>`).join('')
-      :`<div style="padding:1rem 1.4rem;font-size:.87rem;line-height:1.8;color:var(--ink2)"><p>${fallbackText}</p></div>`;
+      :`<div style="padding:1.1rem 1.4rem;font-size:.9rem;line-height:1.9;color:var(--ink2)"><p>${fallbackText}</p></div>`;
+
+      const expBtnsAll = allDayExpBtns(allMoments, dayCount);
+      const hotelLabel = lang==='fr'?'Hôtel':lang==='en'?'Hotel':'Hotel';
+      const airbnbLabel = 'Airbnb';
+      const hotelId = `hotel-day-${dayCount}`;
+      const airbnbId = `airbnb-day-${dayCount}`;
 
       html+=`<div class="day-card" id="${dayId}">
         <div class="day-header">
@@ -1612,8 +1633,9 @@ function parseTimeline(text,dest,origin){
         </div>`:''}
         <div class="day-cta">
           <div class="day-cta-links">
-            ${dayCount===1?`<a class="dql" href="${affUrl('flight',dest,origin)}" target="_blank">${flightSVG} ${lang==='fr'?'Vols':lang==='en'?'Flights':'Vuelos'}</a>`:''}
-            <a class="dql" href="${affUrl('hotel',dest,'')}" target="_blank">${hotelSVG} ${lang==='fr'?'Hôtels':lang==='en'?'Hotels':'Hoteles'}</a>
+            ${expBtnsAll}
+            <button class="exp-micro" id="${hotelId}" onclick="toggleExpCart('${hotelId}','🏨 ${hotelLabel} — ${lang==='fr'?'Jour':lang==='en'?'Day':'Día'} ${dayCount}',0,'🏨')" style="background:linear-gradient(135deg,#F0FDF4,#DCFCE7);border-color:#BBF7D0;color:#065F46">🏨 ${hotelLabel}</button>
+            <button class="exp-micro" id="${airbnbId}" onclick="toggleExpCart('${airbnbId}','🏠 Airbnb — ${lang==='fr'?'Jour':lang==='en'?'Day':'Día'} ${dayCount}',0,'🏠')" style="background:linear-gradient(135deg,#FFF1F2,#FFE4E6);border-color:#FECDD3;color:#BE123C">🏠 ${airbnbLabel}</button>
           </div>
           <button class="btn-add-day" id="addbtn-${dayCount}" onclick="toggleDayCart(${dayCount},'${title.replace(/'/g,'\u0027')}')">
             ${t('addDayBtn')}
@@ -1703,7 +1725,7 @@ Rules:
         const priceNum=parseInt(rawPrice.replace(/[^0-9]/g,''))||0;
         const expType=(e.type||'tour').toLowerCase().replace(/[^a-z]/g,'');
         return`<div class="exp-card exp-card-${expType}">
-          <div class="exp-type-bar"></div>
+          <div class="exp-card-header"></div>
           <div class="exp-body">
             <div class="exp-type-row">
               <div class="exp-type">${(e.type||'tour').toUpperCase()}</div>
@@ -2056,11 +2078,18 @@ Max 1000 words. Write entirely in ${wl}.`;
     // CTA
     const ctaFn=t('ctaTitle');
     const ctaTitle=typeof ctaFn==='function'?ctaFn(dest):dest;
+    const readyLabel={es:`¿Listo para ${dest}?`,en:`Ready for ${dest}?`,fr:`Prêt pour ${dest} ?`}[lang];
+    const planLabel={es:'El plan es tuyo. Solo falta reservar.',en:'The plan is yours. Just book it.',fr:'Le plan est à vous. Il ne reste qu\'à réserver.'}[lang];
     const ctaHTML=`<div class="bottom-cta">
-      <div><div class="bcta-h">${ctaTitle}</div><div class="bcta-sub">${t('ctaSub')}</div></div>
-      <div class="bcta-btns">
+      <div class="bcta-eyebrow">✦ TRAVEL STUDIO</div>
+      <div class="bcta-h">${readyLabel}</div>
+      <div class="bcta-sub">${planLabel}</div>
+      <div class="bcta-actions">
         <a class="bcta-btn p" href="${affUrl('flight',dest,origin)}" target="_blank">${t('ctaFlights')}</a>
         <a class="bcta-btn s" href="${affUrl('hotel',dest,'')}" target="_blank">${t('ctaHotels')}</a>
+        <div class="bcta-divider"></div>
+        <button class="bcta-btn recap" onclick="openCheckout()">📋 ${{es:'Ver resumen del viaje',en:'View trip summary',fr:'Voir le récapitulatif'}[lang]}</button>
+        <button class="bcta-btn s" onclick="downloadPDF()" style="padding:.7rem 1rem">📄 PDF</button>
       </div>
     </div>
     <div class="full-recap-card" id="fullRecapCard">
@@ -2069,9 +2098,6 @@ Max 1000 words. Write entirely in ${wl}.`;
           <div style="font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.45);margin-bottom:.35rem">${{es:'TOTAL ESTIMADO DEL VIAJE',en:'ESTIMATED TRIP TOTAL',fr:'TOTAL ESTIMÉ DU VOYAGE'}[lang]}</div>
           <div class="full-recap-total" id="fullRecapTotal">&nbsp;</div>
           <div style="font-size:.7rem;color:rgba(255,255,255,.4);margin-top:.25rem">${tStr} · ${days} ${lang==='fr'?'jours':lang==='en'?'days':'días'}</div>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:.5rem;align-items:flex-end">
-          <button class="trip-action-btn" onclick="downloadPDF()">📄 PDF</button>
         </div>
       </div>
       <div class="full-recap-email-bar">
@@ -2306,7 +2332,7 @@ function downloadPDF() {
 }
 function _generatePDF() {
   const { jsPDF } = window.jspdf;
-  const W = 210, H = 297, MG = 15, MG2 = 195;
+  const W = 210, H = 297, MG = 14, MG2 = 196;
   const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
 
   const tN   = memoriaData.tripName || memoriaData.dest || 'Mi Viaje';
@@ -2314,6 +2340,7 @@ function _generatePDF() {
   const df   = document.getElementById('df').value;
   const dt   = document.getElementById('dt').value;
   const trav = memoriaData.travelers || '';
+  const budget = memoriaData.budget || '';
   const now  = new Date().toLocaleDateString('es-ES',{day:'numeric',month:'long',year:'numeric'});
 
   // ─── Palette ───
@@ -2321,188 +2348,164 @@ function _generatePDF() {
     ink:   [15,23,42],   ink2:  [71,85,105],
     teal:  [15,118,110], teal2: [45,212,191],
     bg:    [248,250,252], brd:  [226,232,240],
-    white: [255,255,255],amber: [180,83,9],
+    white: [255,255,255], amber: [180,83,9],
     ind:   [67,56,202],  green: [6,95,70],
     red:   [190,18,60],  muted: [148,163,184],
+    navy:  [15,23,62],
   };
-  // Day palette (alternates)
   const DAY_PAL = [
-    {h:C.ink,  acc:[45,212,191]},
-    {h:[67,56,202],   acc:[165,180,252]},
-    {h:[180,83,9],    acc:[252,211,77]},
-    {h:[6,95,70],     acc:[110,231,183]},
-    {h:[190,18,60],   acc:[252,165,165]},
-    {h:[3,105,161],   acc:[125,211,252]},
-    {h:[88,28,135],   acc:[216,180,254]},
+    {h:[15,23,42],   acc:[45,212,191],  bg:[240,253,250]},
+    {h:[67,56,202],  acc:[165,180,252], bg:[238,242,255]},
+    {h:[180,83,9],   acc:[252,211,77],  bg:[255,251,235]},
+    {h:[6,95,70],    acc:[110,231,183], bg:[240,253,244]},
+    {h:[190,18,60],  acc:[252,165,165], bg:[255,241,242]},
+    {h:[3,105,161],  acc:[125,211,252], bg:[240,249,255]},
+    {h:[88,28,135],  acc:[216,180,254], bg:[250,245,255]},
   ];
 
   // ─── Helpers ───
-  function setFont(sz, weight, color){
-    doc.setFontSize(sz);
-    doc.setFont('helvetica', weight||'normal');
-    if(color) doc.setTextColor(...color);
-  }
-  function text(str, x, y, opts){ doc.text(String(str), x, y, opts||{}); }
-  function splitText(str, maxW){ return doc.splitTextToSize(String(str).replace(/\s+/g,' ').trim(), maxW); }
-  function rect(x,y,w,h,color,round){
-    doc.setFillColor(...color);
-    round ? doc.roundedRect(x,y,w,h,round,round,'F') : doc.rect(x,y,w,h,'F');
-  }
-  function line(x1,y1,x2,y2,color,w){
-    doc.setDrawColor(...(color||C.brd));
-    doc.setLineWidth(w||0.25);
-    doc.line(x1,y1,x2,y2);
-  }
-  function newPage(){
+  const sf = (sz,w,c)=>{ doc.setFontSize(sz); doc.setFont('helvetica',w||'normal'); if(c) doc.setTextColor(...c); };
+  const tx = (s,x,y,o)=>doc.text(String(s),x,y,o||{});
+  const sp = (s,mW)=>doc.splitTextToSize(String(s).replace(/\s+/g,' ').trim(),mW);
+  const rc = (x,y,w,h,c,r)=>{ doc.setFillColor(...c); r?doc.roundedRect(x,y,w,h,r,r,'F'):doc.rect(x,y,w,h,'F'); };
+  const ln = (x1,y1,x2,y2,c,w)=>{ doc.setDrawColor(...(c||C.brd)); doc.setLineWidth(w||0.2); doc.line(x1,y1,x2,y2); };
+
+  // ─── Page template ───
+  function newPage(showSidebar){
     doc.addPage();
-    // Subtle background
-    rect(0,0,W,H,C.bg);
-    // Teal top bar
-    rect(0,0,W,3,C.teal);
+    rc(0,0,W,H,C.bg);
+    // Left sidebar strip
+    if(showSidebar!==false){
+      rc(0,0,5,H,C.teal);
+      rc(5,0,1.5,H,[45,212,191]);
+    }
+    // Top micro-bar
+    rc(0,0,W,1.5,C.teal2);
     // Footer
-    rect(0,H-11,W,11,C.ink);
-    setFont(6.5,'normal',C.muted);
-    text(tN + '  ·  Travel Studio', W/2, H-4.2, {align:'center'});
-    return 18;
+    rc(0,H-10,W,10,C.ink);
+    sf(6,'normal',C.muted);
+    tx(tN+'  ·  Travel Studio', W/2, H-3.5, {align:'center'});
+    return 14;
   }
 
   // ════════════════════════════════════════
-  // PORTADA — Diseño mejorado
+  // PORTADA — Bold editorial cover
   // ════════════════════════════════════════
-  rect(0,0,W,H,C.ink);   // dark bg full page
+  // Full dark background
+  rc(0,0,W,H,C.ink);
 
-  // Large decorative gradient circle (top right)
-  doc.setFillColor(15,118,110);
-  doc.circle(W+20,0,80,'F');
+  // Teal diagonal accent block (top-right)
+  doc.setFillColor(...C.teal);
+  // Draw a large triangle top-right
+  doc.triangle(W-70,0, W,0, W,90, 'F');
   doc.setFillColor(45,212,191);
-  doc.circle(W-10,-10,40,'F');
+  doc.triangle(W-40,0, W,0, W,50, 'F');
 
-  // Left accent stripe
-  rect(0,0,6,H,C.teal);
-  // Lighter band
-  rect(6,0,2,H,[45,212,191,0.4]);
+  // Left bold stripe
+  rc(0,0,8,H,C.teal);
+  rc(8,0,3,H,[20,160,145]);
 
-  // Top band
-  rect(0,0,W,2,C.teal2);
+  // Bottom color band
+  rc(0,H-50,W,50,[15,40,80]);
+  rc(0,H-50,W,1.5,C.teal2);
 
-  // Brand badge
-  setFont(6.5,'bold',C.teal2);
-  doc.setCharSpace(3.5);
-  text('TRAVEL STUDIO', 20, 22);
+  // Brand
+  sf(6.5,'bold',C.teal2);
+  doc.setCharSpace(4);
+  tx('TRAVEL STUDIO', 20, 22);
   doc.setCharSpace(0);
-  setFont(6,'normal',C.muted);
-  text('AI-powered itinerary', 20, 29);
+  sf(6.5,'normal',[100,130,150]);
+  tx('AI-POWERED ITINERARY', 20, 29);
 
-  // Decorative line
+  // Horizontal rule
   doc.setDrawColor(...C.teal);
-  doc.setLineWidth(0.5);
-  doc.line(20,34,100,34);
+  doc.setLineWidth(0.6);
+  doc.line(20,34,120,34);
 
-  // Trip name — big hero text
-  const nameLines = splitText(tN, W - 50);
-  setFont(nameLines.length>1 ? 26 : 32, 'bold', [255,255,255]);
+  // Trip name — massive
+  const nameLines = sp(tN, W-60);
+  sf(nameLines.length>2?20:nameLines.length>1?26:34,'bold',[255,255,255]);
   doc.text(nameLines, 20, 54);
-  let cy = 54 + nameLines.length * (nameLines.length>1 ? 10 : 12);
+  let cy = 54 + nameLines.length*(nameLines.length>1?10:13);
 
-  // Destination label
-  setFont(11,'normal',C.teal2);
-  text(dest.toUpperCase(), 20, cy+8);
-  cy += 22;
-
-  // Meta info chips
-  const chipData = [
-    df && dt ? `${df} → ${dt}` : '',
-    trav,
-    memoriaData.budget || '',
-  ].filter(Boolean);
-  let cx2 = 20;
-  chipData.forEach(chip => {
-    const cw = Math.max(chip.length * 1.75 + 10, 30);
-    doc.setFillColor(255,255,255,0.07);
-    doc.roundedRect(cx2, cy, cw, 8, 2, 2, 'F');
-    doc.setDrawColor(255,255,255,0.2);
-    doc.setLineWidth(0.3);
-    doc.roundedRect(cx2, cy, cw, 8, 2, 2, 'S');
-    setFont(6.5,'normal',[180,210,230]);
-    text(chip, cx2+5, cy+5.5);
-    cx2 += cw + 4;
-  });
+  // Destination — teal large
+  sf(13,'bold',C.teal2);
+  tx(dest.toUpperCase(), 20, cy+7);
   cy += 18;
 
-  // Generated date
-  setFont(7,'normal',C.muted);
-  text({es:'Generado el',en:'Generated on',fr:'Généré le'}[lang]+' '+now, 20, cy);
-
-  // Bottom decorative bar with URL
-  rect(0,H-18,W,18,C.teal);
-  rect(0,H-18,W,1,[45,212,191]);
-  setFont(9,'bold',C.ink);
-  text('travel-studio.vercel.app', W/2, H-8, {align:'center'});
-  setFont(6.5,'normal',C.ink);
-  text('Tu viaje, con criterio.', W/2, H-3.5, {align:'center'});
-
-  // Small abstract right column graphic (stacked color blocks)
-  const rects2 = [
-    {y:H*0.15,h:H*0.12,c:[15,118,110,0.5]},
-    {y:H*0.29,h:H*0.08,c:[45,212,191,0.35]},
-    {y:H*0.39,h:H*0.2, c:[30,58,95,0.6]},
-    {y:H*0.61,h:H*0.1, c:[15,118,110,0.3]},
-    {y:H*0.73,h:H*0.15,c:[67,56,202,0.25]},
-  ];
-  rects2.forEach(r=>{
-    doc.setFillColor(r.c[0],r.c[1],r.c[2]);
-    doc.rect(W-22,r.y,22,r.h,'F');
+  // Date & travelers chips — horizontal row
+  const meta = [df&&dt?`${df} → ${dt}`:'', trav, budget].filter(Boolean);
+  let cx = 20;
+  meta.forEach(chip=>{
+    const cw = chip.length*1.8+10;
+    rc(cx,cy,cw,7,[255,255,255],2);
+    doc.setFillColor(255,255,255);
+    sf(6,'normal',[15,23,42]);
+    tx(chip, cx+5, cy+5);
+    cx += cw+4;
   });
+  cy += 16;
+
+  sf(7,'normal',[100,130,160]);
+  tx({es:'Generado el',en:'Generated on',fr:'Généré le'}[lang||'es']+' '+now, 20, cy);
+
+  // Bottom bar content
+  sf(10,'bold',[255,255,255]);
+  tx('travel-studio.vercel.app', W/2, H-26, {align:'center'});
+  sf(7,'normal',C.teal2);
+  tx({es:'Tu viaje, con criterio.',en:'Your trip, curated.',fr:'Votre voyage, avec critère.'}[lang||'es'], W/2, H-18, {align:'center'});
+
+  // Right column abstract shapes (geometric)
+  const shapes=[
+    {y:H*.18,h:H*.09,c:[15,118,110]},
+    {y:H*.29,h:H*.05,c:[45,212,191]},
+    {y:H*.36,h:H*.14,c:[25,60,110]},
+    {y:H*.52,h:H*.07,c:[15,118,110]},
+    {y:H*.61,h:H*.12,c:[67,56,202]},
+  ];
+  shapes.forEach(s=>{ doc.setFillColor(...s.c); doc.rect(W-18,s.y,18,s.h,'F'); });
 
   // ════════════════════════════════════════
-  // DÍAS
+  // DAY PAGES
   // ════════════════════════════════════════
   const timeline = document.getElementById('timeline');
-  if(!timeline){ doc.save((tN+dest).replace(/[^a-z0-9]/gi,'-')+'.pdf'); return; }
+  if(!timeline){ doc.save(tN.replace(/[^a-z0-9]/gi,'-')+'.pdf'); return; }
   const dayCards = timeline.querySelectorAll('.day-card');
-  if(!dayCards.length){ doc.save((tN+dest).replace(/[^a-z0-9]/gi,'-')+'.pdf'); return; }
-
-  const PB = H-16;   // page bottom safe zone
+  if(!dayCards.length){ doc.save(tN.replace(/[^a-z0-9]/gi,'-')+'.pdf'); return; }
+  const PB = H-14;
 
   dayCards.forEach((card, di) => {
     let y = newPage();
     const pal = DAY_PAL[di % DAY_PAL.length];
-
     const titleEl = card.querySelector('.day-title');
     const title = titleEl ? titleEl.textContent.trim() : '';
 
-    // ── Day header block — improved ──
-    // Background gradient bar
-    rect(MG, y, W-MG*2, 28, pal.h, 5);
-    // Accent right side detail
+    // ── Day header — full-width color block ──
+    rc(MG, y, W-MG*2, 32, pal.h, 4);
+    // Diagonal accent inside header (right)
     doc.setFillColor(...pal.acc);
-    doc.roundedRect(MG2-16, y+3, 14, 22, 3,3,'F');
+    doc.triangle(MG2-28,y, MG2,y, MG2,y+32,'F');
 
-    // Day number badge — circle
+    // Day number circle
     doc.setFillColor(...pal.acc);
-    doc.circle(MG+14, y+14, 10, 'F');
-    setFont(16,'bold',C.ink);
-    text(String(di+1), MG+14, y+19, {align:'center'});
+    doc.circle(MG+13, y+16, 11, 'F');
+    sf(14,'bold',C.ink);
+    tx(String(di+1), MG+13, y+20.5, {align:'center'});
 
-    // Title text
-    const titleLines = splitText(title, W-MG*2-46);
-    setFont(titleLines.length>1 ? 10:12, 'bold', [255,255,255]);
-    doc.text(titleLines, MG+30, y+10+(titleLines.length>1?0:4));
+    // Day label & title
+    sf(6,'bold',[200,220,230]);
+    tx({es:'DÍA',en:'DAY',fr:'JOUR'}[lang||'es'], MG+30, y+10);
+    const titleLines = sp(title, W-MG*2-50);
+    sf(titleLines.length>1?10:12,'bold',[255,255,255]);
+    doc.text(titleLines, MG+30, y+(titleLines.length>1?16:19));
+    y += 38;
 
-    // Day label (right side accent)
-    setFont(6,'bold',C.ink);
-    text({es:'DÍA',en:'DAY',fr:'JOUR'}[lang]||'DÍA', MG2-9, y+11, {align:'center'});
-    setFont(9,'bold',C.ink);
-    text(String(di+1), MG2-9, y+21, {align:'center'});
-
-    y += 34;
-
-    // ── Moment blocks — improved ──
+    // ── Moment blocks ──
     const moments = card.querySelectorAll('.moment');
     const MOT = [
-      {dot:[245,158,11], bg:[255,251,235], tag:{es:'☀ MAÑANA',en:'☀ MORNING',fr:'☀ MATIN'}},
-      {dot:[45,212,191], bg:[240,253,250], tag:{es:'⛅ TARDE',en:'⛅ AFTERNOON',fr:'⛅ APRÈS-MIDI'}},
-      {dot:[129,140,248],bg:[245,243,255], tag:{es:'🌙 NOCHE',en:'🌙 EVENING',fr:'🌙 SOIR'}},
+      {col:[245,158,11], bg:[255,252,235], tag:{es:'☀  MAÑANA',en:'☀  MORNING',fr:'☀  MATIN'}},
+      {col:[15,118,110], bg:[240,253,250], tag:{es:'⛅  TARDE',en:'⛅  AFTERNOON',fr:'⛅  APRÈS-MIDI'}},
+      {col:[99,102,241], bg:[238,242,255], tag:{es:'🌙  NOCHE',en:'🌙  EVENING',fr:'🌙  SOIR'}},
     ];
 
     moments.forEach((m, mi) => {
@@ -2510,150 +2513,131 @@ function _generatePDF() {
       if(!mText) return;
       const raw = mText.textContent.replace(/\s+/g,' ').trim();
       if(!raw) return;
-
       const mot = MOT[mi]||MOT[0];
-      const tag = mot.tag[lang]||mot.tag.es;
+      const tag = mot.tag[lang||'es']||mot.tag.es;
+      if(y+12 > PB) y = newPage();
 
-      if(y+10 > PB) y = newPage();
-
-      // Moment label row with colored left border
-      rect(MG, y, 4, 7, mot.dot, 1);
-      setFont(7,'bold', mot.dot);
-      text(tag, MG+8, y+5);
+      // Time-of-day label
+      rc(MG, y, 3, 7, mot.col, 1);
+      sf(6.5,'bold',mot.col);
+      tx(tag, MG+7, y+5.5);
       y += 10;
 
-      // Text block with subtle tinted background
-      const mLines = splitText(raw, W-MG*2-10);
-      const bh = mLines.length*4.5+8;
+      // Content block with tinted bg
+      const mLines = sp(raw, W-MG*2-12);
+      const bh = mLines.length*4.8+10;
       if(y+bh > PB) y = newPage();
-      rect(MG, y-2, W-MG*2, bh, mot.bg||C.bg, 3);
-      // Left color bar
-      rect(MG, y-2, 2.5, bh, mot.dot, 0);
-      setFont(8.5,'normal',C.ink2);
-      doc.text(mLines, MG+8, y+4);
-      y += bh+4;
+      rc(MG, y-1, W-MG*2, bh, mot.bg, 3);
+      rc(MG, y-1, 3, bh, mot.col, 0);
+      sf(8.5,'normal',C.ink2);
+      doc.text(mLines, MG+9, y+5);
+      y += bh+5;
     });
 
-    // ── Gem — improved ──
+    // ── Gem ──
     const gem = card.querySelector('.day-gem-txt');
     if(gem){
       const raw = gem.textContent.replace(/\s+/g,' ').trim();
-      const gLines = splitText(raw, W-MG*2-16);
-      const gh = gLines.length*4.5+14;
+      const gLines = sp(raw, W-MG*2-14);
+      const gh = gLines.length*4.8+14;
       if(y+gh > PB) y = newPage();
-      rect(MG, y, W-MG*2, gh, [240,253,244], 3);
-      // Green left accent bar
-      rect(MG, y, 3.5, gh, [16,185,129], 1);
-      doc.setDrawColor(134,239,172);
-      doc.setLineWidth(0.25);
+      rc(MG, y, W-MG*2, gh, [236,253,245], 3);
+      rc(MG, y, 3.5, gh, [16,185,129], 1);
+      doc.setDrawColor(134,239,172); doc.setLineWidth(0.25);
       doc.roundedRect(MG,y,W-MG*2,gh,3,3,'S');
-      setFont(6.5,'bold',[6,95,70]);
-      text('✦ '+ ({es:'FUERA DE RUTA',en:'OFF THE BEATEN PATH',fr:'HORS DES SENTIERS'}[lang]||'OFF THE BEATEN PATH'), MG+7, y+6);
-      setFont(8,'normal',[21,128,61]);
-      doc.text(gLines, MG+7, y+11.5);
-      y += gh+5;
+      sf(6,'bold',[6,95,70]);
+      tx('✦ '+({es:'FUERA DE RUTA',en:'OFF THE BEATEN PATH',fr:'HORS DES SENTIERS'}[lang||'es']), MG+8, y+6);
+      sf(8.5,'normal',[21,128,61]);
+      doc.text(gLines, MG+8, y+12);
+      y += gh+6;
     }
-
-    y += 3;
   });
 
   // ════════════════════════════════════════
-  // RESUMEN FINAL — mejorado
+  // SUMMARY PAGE — two columns visual
   // ════════════════════════════════════════
   let y = newPage();
 
-  // Section header with gradient
-  rect(MG, y, W-MG*2, 18, C.teal, 4);
-  // Overlay dark layer for contrast
-  doc.setFillColor(15,23,42,0.3);
-  doc.roundedRect(MG,y,W-MG*2,18,4,4,'F');
-  setFont(11,'bold',C.white);
-  text({es:'✦ RESUMEN DEL VIAJE',en:'✦ TRIP SUMMARY',fr:'✦ RÉCAPITULATIF'}[lang]||'RESUMEN', W/2, y+12, {align:'center'});
+  // Header
+  rc(MG,y,W-MG*2,20,C.teal,4);
+  rc(MG,y,W-MG*2,20,[0,0,0],4);// subtle overlay: set alpha via fill
+  doc.setFillColor(15,23,42); doc.setGState && doc.setGState(doc.GState({opacity:0.25}));
+  sf(12,'bold',C.white);
+  tx({es:'✦ RESUMEN DEL VIAJE',en:'✦ TRIP SUMMARY',fr:'✦ RÉCAPITULATIF'}[lang||'es'], W/2, y+13, {align:'center'});
   y += 26;
 
-  // Budget table from recap
+  // Budget table
   const recapEl = document.getElementById('recapSection');
   if(recapEl){
     const rows = recapEl.querySelectorAll('.bc-row');
-    rows.forEach((row, ri) => {
-      if(y+10 > PB) y = newPage();
-      const lbl = row.querySelector('.bc-lbl, .bc-cat');
-      const val = row.querySelector('.bc-val');
+    rows.forEach((row,ri)=>{
+      if(y+10>PB) y=newPage();
+      const lbl=row.querySelector('.bc-lbl,.bc-cat');
+      const val=row.querySelector('.bc-val');
       if(!lbl) return;
-      if(ri%2===0){ rect(MG, y-2, W-MG*2, 9, [241,245,249]); }
-      setFont(8.5,'normal',C.ink2);
-      const lblTxt = lbl.textContent.trim().slice(0,55);
-      text(lblTxt, MG+4, y+4.5);
-      if(val){
-        setFont(8.5,'bold',C.teal);
-        text(val.textContent.trim(), MG2-4, y+4.5, {align:'right'});
-      }
-      y += 9;
+      if(ri%2===0) rc(MG,y-2,W-MG*2,9,[241,245,249]);
+      sf(8.5,'normal',C.ink2); tx(lbl.textContent.trim().slice(0,55),MG+4,y+4.5);
+      if(val){ sf(8.5,'bold',C.teal); tx(val.textContent.trim(),MG2-2,y+4.5,{align:'right'}); }
+      y+=9;
     });
-
-    // Total
-    const total = recapEl.querySelector('.bc-total, .recap-total');
-    if(total && y+14 < PB){
-      y += 2;
-      rect(MG, y, W-MG*2, 13, C.teal, 3);
-      setFont(10,'bold',C.white);
-      text(total.textContent.trim().slice(0,60), W/2, y+8.5, {align:'center'});
-      y += 18;
+    const total=recapEl.querySelector('.bc-total,.recap-total');
+    if(total&&y+14<PB){
+      y+=3;
+      rc(MG,y,W-MG*2,13,C.teal,3);
+      sf(10,'bold',C.white); tx(total.textContent.trim().slice(0,60),W/2,y+9,{align:'center'});
+      y+=18;
     }
   }
 
-  // Day recap rows
+  // Day recap
   const dayRows = recapEl ? recapEl.querySelectorAll('.dr-row') : [];
-  if(dayRows.length && y+12 < PB){
-    y += 4;
-    setFont(8,'bold',C.ink2);
-    text({es:'DÍA A DÍA',en:'DAY BY DAY',fr:'JOUR PAR JOUR'}[lang]||'DÍA A DÍA', MG, y);
-    y += 7;
-    line(MG, y, MG2, y, C.brd);
-    y += 5;
-    dayRows.forEach((row, ri) => {
-      if(y+9 > PB) y = newPage();
-      const txt = row.querySelector('.dr-txt');
-      const cost = row.querySelector('.dr-cost, .dr-pill');
-      // Number
-      doc.setFillColor(...C.teal);
-      doc.circle(MG+3.5, y+2.5, 2.8, 'F');
-      setFont(6.5,'bold',C.white);
-      text(String(ri+1), MG+3.5, y+4.5, {align:'center'});
-      setFont(8,'normal',C.ink2);
-      text((txt?txt.textContent.trim().slice(0,72):''), MG+10, y+4.5);
-      if(cost){
-        setFont(7.5,'bold',C.teal);
-        text(cost.textContent.trim(), MG2-2, y+4.5, {align:'right'});
-      }
-      y += 9;
+  if(dayRows.length&&y+12<PB){
+    y+=6;
+    sf(7,'bold',C.ink2); tx({es:'DÍA A DÍA',en:'DAY BY DAY',fr:'JOUR PAR JOUR'}[lang||'es'],MG,y);
+    y+=7; ln(MG,y,MG2,y,C.brd); y+=5;
+    dayRows.forEach((row,ri)=>{
+      if(y+9>PB) y=newPage();
+      const txt=row.querySelector('.dr-txt');
+      const cost=row.querySelector('.dr-cost,.dr-pill');
+      const pal=DAY_PAL[ri%DAY_PAL.length];
+      doc.setFillColor(...pal.acc); doc.circle(MG+3.5,y+2.5,2.8,'F');
+      sf(6.5,'bold',C.ink); tx(String(ri+1),MG+3.5,y+4.5,{align:'center'});
+      sf(8,'normal',C.ink2); tx((txt?txt.textContent.trim().slice(0,72):''),MG+10,y+4.5);
+      if(cost){ sf(7.5,'bold',C.teal); tx(cost.textContent.trim(),MG2-2,y+4.5,{align:'right'}); }
+      y+=9;
     });
   }
 
-  // ── Practical tips ──
+  // Tips
   const tipsEl = document.getElementById('tipsSection');
-  if(tipsEl && y+20 < PB){
-    y += 8;
-    rect(MG, y, W-MG*2, 14, C.amber, 3);
-    setFont(9,'bold',C.white);
-    text({es:'CONSEJOS PRÁCTICOS',en:'PRACTICAL TIPS',fr:'CONSEILS PRATIQUES'}[lang]||'CONSEJOS', W/2, y+9, {align:'center'});
-    y += 18;
-    tipsEl.querySelectorAll('.tip-block').forEach(tb => {
-      if(y+9 > PB) y = newPage();
-      const th = tb.querySelector('.tip-head');
+  const tipPal=[[5,150,105],[67,56,202],[217,119,6],[190,18,60],[6,95,70],[109,40,217]];
+  if(tipsEl&&y+20<PB){
+    y+=10;
+    rc(MG,y,W-MG*2,14,[180,83,9],3);
+    sf(9,'bold',C.white); tx({es:'CONSEJOS PRÁCTICOS',en:'PRACTICAL TIPS',fr:'CONSEILS PRATIQUES'}[lang||'es'],W/2,y+9,{align:'center'});
+    y+=18;
+    tipsEl.querySelectorAll('.tip-block').forEach((tb,ti)=>{
+      if(y+9>PB) y=newPage();
+      const th=tb.querySelector('.tip-head');
+      const tbody=tb.querySelector('.tip-body');
       if(!th) return;
-      doc.setFillColor(...C.teal2);
-      doc.circle(MG+3, y+3, 2, 'F');
-      setFont(8,'normal',C.ink);
-      const tl = splitText(th.textContent.trim(), W-MG*2-10);
-      doc.text(tl.slice(0,2), MG+8, y+4);
-      y += tl.length*4+3;
+      const c=tipPal[ti%tipPal.length];
+      doc.setFillColor(...c); doc.circle(MG+3,y+3,2.2,'F');
+      sf(8,'bold',C.ink);
+      const tl=sp(th.textContent.trim(),W-MG*2-12);
+      doc.text(tl.slice(0,1),MG+8,y+4.5);
+      if(tbody){
+        sf(7.5,'normal',C.ink2);
+        const bl=sp(tbody.textContent.trim(),W-MG*2-12);
+        doc.text(bl.slice(0,2),MG+8,y+9);
+        y+=tl.length*4+bl.length*3.5+5;
+      } else { y+=tl.length*4+4; }
     });
   }
 
-  const fn = (tN+'-'+dest).replace(/[^a-zA-Z0-9 ]/g,'').replace(/\s+/g,'-').toLowerCase();
-  doc.save(fn+'.pdf');
+  doc.save((tN+'-'+dest).replace(/[^a-z0-9]/gi,'-').toLowerCase()+'.pdf');
 }
+
 
 // ═══════════════════════════════════
 // FULL RECAP POPULATION
