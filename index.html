@@ -32,8 +32,22 @@ nav{position:fixed;top:0;width:100%;z-index:100;background:rgba(250,250,247,.97)
 .nav-dot.active{background:var(--sage);transform:scale(1.4)}
 .prog-bar{position:fixed;top:54px;left:0;right:0;z-index:99;height:3px;background:var(--border)}
 .prog-fill{height:100%;background:linear-gradient(90deg,var(--sage),var(--teal));transition:width .5s cubic-bezier(.4,0,.2,1)}
-#wizard{padding-top:57px;min-height:100dvh;display:flex;flex-direction:column}
-.wz-main{flex:1;display:flex;flex-direction:column;align-items:center;padding:2rem 1.2rem 7rem;position:relative}
+/* ── HERO ── */
+.wz-hero{background:linear-gradient(135deg,#0f1b2d 0%,#1a2f4a 40%,#162638 70%,#0d1f30 100%);padding:5rem 1.4rem 3.5rem;text-align:center;position:relative;overflow:hidden}
+.wz-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 60% 30%,rgba(45,212,191,.08) 0%,transparent 60%)}
+.wz-hero-badge{display:inline-flex;align-items:center;gap:.45rem;background:rgba(74,124,89,.18);border:1px solid rgba(74,124,89,.4);border-radius:100px;padding:.35rem .9rem;font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#86efac;margin-bottom:1.6rem}
+.wz-hero-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:#4ade80;box-shadow:0 0 6px #4ade80;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.wz-hero h1{font-family:var(--font-display);font-size:clamp(2.2rem,8vw,3.8rem);font-weight:400;color:#fff;line-height:1.08;letter-spacing:-.03em;margin-bottom:1rem}
+.wz-hero h1 em{font-style:italic;color:var(--teal)}
+.wz-hero-sub{font-family:var(--font-prose);font-size:1rem;color:rgba(255,255,255,.5);max-width:34ch;margin:0 auto 2.2rem;line-height:1.8;font-style:italic}
+.wz-stats{display:flex;gap:2.5rem;justify-content:center;flex-wrap:wrap}
+.wz-stat-n{font-family:var(--font-display);font-size:1.6rem;color:#fff;letter-spacing:-.02em;line-height:1}
+.wz-stat-l{font-size:.58rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-top:.28rem}
+
+/* ── WIZARD BODY ── */
+#wizard{min-height:100dvh;display:flex;flex-direction:column}
+.wz-form-wrap{padding-top:58px}
 .wz-step{width:100%;max-width:520px;opacity:0;transform:translateX(32px);transition:opacity .3s ease,transform .3s ease;pointer-events:none;position:absolute;top:0}
 .wz-step.active{opacity:1;transform:none;pointer-events:auto;position:relative}
 .wz-step.exit-l{opacity:0;transform:translateX(-32px)}
@@ -224,6 +238,20 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
 .r-email-in{flex:1;min-width:140px;padding:.52rem .85rem;border:1.5px solid #c6e8d4;border-radius:9px;font-size:.83rem;font-family:var(--font-body);outline:none}
 .r-email-send{padding:.52rem 1rem;background:var(--sage);color:#fff;border:none;border-radius:9px;font-size:.83rem;font-weight:700;cursor:pointer}
 .r-email-pdf{padding:.52rem .9rem;background:#fff;border:1.5px solid #c6e8d4;border-radius:9px;font-size:.83rem;cursor:pointer}
+/* ── HERO ── */
+.wz-hero{background:linear-gradient(135deg,#0f1b2d 0%,#1a2f4a 40%,#162638 70%,#0d1f30 100%);padding:5rem 1.4rem 3.5rem;text-align:center;position:relative;overflow:hidden}
+.wz-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 60% 30%,rgba(45,212,191,.08) 0%,transparent 60%)}
+.wz-hero-badge{display:inline-flex;align-items:center;gap:.45rem;background:rgba(74,124,89,.18);border:1px solid rgba(74,124,89,.4);border-radius:100px;padding:.35rem .9rem;font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#86efac;margin-bottom:1.6rem}
+.wz-hero-badge::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:#4ade80;box-shadow:0 0 6px #4ade80;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.wz-hero h1{font-family:var(--font-display);font-size:clamp(2.2rem,8vw,3.6rem);font-weight:400;color:#fff;line-height:1.08;letter-spacing:-.03em;margin-bottom:1rem}
+.wz-hero h1 em{font-style:italic;color:var(--teal)}
+.wz-hero-sub{font-family:var(--font-prose);font-size:1rem;color:rgba(255,255,255,.5);max-width:34ch;margin:0 auto 2.2rem;line-height:1.8;font-style:italic}
+.wz-stats{display:flex;gap:2.5rem;justify-content:center;flex-wrap:wrap}
+.wz-stat-n{font-family:var(--font-display);font-size:1.6rem;color:#fff;letter-spacing:-.02em;line-height:1}
+.wz-stat-l{font-size:.58rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-top:.28rem}
+#wizard{min-height:100dvh;display:flex;flex-direction:column}
+.wz-form-wrap{flex:1;display:flex;flex-direction:column}
 </style>
 </head>
 <body>
@@ -250,7 +278,19 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
     </div>
   </nav>
   <div class="prog-bar"><div class="prog-fill" id="progFill"></div></div>
-  <div class="wz-main">
+  <!-- HERO visible only on step 1 -->
+  <div class="wz-hero" id="wzHero">
+    <div class="wz-hero-badge">Itinerario completo · Listo en 30 segundos</div>
+    <h1>Tu próximo viaje,<br>de principio a fin,<br><em>sin perder el tiempo.</em></h1>
+    <p class="wz-hero-sub">Destino, fechas, presupuesto. En 30 segundos tienes un plan día a día con transporte, dónde dormir y qué hacer — adaptado a cómo viajas tú.</p>
+    <div class="wz-stats">
+      <div><div class="wz-stat-n">30s</div><div class="wz-stat-l">Plan listo</div></div>
+      <div><div class="wz-stat-n">150+</div><div class="wz-stat-l">Destinos en BD</div></div>
+      <div><div class="wz-stat-n">100%</div><div class="wz-stat-l">Sin publicidad</div></div>
+    </div>
+  </div>
+  <div class="wz-form-wrap">
+  <div class="wz-main" style="flex:1;display:flex;flex-direction:column;align-items:center;padding:2rem 1.2rem 7rem;position:relative">
     <div class="wz-step active" id="s1">
       <div class="step-ey">Paso 1 de 7</div>
       <div class="step-q">¿Qué tipo de <em>escapada</em>?</div>
@@ -343,6 +383,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
   <div class="wz-footer">
     <button class="btn-gen" id="ctaBtn" onclick="onCta()" disabled>Continuar →</button>
   </div>
+</div><!-- /wz-form-wrap -->
 </div>
 <div id="results">
   <div class="res-hero">
@@ -1078,6 +1119,8 @@ function updateUI(){
 }
 function canProceed(){switch(step){case 1:return!!WZ.type;case 2:return!!WZ.dur;case 3:return!!(WZ.df||WZ.flex);case 4:return!!WZ.pax;case 5:return!!WZ.origin;case 6:return WZ.budget>=100;case 7:return true;}}
 function goTo(n){
+  const hero=document.getElementById('wzHero');
+  if(hero)hero.style.display=n===1?'':'none';
   const cur=document.getElementById('s'+step),nxt=document.getElementById('s'+n);
   if(n>step){cur.classList.add('exit-l');setTimeout(()=>cur.classList.remove('active','exit-l'),300);}
   else cur.classList.remove('active');
@@ -1165,12 +1208,26 @@ function startGenerate(){
   const days=parseInt(WZ.dur||5),pax=parseInt(WZ.pax||2);
   const paxStr=WZ.fam?pax+' personas con familia':pax===1?'1 persona':pax===2?'2 personas':pax+' personas';
   const interests=WZ.interests.join(', ')||'variado';
+  // Build personalization context
+  const persCtx=[];
+  if(WZ.fam) persCtx.push('viaje familiar con niños — actividades aptas para todas las edades, evitar noche tardía');
+  if(WZ.pax==='1') persCtx.push('viajero solo — hostels sociables, tours en grupo, barrios seguros para moverse solo');
+  if(WZ.interests.includes('gastronomia')) persCtx.push('gastronomía: mercados locales, restaurantes de barrio auténticos (no turísticos), platos típicos imprescindibles, vinos locales');
+  if(WZ.interests.includes('cultura')) persCtx.push('cultura: museos obligatorios con horario exacto, barrios históricos, arquitectura destacada');
+  if(WZ.interests.includes('naturaleza')||WZ.interests.includes('aventura')||WZ.type==='micro') persCtx.push('naturaleza/aventura: senderismo accesible, miradores, parques naturales, actividades al aire libre');
+  if(WZ.interests.includes('relax')) persCtx.push('relax: spas, playas tranquilas, paseos sin prisas, cafés con terraza');
+  if(WZ.interests.includes('romantico')&&WZ.pax==='2') persCtx.push('viaje romántico en pareja: cenas con vista, paseos al atardecer, actividades íntimas');
+  if(WZ.interests.includes('slow')) persCtx.push('slow travel: mercados matutinos, barrios de artesanos, convivencia con locales, sin prisas');
+  if(WZ.type==='road'||isRoad) persCtx.push('road trip: paradas obligatorias en ruta, miradores, pueblos con encanto, gasolineras y parkings');
+  if(WZ.budget<500) persCtx.push('presupuesto ajustado: prioriza actividades gratuitas, comida en mercados, transporte público');
+  if(WZ.budget>1500) persCtx.push('presupuesto amplio: experiencias premium, restaurantes de calidad, actividades privadas');
+  const persStr=persCtx.length>0?'\n\nPERFIL ESPECÍFICO:\n'+persCtx.map(p=>'- '+p).join('\n'):'';
   const dData=DEST_DB[dest]||null;
   const isRoad=dData?.road||WZ.type==='road';
   const bTotal=WZ.budget*pax;
   const prompt=`Crea un itinerario completo para ${paxStr} a ${dest}, saliendo desde ${WZ.origin||'Europa'}.
 Duración: ${days} días.${WZ.df?' Fechas: '+WZ.df+(WZ.dt?' a '+WZ.dt:'')+'.':' Fechas flexibles.'}
-Presupuesto: €${WZ.budget}/persona (€${bTotal} total). Tipo: ${TYPE_LBL[WZ.type]||WZ.type}. Intereses: ${interests}.${WZ.custom?' '+WZ.custom:''}
+Presupuesto: €${WZ.budget}/persona (€${bTotal} total). Tipo: ${TYPE_LBL[WZ.type]||WZ.type}. Intereses: ${interests}.${WZ.custom?' '+WZ.custom:''}${persStr}
 
 ### TRANSPORTE
 ROUTE: [ruta completa — "${WZ.origin||'origen'} → ${dest}"]
@@ -1197,7 +1254,7 @@ ${Array.from({length:days},(_,i)=>`### Día ${i+1}
 Para CADA uno de los ${days} días escribe EXACTAMENTE 5 líneas. Formato:
 NUMERO_DIA|TIPO|NOMBRE|DESCRIPCION|PRECIO|DURACION
 TIPO = hotel | experience | free
-Por día: 1 hotel (precio noche) + 2 experience (€XX) + 1 free (Gratis) + 1 free (Gratis).
+Por día: 1 hotel real (nombre+barrio+€XX/noche) + 2 experience pago (nombres reales, €XX) + 2 free (actividades gratuitas reales, zonas, miradores). Adapta las opciones a los intereses: ${interests}.
 SIN markdown, SIN asteriscos, SOLO líneas pipe. Nombres reales.
 
 ### RECAP
@@ -1205,7 +1262,7 @@ TRANSPORT_COST: [vuelo/tren ida+vuelta ${pax} personas]
 HOTEL_COST: [${days-1} noches — €X-Y/noche]
 FOOD_COST: [€X/persona/día × ${days} días]
 TOTAL_ESTIMATE: [rango total ${pax} personas]
-ACCOMMODATION: [3 opciones reales con barrio y precio]
+ACCOMMODATION: [3 hoteles/apartamentos reales adaptados al presupuesto: 1 económico, 1 medio, 1 superior — nombre real, barrio y precio/noche]
 
 En español. Máximo ${Math.max(1400,days*280)} palabras.`;
   fetch('/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:3500,messages:[{role:'user',content:prompt}]})})
@@ -1227,7 +1284,7 @@ function renderResults(raw,dest){
   const tc=raw.match(/###\s*TRANSPORTE[\s\S]*?(?=###|$)/i)?.[0]||'';
   const route=rget(tc,'ROUTE'),outbound=rget(tc,'OUTBOUND'),priceT=rget(tc,'PRICE_TOTAL'),bkTip=rget(tc,'BOOK_TIP'),ret=rget(tc,'RETURN'),locT=rget(tc,'LOCAL_TRANSPORT'),locC=rget(tc,'LOCAL_TRANSPORT_COST'),carR=rget(tc,'CAR_RENTAL_NEEDED');
   const dData=DEST_DB[dest]||null,isRoad=dData?.road||WZ.type==='road';
-  const fUrl=affUrl('flight',dest,WZ.origin||'',[],[],pax),tUrl=affUrl('train',dest,WZ.origin||'',[],[],pax),cUrl=affUrl('car',dest,WZ.origin||'',[],[],pax),hUrl=affUrl('hotel',dest,'',[],[],pax);
+  const fUrl=affUrl('flight',dest,WZ.origin||'',WZ.df||'',WZ.dt||'',pax),tUrl=affUrl('train',dest,WZ.origin||'',WZ.df||'',WZ.dt||'',pax),cUrl=affUrl('car',dest,WZ.origin||'',WZ.df||'',WZ.dt||'',pax),hUrl=affUrl('hotel',dest,'',WZ.df||'',WZ.dt||'',pax);
   document.getElementById('rTransport').innerHTML=`
 <div class="r-card r-dk" style="margin-top:0">
   <span class="r-badge">${isRoad?'🚗 TRANSPORTE & RUTA':'✈️ TRANSPORTE'}</span>
@@ -1339,9 +1396,34 @@ function buildRecap(dest,days,pax){
     const tlDays=[...new Set(sorted.map(i=>i.dayNum).filter(Boolean))].sort((a,b_)=>a-b_);
     tlHTML=`<div class="r-tl"><div class="r-tl-title">Tu selección · día a día</div>${tlDays.map(dn=>`<div class="tl-day"><div class="tl-dh"><div class="tl-dd"></div><div class="tl-dn">Día ${dn}</div>${dDate(dn)?`<span class="tl-dt"> · ${dDate(dn)}</span>`:''}</div><div class="tl-items">${byDay[dn].map(it=>`<div class="tl-item"><span class="tl-i-ico">${it.ico||'📌'}</span><span class="tl-i-name">${it.name}</span><span class="tl-i-price ${it.priceNum>0?'':'free'}">${it.priceNum>0?'€'+it.priceNum:'Gratis'}</span></div>`).join('')}</div></div>`).join('')}</div>`;
   }
-  document.getElementById('rRecap').innerHTML=`${tlHTML}<div class="r-recap"><div class="r-rhead"><div class="r-rdest">${dest}</div><div class="r-rmeta">${dateStr?dateStr+' · ':''}${days} días · ${pax} pax</div></div>${cart.length>0?`<div class="ag-sec">Lo que has añadido</div>${cartRows}`:''}<div class="ag-sec">Base estimada</div>${fRow}${cRow}${hRow}${fdRow}<div class="ag-total"><div class="ag-tlbl">Total estimado</div><div class="ag-tval">€${totMin.toLocaleString()} – €${totMax.toLocaleString()}</div><div style="font-size:.67rem;color:var(--ink2);margin-top:.2rem">${b.hasFlight?'✈️ €'+b.flightMin+'–'+b.flightMax+' · ':''}🏨 €${b.hotelMin}–${b.hotelMax} · 🍽️ €${b.foodMin}–${b.foodMax}</div><div style="font-size:.67rem;color:var(--muted);margin-top:.3rem">Precios orientativos.</div></div><div class="r-email"><div class="r-email-lbl">📧 Recibir este plan por email</div><div class="r-email-row"><input type="email" class="r-email-in" placeholder="tu@email.com"><button class="r-email-send">✉ Enviar</button><button class="r-email-pdf">⬇ PDF</button></div></div></div>`;
+  document.getElementById('rRecap').innerHTML=`${tlHTML}<div class="r-recap"><div class="r-rhead"><div class="r-rdest">${dest}</div><div class="r-rmeta">${dateStr?dateStr+' · ':''}${days} días · ${pax} pax</div></div>${cart.length>0?`<div class="ag-sec">Lo que has añadido</div>${cartRows}`:''}<div class="ag-sec">Base estimada</div>${fRow}${cRow}${hRow}${fdRow}<div class="ag-total"><div class="ag-tlbl">Total estimado</div><div class="ag-tval">€${totMin.toLocaleString()} – €${totMax.toLocaleString()}</div><div style="font-size:.67rem;color:var(--ink2);margin-top:.2rem">${b.hasFlight?'✈️ €'+b.flightMin+'–'+b.flightMax+' · ':''}🏨 €${b.hotelMin}–${b.hotelMax} · 🍽️ €${b.foodMin}–${b.foodMax}</div><div style="font-size:.67rem;color:var(--muted);margin-top:.3rem">Precios orientativos.</div></div><div class="r-email"><div class="r-email-lbl">📧 Recibir este plan por email</div><div class="r-email-row"><input type="email" class="r-email-in" placeholder="tu@email.com"><button class="r-email-send" onclick="sendWzEmail(this)">✉ Enviar</button><button class="r-email-pdf" onclick="window.print()">⬇ PDF</button></div></div></div>`;
 }
 function removeItem(id){cart=cart.filter(c=>c.id!==id);const chk=document.querySelector(`#wr-${id} input`);if(chk){chk.checked=false;document.getElementById('wr-'+id)?.classList.remove('picked');}buildRecap(WZ.dest||'',parseInt(WZ.dur||5),parseInt(WZ.pax||2));}
+
+function sendWzEmail(btn){
+  const emailInput=document.querySelector('.r-email-in');
+  const email=(emailInput?.value||'').trim();
+  if(!email||!email.includes('@')){if(emailInput){emailInput.style.borderColor='#F87171';emailInput.focus();}return;}
+  const oldTxt=btn.textContent;
+  btn.textContent='...';btn.disabled=true;
+  const dest=WZ.dest||'';
+  const bodyText=document.getElementById('rDays')?.innerText||'';
+  fetch('/api/email',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({
+      name:'',email,
+      tripName:dest,dest,
+      departDate:WZ.df||'',returnDate:WZ.dt||'',
+      travelers:WZ.pax||'2',lang:'es',
+      tripId:'',
+      tripUrl:window.location.href,
+      bodyText
+    })
+  }).then(r=>r.json()).then(()=>{
+    btn.textContent='✅ Enviado!';btn.style.background='#16a34a';
+    setTimeout(()=>{btn.textContent=oldTxt;btn.disabled=false;btn.style.background='';},3000);
+  }).catch(()=>{btn.textContent=oldTxt;btn.disabled=false;});
+}
+
 // INIT
 (function(){const t=new Date().toISOString().split('T')[0];document.getElementById('wdf').min=t;document.getElementById('wdt').min=t;onBudget(800);updateUI();})();
 </script>
