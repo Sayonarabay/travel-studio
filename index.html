@@ -1025,14 +1025,61 @@ async function fetchRealFlight(originCity, destCity, departDate, returnDate){
     return null;
   }
 }
-function affUrl(type,dest,origin){
-  const d=encodeURIComponent(dest||''),o=encodeURIComponent(origin||'');
-  if(type==='flight')return`https://www.skyscanner.es/vuelos/${o}/${d}${AFF.skyscanner_id?'?affilid='+AFF.skyscanner_id:''}`;
-  if(type==='hotel') return`https://www.booking.com/search.html?ss=${d}${AFF.booking_aid?'&aid='+AFF.booking_aid:''}`;
-  if(type==='act')   return`https://www.getyourguide.es/s/?q=${d}${AFF.gyg_partner_id?'&partner_id='+AFF.gyg_partner_id:''}`;
-  if(type==='train') return'https://www.thetrainline.com/es';
-  if(type==='car')   return`https://www.rentalcars.com/es/?fts=${d}${AFF.rentalcars_key?'&affiliateCode='+AFF.rentalcars_key:''}`;
-  return'#';
+function affUrl(type, dest, origin, checkIn, checkOut, pax){
+  const d = encodeURIComponent(dest||'');
+  const o = encodeURIComponent(origin||'');
+  const M = TP_MARKER; // 710331
+
+  // Dates for hotel links
+  const ci = checkIn  || (currentTrip?.dateFrom) || '';
+  const co = checkOut || (currentTrip?.dateTo)   || '';
+
+  if(type==='flight'){
+    // Aviasales via Travelpayouts
+    const origIATA = getIATA(origin||currentTrip?.origin||'') || '';
+    const destIATA = getIATA(dest||currentTrip?.dest||'')     || '';
+    const dep = currentTrip?.dateFrom || '';
+    const ret = currentTrip?.dateTo   || '';
+    const np  = pax || getNumPax() || 1;
+    if(origIATA && destIATA)
+      return `https://www.aviasales.com/?marker=${M}&origin_iata=${origIATA}&destination_iata=${destIATA}${dep?'&depart_date='+dep:''}${ret?'&return_date='+ret:''}&adults=${np}`;
+    // fallback: generic search
+    return `https://tp.media/r?marker=${M}&trs=233044&p=4114&u=https%3A%2F%2Fwww.aviasales.com%2F&campaign_id=100`;
+  }
+
+  if(type==='hotel'){
+    // Booking.com via Travelpayouts
+    const ciF = ci ? ci.replace(/-/g,'-') : '';
+    const coF = co ? co.replace(/-/g,'-') : '';
+    const np  = pax || getNumPax() || 2;
+    let url = `https://www.booking.com/search.html?ss=${d}&lang=es&group_adults=${np}`;
+    if(ciF) url += `&checkin=${ciF}`;
+    if(coF) url += `&checkout=${coF}`;
+    // Travelpayouts affiliate wrapper for Booking.com
+    return `https://tp.media/r?marker=${M}&trs=233044&p=4114&u=${encodeURIComponent(url)}&campaign_id=17`;
+  }
+
+  if(type==='act'){
+    // GetYourGuide via Travelpayouts
+    const gyg = `https://www.getyourguide.es/s/?q=${d}&lang=es`;
+    return `https://tp.media/r?marker=${M}&trs=233044&p=4114&u=${encodeURIComponent(gyg)}&campaign_id=569`;
+  }
+
+  if(type==='car'){
+    // Rentalcars via Travelpayouts
+    const rc = `https://www.rentalcars.com/es/?fts=${d}`;
+    return `https://tp.media/r?marker=${M}&trs=233044&p=4114&u=${encodeURIComponent(rc)}&campaign_id=233`;
+  }
+
+  if(type==='train'){
+    return `https://tp.media/r?marker=${M}&trs=233044&p=4114&u=https%3A%2F%2Fwww.thetrainline.com%2Fes&campaign_id=327`;
+  }
+
+  if(type==='ferry'){
+    return `https://tp.media/r?marker=${M}&trs=233044&p=4114&u=https%3A%2F%2Fwww.directferries.es%2F&campaign_id=1307`;
+  }
+
+  return '#';
 }
 
 // ═══════════════════════════════════
