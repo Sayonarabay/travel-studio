@@ -3213,59 +3213,34 @@ Max ${Math.max(1200, days*250)} words. Write entirely in ${wl}.`;
 
     let raw='';
 
-    // Try Vercel serverless endpoint first
-    let usedVercel=false;
-    console.log('[TS] Trying /api/generate...');
+    // Direct Anthropic API call
+    console.log('[TS] Calling Anthropic API directly...');
+    const controller=new AbortController();
+    const timeout=setTimeout(()=>controller.abort(),90000);
     try{
-      const controller=new AbortController();
-      const timeout=setTimeout(()=>controller.abort(),8000); // short timeout to fail fast if not on Vercel
-      const res=await fetch('/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},
+      const res=await fetch('https://api.anthropic.com/v1/messages',{
+        method:'POST',
         signal:controller.signal,
-        body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:4000,messages:[{role:'user',content:prompt}]})});
+        headers:{
+          'Content-Type':'application/json',
+          'x-api-key':storedKey,
+          'anthropic-version':'2023-06-01',
+          'anthropic-dangerous-direct-browser-access':'true'
+        },
+        body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:4000,messages:[{role:'user',content:prompt}]})
+      });
       clearTimeout(timeout);
-      if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error(e?.error||`HTTP ${res.status}`);}
+      if(!res.ok){
+        const errData=await res.json().catch(()=>({}));
+        throw new Error(errData?.error?.message||`HTTP ${res.status}`);
+      }
       const data=await res.json();
       raw=(data.content||[]).map(b=>b.text||'').join('').trim();
-      usedVercel=true;
-    }catch(vercelErr){
-      // Not on Vercel or endpoint failed — use direct API
-      if(vercelErr.name==='AbortError'||vercelErr.message.includes('abort')) {
-        // timed out waiting for Vercel — fall through to direct
-      } else if(vercelErr.message.includes('Failed to fetch')||vercelErr.message.includes('NetworkError')||vercelErr.message.includes('404')||vercelErr.message.includes('HTTP 404')||vercelErr.message.includes('HTTP 5')){
-        // expected — not on Vercel
-      } else {
-        throw vercelErr; // real error (401, etc) — bubble up
-      }
-    }
-
-    if(!usedVercel){
-      console.log('[TS] Falling back to direct Anthropic API...');
-      rotatePhraseWith({es:'Generando tu itinerario…',en:'Generating your itinerary…',fr:'Génération de votre itinéraire…'}[lang]);
-      const controller2=new AbortController();
-      const timeout2=setTimeout(()=>controller2.abort(),90000);
-      try{
-        const res2=await fetch('https://api.anthropic.com/v1/messages',{
-          method:'POST',
-          signal:controller2.signal,
-          headers:{'Content-Type':'application/json','x-api-key':storedKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
-          body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:4000,messages:[{role:'user',content:prompt}]})
-        });
-        clearTimeout(timeout2);
-        if(!res2.ok){
-          const errData=await res2.json().catch(()=>({}));
-          const msg=errData?.error?.message||`HTTP ${res2.status}`;
-          if(res2.status===401){
-            throw new Error('API Key inválida (401). Ve a console.anthropic.com/keys y crea una nueva key.');
-          }
-          throw new Error(msg);
-        }
-        const data2=await res2.json();
-        raw=(data2.content||[]).map(b=>b.text||'').join('').trim();
-      }catch(e2){
-        clearTimeout(timeout2);
-        if(e2.name==='AbortError') throw new Error({es:'Tiempo de espera agotado.',en:'Request timed out.',fr:'Délai dépassé.'}[lang]);
-        throw new Error({es:`Error de conexión: ${e2.message}`,en:`Connection error: ${e2.message}`,fr:`Erreur de connexion : ${e2.message}`}[lang]);
-      }
+      console.log('[TS] API response received, length:', raw.length);
+    }catch(apiErr){
+      clearTimeout(timeout);
+      if(apiErr.name==='AbortError') throw new Error('Tiempo de espera agotado. Inténtalo de nuevo.');
+      throw apiErr;
     }
 
     setProgress(100);
