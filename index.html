@@ -2609,7 +2609,7 @@ Respond ONLY with valid JSON array (no markdown, no text outside array):
 [{"name":"Exact name in ${wl}","type":"tour|food|museum|night|boat|bike|cook|hike|nature|market|art|local","tagline":"1 sharp sentence — what you actually do and why it sticks with you","duration":"e.g. 3h","price":"from €45/person","rating":"4.8","platform":"getyourguide"}]`;
 
   try{
-    const res=await fetch('/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:800,messages:[{role:'user',content:prompt}]})});
+    const res=await fetch('/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:4000,messages:[{role:'user',content:prompt}]})});
     const data=await res.json();
     const raw=(data.content||[]).map(b=>b.text||'').join('').replace(/```json|```/g,'').trim();
     const exps=JSON.parse(raw);
@@ -2853,7 +2853,27 @@ async function gen(){
     : {hotel:[300,700],food:[120,250],exp:[150,400]};
   const pax = getNumPax();
 
-  // Traveler persona instructions
+  // ── Road trip + gateway logic for transport prompt ──
+  const destDbData = getDestData(dest);
+  const isRoadTrip = !!(destDbData?.road);
+  const needsGateway = isRoadTrip && needsGatewayFlight(origin, destDbData);
+  const gatewayHub = 'Madrid'; // default hub for Spanish road trips
+
+  // Build specific transport instruction for the prompt
+  const transportInstruction = isRoadTrip
+    ? needsGateway
+      ? `CRITICAL — THIS IS A ROAD TRIP THAT REQUIRES A GATEWAY FLIGHT:
+Step 1: Fly ${origin} → ${gatewayHub} (or nearest Spanish hub). Recommend this flight clearly.
+Step 2: Pick up a rental car in ${gatewayHub}.
+Step 3: Drive the road trip route — do NOT drive from ${origin}, that makes no sense.
+The itinerary must start with arrival in ${gatewayHub}, not in ${origin}.
+Do NOT suggest driving all the way from ${origin} to Spain.`
+      : `THIS IS A ROAD TRIP by car. The traveller is already in/near the starting point.
+Recommend picking up a rental car at or near ${origin}.
+Plan each day as a driving leg with stops — mention approximate km and drive time between each stop.`
+    : `Standard trip from ${origin} to ${dest}. Recommend the most logical transport (train if <600km with good connection, flight otherwise).`;
+
+
   const travelerPersona = {
     solo: {
       es: `El viajero va SOLO/A. Adapta TODO: experiencias para una persona (no awkward para grupos), alojamientos con ambiente social (hostels bien valorados, pequeños hoteles con bar), restaurantes donde sentarse en la barra es un placer, actividades donde conocer gente. El título del viaje debe resonar con la aventura en solitario. Los precios son SIEMPRE por 1 persona.`,
@@ -2885,8 +2905,44 @@ async function gen(){
     fr: `C'est ${mes}. Tenez compte : météo réelle à ${dest} à cette période, événements ou festivals locaux, haute/basse saison (impact sur les prix et l'affluence), quoi emporter, quelles activités sont idéales ou déconseillées cette saison.`
   }[lang] : '';
 
-  // Wait for real flight data (max 4s so it doesn't slow generation)
-  await Promise.race([flightFetchPromise, new Promise(r=>setTimeout(r,4000))]);
+  // ── Style DNA — translate tags into radical behavioral instructions ──
+  const rawTags = [...document.querySelectorAll('.tag.on')].map(b=>b.textContent.trim());
+
+  const STYLE_DNA = {
+    // ES tags
+    '🏛️ Cultura':      { voice:'intellectual curiosity', accom:'centrally located boutique or design hotel', transport:'walk everywhere, metro for distance', food:'restaurant with history or concept, not just food', activities:'museums before they open, guided tours with experts not guides, architecture walks', avoid:'beach bars, party hostels, generic tours' },
+    '🍷 Gastronomía':  { voice:'obsessive about food', accom:'hotel near the market district', transport:'plan routes around meal times', food:'LEAD with food — market breakfast, wine bar lunch, reservation-only dinner. Mention what to ORDER specifically', activities:'cooking class, market tour, winery visit — food IS the activity', avoid:'hotel restaurants, tourist menus, anything described as "international cuisine"' },
+    '🏔️ Naturaleza':   { voice:'outdoor and physical', accom:'rural guesthouse, mountain refuge, or eco-lodge — NOT city hotels', transport:'car or bike essential, hikes between stops', food:'simple and local — picnic on a summit beats any restaurant', activities:'specific trails with names and difficulty, wildlife spots, sunrise viewpoints', avoid:'cities, malls, crowded monuments, anything indoors that isn\'t essential' },
+    '🚂 Slow travel':  { voice:'unhurried and present', accom:'one base, not moving every night — apartment or guesthouse with kitchen', transport:'train always over flight, walk over taxi', food:'cook once, eat at local spots with no English menu, linger', activities:'ONE thing per half-day maximum, sit in a square, read in a garden, talk to shopkeepers', avoid:'packed itineraries, ticking boxes, anything with a queue over 20 minutes' },
+    '🏖️ Playa':        { voice:'relaxed and sun-seeking', accom:'walking distance to the best beach, not a resort', transport:'scooter or bike, no need for cars in most cases', food:'seafood, chiringuitos, ice cream that locals eat', activities:'beach rotation by time of day (east-facing AM, west-facing PM), snorkeling spot, coastal walk', avoid:'landlocked days, heavy museum itineraries, indoor afternoons' },
+    '🌆 Ciudad':       { voice:'urban explorer', accom:'right in the action — not a suburb hotel', transport:'metro + walking, understand the neighbourhood grid', food:'rooftop bar, corner café with regulars, street food market', activities:'street art districts, viewpoints at dusk, neighbourhood-by-neighbourhood exploration', avoid:'day trips to countryside, anything that takes you out of the city rhythm' },
+    '🧘 Desconexión':  { voice:'calm and restorative', accom:'spa hotel, rural retreat, or place with a garden — silence matters', transport:'slow and minimal — one transfer max', food:'healthy, local, unhurried — breakfast matters more than dinner', activities:'yoga or morning swim, thermal baths, forest walk, afternoon nap as a planned activity', avoid:'nightlife, crowds, cultural overload, back-to-back activities' },
+    '🌙 Noche':        { voice:'night owl', accom:'central, soundproofed, late checkout', transport:'taxi or night bus — forget schedules', food:'dinner never before 21h, late-night pintxos or street food after midnight', activities:'start late, bar with live music, club that opens at 1am, sunrise from a rooftop', avoid:'morning activities, early museum bookings, anything requiring an alarm' },
+    '❤️ Romántico':    { voice:'intimate and curated', accom:'small boutique hotel with character, private balcony or terrace if possible', transport:'slow — walk together, avoid rush', food:'reservation at somewhere special — candles, wine list, not a tourist trap', activities:'private or semi-private experiences over group tours, sunset spot that isn\'t overrun', avoid:'group tours, hostels, shared dorm experiences, anything crowded or rushed' },
+    '👨‍👩‍👧 Familia':   { voice:'practical and inclusive', accom:'apartment or family room, kitchen access helpful', transport:'direct and simple — kids hate connections', food:'flexible hours, kid-friendly menus exist but aren\'t needed everywhere', activities:'interactive, short bursts — 90min max per activity, mix paid and free', avoid:'long transfers, fine dining, anything requiring silence or still' },
+    // EN tags
+    '🏛️ Culture':      { voice:'intellectual curiosity', accom:'centrally located boutique or design hotel', transport:'walk everywhere', food:'restaurant with history or concept', activities:'museums, architecture, guided expert tours', avoid:'beach bars, party hostels' },
+    '🍷 Gastronomie':  { voice:'obsessive about food', accom:'near market district', transport:'plan routes around meal times', food:'market breakfast, wine bar lunch, reservation-only dinner', activities:'cooking class, market tour, winery', avoid:'hotel restaurants, tourist menus' },
+    '🏔️ Nature':       { voice:'outdoor and physical', accom:'rural guesthouse or eco-lodge', transport:'car or bike', food:'picnic on a summit', activities:'named trails, wildlife spots, sunrise viewpoints', avoid:'cities, malls, crowded monuments' },
+    '🚂 Slow travel':  { voice:'unhurried', accom:'one base, apartment or guesthouse', transport:'train over flight, walk over taxi', food:'cook once, local spots', activities:'one thing per half-day', avoid:'packed itineraries, queues' },
+    '🏖️ Plage':        { voice:'relaxed', accom:'walking distance to best beach', transport:'scooter or bike', food:'seafood, chiringuitos', activities:'beach rotation, snorkeling, coastal walk', avoid:'landlocked days' },
+    '🌆 Ville':        { voice:'urban explorer', accom:'in the action', transport:'metro + walking', food:'rooftop bar, corner café', activities:'street art, viewpoints at dusk', avoid:'day trips out of city' },
+    '🧘 Déconnexion':  { voice:'calm and restorative', accom:'spa or rural retreat', transport:'minimal', food:'healthy and unhurried', activities:'yoga, thermal baths, forest walk', avoid:'nightlife, crowds' },
+    '🌙 Soirées':      { voice:'night owl', accom:'central, late checkout', transport:'taxi or night bus', food:'dinner after 21h, late-night street food', activities:'live music, clubs, sunrise from rooftop', avoid:'morning activities' },
+    '❤️ Romantique':   { voice:'intimate', accom:'boutique with balcony', transport:'slow and together', food:'reservation at somewhere special', activities:'private experiences, sunset spots', avoid:'group tours, crowded places' },
+    '👨‍👩‍👧 Famille':   { voice:'practical and inclusive', accom:'apartment or family room', transport:'direct and simple', food:'flexible hours', activities:'interactive, 90min max, mix free and paid', avoid:'long transfers, fine dining' },
+  };
+
+  // Build style instruction from active tags
+  const styleInstructions = rawTags.length > 0
+    ? rawTags.map(tag => {
+        const dna = STYLE_DNA[tag];
+        if(!dna) return `- ${tag}`;
+        return `- ${tag}: voice=${dna.voice} | accommodation=${dna.accom} | food=${dna.food} | activities=${dna.activities} | AVOID=${dna.avoid}`;
+      }).join('\n')
+    : '- No specific style selected — balanced, curious traveller';
+
+
 
   // Build flight line for prompt
   const flightLine = realFlight
@@ -2905,11 +2961,27 @@ TRIP:
 ${fechaStr?'- Dates: '+fechaStr:''}
 ${flightLine}
 - Budget: ${budgetStr}${hasBudget?` — HARD LIMIT: el itinerario completo NO debe superar €${budgetTotal} total para ${numPax} persona${numPax>1?'s':''}. Si el destino es caro para este presupuesto, dilo honestamente en BUDGET_MATCH y optimiza cada elección para mantenerse dentro.`:`(hotel ~€${br.hotel[0]}–${br.hotel[1]}/night, food ~€${br.food[0]}–${br.food[1]}/day/person, experiences ~€${br.exp[0]}–${br.exp[1]}/person)`}
-- Style: ${styles}
-${extra?'- Traveller notes: '+extra:''}
+- Style DNA — these are NOT suggestions, they define the entire character of this trip:
+${styleInstructions}
+${extra?'- Traveller notes (override everything else if conflict): '+extra:''}
 ${flexNote?'- '+flexNote:''}
 
 ${seasonContext?'SEASON: '+seasonContext:''}
+
+━━ STYLE ENFORCEMENT — NON-NEGOTIABLE ━━
+The traveller chose specific styles. This is NOT decoration — it fundamentally changes what you recommend.
+
+If they chose 🍷 Gastronomía: the entire trip revolves around food. Every day has a food-first logic. You name what to ORDER, not just where to go.
+If they chose 🧘 Desconexión: there are NEVER more than 2 activities per day. Rest is a planned activity. No nightlife.
+If they chose 🏔️ Naturaleza: you recommend ZERO city hotels. Zero urban museums. Every day has a physical outdoor element.
+If they chose 🚂 Slow travel: maximum 1 location change. Apartment over hotel. Picnic over restaurant at least once.
+If they chose 🌙 Noche: nothing starts before noon. Nightlife is the main event, not an afterthought.
+If they chose ❤️ Romántico: NO group tours, NO shared experiences, private or semi-private only.
+
+If styles CONFLICT (e.g. Naturaleza + Romántico): blend them intelligently — romantic nature retreat, not urban romance.
+If NO style selected: balanced curious traveller, mix of the above.
+
+A trip for 🧘 Desconexión and a trip for 🌙 Noche must look COMPLETELY DIFFERENT. If they look similar, you failed.
 
 ━━ VERIFIABILITY — THIS IS NON-NEGOTIABLE ━━
 Every specific place, restaurant, museum, experience or landmark you mention MUST be real and currently operating.
@@ -2943,19 +3015,14 @@ RULES:
 The user's job is to make the final booking decision with real prices. Your job is to tell them WHERE to go, WHY, and ROUGHLY WHAT TO BUDGET — not to quote prices you made up.
 
 ━━ TRANSPORT INTELLIGENCE ━━
-The traveller leaves from ${origin}. Think about the best way to GET THERE:
-- If distance < 600km and a good train exists: RECOMMEND TRAIN.
-- If road trip or driving makes sense (<5h, ${isGroup||isFamily?'group shares cost':'scenic route'}): RECOMMEND CAR.
-- If flight is needed (>600km, no good ground connection): recommend FLIGHT.
+${transportInstruction}
 
 IMPORTANT — DO NOT invent specific prices for flights or trains. You don't have real-time data.
 For PRICE_RANGE write only a realistic range: "€40–120pp by train depending on advance booking" or "€60–180pp by flight — check Skyscanner". NEVER a made-up fixed number.
-For LOCAL TRANSPORT at the destination: metro/walk/bike for cities, car rental for coastal/islands/rural.
 
-Also think about LOCAL TRANSPORT at the destination:
-- City: metro/walk/bike. Suggest renting a bike or e-scooter if it fits.
-- Coastal / island: car rental or scooter.
-- Mountain / rural: car often essential.
+LOCAL TRANSPORT at the destination:
+- City: metro/walk/bike. Suggest e-scooter if it fits.
+- Coastal / island / rural road trip: car rental essential — mention pickup location, category, estimated €/day range.
 
 ━━ FILOSOFÍA DE EXPERIENCIAS ━━
 Para cada destino, busca activamente:
@@ -3021,7 +3088,7 @@ BUDGET_MATCH: [1 honest sentence: does the ${bStr} budget cover this trip? Be sp
 DAY_RECAP: [one line per day: "${dw} 1: X + Y + Z — budget €N–M/person"]
 ACCOMMODATION: [3 real, named, currently-operating options: name[MAPS], neighbourhood, price RANGE €X–Y/night (verify on Booking), why it suits ${tStr}]
 
-Max 1000 words. Write entirely in ${wl}.`;
+Max ${Math.max(1200, days*250)} words. Write entirely in ${wl}.`;
 
   function setProgress(pct){
     const bar=document.getElementById('streamBar');
@@ -3045,7 +3112,7 @@ Max 1000 words. Write entirely in ${wl}.`;
       // Try Vercel serverless endpoint first
       const res=await fetch('/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},
         signal:controller.signal,
-        body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1800,messages:[{role:'user',content:prompt}]})});
+        body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:4000,messages:[{role:'user',content:prompt}]})});
       clearTimeout(timeout);
       if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error(e?.error||`HTTP ${res.status}`);}
       const data=await res.json();
@@ -3064,7 +3131,7 @@ Max 1000 words. Write entirely in ${wl}.`;
             method:'POST',
             signal:controller2.signal,
             headers:{'Content-Type':'application/json','anthropic-dangerous-direct-browser-access':'true'},
-            body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1800,messages:[{role:'user',content:prompt}]})
+            body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:4000,messages:[{role:'user',content:prompt}]})
           });
           clearTimeout(timeout2);
           if(!res2.ok){const e=await res2.json().catch(()=>({}));throw new Error(e?.error?.message||`HTTP ${res2.status}`);}
