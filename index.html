@@ -627,6 +627,19 @@ textarea{resize:none;height:56px;font-size:.82rem}
   <div class="hero-right">
     <div class="form-hed" data-i="formTitle"></div>
     <div class="form-sub" data-i="formSub"></div>
+    <div class="budget-amount-row">
+      <div class="fg fg-budget">
+        <label data-i="labelBudgetAmount"></label>
+        <div class="budget-input-wrap">
+          <span class="budget-euro">€</span>
+          <input type="number" id="budgetAmount" min="50" max="50000" step="50" placeholder="800" data-i-ph="phBudget"/>
+          <select id="budgetPer">
+            <option value="person" data-i="budgetPerPerson"></option>
+            <option value="total" data-i="budgetPerTotal"></option>
+          </select>
+        </div>
+      </div>
+    </div>
     <div class="g2">
       <div class="fg">
         <label data-i="labelFrom"></label>
@@ -646,16 +659,21 @@ textarea{resize:none;height:56px;font-size:.82rem}
       <div class="fg"><label data-i="labelDepart"></label><input type="date" id="df"/></div>
       <div class="fg"><label data-i="labelReturn"></label><input type="date" id="dt"/></div>
     </div>
-    <div class="budget-amount-row">
-      <div class="fg fg-budget">
-        <label data-i="labelBudgetAmount"></label>
-        <div class="budget-input-wrap">
-          <span class="budget-euro">€</span>
-          <input type="number" id="budgetAmount" min="50" max="50000" step="50" placeholder="500" data-i-ph="phBudget"/>
-          <select id="budgetPer">
-            <option value="person" data-i="budgetPerPerson"></option>
-            <option value="total" data-i="budgetPerTotal"></option>
-          </select>
+    <div class="fg"><label data-i="labelTravelers"></label>
+      <div class="travelers-wrap">
+        <select id="travelers" onchange="updateTravelersUI()">
+          <option value="solo" data-i="tSolo"></option>
+          <option value="couple" selected data-i="tCouple"></option>
+          <option value="friends" data-i="tFriends"></option>
+          <option value="family" data-i="tFamily"></option>
+        </select>
+        <div class="pax-wrap" id="paxWrap" style="display:none">
+          <label data-i="labelPax"></label>
+          <div class="pax-counter">
+            <button type="button" class="pax-btn" onclick="changePax(-1)">−</button>
+            <span id="paxCount">2</span>
+            <button type="button" class="pax-btn" onclick="changePax(1)">+</button>
+          </div>
         </div>
       </div>
     </div>
@@ -666,23 +684,6 @@ textarea{resize:none;height:56px;font-size:.82rem}
         <button class="flex-btn" id="flexYes" onclick="setFlex(true)" data-i="flexYes"></button>
       </div>
     </div>
-    <div class="fg"><label data-i="labelTravelers"></label>
-      <div class="travelers-wrap">
-        <select id="travelers" onchange="updateTravelersUI()">
-          <option value="solo" data-i="tSolo"></option>
-          <option value="couple" selected data-i="tCouple"></option>
-          <option value="friends" data-i="tFriends"></option>
-          <option value="family" data-i="tFamily"></option>
-        </select>
-        <div class="pax-wrap" id="paxWrap">
-          <label data-i="labelPax"></label>
-          <div class="pax-counter">
-            <button type="button" class="pax-btn" onclick="changePax(-1)">−</button>
-            <span id="paxCount">2</span>
-            <button type="button" class="pax-btn" onclick="changePax(1)">+</button>
-          </div>
-        </div>
-      </div>
     <div class="fg"><label data-i="labelStyle"></label><div class="tags" id="tagsWrap"></div></div>
     <div class="fg"><label data-i="labelNotes"></label><textarea id="extra" data-i-ph="phNotes"></textarea></div>
     <div id="budgetCheckPanel" class="budget-check"></div>
@@ -745,174 +746,215 @@ textarea{resize:none;height:56px;font-size:.82rem}
 // ═══════════════════════════════════
 const I18N={
   es:{
-    badge:'Viajes con criterio. Sin turismo de masas.',
+    badge:'Itinerarios con criterio. Para quienes viajan de otra manera.',
     h1a:'Algunos sitios\nse visitan. Otros\n<em>te habitan.</em>',
-    heroSub:'Cuéntanos cómo quieres viajar. Hacemos el plan concreto — con alma, con criterio, con esa cosa que las guías no tienen.',
+    heroSub:'Dinos cuánto tienes, de dónde sales y cómo viajas. Hacemos el plan — con criterio, con voz propia, con lo que ninguna guía te va a dar.',
     proof1:'Viajeros',proof2:'Destinos',proof3:'Valoración',
-    formTitle:'¿Adónde te lleva esta vez?',formSub:'Cuanto más nos cuentes, más tuyo sale el plan.',
-    labelFrom:'Sales desde',labelTo:'Destino',phFrom:'Madrid…',phTo:'París, Tokio, Lisboa…',
+    formTitle:'Construye tu próximo viaje.',
+    formSub:'Cuanto más preciso seas, más tuyo sale el resultado.',
+    labelBudgetAmount:'¿Cuánto quieres gastar?',phBudget:'800',
+    budgetPerPerson:'por persona',budgetPerTotal:'total grupo',
+    labelFrom:'¿Desde dónde sales?',labelTo:'¿Adónde?',phFrom:'Madrid, París, Lisboa…',phTo:'Destino — o déjalo en blanco y te sugerimos',
     labelDepart:'Salida',labelReturn:'Vuelta',
     labelFlexible:'¿Fechas flexibles?',flexNo:'Fechas fijas',flexYes:'Flexible ±3 días',
-    labelTravelers:'¿Con quién?',labelBudget:'Nivel',
-    labelBudgetAmount:'Presupuesto total',phBudget:'500',
-    budgetPerPerson:'por persona',budgetPerTotal:'total grupo',
+    labelTravelers:'¿Con quién viajas?',
+    labelBudget:'Nivel',
+    labelBudgetAmount:'¿Cuánto quieres gastar?',phBudget:'800',
     labelDuration:'Duración',
-    dur2:'Fin de semana (2 días)',dur3:'3 días',dur5:'5 días',dur7:'1 semana',dur10:'10 días',dur14:'2 semanas',
-    destSuggestBtn:'¿Sin destino? Sugiéreme →',destSuggestBtnOn:'✕ Tengo destino',
-    labelPax:'¿Cuántos?',
+    dur2:'Fin de semana',dur3:'3 días',dur5:'5 días',dur7:'1 semana',dur10:'10 días',dur14:'2 semanas',
+    destSuggestBtn:'Sin destino — sugiéreme uno →',destSuggestBtnOn:'✕ Tengo destino',
+    labelPax:'¿Cuántos sois?',
     budgetWarnTitle:'⚠️ El presupuesto puede quedarse justo',
     budgetOkTitle:'✓ Presupuesto viable',
     budgetSuggestTitle:'Destinos posibles con tu presupuesto',
     budgetWarnCta:'Generar de todas formas',
-    tSolo:'Solo/a',tCouple:'En pareja',tFriends:'Con amigos',tFamily:'En familia',
+    tSolo:'Solo/a',tCouple:'En pareja',tFriends:'Con amigos',tFamily:'Con niños',
     bLow:'Con cabeza',bMid:'Sin obsesionarse',bHigh:'Con margen',bPremium:'Sin límites',
-    labelStyle:'Estilo de viaje',labelNotes:'Notas (opcional)',
-    phNotes:'Odio los museos masificados. Soy vegetariano. Me interesan los barrios que no salen en TripAdvisor…',
-    btnGen:'Construir mi itinerario',navSaved:'Mis viajes',
+    labelStyle:'¿Qué tipo de viaje buscas?',
+    labelNotes:'Algo más que debamos saber',
+    phNotes:'Soy vegetariano. Me interesan los barrios que no salen en TripAdvisor. Prefiero hostales con personalidad a hoteles de cadena…',
+    btnGen:'Crear mi itinerario',navSaved:'Mis viajes',
     cartLabel:'Mi viaje',addToMyTrip:'+ Apuntar esto',addedToTrip:'✓ Apuntado',
     expBookBtn:'Reservar →',expLoadingMsg:'Seleccionando lo mejor…',
-    expTitle:'Experiencias que valen la pena',expSub:'Curadas para este viaje. Reserva directamente.',
-    checkoutTitle:'Finalizar reserva',checkoutSub:'Solo un paso más para confirmar tu aventura.',
-    contactTitle:'Información de contacto',cName:'Nombre completo',cEmail:'Email',cNamePh:'Juan Pérez',cEmailPh:'juan@example.com',
+    expTitle:'Experiencias que merecen el tiempo',expSub:'Seleccionadas para este viaje. Reserva directamente.',
+    checkoutTitle:'Finalizar reserva',checkoutSub:'Un paso más para confirmar.',
+    contactTitle:'Datos de contacto',cName:'Nombre',cEmail:'Email',cNamePh:'Tu nombre',cEmailPh:'tu@email.com',
     reserveTitle:'Reservar cada parte',sendTitle:'Información de pago',
-    sendDesc:'Tu itinerario se guarda y puedes recuperarlo con el enlace que te enviamos.',
+    sendDesc:'Tu itinerario se guarda. Recupéralo siempre desde el enlace que te enviamos.',
     sendBtn:'Confirmar y recibir mi plan →',backBtn:'Volver',
     cartSummaryTitle:'Resumen',cartEmpty:'Añade experiencias o días al viaje',
-    g1:'Cancelación gratuita hasta 48h',g2:'Mejor precio garantizado',g3:'Soporte 24/7 durante tu viaje',
-    shareTrip:'🔗 Compartir plan',
+    g1:'Cancelación gratuita hasta 48h',g2:'Mejor precio garantizado',g3:'Soporte durante tu viaje',
+    shareTrip:'🔗 Compartir',
     saveBtnLabel:'🗂 Guardar',saveBtnDone:'✅ Guardado',printBtn:'🖨 PDF',
-    loadMsgs:['Abriendo rutas que los guías locales guardan para sí…','Descartando todo lo que sale en la primera página de Google…','Buscando el café donde escribió el que vivió allí de verdad…','Calibrando el equilibrio entre aventura y comodidad…','Encontrando el restaurante donde comen los que saben…','Eliminando clichés. Añadiendo criterio.','Ese detalle que convierte un viaje en un recuerdo…','Listo. Tu plan no se parece al de nadie.'],
+    loadMsgs:[
+      'Descartando todo lo que sale en la primera página de Google…',
+      'Buscando el restaurante donde comen los que viven allí de verdad…',
+      'Cruzando fuentes — no solo TripAdvisor…',
+      'Eligiendo el barrio correcto para tu forma de viajar…',
+      'Calculando si el presupuesto da para lo que merece la pena…',
+      'Añadiendo criterio. Quitando relleno.',
+      'Ese detalle que convierte un viaje en algo que se recuerda…',
+      'Listo. Tu plan no se parece al de nadie.'
+    ],
     dayLabel:'Día',addDayBtn:'+ Guardar este día',addedDayBtn:'✓ Guardado',
     tipsTitle:'Lo que los guías no te cuentan',
-    recapTitle:'Tu plan al completo',budgetFitLabel:'¿Encaja con tu presupuesto?',
+    recapTitle:'El plan completo',budgetFitLabel:'¿Encaja con tu presupuesto?',
     dayRecapLabel:'Día a día',stayLabel:'Dónde dormir',bookHotel:'Ver alojamientos →',
-    ctaTitle:(d)=>`${d} te está esperando.`,ctaSub:'Tu itinerario está listo. Cada día tiene su lógica, cada momento su razón. Solo falta el billete.',
+    ctaTitle:(d)=>`${d} está esperando.`,
+    ctaSub:'El itinerario está hecho. Cada día tiene su lógica, cada elección su razón. Solo falta reservar.',
     ctaFlights:'✈ Buscar vuelos',ctaHotels:'🏨 Ver alojamientos',
-    tags:['🏛️ Cultura','🍷 Gastronomía','🏔️ Naturaleza','🚂 Slow travel','🏖️ Playa','🌆 Ciudad','🧘 Desconexión','🌙 Noche','❤️ Romántico','👨‍👩‍👧 Familia'],
-    travelerMap:{solo:'solo/a',couple:'en pareja',friends:'con amigos',family:'en familia'},
+    tags:['🏛️ Cultura','🍷 Gastronomía','🎨 Arte & Diseño','🧗 Aventura','🚂 Slow travel','🧘 Desconexión','🌙 Noche','❤️ Romántico','🎵 Música & Escena','🎒 Mochilero'],
+    travelerMap:{solo:'solo/a',couple:'en pareja',friends:'con amigos',family:'con niños'},
     budgetMap:{low:'con cabeza',mid:'sin obsesionarse',high:'con margen',premium:'sin límites'},
     reserveLinks:[
-      {ico:'✈️',name:'Vuelos',desc:'Busca y compara sin comisiones',type:'flight',btn:'Buscar'},
-      {ico:'🏨',name:'Alojamiento',desc:'Hoteles, apartamentos, boutiques',type:'hotel',btn:'Ver opciones'},
-      {ico:'🎟️',name:'Experiencias',desc:'Reservadas y verificadas',type:'act',btn:'Explorar'},
+      {ico:'✈️',name:'Vuelos',desc:'Compara sin comisiones',type:'flight',btn:'Buscar'},
+      {ico:'🏨',name:'Alojamiento',desc:'Hoteles, apartamentos, pensiones con criterio',type:'hotel',btn:'Ver opciones'},
+      {ico:'🎟️',name:'Experiencias',desc:'Seleccionadas y verificadas',type:'act',btn:'Explorar'},
       {ico:'🚂',name:'Trenes',desc:'Interrail, Renfe, Eurostar',type:'train',btn:'Ver trenes'},
       {ico:'🚗',name:'Coche de alquiler',desc:'Sin letra pequeña',type:'car',btn:'Ver coches'},
     ],
-    promptIntro:'Eres un escritor de viajes que ha vivido en doce ciudades y escribe para gente que ya conoce los clichés y los rechaza. No eres una guía turística ni un artículo de revista. Eres la voz de alguien que ha pasado meses en este destino y sabe exactamente lo que merece el tiempo de un viajero inteligente. Tu tono: directo, con opinión, a veces irónico, siempre específico. Piensa en el escritor de una guía de bolsillo que se vende en librerías independientes. No en el redactor de una web de turismo. Cada recomendación tiene una razón concreta. Cada descripción evoca algo real — no "ambiente acogedor" sino el olor de la madera vieja o el ruido de las sillas arrastrándose a mediodía. Incluye experiencias que no están en todos los itinerarios: mercados específicos, bares de barrio, rutas que los locales hacen pero no publicitan, cosas gratuitas que valen más que las de pago, y también alguna experiencia de pago que justifica cada euro. El viajero puede ser cualquiera — ajusta el tono a su perfil sin decírselo. Evita al máximo: "imprescindible", "joya oculta", "auténtico", "encantador", "no te puedes perder". Usa: nombres propios, horas concretas, qué pedir, cómo llegar, por qué este y no el de al lado.',
+    promptIntro:'Eres el editor de viajes de una revista independiente europea — no de turismo masivo, sino de la que se vende en librerías de diseño y aeropuertos selectos. Escribes para personas de 28 a 45 años que han viajado antes, que saben distinguir un bar de barrio de una trampa turística, y que prefieren una cena memorable a tres monumentos marcados en el mapa. Tu voz: directa, con criterio propio, a veces irónica, siempre concreta. Nunca sermoneadora. Nunca entusiasta sin razón. Recomiendas con la confianza de alguien que conoce el lugar de primera mano — no de haberlo googleado. Cada recomendación tiene una razón específica. Las descripciones evocan algo real: el ruido de las sillas a mediodía, el olor del mercado antes de las 8h, la luz de ese bar a las 11 de la noche. Incluye experiencias que no están en los primeros resultados de búsqueda: mercados concretos, bares de barrio, rutas que los locales hacen pero no publicitan, cosas gratuitas que valen más que las de pago. Evita absolutamente: "imprescindible", "joya oculta", "auténtico", "encantador", "no te puedes perder", "mágico". Usa: nombres propios, horas concretas, qué pedir exactamente, por qué este sitio y no el de al lado.',
   },
   en:{
-    badge:'Travel with taste. Not with the crowds.',
+    badge:'Itineraries with taste. For people who travel differently.',
     h1a:'Some places\nyou visit. Others\n<em>stay inside you.</em>',
-    heroSub:'Tell us how you want to travel. We build a real plan — with soul, with taste, with that quality no guidebook has.',
+    heroSub:'Tell us your budget, where you\'re coming from, and how you travel. We build the plan — with taste, with a real voice, with what no guidebook gives you.',
     proof1:'Travellers',proof2:'Destinations',proof3:'Rating',
-    formTitle:'Where is it calling you?',formSub:'The more you share, the more personal the plan.',
-    labelFrom:'From',labelTo:'To',phFrom:'London…',phTo:'Paris, Tokyo, Lisbon…',
-    labelDepart:'Departure',labelReturn:'Return',
-    labelFlexible:'Flexible dates?',flexNo:'Fixed',flexYes:'Flexible ±3 days',
-    labelTravelers:'With?',labelBudget:'Style',
-    labelBudgetAmount:'Total budget',phBudget:'500',
+    formTitle:'Build your next trip.',
+    formSub:'The more precise you are, the more personal the result.',
+    labelBudgetAmount:'How much do you want to spend?',phBudget:'800',
     budgetPerPerson:'per person',budgetPerTotal:'total group',
+    labelFrom:'Where are you leaving from?',labelTo:'Where to?',phFrom:'London, Paris, Lisbon…',phTo:'Destination — or leave blank for suggestions',
+    labelDepart:'Departure',labelReturn:'Return',
+    labelFlexible:'Flexible dates?',flexNo:'Fixed dates',flexYes:'Flexible ±3 days',
+    labelTravelers:'Who are you travelling with?',
+    labelBudget:'Style',
     labelDuration:'Duration',
-    dur2:'Weekend (2 days)',dur3:'3 days',dur5:'5 days',dur7:'1 week',dur10:'10 days',dur14:'2 weeks',
-    destSuggestBtn:'No destination? Suggest one →',destSuggestBtnOn:'✕ I have a destination',
-    labelPax:'How many?',
+    dur2:'Weekend',dur3:'3 days',dur5:'5 days',dur7:'1 week',dur10:'10 days',dur14:'2 weeks',
+    destSuggestBtn:'No destination — suggest one →',destSuggestBtnOn:'✕ I have a destination',
+    labelPax:'How many of you?',
     budgetWarnTitle:'⚠️ Budget might be tight',
     budgetOkTitle:'✓ Budget looks viable',
     budgetSuggestTitle:'Destinations that fit your budget',
     budgetWarnCta:'Generate anyway',
-    tSolo:'Solo',tCouple:'Couple',tFriends:'Friends',tFamily:'Family',
+    tSolo:'Solo',tCouple:'Couple',tFriends:'Friends',tFamily:'With kids',
     bLow:'Mindful',bMid:'Comfortable',bHigh:'Generous',bPremium:'No limits',
-    labelStyle:'Trip vibe',labelNotes:'Notes (optional)',
-    phNotes:'Hate crowded museums. Vegetarian. Interested in neighbourhoods that don\'t appear in TripAdvisor…',
+    labelStyle:'What kind of trip are you after?',
+    labelNotes:'Anything else we should know',
+    phNotes:'Vegetarian. Interested in neighbourhoods off TripAdvisor. I\'d rather a characterful hostel than a chain hotel…',
     btnGen:'Build my itinerary',navSaved:'My trips',
     cartLabel:'My trip',addToMyTrip:'+ Note this',addedToTrip:'✓ Noted',
-    expBookBtn:'Book now →',expLoadingMsg:'Selecting the best…',
-    expTitle:'Experiences worth having',expSub:'Curated for this trip. Book directly.',
-    checkoutTitle:'Finalise booking',checkoutSub:'One last step to confirm your adventure.',
-    contactTitle:'Contact information',cName:'Full name',cEmail:'Email',cNamePh:'Jane Smith',cEmailPh:'jane@example.com',
-    reserveTitle:'Book each part',sendTitle:'Payment information',
-    sendDesc:'Your itinerary is saved and you can always recover it from the link we send you.',
+    expBookBtn:'Book →',expLoadingMsg:'Selecting the best…',
+    expTitle:'Experiences worth having',expSub:'Selected for this trip. Book directly.',
+    checkoutTitle:'Finalise booking',checkoutSub:'One last step.',
+    contactTitle:'Contact details',cName:'Name',cEmail:'Email',cNamePh:'Your name',cEmailPh:'you@email.com',
+    reserveTitle:'Book each part',sendTitle:'Payment info',
+    sendDesc:'Your itinerary is saved. Recover it anytime from the link we send you.',
     sendBtn:'Confirm and get my plan →',backBtn:'Back',
     cartSummaryTitle:'Summary',cartEmpty:'Add experiences or days to your trip',
-    g1:'Free cancellation up to 48h',g2:'Best price guaranteed',g3:'24/7 support during your trip',
-    shareTrip:'🔗 Share plan',
+    g1:'Free cancellation up to 48h',g2:'Best price guaranteed',g3:'Support during your trip',
+    shareTrip:'🔗 Share',
     saveBtnLabel:'🗂 Save',saveBtnDone:'✅ Saved',printBtn:'🖨 PDF',
-    loadMsgs:['Opening routes that local guides keep to themselves…','Crossing out everything on page one of Google…','Finding the café where the writer who actually lived there used to work…','Calibrating adventure against comfort…','The restaurant where the people who know eat…','Removing clichés. Adding taste.','That detail that turns a trip into a memory…','Done. Your plan looks like no one else\'s.'],
+    loadMsgs:[
+      'Crossing out everything on page one of Google…',
+      'Finding the restaurant where people who actually live there eat…',
+      'Cross-referencing sources — not just TripAdvisor…',
+      'Choosing the right neighbourhood for how you travel…',
+      'Checking if the budget stretches to what\'s actually worth it…',
+      'Adding taste. Removing filler.',
+      'That detail that turns a trip into something you remember…',
+      'Done. Your plan looks like no one else\'s.'
+    ],
     dayLabel:'Day',addDayBtn:'+ Save this day',addedDayBtn:'✓ Saved',
     tipsTitle:'What the guides don\'t tell you',
-    recapTitle:'Your complete plan',budgetFitLabel:'Budget fit',
-    dayRecapLabel:'Day by day',stayLabel:'Where to stay',bookHotel:'Browse accommodation →',
-    ctaTitle:(d)=>`${d} is waiting for you.`,ctaSub:'Your itinerary is alive. Every day has its logic, every moment its reason. Just add a flight.',
+    recapTitle:'The full plan',budgetFitLabel:'Does it fit your budget?',
+    dayRecapLabel:'Day by day',stayLabel:'Where to sleep',bookHotel:'Browse accommodation →',
+    ctaTitle:(d)=>`${d} is waiting.`,
+    ctaSub:'The itinerary is ready. Every day has its logic, every choice its reason. Just book.',
     ctaFlights:'✈ Find flights',ctaHotels:'🏨 Find accommodation',
-    tags:['🏛️ Culture','🍷 Food & Wine','🏔️ Nature','🚂 Slow travel','🏖️ Beach','🌆 City','🧘 Slow down','🌙 Nightlife','❤️ Romance','👨‍👩‍👧 Family'],
-    travelerMap:{solo:'solo',couple:'as a couple',friends:'with friends',family:'as a family'},
+    tags:['🏛️ Culture','🍷 Food & Wine','🎨 Art & Design','🧗 Adventure','🚂 Slow travel','🧘 Disconnect','🌙 Nightlife','❤️ Romance','🎵 Music & Scene','🎒 Backpacker'],
+    travelerMap:{solo:'solo',couple:'as a couple',friends:'with friends',family:'with kids'},
     budgetMap:{low:'on a mindful budget',mid:'comfortable',high:'with room to splurge',premium:'no limits'},
     reserveLinks:[
-      {ico:'✈️',name:'Flights',desc:'Search and compare — no fees',type:'flight',btn:'Search'},
-      {ico:'🏨',name:'Accommodation',desc:'Hotels, apartments, boutiques',type:'hotel',btn:'Browse'},
-      {ico:'🎟️',name:'Experiences',desc:'Booked and verified',type:'act',btn:'Explore'},
+      {ico:'✈️',name:'Flights',desc:'Compare — no fees',type:'flight',btn:'Search'},
+      {ico:'🏨',name:'Accommodation',desc:'Hotels, apartments, characterful stays',type:'hotel',btn:'Browse'},
+      {ico:'🎟️',name:'Experiences',desc:'Selected and verified',type:'act',btn:'Explore'},
       {ico:'🚂',name:'Trains',desc:'Interrail, Eurostar, local rail',type:'train',btn:'Browse'},
       {ico:'🚗',name:'Car rental',desc:'No hidden fees',type:'car',btn:'Browse'},
     ],
-    promptIntro:'You are a travel writer who has lived in twelve cities and writes for people who already know the clichés and reject them. You are not a tourist guide or a magazine article. You are the voice of someone who has spent months in this destination and knows exactly what deserves a smart traveller\'s time. Your tone: direct, opinionated, sometimes ironic, always specific. Think of the writer of a pocket guide sold in independent bookshops. Not a travel website copywriter. Every recommendation has a concrete reason. Every description evokes something real — not "cozy atmosphere" but the smell of old wood or the scrape of chairs at noon. Include experiences not in every itinerary: specific markets, neighbourhood bars, routes locals take but don\'t publicise, free things worth more than paid ones, and also some paid experiences that justify every euro. Adapt your tone to the traveller profile without stating it. Avoid: "unmissable", "hidden gem", "authentic", "charming", "must-see". Use: proper names, specific times, what to order, how to get there, why this one and not the one next door.',
+    promptIntro:'You are the travel editor of an independent European magazine — not mass tourism, but the kind sold in design bookshops and select airport lounges. You write for people aged 28 to 45 who have travelled before, who can tell a neighbourhood bar from a tourist trap, and who would rather have one memorable dinner than three monuments ticked off a list. Your voice: direct, opinionated, occasionally ironic, always specific. Never preachy. Never enthusiastic without reason. You recommend with the confidence of someone who knows the place first-hand — not from googling it. Every recommendation has a specific reason. Descriptions evoke something real: the sound of chairs scraping at noon, the smell of a market before 8am, the light in that bar at 11pm. Include experiences not in the top search results: specific markets, neighbourhood bars, routes locals take but don\'t publicise, free things worth more than paid ones. Avoid absolutely: "unmissable", "hidden gem", "authentic", "charming", "must-see", "magical". Use: proper names, specific times, exactly what to order, why this place and not the one next door.',
   },
   fr:{
-    badge:'Voyager autrement. Loin des foules.',
+    badge:'Des itinéraires avec du goût. Pour ceux qui voyagent autrement.',
     h1a:'Certains endroits\nse visitent. D\'autres\n<em>vous habitent.</em>',
-    heroSub:'Dites-nous comment vous voulez voyager. On vous donne un plan concret — avec âme, avec goût, avec cette chose que les guides n\'ont pas.',
+    heroSub:'Dites-nous votre budget, d\'où vous partez et comment vous voyagez. On construit le plan — avec du goût, une vraie voix, ce que les guides ne donnent pas.',
     proof1:'Voyageurs',proof2:'Destinations',proof3:'Note',
-    formTitle:'Où vous appelle-t-il ?',formSub:'Plus vous nous en dites, plus le plan vous ressemble.',
-    labelFrom:'Depuis',labelTo:'Destination',phFrom:'Paris…',phTo:'Tokyo, Lisbonne, Barcelone…',
-    labelDepart:'Départ',labelReturn:'Retour',
-    labelFlexible:'Dates flexibles ?',flexNo:'Fixes',flexYes:'Flexible ±3 jours',
-    labelTravelers:'Avec qui ?',labelBudget:'Style',
-    labelBudgetAmount:'Budget total',phBudget:'500',
+    formTitle:'Construisez votre prochain voyage.',
+    formSub:'Plus vous êtes précis, plus le résultat vous ressemble.',
+    labelBudgetAmount:'Combien voulez-vous dépenser ?',phBudget:'800',
     budgetPerPerson:'par personne',budgetPerTotal:'total groupe',
+    labelFrom:'D\'où partez-vous ?',labelTo:'Où ?',phFrom:'Paris, Madrid, Lisbonne…',phTo:'Destination — ou laissez vide pour des suggestions',
+    labelDepart:'Départ',labelReturn:'Retour',
+    labelFlexible:'Dates flexibles ?',flexNo:'Dates fixes',flexYes:'Flexible ±3 jours',
+    labelTravelers:'Avec qui voyagez-vous ?',
+    labelBudget:'Style',
     labelDuration:'Durée',
-    dur2:'Week-end (2 jours)',dur3:'3 jours',dur5:'5 jours',dur7:'1 semaine',dur10:'10 jours',dur14:'2 semaines',
-    destSuggestBtn:'Pas de destination ? Suggère-moi →',destSuggestBtnOn:'✕ J\'ai une destination',
-    labelPax:'Combien ?',
+    dur2:'Week-end',dur3:'3 jours',dur5:'5 jours',dur7:'1 semaine',dur10:'10 jours',dur14:'2 semaines',
+    destSuggestBtn:'Sans destination — suggère-moi →',destSuggestBtnOn:'✕ J\'ai une destination',
+    labelPax:'Vous êtes combien ?',
     budgetWarnTitle:'⚠️ Budget peut être serré',
     budgetOkTitle:'✓ Budget viable',
     budgetSuggestTitle:'Destinations possibles avec votre budget',
     budgetWarnCta:'Générer quand même',
-    tSolo:'Seul(e)',tCouple:'En couple',tFriends:'Entre amis',tFamily:'En famille',
+    tSolo:'Seul(e)',tCouple:'En couple',tFriends:'Entre amis',tFamily:'Avec enfants',
     bLow:'Malin',bMid:'À l\'aise',bHigh:'Généreux',bPremium:'Sans limites',
-    labelStyle:'Ambiance du voyage',labelNotes:'Notes (optionnel)',
-    phNotes:'Je fuis les musées bondés. Végétarien. Je cherche les quartiers qui ne sont pas sur TripAdvisor…',
-    btnGen:'Construire mon itinéraire',navSaved:'Mes voyages',
+    labelStyle:'Quel type de voyage cherchez-vous ?',
+    labelNotes:'Autre chose à savoir',
+    phNotes:'Végétarien. Quartiers hors TripAdvisor. Auberge avec caractère plutôt qu\'hôtel de chaîne…',
+    btnGen:'Créer mon itinéraire',navSaved:'Mes voyages',
     cartLabel:'Mon voyage',addToMyTrip:'+ Noter ça',addedToTrip:'✓ Noté',
     expBookBtn:'Réserver →',expLoadingMsg:'Sélection des meilleures…',
-    expTitle:'Expériences qui en valent la peine',expSub:'Sélectionnées pour ce voyage. Réservation directe.',
-    checkoutTitle:'Finaliser la réservation',checkoutSub:'Une dernière étape pour confirmer votre aventure.',
-    contactTitle:'Informations de contact',cName:'Nom complet',cEmail:'Email',cNamePh:'Marie Dupont',cEmailPh:'marie@example.com',
+    expTitle:'Expériences qui valent le détour',expSub:'Sélectionnées pour ce voyage. Réservation directe.',
+    checkoutTitle:'Finaliser la réservation',checkoutSub:'Une dernière étape.',
+    contactTitle:'Coordonnées',cName:'Prénom',cEmail:'Email',cNamePh:'Votre prénom',cEmailPh:'vous@email.com',
     reserveTitle:'Réserver chaque étape',sendTitle:'Informations de paiement',
-    sendDesc:'Votre itinéraire est sauvegardé et vous pouvez le retrouver via le lien qu\'on vous envoie.',
+    sendDesc:'Votre itinéraire est sauvegardé. Retrouvez-le toujours via le lien envoyé.',
     sendBtn:'Confirmer et recevoir mon plan →',backBtn:'Retour',
     cartSummaryTitle:'Résumé',cartEmpty:'Ajoutez des expériences ou des jours',
-    g1:'Annulation gratuite jusqu\'à 48h',g2:'Meilleur prix garanti',g3:'Assistance 24/7 pendant votre voyage',
-    shareTrip:'🔗 Partager le plan',
+    g1:'Annulation gratuite jusqu\'à 48h',g2:'Meilleur prix garanti',g3:'Assistance pendant le voyage',
+    shareTrip:'🔗 Partager',
     saveBtnLabel:'🗂 Sauvegarder',saveBtnDone:'✅ Sauvegardé',printBtn:'🖨 PDF',
-    loadMsgs:['Ouverture des routes que les guides locaux gardent pour eux…','On supprime tout ce qui apparaît en première page…','Le café où écrivait celui qui y a vraiment vécu…','Calibration aventure — confort…','Le restaurant où mangent ceux qui savent…','Clichés éliminés. Goût ajouté.','Le détail qui fait le souvenir…','Prêt. Votre plan ne ressemble à aucun autre.'],
+    loadMsgs:[
+      'On supprime tout ce qui apparaît en première page de Google…',
+      'Le restaurant où mangent ceux qui y vivent vraiment…',
+      'Croisement des sources — pas seulement TripAdvisor…',
+      'Le bon quartier pour votre façon de voyager…',
+      'Le budget couvre-t-il ce qui en vaut vraiment la peine ?',
+      'On ajoute du goût. On retire le superflu.',
+      'Ce détail qui transforme un voyage en souvenir…',
+      'Prêt. Votre plan ne ressemble à aucun autre.'
+    ],
     dayLabel:'Jour',addDayBtn:'+ Garder ce jour',addedDayBtn:'✓ Gardé',
-    tipsTitle:'Ce que les guides ne vous disent pas',
-    recapTitle:'Votre plan complet',budgetFitLabel:'Budget adapté ?',
+    tipsTitle:'Ce que les guides ne disent pas',
+    recapTitle:'Le plan complet',budgetFitLabel:'Adapté à votre budget ?',
     dayRecapLabel:'Jour par jour',stayLabel:'Où dormir',bookHotel:'Voir l\'hébergement →',
-    ctaTitle:(d)=>`${d} vous attend.`,ctaSub:'Votre itinéraire est prêt. Chaque jour pensé, chaque instant anticipé — il ne manque plus que le billet.',
+    ctaTitle:(d)=>`${d} vous attend.`,
+    ctaSub:'L\'itinéraire est prêt. Chaque jour pensé, chaque choix justifié. Il ne reste qu\'à réserver.',
     ctaFlights:'✈ Chercher des vols',ctaHotels:'🏨 Voir l\'hébergement',
-    tags:['🏛️ Culture','🍷 Gastronomie','🏔️ Nature','🚂 Slow travel','🏖️ Plage','🌆 Ville','🧘 Déconnexion','🌙 Soirées','❤️ Romantique','👨‍👩‍👧 Famille'],
-    travelerMap:{solo:'en solo',couple:'en couple',friends:'entre amis',family:'en famille'},
+    tags:['🏛️ Culture','🍷 Gastronomie','🎨 Art & Design','🧗 Aventure','🚂 Slow travel','🧘 Déconnexion','🌙 Soirées','❤️ Romantique','🎵 Musique & Scène','🎒 Sac à dos'],
+    travelerMap:{solo:'en solo',couple:'en couple',friends:'entre amis',family:'avec enfants'},
     budgetMap:{low:'budget malin',mid:'à l\'aise',high:'avec de la marge',premium:'sans limite'},
     reserveLinks:[
-      {ico:'✈️',name:'Vols',desc:'Recherchez et comparez — sans frais',type:'flight',btn:'Chercher'},
-      {ico:'🏨',name:'Hébergement',desc:'Hôtels, appartements, boutiques',type:'hotel',btn:'Voir'},
-      {ico:'🎟️',name:'Expériences',desc:'Réservées et vérifiées',type:'act',btn:'Explorer'},
+      {ico:'✈️',name:'Vols',desc:'Comparez sans frais',type:'flight',btn:'Chercher'},
+      {ico:'🏨',name:'Hébergement',desc:'Hôtels, apparts, adresses avec caractère',type:'hotel',btn:'Voir'},
+      {ico:'🎟️',name:'Expériences',desc:'Sélectionnées et vérifiées',type:'act',btn:'Explorer'},
       {ico:'🚂',name:'Trains',desc:'Interrail, Eurostar, trains locaux',type:'train',btn:'Voir'},
       {ico:'🚗',name:'Location de voiture',desc:'Sans frais cachés',type:'car',btn:'Voir'},
     ],
-    promptIntro:'Tu es un écrivain de voyage qui a vécu dans douze villes et qui écrit pour des gens qui connaissent déjà les clichés et les rejettent. Tu n\'es pas un guide touristique ni un article de magazine. Tu es la voix de quelqu\'un qui a passé des mois dans cette destination et qui sait exactement ce qui mérite le temps d\'un voyageur intelligent. Ton ton : direct, avec des opinions, parfois ironique, toujours précis. Pense à l\'auteur d\'un guide de poche vendu en librairie indépendante. Pas au rédacteur d\'un site de voyage. Chaque recommandation a une raison concrète. Chaque description évoque quelque chose de réel — pas "atmosphère chaleureuse" mais l\'odeur du vieux bois ou le bruit des chaises qu\'on pousse à midi. Inclus des expériences qu\'on ne trouve pas dans tous les itinéraires : marchés spécifiques, bars de quartier, itinéraires que les locaux empruntent sans les publier, choses gratuites qui valent plus que les payantes, et aussi des expériences payantes qui justifient chaque euro. Adapte ton ton au profil du voyageur sans le lui dire. Évite : "incontournable", "pépite cachée", "authentique", "charmant". Utilise : noms propres, horaires précis, quoi commander, comment y aller, pourquoi celui-ci et pas celui d\'à côté.',
+    promptIntro:'Tu es le rédacteur en chef voyage d\'un magazine indépendant européen — pas le tourisme de masse, mais celui vendu en librairies de design et dans quelques aéroports triés. Tu écris pour des gens de 28 à 45 ans qui ont déjà voyagé, qui savent distinguer un bar de quartier d\'un piège à touristes, et qui préfèrent un dîner mémorable à trois monuments cochés sur une liste. Ton ton : direct, avec une vraie opinion, parfois ironique, toujours précis. Jamais moralisateur. Jamais enthousiaste sans raison. Tu recommandes avec la confiance de quelqu\'un qui connaît l\'endroit de première main — pas de l\'avoir googlé. Chaque recommandation a une raison précise. Les descriptions évoquent quelque chose de réel : le bruit des chaises à midi, l\'odeur du marché avant 8h, la lumière de ce bar à 23h. Inclus des expériences absentes des premiers résultats de recherche : marchés précis, bars de quartier, itinéraires que les locaux empruntent sans les publier, choses gratuites qui valent plus que les payantes. Évite absolument : "incontournable", "pépite cachée", "authentique", "charmant", "à ne pas manquer", "magique". Utilise : noms propres, horaires précis, exactement quoi commander, pourquoi cet endroit et pas celui d\'à côté.',
   }
 };
+
 
 let lang='es';
 function detectLang(){const s=localStorage.getItem('ts_lang');if(s&&I18N[s])return s;const n=(navigator.language||'').toLowerCase();if(n.startsWith('fr'))return'fr';if(n.startsWith('en'))return'en';return'es';}
@@ -2914,28 +2956,39 @@ Plan each day as a driving leg with stops — mention approximate km and drive t
   const rawTags = [...document.querySelectorAll('.tag.on')].map(b=>b.textContent.trim());
 
   const STYLE_DNA = {
-    // ES tags
-    '🏛️ Cultura':      { voice:'intellectual curiosity', accom:'centrally located boutique or design hotel', transport:'walk everywhere, metro for distance', food:'restaurant with history or concept, not just food', activities:'museums before they open, guided tours with experts not guides, architecture walks', avoid:'beach bars, party hostels, generic tours' },
-    '🍷 Gastronomía':  { voice:'obsessive about food', accom:'hotel near the market district', transport:'plan routes around meal times', food:'LEAD with food — market breakfast, wine bar lunch, reservation-only dinner. Mention what to ORDER specifically', activities:'cooking class, market tour, winery visit — food IS the activity', avoid:'hotel restaurants, tourist menus, anything described as "international cuisine"' },
-    '🏔️ Naturaleza':   { voice:'outdoor and physical', accom:'rural guesthouse, mountain refuge, or eco-lodge — NOT city hotels', transport:'car or bike essential, hikes between stops', food:'simple and local — picnic on a summit beats any restaurant', activities:'specific trails with names and difficulty, wildlife spots, sunrise viewpoints', avoid:'cities, malls, crowded monuments, anything indoors that isn\'t essential' },
-    '🚂 Slow travel':  { voice:'unhurried and present', accom:'one base, not moving every night — apartment or guesthouse with kitchen', transport:'train always over flight, walk over taxi', food:'cook once, eat at local spots with no English menu, linger', activities:'ONE thing per half-day maximum, sit in a square, read in a garden, talk to shopkeepers', avoid:'packed itineraries, ticking boxes, anything with a queue over 20 minutes' },
-    '🏖️ Playa':        { voice:'relaxed and sun-seeking', accom:'walking distance to the best beach, not a resort', transport:'scooter or bike, no need for cars in most cases', food:'seafood, chiringuitos, ice cream that locals eat', activities:'beach rotation by time of day (east-facing AM, west-facing PM), snorkeling spot, coastal walk', avoid:'landlocked days, heavy museum itineraries, indoor afternoons' },
-    '🌆 Ciudad':       { voice:'urban explorer', accom:'right in the action — not a suburb hotel', transport:'metro + walking, understand the neighbourhood grid', food:'rooftop bar, corner café with regulars, street food market', activities:'street art districts, viewpoints at dusk, neighbourhood-by-neighbourhood exploration', avoid:'day trips to countryside, anything that takes you out of the city rhythm' },
-    '🧘 Desconexión':  { voice:'calm and restorative', accom:'spa hotel, rural retreat, or place with a garden — silence matters', transport:'slow and minimal — one transfer max', food:'healthy, local, unhurried — breakfast matters more than dinner', activities:'yoga or morning swim, thermal baths, forest walk, afternoon nap as a planned activity', avoid:'nightlife, crowds, cultural overload, back-to-back activities' },
-    '🌙 Noche':        { voice:'night owl', accom:'central, soundproofed, late checkout', transport:'taxi or night bus — forget schedules', food:'dinner never before 21h, late-night pintxos or street food after midnight', activities:'start late, bar with live music, club that opens at 1am, sunrise from a rooftop', avoid:'morning activities, early museum bookings, anything requiring an alarm' },
-    '❤️ Romántico':    { voice:'intimate and curated', accom:'small boutique hotel with character, private balcony or terrace if possible', transport:'slow — walk together, avoid rush', food:'reservation at somewhere special — candles, wine list, not a tourist trap', activities:'private or semi-private experiences over group tours, sunset spot that isn\'t overrun', avoid:'group tours, hostels, shared dorm experiences, anything crowded or rushed' },
-    '👨‍👩‍👧 Familia':   { voice:'practical and inclusive', accom:'apartment or family room, kitchen access helpful', transport:'direct and simple — kids hate connections', food:'flexible hours, kid-friendly menus exist but aren\'t needed everywhere', activities:'interactive, short bursts — 90min max per activity, mix paid and free', avoid:'long transfers, fine dining, anything requiring silence or still' },
-    // EN tags
-    '🏛️ Culture':      { voice:'intellectual curiosity', accom:'centrally located boutique or design hotel', transport:'walk everywhere', food:'restaurant with history or concept', activities:'museums, architecture, guided expert tours', avoid:'beach bars, party hostels' },
-    '🍷 Gastronomie':  { voice:'obsessive about food', accom:'near market district', transport:'plan routes around meal times', food:'market breakfast, wine bar lunch, reservation-only dinner', activities:'cooking class, market tour, winery', avoid:'hotel restaurants, tourist menus' },
-    '🏔️ Nature':       { voice:'outdoor and physical', accom:'rural guesthouse or eco-lodge', transport:'car or bike', food:'picnic on a summit', activities:'named trails, wildlife spots, sunrise viewpoints', avoid:'cities, malls, crowded monuments' },
-    '🚂 Slow travel':  { voice:'unhurried', accom:'one base, apartment or guesthouse', transport:'train over flight, walk over taxi', food:'cook once, local spots', activities:'one thing per half-day', avoid:'packed itineraries, queues' },
-    '🏖️ Plage':        { voice:'relaxed', accom:'walking distance to best beach', transport:'scooter or bike', food:'seafood, chiringuitos', activities:'beach rotation, snorkeling, coastal walk', avoid:'landlocked days' },
-    '🌆 Ville':        { voice:'urban explorer', accom:'in the action', transport:'metro + walking', food:'rooftop bar, corner café', activities:'street art, viewpoints at dusk', avoid:'day trips out of city' },
-    '🧘 Déconnexion':  { voice:'calm and restorative', accom:'spa or rural retreat', transport:'minimal', food:'healthy and unhurried', activities:'yoga, thermal baths, forest walk', avoid:'nightlife, crowds' },
-    '🌙 Soirées':      { voice:'night owl', accom:'central, late checkout', transport:'taxi or night bus', food:'dinner after 21h, late-night street food', activities:'live music, clubs, sunrise from rooftop', avoid:'morning activities' },
-    '❤️ Romantique':   { voice:'intimate', accom:'boutique with balcony', transport:'slow and together', food:'reservation at somewhere special', activities:'private experiences, sunset spots', avoid:'group tours, crowded places' },
-    '👨‍👩‍👧 Famille':   { voice:'practical and inclusive', accom:'apartment or family room', transport:'direct and simple', food:'flexible hours', activities:'interactive, 90min max, mix free and paid', avoid:'long transfers, fine dining' },
+    // ES
+    '🏛️ Cultura':       { voice:'intellectual curiosity, informed opinions', accom:'central boutique or design hotel, never a chain', transport:'walk + metro, architecture is part of the route', food:'place with history or a concept — the story matters as much as the dish', activities:'museum before crowds, expert-led architecture walk, a specific neighbourhood at a specific hour', avoid:'beach bars, party hostels, anything described as "fun for the whole family"' },
+    '🍷 Gastronomía':   { voice:'obsessive about food, specific about why', accom:'near the market district or the neighbourhood with the best bars', transport:'plan the route around where to eat and drink', food:'FOOD IS THE ITINERARY — market at 8am, wine bar lunch, reservation-only dinner. Name what to order specifically. Zero tourist menus.', activities:'cooking class with a local, market tour, a bodega that does not advertise', avoid:'hotel restaurants, anything described as "international cuisine", rooftop bars with average food' },
+    '🎨 Arte & Diseño':  { voice:'design-literate, visually precise', accom:'design hotel or architect-designed rental, the space itself matters', transport:'walk — cities reveal themselves on foot', food:'café in a gallery, restaurant where the interior is worth the visit too', activities:'contemporary art spaces NOT the main museum, design shops, street art districts with specific artist names, architecture tours of a specific era or style', avoid:'souvenir shops, anything with a queue that is purely touristic, generic "old town" walking tours' },
+    '🧗 Aventura':       { voice:'physical, direct, no-nonsense', accom:'mountain refuge, surf camp, or simple guesthouse — comfort is secondary', transport:'car or bike, early starts', food:'energy matters more than ambience — but include one meal that earns it', activities:'specific trails with names, grades and distances, via ferratas, surf spots with tide times, climbing areas, canyon descents — be technical and precise', avoid:'cities, spa hotels, anything that requires a reservation three weeks in advance' },
+    '🚂 Slow travel':   { voice:'unhurried, observational, present', accom:'one base for the whole trip — apartment or guesthouse with a kitchen, no moving every night', transport:'train always over flight. Walk over taxi. Bike over metro.', food:'cook once, eat twice at places with no English menu, linger over coffee for an hour', activities:'one thing per half-day maximum. Sit in a square. Read in a garden. Visit a market and buy things to cook.', avoid:'packed itineraries, anything with a time slot, moving more than once, efficiency' },
+    '🧘 Desconexión':   { voice:'calm, restorative, deliberate', accom:'rural retreat, spa hotel, or place with a garden — silence and nature are non-negotiable', transport:'one transfer maximum, slow and minimal', food:'healthy, local, seasonal — breakfast matters more than dinner here', activities:'morning swim or yoga, thermal baths, a long forest walk, afternoon rest as a planned activity — MAXIMUM 2 activities per day', avoid:'nightlife, cultural overload, cities, anything requiring an alarm before 8am' },
+    '🌙 Noche':         { voice:'night owl, knows where things actually happen', accom:'central, soundproofed, late checkout non-negotiable', transport:'taxi or night bus — forget public transport schedules', food:'dinner never before 21h. Late-night pintxos, döner, or street food at 1am is as valid as a restaurant', activities:'the bar that opens at midnight, the club with the right resident, the concert venue that matters, sunrise from a rooftop — nothing starts before noon', avoid:'morning museum bookings, early trains, anything requiring an alarm' },
+    '❤️ Romántico':     { voice:'intimate, curated, unhurried', accom:'small boutique hotel with character, private terrace or balcony if possible — not a resort', transport:'slow together — walk, no rush', food:'one reservation at somewhere genuinely special — research the menu, the wine list, the room. Not a tourist trap with candles.', activities:'private or semi-private experiences only, a sunset spot that is not overrun, an afternoon with no plan', avoid:'group tours, hostels, anything crowded or rushed, anything that could be done alone just as well' },
+    '🎵 Música & Escena':{ voice:'culturally plugged-in, knows the underground', accom:'the neighbourhood that matters for the scene — not the tourist centre', transport:'night bus, walk, taxi — know the night network', food:'the bar where the musicians drink after the show, the late-night place the locals know', activities:'specific venues — jazz club, flamenco tablao that is NOT for tourists, record shop, independent festival, open mic night that matters', avoid:'stadium concerts, anything on the main tourist drag, cover bands' },
+    '🎒 Mochilero':     { voice:'resourceful, social, maximises experience per euro', accom:'well-rated hostel with a social vibe — dorm or private, but never isolated', transport:'night bus or slow train over flight, walk everywhere, hitch if it makes sense', food:'street food, market lunch, the place that is packed with locals at 1pm for €8', activities:'free things first — free museum days, parks, viewpoints, neighbourhood festivals. Paid experiences only when genuinely worth it.', avoid:'overpriced tourist experiences, taxis, anything that requires a suit or a reservation a month in advance' },
+    // EN
+    '🏛️ Culture':        { voice:'intellectual curiosity', accom:'central boutique or design hotel', transport:'walk + metro', food:'place with history or concept', activities:'museum before crowds, expert-led walk, specific neighbourhood at specific hour', avoid:'beach bars, party hostels, generic tours' },
+    '🍷 Food & Wine':    { voice:'obsessive about food', accom:'near market district', transport:'route around food', food:'market at 8am, wine bar lunch, reservation-only dinner — name what to order', activities:'cooking class, market tour, local bodega', avoid:'hotel restaurants, tourist menus' },
+    '🎨 Art & Design':   { voice:'design-literate', accom:'design hotel or architect rental', transport:'walk', food:'café in a gallery, restaurant where interior matters', activities:'contemporary art spaces, design shops, street art, architecture tours', avoid:'souvenir shops, generic old town tours' },
+    '🧗 Adventure':      { voice:'physical, direct', accom:'mountain refuge or surf camp', transport:'car or bike, early starts', food:'energy first, one meal that earns it', activities:'named trails with grades, surf spots, climbing areas — be technical', avoid:'cities, spa hotels' },
+    '🚂 Slow travel':   { voice:'unhurried, observational', accom:'one base, apartment with kitchen', transport:'train over flight, walk over taxi', food:'cook once, local spots with no English menu', activities:'one thing per half-day, sit in a square, market to cook from', avoid:'packed itineraries, moving more than once' },
+    '🧘 Disconnect':    { voice:'calm, restorative', accom:'rural retreat or spa with nature', transport:'one transfer max', food:'healthy, local, seasonal', activities:'swim, thermal baths, forest walk, rest — max 2 per day', avoid:'nightlife, cities, cultural overload' },
+    '🌙 Nightlife':     { voice:'night owl', accom:'central, late checkout', transport:'taxi or night bus', food:'dinner after 21h, late-night street food at 1am', activities:'bar that opens at midnight, right club, concert venue that matters', avoid:'morning bookings, early trains' },
+    '❤️ Romance':       { voice:'intimate, curated', accom:'boutique with private terrace', transport:'slow, together', food:'one genuinely special reservation — research the wine list', activities:'private experiences, uncrowded sunset spot, unplanned afternoon', avoid:'group tours, anything crowded' },
+    '🎵 Music & Scene': { voice:'culturally plugged-in', accom:'neighbourhood that matters for the scene', transport:'night network', food:'bar where musicians drink after the show', activities:'jazz club, non-tourist flamenco, record shop, festival', avoid:'stadium concerts, cover bands, tourist drag' },
+    '🎒 Backpacker':    { voice:'resourceful, social', accom:'well-rated social hostel', transport:'night bus or slow train, walk everywhere', food:'street food, market lunch packed with locals for €8', activities:'free things first, paid only when genuinely worth it', avoid:'overpriced tourist experiences, taxis' },
+    // FR
+    '🏛️ Culture':        { voice:'curiosité intellectuelle', accom:'hôtel boutique central ou design', transport:'marche + métro', food:'endroit avec une histoire ou un concept', activities:'musée avant la foule, promenade avec expert, quartier précis à heure précise', avoid:'bars de plage, auberges de fête, visites génériques' },
+    '🍷 Gastronomie':   { voice:'obsédé par la nourriture', accom:'près du marché ou du quartier des bars', transport:'itinéraire autour des repas', food:'marché à 8h, bar à vins le midi, dîner sur réservation — nommer quoi commander', activities:'cours de cuisine, visite de marché, bodega locale', avoid:'restaurants d\'hôtel, menus touristiques' },
+    '🎨 Art & Design':  { voice:'sensible au design', accom:'hôtel design ou location architecte', transport:'à pied', food:'café dans une galerie, restaurant où l\'intérieur compte', activities:'espaces d\'art contemporain, boutiques design, street art, visites archi', avoid:'boutiques souvenirs, visites vieille ville génériques' },
+    '🧗 Aventure':      { voice:'physique, direct', accom:'refuge de montagne ou camp de surf', transport:'voiture ou vélo, départs tôt', food:'énergie d\'abord, un repas qui le mérite', activities:'sentiers nommés avec dénivelé, spots surf, zones escalade — soyez technique', avoid:'villes, hôtels spa' },
+    '🚂 Slow travel':  { voice:'calme, observateur', accom:'une base, appartement avec cuisine', transport:'train plutôt qu\'avion, marche plutôt que taxi', food:'cuisiner une fois, restos locaux sans menu anglais', activities:'une chose par demi-journée, s\'asseoir dans une place, marché pour cuisiner', avoid:'programme chargé, bouger plus d\'une fois' },
+    '🧘 Déconnexion':  { voice:'calme, reposant', accom:'retraite rurale ou spa avec nature', transport:'un transfert max', food:'sain, local, de saison', activities:'nage, thermes, balade forêt, repos — max 2 par jour', avoid:'vie nocturne, villes, surcharge culturelle' },
+    '🌙 Soirées':      { voice:'oiseau de nuit', accom:'central, late checkout', transport:'taxi ou bus de nuit', food:'dîner après 21h, street food de minuit', activities:'bar qui ouvre à minuit, bon club, salle de concert qui compte', avoid:'réservations matinales, trains tôt' },
+    '❤️ Romantique':   { voice:'intime, soigné', accom:'boutique avec terrasse privée', transport:'lent, ensemble', food:'une vraie réservation spéciale — étudier la carte des vins', activities:'expériences privées, coucher de soleil sans foule, après-midi sans plan', avoid:'visites de groupe, endroits bondés' },
+    '🎵 Musique & Scène':{ voice:'branché culturellement', accom:'quartier qui compte pour la scène', transport:'réseau nocturne', food:'bar où les musiciens boivent après le concert', activities:'club de jazz, flamenco non-touristique, disquaire, festival', avoid:'concerts stades, groupes cover' },
+    '🎒 Sac à dos':    { voice:'débrouillard, social', accom:'auberge bien notée et sociale', transport:'bus de nuit ou train lent, marche partout', food:'street food, déjeuner de marché bondé de locaux pour 8€', activities:'gratuit d\'abord, payant seulement si vraiment vaut le coup', avoid:'expériences touristiques chères, taxis' },
   };
 
   // Build style instruction from active tags
@@ -2979,12 +3032,12 @@ The traveller chose specific styles. This is NOT decoration — it fundamentally
 
 If they chose 🍷 Gastronomía: the entire trip revolves around food. Every day has a food-first logic. You name what to ORDER, not just where to go.
 If they chose 🧘 Desconexión: there are NEVER more than 2 activities per day. Rest is a planned activity. No nightlife.
-If they chose 🏔️ Naturaleza: you recommend ZERO city hotels. Zero urban museums. Every day has a physical outdoor element.
+If they chose 🧗 Aventura or 🧘 Desconexión: you recommend ZERO city hotels. Zero urban museums. Every day has a physical outdoor element.
 If they chose 🚂 Slow travel: maximum 1 location change. Apartment over hotel. Picnic over restaurant at least once.
 If they chose 🌙 Noche: nothing starts before noon. Nightlife is the main event, not an afterthought.
 If they chose ❤️ Romántico: NO group tours, NO shared experiences, private or semi-private only.
 
-If styles CONFLICT (e.g. Naturaleza + Romántico): blend them intelligently — romantic nature retreat, not urban romance.
+If styles CONFLICT (e.g. 🧗 Aventura + ❤️ Romántico): blend them intelligently — romantic adventure retreat, not urban romance.
 If NO style selected: balanced curious traveller, mix of the above.
 
 A trip for 🧘 Desconexión and a trip for 🌙 Noche must look COMPLETELY DIFFERENT. If they look similar, you failed.
