@@ -2737,6 +2737,11 @@ function renderResult(s){
 // ═══════════════════════════════════
 // GENERATE
 // ═══════════════════════════════════
+// ═══════════════════════════════════
+// REAL FLIGHT DATA (global)
+// ═══════════════════════════════════
+let realFlight = null;
+
 async function gen(){
   const origin=document.getElementById('origin').value.trim()||'home';
   let dest=document.getElementById('dest').value.trim();
@@ -2792,7 +2797,7 @@ async function gen(){
   ['flightCard','timeline','tipsSection','recapSection','expSection','bookingRecap','bottomCta'].forEach(id=>document.getElementById(id).innerHTML='');
 
   // ── Fetch real flight price in parallel with loading UI ──
-  let realFlight = null;
+  realFlight = null;
   const flightFetchPromise = fetchRealFlight(origin, dest, dfv, dtv).then(r=>{ realFlight=r; });
 
   const msgs=t('loadMsgs');let mi=0;
