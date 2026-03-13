@@ -158,6 +158,22 @@ textarea{resize:none;height:56px;font-size:.82rem}
 /* Day card — Cartoville editorial */
 .day-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;margin-bottom:2.2rem;box-shadow:var(--shadow);transition:box-shadow .25s,transform .25s}
 .day-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px)}
+.day-add-bar{padding:.6rem 1.4rem .8rem;border-top:1px solid var(--border);background:var(--bg)}
+.day-add-btn{display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .9rem;background:transparent;border:1.5px solid var(--border);border-radius:100px;font-size:.72rem;font-weight:600;color:var(--ink2);cursor:pointer;font-family:var(--font-body);transition:all .18s}
+.day-add-btn:hover{border-color:var(--sage);color:var(--sage-dark)}
+.day-add-btn.added{background:var(--sage);border-color:var(--sage);color:#fff}
+.br-row-actions{display:flex;flex-direction:column;gap:.4rem;align-items:flex-end}
+.br-add-btn{padding:.32rem .75rem;background:transparent;border:1.5px solid var(--border);border-radius:100px;font-size:.71rem;font-weight:600;color:var(--ink2);cursor:pointer;font-family:var(--font-body);transition:all .18s;white-space:nowrap}
+.br-add-btn:hover{border-color:var(--sage);color:var(--sage-dark)}
+.br-add-btn.added{background:var(--sage);color:#fff;border-color:var(--sage)}
+.br-cart-recap{padding:1rem 1.4rem;background:var(--bg);border-top:2px dashed var(--border)}
+.br-cart-recap:empty{display:none}
+.br-cart-title{font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:.6rem}
+.br-cart-item{display:flex;justify-content:space-between;align-items:center;font-size:.8rem;padding:.3rem 0;border-bottom:1px solid var(--border)}
+.br-cart-item:last-child{border-bottom:none}
+.br-cart-item-name{color:var(--ink);font-weight:500}
+.br-cart-item-price{color:var(--muted);font-size:.75rem}
+.br-cart-total-row{display:flex;justify-content:space-between;font-size:.82rem;font-weight:700;color:var(--ink);margin-top:.6rem;padding-top:.5rem;border-top:1.5px solid var(--ink)}
 .day-header{display:flex;align-items:stretch;min-height:78px}
 .day-num-col{width:70px;flex-shrink:0;background:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.12rem;padding:.9rem 0}
 .day-num-big{font-family:var(--font-display);font-size:2.1rem;font-weight:400;color:#fff;line-height:1;letter-spacing:-.04em}
@@ -588,44 +604,6 @@ textarea{resize:none;height:56px;font-size:.82rem}
 .exp-micro:hover{border-color:var(--sage);color:var(--sage-dark);background:var(--sage-light)}
 .exp-micro.in-cart{background:var(--sage);border-color:var(--sage);color:#fff}
 .exp-micro svg{width:9px;height:9px;fill:none;stroke:currentColor;stroke-width:2.5;flex-shrink:0}
-
-/* ── PROGRESSIVE STEPPER ── */
-.sdot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.2);transition:all .3s ease;flex-shrink:0}
-.sdot.on{background:#86EFAC;width:24px;border-radius:4px}
-
-#stepWrap{position:relative;overflow:hidden;min-height:320px}
-.step-card{display:none;flex-direction:column;gap:.9rem;animation:stepIn .35s cubic-bezier(.34,1.56,.64,1) both}
-.step-card.active{display:flex}
-.step-card.out{animation:stepOut .25s ease forwards}
-@keyframes stepIn{from{opacity:0;transform:translateX(28px)}to{opacity:1;transform:none}}
-@keyframes stepOut{from{opacity:1;transform:none}to{opacity:0;transform:translateX(-28px)}}
-@keyframes stepInBack{from{opacity:0;transform:translateX(-28px)}to{opacity:1;transform:none}}
-
-.step-q{font-family:var(--font-display);font-size:1.45rem;font-weight:400;letter-spacing:-.025em;line-height:1.2;color:var(--ink);margin-bottom:-.2rem}
-.step-hint{font-size:.82rem;color:var(--ink2);line-height:1.5;margin-bottom:.2rem}
-
-.step-budget-row{display:flex;align-items:center;gap:.5rem;background:#F8F7F4;border:1.5px solid var(--border);border-radius:12px;padding:.5rem .75rem}
-.step-euro{font-size:1.1rem;font-weight:600;color:var(--ink2)}
-.step-budget-input{flex:1;border:none;background:transparent;font-size:1.4rem;font-weight:700;color:var(--ink);font-family:var(--font-display);outline:none;width:80px}
-.step-budget-per{border:none;background:transparent;font-size:.8rem;color:var(--ink2);cursor:pointer;outline:none}
-
-.step-input-row{display:flex;align-items:center;gap:.5rem}
-.step-text-input{width:100%;padding:.75rem 1rem;border:1.5px solid var(--border);border-radius:12px;font-size:.95rem;background:#F8F7F4;color:var(--ink);outline:none;transition:border-color .2s;font-family:var(--font-prose);box-sizing:border-box}
-.step-text-input:focus{border-color:var(--sage-dark);background:#fff}
-.step-geo{background:none;border:1.5px solid var(--border);border-radius:10px;padding:.6rem .75rem;cursor:pointer;font-size:1rem;flex-shrink:0;transition:border-color .2s}
-.step-geo:hover{border-color:var(--sage-dark)}
-
-.step-style-grid{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
-.style-chip{padding:.65rem 1rem;border:1.5px solid var(--border);border-radius:10px;background:#F8F7F4;color:var(--ink);font-size:.85rem;cursor:pointer;transition:all .18s;text-align:left;font-family:var(--font-prose)}
-.style-chip:hover{border-color:var(--sage-dark);background:#fff}
-.style-chip.on{border-color:var(--sage-dark);background:var(--sage-dark);color:#fff}
-
-.step-nav{display:flex;gap:.6rem;margin-top:.4rem}
-.step-back{flex:0 0 auto;padding:.65rem 1.1rem;border:1.5px solid var(--border);border-radius:10px;background:transparent;color:var(--ink2);font-size:.82rem;cursor:pointer;transition:all .18s;font-family:var(--font-prose)}
-.step-back:hover{border-color:var(--ink2);color:var(--ink)}
-.step-next{flex:1;padding:.72rem 1.2rem;border:none;border-radius:10px;background:var(--ink);color:#fff;font-size:.88rem;font-weight:600;cursor:pointer;transition:background .18s;font-family:var(--font-prose);letter-spacing:.02em}
-.step-next:hover{background:var(--sage-dark)}
-
 </style>
 </head>
 <body>
@@ -663,151 +641,74 @@ textarea{resize:none;height:56px;font-size:.82rem}
       <div><div class="stat-n">150+</div><div class="stat-l" data-i="proof2"></div></div>
       <div><div class="stat-n">4.9★</div><div class="stat-l" data-i="proof3"></div></div>
     </div>
-    <!-- Progress dots -->
-    <div id="stepDots" style="display:flex;gap:.5rem;margin-top:2.5rem;opacity:.7">
-      <span class="sdot on" data-step="0"></span>
-      <span class="sdot" data-step="1"></span>
-      <span class="sdot" data-step="2"></span>
-      <span class="sdot" data-step="3"></span>
-      <span class="sdot" data-step="4"></span>
-      <span class="sdot" data-step="5"></span>
-    </div>
-    <div id="stepLabel" style="font-size:.75rem;color:rgba(255,255,255,.45);margin-top:.6rem;letter-spacing:.06em;text-transform:uppercase;font-family:var(--font-prose)"></div>
   </div>
   <div class="hero-right">
-    <!-- PROGRESSIVE FORM WRAPPER -->
-    <div id="stepWrap">
-
-      <!-- Hidden legacy inputs (keep for gen() compatibility) -->
-      <input type="hidden" id="budgetAmount" value="800"/>
-      <select id="budgetPer" style="display:none"><option value="person">person</option><option value="total">total</option></select>
-      <input type="hidden" id="origin" value=""/>
-      <input type="hidden" id="dest" value=""/>
-      <input type="hidden" id="df" value=""/>
-      <input type="hidden" id="dt" value=""/>
-      <select id="travelers" style="display:none" onchange="updateTravelersUI()">
-        <option value="solo">Solo</option>
-        <option value="couple" selected>Couple</option>
-        <option value="friends">Friends</option>
-        <option value="family">Family</option>
-      </select>
-      <span id="paxCount" style="display:none">2</span>
-      <div id="paxWrap" style="display:none"></div>
-      <div id="tagsWrap" style="display:none"></div>
-      <textarea id="extra" style="display:none"></textarea>
-      <button id="flexNo" style="display:none" class="on"></button>
-      <button id="flexYes" style="display:none"></button>
-      <button id="geoBtn" style="display:none" onclick="detectOrigin()"></button>
-      <button id="destSuggestBtn" style="display:none" onclick="toggleDestSuggest()"></button>
-
-      <!-- STEP 0: Budget -->
-      <div class="step-card active" id="step-0">
-        <div class="step-q" data-i="sq0"></div>
-        <div class="step-hint" data-i="sh0"></div>
-        <div class="step-budget-row">
-          <div class="step-euro">€</div>
-          <input type="number" class="step-budget-input" id="s_budget" min="100" max="50000" step="50" placeholder="800" oninput="updateHiddenBudget()"/>
-          <select class="step-budget-per" id="s_budgetPer" onchange="updateHiddenBudget()">
+    <div class="form-hed" data-i="formTitle"></div>
+    <div class="form-sub" data-i="formSub"></div>
+    <div class="budget-amount-row">
+      <div class="fg fg-budget">
+        <label data-i="labelBudgetAmount"></label>
+        <div class="budget-input-wrap">
+          <span class="budget-euro">€</span>
+          <input type="number" id="budgetAmount" min="50" max="50000" step="50" placeholder="800" data-i-ph="phBudget"/>
+          <select id="budgetPer">
             <option value="person" data-i="budgetPerPerson"></option>
             <option value="total" data-i="budgetPerTotal"></option>
           </select>
         </div>
-        <div id="budgetCheckPanel" class="budget-check" style="margin-top:.8rem"></div>
-        <button class="step-next" onclick="goStep(1)" data-i="stepNext"></button>
       </div>
-
-      <!-- STEP 1: Origin -->
-      <div class="step-card" id="step-1">
-        <div class="step-q" data-i="sq1"></div>
-        <div class="step-hint" data-i="sh1"></div>
-        <div class="step-input-row">
-          <input type="text" class="step-text-input" id="s_origin" data-i-ph="phFrom" oninput="document.getElementById('origin').value=this.value"/>
-          <button type="button" class="step-geo" onclick="detectOrigin()" title="📍">📍</button>
-        </div>
-        <div class="step-nav">
-          <button class="step-back" onclick="goStep(0)" data-i="stepBack"></button>
-          <button class="step-next" onclick="goStep(2)" data-i="stepNext"></button>
+    </div>
+    <div class="g2">
+      <div class="fg">
+        <label data-i="labelFrom"></label>
+        <div class="origin-wrap">
+          <input type="text" id="origin" data-i-ph="phFrom"/>
+          <button type="button" class="geo-btn" id="geoBtn" onclick="detectOrigin()" title="Detectar mi ubicación">📍</button>
         </div>
       </div>
-
-      <!-- STEP 2: Travel style (who + type) -->
-      <div class="step-card" id="step-2">
-        <div class="step-q" data-i="sq2"></div>
-        <div class="step-hint" data-i="sh2"></div>
-        <div class="step-style-grid" id="s_travelersGrid">
-          <button class="style-chip" data-val="solo" onclick="selectTravelers(this)" data-i-chip="tSolo">🧳 Solo</button>
-          <button class="style-chip on" data-val="couple" onclick="selectTravelers(this)" data-i-chip="tCouple">💑 Pareja</button>
-          <button class="style-chip" data-val="friends" onclick="selectTravelers(this)" data-i-chip="tFriends">👯 Amigos</button>
-          <button class="style-chip" data-val="family" onclick="selectTravelers(this)" data-i-chip="tFamily">👨‍👩‍👧 Familia</button>
-        </div>
-        <div class="step-nav">
-          <button class="step-back" onclick="goStep(1)" data-i="stepBack"></button>
-          <button class="step-next" onclick="goStep(3)" data-i="stepNext"></button>
+      <div class="fg" id="destFg"><label data-i="labelTo"></label>
+        <div class="dest-wrap">
+          <input type="text" id="dest" data-i-ph="phTo"/>
+          <button class="dest-suggest-btn" id="destSuggestBtn" onclick="toggleDestSuggest()" type="button" data-i="destSuggestBtn"></button>
         </div>
       </div>
-
-      <!-- STEP 3: Tags / vibe -->
-      <div class="step-card" id="step-3">
-        <div class="step-q" data-i="sq3"></div>
-        <div class="step-hint" data-i="sh3"></div>
-        <div class="tags" id="s_tagsWrap"></div>
-        <div class="step-nav">
-          <button class="step-back" onclick="goStep(2)" data-i="stepBack"></button>
-          <button class="step-next" onclick="goStep(4)" data-i="stepNext"></button>
-        </div>
-      </div>
-
-      <!-- STEP 4: Dates -->
-      <div class="step-card" id="step-4">
-        <div class="step-q" data-i="sq4"></div>
-        <div class="step-hint" data-i="sh4"></div>
-        <div class="g2" style="margin-bottom:1rem">
-          <div class="fg"><label data-i="labelDepart"></label><input type="date" id="s_df" onchange="document.getElementById('df').value=this.value;updateBudgetCheck()"/></div>
-          <div class="fg"><label data-i="labelReturn"></label><input type="date" id="s_dt" onchange="document.getElementById('dt').value=this.value;updateBudgetCheck()"/></div>
-        </div>
-        <div class="flex-row" style="margin-bottom:0">
-          <label data-i="labelFlexible"></label>
-          <div class="flex-tog">
-            <button class="flex-btn on" id="s_flexNo" onclick="setFlex(false);this.classList.add('on');document.getElementById('s_flexYes').classList.remove('on')" data-i="flexNo"></button>
-            <button class="flex-btn" id="s_flexYes" onclick="setFlex(true);this.classList.add('on');document.getElementById('s_flexNo').classList.remove('on')" data-i="flexYes"></button>
+    </div>
+    <div class="g2">
+      <div class="fg"><label data-i="labelDepart"></label><input type="date" id="df"/></div>
+      <div class="fg"><label data-i="labelReturn"></label><input type="date" id="dt"/></div>
+    </div>
+    <div class="fg"><label data-i="labelTravelers"></label>
+      <div class="travelers-wrap">
+        <select id="travelers" onchange="updateTravelersUI()">
+          <option value="solo" data-i="tSolo"></option>
+          <option value="couple" selected data-i="tCouple"></option>
+          <option value="friends" data-i="tFriends"></option>
+          <option value="family" data-i="tFamily"></option>
+        </select>
+        <div class="pax-wrap" id="paxWrap" style="display:none">
+          <label data-i="labelPax"></label>
+          <div class="pax-counter">
+            <button type="button" class="pax-btn" onclick="changePax(-1)">−</button>
+            <span id="paxCount">2</span>
+            <button type="button" class="pax-btn" onclick="changePax(1)">+</button>
           </div>
         </div>
-        <div class="step-nav">
-          <button class="step-back" onclick="goStep(3)" data-i="stepBack"></button>
-          <button class="step-next" onclick="goStep(5)" data-i="stepNext"></button>
-        </div>
       </div>
-
-      <!-- STEP 5: Destination + notes -->
-      <div class="step-card" id="step-5">
-        <div class="step-q" data-i="sq5"></div>
-        <div class="step-hint" data-i="sh5"></div>
-        <!-- Destination toggle -->
-        <div style="display:flex;gap:.6rem;margin-bottom:1rem">
-          <button class="style-chip on" id="destKnownBtn" onclick="setDestMode(true)" data-i="destKnown">✈️ Sí, tengo destino</button>
-          <button class="style-chip" id="destUnknownBtn" onclick="setDestMode(false)" data-i="destUnknown">🎲 Sugiéreme uno</button>
-        </div>
-        <div id="destKnownWrap">
-          <input type="text" class="step-text-input" id="s_dest" data-i-ph="phTo" oninput="document.getElementById('dest').value=this.value" style="margin-bottom:.8rem"/>
-        </div>
-        <div id="destUnknownWrap" style="display:none">
-          <textarea class="step-text-input" id="s_extra_dest" placeholder="¿Qué tipo de lugar buscas? Playa, montaña, ciudad..." style="height:70px;resize:none;padding:.7rem;font-size:.9rem" oninput="syncNotes()"></textarea>
-        </div>
-        <div class="fg" style="margin-top:.5rem">
-          <label data-i="labelNotes"></label>
-          <textarea class="step-text-input" id="s_extra" data-i-ph="phNotes" style="height:60px;resize:none;padding:.7rem;font-size:.9rem" oninput="document.getElementById('extra').value=this.value"></textarea>
-        </div>
-        <div class="step-nav" style="margin-top:1.2rem">
-          <button class="step-back" onclick="goStep(4)" data-i="stepBack"></button>
-        </div>
-        <button class="btn-gen" id="genBtn" onclick="gen()" style="margin-top:.8rem">
-          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-          <span data-i="btnGen"></span>
-        </button>
+    </div>
+    <div class="flex-row">
+      <label data-i="labelFlexible"></label>
+      <div class="flex-tog">
+        <button class="flex-btn on" id="flexNo" onclick="setFlex(false)" data-i="flexNo"></button>
+        <button class="flex-btn" id="flexYes" onclick="setFlex(true)" data-i="flexYes"></button>
       </div>
-
-    </div><!-- /stepWrap -->
-
+    </div>
+    <div class="fg"><label data-i="labelStyle"></label><div class="tags" id="tagsWrap"></div></div>
+    <div class="fg"><label data-i="labelNotes"></label><textarea id="extra" data-i-ph="phNotes"></textarea></div>
+    <div id="budgetCheckPanel" class="budget-check"></div>
+    <button class="btn-gen" id="genBtn" onclick="gen()">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      <span data-i="btnGen"></span>
+    </button>
     <div id="loadBox">
       <div class="load-inner">
         <div id="streamProgress"><div id="streamBar"></div></div>
@@ -815,8 +716,11 @@ textarea{resize:none;height:56px;font-size:.82rem}
           <p id="ltxt" class="load-txt"></p>
           <span id="loadTimeEst" class="load-time" style="display:none"></span>
         </div>
-        <div id="loadDestName" style="display:none"></div>
-        <div id="destFactCard" style="display:none"></div>
+        <div id="loadDestName" style="display:none;font-size:1.1rem;font-weight:800;letter-spacing:.08em;color:var(--sage-dark);margin-top:.4rem"></div>
+        <div id="destFactCard" style="display:none;margin-top:1rem;padding:.8rem 1rem;background:var(--white);border:1.5px solid var(--border);border-radius:12px;font-size:.78rem;color:var(--ink2)">
+          <div id="dfcLabel" style="font-weight:700;color:var(--ink);margin-bottom:.3rem"></div>
+          <div id="dfcFact"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -861,15 +765,6 @@ textarea{resize:none;height:56px;font-size:.82rem}
 const I18N={
   es:{
     badge:'Plan de viaje completo · Gratis · Listo en 30 segundos',
-    sq0:'¿Cuánto quieres gastar?',sh0:'Cuanto más preciso, mejor el plan.',
-    sq1:'¿Desde dónde sales?',sh1:'Ciudad o aeropuerto de origen.',
-    sq2:'¿Con quién viajas?',sh2:'Personalizamos el plan según quién va.',
-    sq3:'¿Qué tipo de viaje buscas?',sh3:'Elige uno o varios estilos.',
-    sq4:'¿Cuándo viajas?',sh4:'Las fechas nos permiten calcular precios reales.',
-    sq5:'¿Tienes ya un destino en mente?',sh5:'Si tienes uno, perfecto. Si no, te sugerimos.',
-    destKnown:'✈️ Sí, tengo destino',destUnknown:'🎲 Sugiéreme uno',
-    stepNext:'Continuar →',stepBack:'← Atrás',
-    stepLabels:['Presupuesto','Origen','Viajeros','Estilo','Fechas','Destino'],
     h1a:'Tu próximo viaje,\nplanificado por alguien\n<em>que conoce el sitio.</em>',
     heroSub:'Dinos adónde quieres ir y cómo viajas. En 30 segundos tienes un itinerario día a día — con alojamiento, restaurantes, transporte y experiencias que merece la pena reservar.',
     proof1:'Planes generados',proof2:'Destinos',proof3:'Valoración',
@@ -897,7 +792,7 @@ const I18N={
     labelNotes:'Algo más que debamos saber',
     phNotes:'Soy vegetariano. Me interesan los barrios que no salen en TripAdvisor. Prefiero hostales con personalidad a hoteles de cadena…',
     btnGen:'Generar itinerario →',navSaved:'Mis viajes',
-    cartLabel:'Mi viaje',addToMyTrip:'+ Apuntar esto',addedToTrip:'✓ Apuntado',
+    cartLabel:'Mi viaje',addToMyTrip:'＋ Añadir a mi viaje',addedToTrip:'✓ Añadido',
     expBookBtn:'Reservar →',expLoadingMsg:'Seleccionando lo mejor…',
     expTitle:'Experiencias para reservar',expSub:'Seleccionadas para tu perfil. Precio y disponibilidad en tiempo real.',
     checkoutTitle:'Finalizar reserva',checkoutSub:'Un paso más para confirmar.',
@@ -940,15 +835,6 @@ const I18N={
   },
   en:{
     badge:'Full itinerary · Free · Ready in 30 seconds',
-    sq0:'What's your budget?',sh0:'The more precise, the better the plan.',
-    sq1:'Where are you departing from?',sh1:'City or airport of origin.',
-    sq2:'Who are you travelling with?',sh2:'We personalise the plan for your group.',
-    sq3:'What kind of trip are you looking for?',sh3:'Pick one or more styles.',
-    sq4:'When are you travelling?',sh4:'Dates help us show real prices.',
-    sq5:'Do you have a destination in mind?',sh5:'If you do, great. If not, we'll suggest one.',
-    destKnown:'✈️ Yes, I have a destination',destUnknown:'🎲 Suggest one for me',
-    stepNext:'Continue →',stepBack:'← Back',
-    stepLabels:['Budget','Origin','Travellers','Style','Dates','Destination'],
     h1a:'Your next trip,\nplanned by someone\n<em>who knows the place.</em>',
     heroSub:'Tell us where you want to go and how you travel. In 30 seconds you get a day-by-day itinerary — with accommodation, restaurants, transport and experiences worth booking.',
     proof1:'Plans generated',proof2:'Destinations',proof3:'Rating',
@@ -975,7 +861,7 @@ const I18N={
     labelNotes:'Anything else we should know',
     phNotes:'Vegetarian. Interested in neighbourhoods off TripAdvisor. I\'d rather a characterful hostel than a chain hotel…',
     btnGen:'Generate itinerary →',navSaved:'My trips',
-    cartLabel:'My trip',addToMyTrip:'+ Note this',addedToTrip:'✓ Noted',
+    cartLabel:'My trip',addToMyTrip:'＋ Add to my trip',addedToTrip:'✓ Added',
     expBookBtn:'Book →',expLoadingMsg:'Selecting the best…',
     expTitle:'Experiences to book',expSub:'Selected for your profile. Live prices and availability.',
     checkoutTitle:'Finalise booking',checkoutSub:'One last step.',
@@ -1018,15 +904,6 @@ const I18N={
   },
   fr:{
     badge:'Itinéraire complet · Gratuit · Prêt en 30 secondes',
-    sq0:'Quel est votre budget ?',sh0:'Plus c'est précis, meilleur sera le plan.',
-    sq1:'D'où partez-vous ?',sh1:'Ville ou aéroport de départ.',
-    sq2:'Avec qui voyagez-vous ?',sh2:'Nous personnalisons le plan pour votre groupe.',
-    sq3:'Quel type de voyage cherchez-vous ?',sh3:'Choisissez un ou plusieurs styles.',
-    sq4:'Quand voyagez-vous ?',sh4:'Les dates permettent d'afficher de vrais prix.',
-    sq5:'Avez-vous déjà une destination en tête ?',sh5:'Si oui, parfait. Sinon, nous vous en suggérons une.',
-    destKnown:'✈️ Oui, j'ai une destination',destUnknown:'🎲 Suggérez-moi une',
-    stepNext:'Continuer →',stepBack:'← Retour',
-    stepLabels:['Budget','Origine','Voyageurs','Style','Dates','Destination'],
     h1a:'Votre prochain voyage,\nplanifié par quelqu\'un\n<em>qui connaît l\'endroit.</em>',
     heroSub:'Dites-nous où vous voulez aller et comment vous voyagez. En 30 secondes vous avez un itinéraire jour par jour — hébergement, restaurants, transport et expériences qui valent la réservation.',
     proof1:'Plans générés',proof2:'Destinations',proof3:'Note',
@@ -1053,7 +930,7 @@ const I18N={
     labelNotes:'Autre chose à savoir',
     phNotes:'Végétarien. Quartiers hors TripAdvisor. Auberge avec caractère plutôt qu\'hôtel de chaîne…',
     btnGen:'Générer l\'itinéraire →',navSaved:'Mes voyages',
-    cartLabel:'Mon voyage',addToMyTrip:'+ Noter ça',addedToTrip:'✓ Noté',
+    cartLabel:'Mon voyage',addToMyTrip:'＋ Ajouter',addedToTrip:'✓ Ajouté',
     expBookBtn:'Réserver →',expLoadingMsg:'Sélection des meilleures…',
     expTitle:'Expériences à réserver',expSub:'Sélectionnées pour votre profil. Prix et disponibilité en direct.',
     checkoutTitle:'Finaliser la réservation',checkoutSub:'Une dernière étape.',
@@ -1129,114 +1006,6 @@ function buildTags(){
   w.innerHTML=t('tags').map(tag=>`<button class="tag${prev.includes(tag)?' on':''}" onclick="this.classList.toggle('on')">${tag}</button>`).join('');
   if(!prev.length)w.querySelectorAll('.tag:nth-child(-n+2)').forEach(b=>b.classList.add('on'));
 }
-
-
-// ═══════════════════════════════════
-// PROGRESSIVE STEPPER
-// ═══════════════════════════════════
-let currentStep = 0;
-const TOTAL_STEPS = 6;
-
-function goStep(n, back=false){
-  const cur = document.getElementById('step-'+currentStep);
-  const next = document.getElementById('step-'+n);
-  if(!next) return;
-  if(cur){
-    cur.style.animation = back ? 'stepOut .25s ease forwards' : 'stepOut .25s ease forwards';
-    setTimeout(()=>{ cur.classList.remove('active'); cur.style.animation=''; },240);
-  }
-  setTimeout(()=>{
-    next.style.animation = back ? 'stepInBack .35s cubic-bezier(.34,1.56,.64,1) both' : 'stepIn .35s cubic-bezier(.34,1.56,.64,1) both';
-    next.classList.add('active');
-    currentStep = n;
-    updateStepDots();
-    // focus first input
-    const inp = next.querySelector('input:not([type=hidden]),textarea');
-    if(inp) setTimeout(()=>inp.focus(),100);
-  },240);
-}
-
-function updateStepDots(){
-  document.querySelectorAll('.sdot').forEach((d,i)=>{
-    d.classList.toggle('on', i===currentStep);
-  });
-  const labels = t('stepLabels');
-  const lbl = document.getElementById('stepLabel');
-  if(lbl && labels) lbl.textContent = (currentStep+1)+' / '+TOTAL_STEPS+' — '+(labels[currentStep]||'');
-}
-
-function selectTravelers(btn){
-  document.querySelectorAll('#s_travelersGrid .style-chip').forEach(b=>b.classList.remove('on'));
-  btn.classList.add('on');
-  const val = btn.dataset.val;
-  document.getElementById('travelers').value = val;
-  updateTravelersUI();
-}
-
-function setDestMode(known){
-  document.getElementById('destKnownBtn').classList.toggle('on', known);
-  document.getElementById('destUnknownBtn').classList.toggle('on', !known);
-  document.getElementById('destKnownWrap').style.display = known ? '' : 'none';
-  document.getElementById('destUnknownWrap').style.display = known ? 'none' : '';
-  if(!known){
-    document.getElementById('dest').value = '';
-    document.getElementById('s_dest').value = '';
-  }
-}
-
-function syncNotes(){
-  const destTxt = document.getElementById('s_extra_dest')?.value || '';
-  const notesTxt = document.getElementById('s_extra')?.value || '';
-  document.getElementById('extra').value = (destTxt ? destTxt+'\n' : '') + notesTxt;
-}
-
-function updateHiddenBudget(){
-  const amt = document.getElementById('s_budget')?.value;
-  const per = document.getElementById('s_budgetPer')?.value;
-  if(amt) document.getElementById('budgetAmount').value = amt;
-  if(per) document.getElementById('budgetPer').value = per;
-  updateBudgetCheck();
-}
-
-// Build step tags (mirror of buildTags but for step-3)
-function buildStepTags(){
-  const w = document.getElementById('s_tagsWrap');
-  if(!w) return;
-  const prev = [...w.querySelectorAll('.tag.on')].map(b=>b.textContent);
-  w.innerHTML = t('tags').map(tag=>`<button class="tag${prev.includes(tag)?' on':''}" onclick="this.classList.toggle('on');syncStepTags()">${tag}</button>`).join('');
-  if(!prev.length) w.querySelectorAll('.tag:nth-child(-n+2)').forEach(b=>b.classList.add('on'));
-  syncStepTags();
-}
-
-function syncStepTags(){
-  // sync to hidden tagsWrap for gen()
-  const hidden = document.getElementById('tagsWrap');
-  const shown = document.getElementById('s_tagsWrap');
-  if(hidden && shown) hidden.innerHTML = shown.innerHTML;
-}
-
-// Override applyLang to also rebuild step tags
-const _origApplyLang = applyLang;
-function applyLang(){
-  _origApplyLang();
-  buildStepTags();
-  updateStepDots();
-  // apply data-i-chip
-  document.querySelectorAll('[data-i-chip]').forEach(el=>{
-    const k = el.getAttribute('data-i-chip');
-    const v = t(k);
-    if(v) el.textContent = el.dataset.val === 'solo' ? '🧳 '+v : el.dataset.val === 'couple' ? '💑 '+v : el.data.val === 'friends' ? '👯 '+v : '👨‍👩‍👧 '+v;
-  });
-}
-
-// Init stepper on load
-document.addEventListener('DOMContentLoaded', ()=>{
-  updateStepDots();
-  buildStepTags();
-  // sync s_origin to origin on input
-  const so = document.getElementById('s_origin');
-  if(so) so.addEventListener('input', ()=>{ document.getElementById('origin').value = so.value; });
-});
 
 // ═══════════════════════════════════
 // AFFILIATES
@@ -1394,9 +1163,42 @@ let cart=[];
 function cartTotal(){return cart.reduce((s,i)=>s+(i.priceNum||0),0);}
 function toggleCart(id,name,price,priceNum,ico){
   const i=cart.findIndex(c=>c.id===id);
-  if(i>=0){cart.splice(i,1);updateCartBtn();return false;}
+  if(i>=0){cart.splice(i,1);updateCartBtn();renderBrCartRecap();return false;}
   cart.push({id,label:name,name,price,priceNum,ico:ico||'🎟️'});
-  updateCartBtn();return true;
+  updateCartBtn();renderBrCartRecap();return true;
+}
+
+function renderBrCartRecap(){
+  const el=document.getElementById('brCartRecap');
+  if(!el) return;
+  if(!cart.length){el.innerHTML='';return;}
+  const total=cart.reduce((s,i)=>s+(i.priceNum||0),0);
+  const addedLbl={es:'Lo que has añadido',en:'What you've added',fr:'Ce que vous avez ajouté'}[lang];
+  const totalLbl={es:'Total añadido',en:'Total added',fr:'Total ajouté'}[lang];
+  el.innerHTML=`<div class="br-cart-title">${addedLbl}</div>
+    ${cart.map(item=>`<div class="br-cart-item">
+      <span class="br-cart-item-name">${item.ico} ${item.name}</span>
+      <span class="br-cart-item-price">${item.price||''}</span>
+    </div>`).join('')}
+    ${total>0?`<div class="br-cart-total-row"><span>${totalLbl}</span><span>~€${total.toLocaleString()}</span></div>`:''}`;
+}
+
+function toggleBrCart(cartId, name, price, priceNum, ico){
+  const btn=document.getElementById('bradd-'+cartId);
+  const addL={es:'＋ Añadir',en:'＋ Add',fr:'＋ Ajouter'}[lang];
+  const addedL={es:'✓ Añadido',en:'✓ Added',fr:'✓ Ajouté'}[lang];
+  const added=toggleCart(cartId, name, price, priceNum, ico||'📌');
+  if(btn){btn.textContent=added?addedL:addL; btn.classList.toggle('added',added);}
+}
+
+function toggleDayCart(dayNum, title){
+  const cartId='day-'+dayNum;
+  const btn=document.getElementById('dadd-'+dayNum);
+  const name=({es:'Día',en:'Day',fr:'Jour'}[lang]||'Día')+' '+dayNum+(title?' — '+title:'');
+  const addedL={es:'✓ Día añadido',en:'✓ Day added',fr:'✓ Jour ajouté'}[lang];
+  const addL={es:'Añadir este día',en:'Add this day',fr:'Ajouter ce jour'}[lang];
+  const added=toggleCart(cartId, name, '', 0, '📅');
+  if(btn){btn.querySelector('span').textContent=added?addedL:addL; btn.classList.toggle('added',added);}
 }
 function removeFromCart(id){cart=cart.filter(c=>c.id!==id);updateCartBtn();renderCartBox();}
 
@@ -2704,6 +2506,12 @@ function parseTimeline(text,dest,origin){
           <div class="day-gem-txt"><strong>${gemLabel}:</strong> ${gemText}</div>
         </div>`:''}
         ${placeChipsHTML?`<div class="day-places">${placeChipsHTML}</div>`:''}
+        <div class="day-add-bar">
+          <button class="day-add-btn" id="dadd-${dayCount}" onclick="toggleDayCart(${dayCount},'${safeTitle}')">
+            <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            <span>${{es:'Añadir este día',en:'Add this day',fr:'Ajouter ce jour'}[lang]}</span>
+          </button>
+        </div>
       </div>`;
     }
     else if(/^#{1,3}\s*(Consejo|Tip|Avant|Practical|Pratique|Conseil|Lo que|What|Ce que)/i.test(part)){
@@ -2781,7 +2589,9 @@ function buildBookingRecap(s){
 
   const grandTotal = flightTotal + hotelTotal + actTotal;
 
-  function row(ico, label, detail, price, url, btnLabel, cls){
+  function row(ico, label, detail, price, url, btnLabel, cls, cartId){
+    const addL = {es:'＋ Añadir',en:'＋ Add',fr:'＋ Ajouter'}[lang];
+    const addedL = {es:'✓ Añadido',en:'✓ Added',fr:'✓ Ajouté'}[lang];
     return `<div class="br-row">
       <div class="br-ico">${ico}</div>
       <div class="br-info">
@@ -2790,7 +2600,10 @@ function buildBookingRecap(s){
       </div>
       <div class="br-right">
         <div class="br-price">~€${price}</div>
-        <a class="br-btn ${cls}" href="${url}" target="_blank" rel="noopener">${btnLabel}</a>
+        <div class="br-row-actions">
+          <a class="br-btn ${cls}" href="${url}" target="_blank" rel="noopener">${btnLabel}</a>
+          <button class="br-add-btn" id="bradd-${cartId}" onclick="toggleBrCart('${cartId}','${label}','~€${price}',${price},'${ico}')">${addL}</button>
+        </div>
       </div>
     </div>`;
   }
@@ -2811,11 +2624,11 @@ function buildBookingRecap(s){
   const showTrain = days <= 5 && ['low','mid'].includes(bKey);
   const showCar   = days >= 5;
 
-  const flightRow = row('✈', L.flight,   flightDetail, flightTotal, flightUrl, L.search, 'br-btn-flight');
-  const hotelRow  = row('🏨', L.stay,    hotelDetail,  hotelTotal,  hotelUrl,  L.book,   'br-btn-hotel');
-  const actRow    = row('🎟', L.act,     actDetail,    actTotal,    actUrl,    L.explore,'br-btn-act');
-  const trainRow  = showTrain ? row('🚂', {es:'Tren',en:'Train',fr:'Train'}[lang], trainDetail, Math.round(60*bm/5)*5, trainUrl, L.search, 'br-btn-train') : '';
-  const carRow    = showCar   ? row('🚗', {es:'Coche',en:'Car rental',fr:'Voiture'}[lang], carDetail, Math.round(40*bm*days/5)*5, carUrl, L.search, 'br-btn-car') : '';
+  const flightRow = row('✈', L.flight,   flightDetail, flightTotal, flightUrl, L.search, 'br-btn-flight', 'br-flight');
+  const hotelRow  = row('🏨', L.stay,    hotelDetail,  hotelTotal,  hotelUrl,  L.book,   'br-btn-hotel',  'br-hotel');
+  const actRow    = row('🎟', L.act,     actDetail,    actTotal,    actUrl,    L.explore,'br-btn-act',    'br-act');
+  const trainRow  = showTrain ? row('🚂', {es:'Tren',en:'Train',fr:'Train'}[lang], trainDetail, Math.round(60*bm/5)*5, trainUrl, L.search, 'br-btn-train', 'br-train') : '';
+  const carRow    = showCar   ? row('🚗', {es:'Coche',en:'Car rental',fr:'Voiture'}[lang], carDetail, Math.round(40*bm*days/5)*5, carUrl, L.search, 'br-btn-car',    'br-car') : '';
 
   sec.innerHTML = `<div class="booking-recap">
     <div class="br-header">
@@ -2838,6 +2651,7 @@ function buildBookingRecap(s){
       <div class="br-total-val">~€${grandTotal.toLocaleString()}<span class="br-total-pp">${L.perPerson}</span></div>
     </div>
     <div class="br-note">${L.note}</div>
+    <div class="br-cart-recap" id="brCartRecap"></div>
     <div class="br-email-row">
       <div class="br-email-lbl">${{es:'Recibe este plan en tu email:',en:'Get this plan by email:',fr:'Recevoir ce plan par email:'}[lang]}</div>
       <div class="br-email-form">
@@ -2894,7 +2708,7 @@ Trip: "${dest}" — ${travelers}, ${budget}${month?', '+month:''}.
 Traveler profile: ${ep}
 ${seasonNote}
 
-Suggest exactly 6 experiences in ${dest}. Mix freely between:
+Suggest exactly 4 experiences in ${dest}. Make them genuinely diverse and real — not generic. Mix freely between:
 - Well-known but genuinely excellent (worth the queue)
 - Lesser-known but real and bookable
 - Local/cultural (workshop, market tour, cooking class with a real family)
@@ -2930,7 +2744,7 @@ Respond ONLY with valid JSON array (no markdown, no text outside array):
         <div class="exp-hed">${expTitle}</div>
         <div class="exp-hed-rule"></div>
       </div>
-      <div class="exp-grid">${exps.slice(0,6).map((e,i)=>{
+      <div class="exp-grid">${exps.slice(0,4).map((e,i)=>{
         const q=encodeURIComponent(e.name+' '+dest);
         const url=`https://www.getyourguide.com/s/?q=${q}${AFF.gyg_partner_id?'&partner_id='+AFF.gyg_partner_id:''}`;
         const rawPrice=e.price||'';
@@ -2949,14 +2763,16 @@ Respond ONLY with valid JSON array (no markdown, no text outside array):
             </div>
           </div>
           <div class="exp-body">
-            <div class="exp-name">${e.name}</div>
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:.4rem;margin-bottom:.2rem">
+              <div class="exp-name" style="flex:1">${e.name}</div>
+              <div class="exp-price-tag" style="white-space:nowrap;flex-shrink:0;font-weight:700;font-size:.82rem">${rawPrice||'—'}</div>
+            </div>
             <div class="exp-tagline">${e.tagline||''}</div>
             <div class="exp-meta-row">
               <div class="exp-duration">
                 <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                 ${e.duration||'—'}
               </div>
-              <div class="exp-price-tag">${rawPrice||'—'}</div>
             </div>
             <div class="exp-btns">
               <a class="exp-book" href="${url}" target="_blank" rel="noopener">
@@ -4118,6 +3934,28 @@ function _generatePDF() {
         y+=tl.length*4+bl.length*3.5+5;
       } else { y+=tl.length*4+4; }
     });
+  }
+
+  // ── Mi viaje — cart recap page ──
+  if(cart && cart.length){
+    let y=newPage();
+    rc(MG,y,W-MG*2,16,C.teal,4);
+    sf(10,'bold',C.white);
+    tx({es:'LO QUE HAS AÑADIDO A TU VIAJE',en:'WHAT YOU\'VE ADDED TO YOUR TRIP',fr:'CE QUE VOUS AVEZ AJOUTÉ'}[lang||'es'],W/2,y+11,{align:'center'});
+    y+=22;
+    cart.forEach((item,ci)=>{
+      if(y+10>PB) y=newPage();
+      if(ci%2===0) rc(MG,y-2,W-MG*2,9,[241,245,249]);
+      sf(9,'normal',C.ink); tx((item.ico||'•')+' '+item.name.slice(0,65),MG+4,y+4.5);
+      if(item.price){sf(9,'bold',C.teal); tx(item.price,MG2-2,y+4.5,{align:'right'});}
+      y+=10;
+    });
+    const tot=cart.reduce((s,i)=>s+(i.priceNum||0),0);
+    if(tot>0&&y+14<PB){
+      y+=4; rc(MG,y,W-MG*2,12,C.ink,3);
+      sf(9,'bold',C.white);
+      tx(({es:'Total estimado',en:'Estimated total',fr:'Total estimé'}[lang||'es'])+':  ~€'+tot.toLocaleString(),W/2,y+8.5,{align:'center'});
+    }
   }
 
   doc.save((tN+'-'+dest).replace(/[^a-z0-9]/gi,'-').toLowerCase()+'.pdf');
