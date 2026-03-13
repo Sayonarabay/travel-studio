@@ -636,17 +636,6 @@ textarea{resize:none;height:56px;font-size:.82rem}
           </select>
         </div>
       </div>
-      <div class="fg">
-        <label data-i="labelDuration"></label>
-        <select id="durationSelect" onchange="syncDuration()">
-          <option value="2" data-i="dur2"></option>
-          <option value="3" data-i="dur3"></option>
-          <option value="5" data-i="dur5"></option>
-          <option value="7" selected data-i="dur7"></option>
-          <option value="10" data-i="dur10"></option>
-          <option value="14" data-i="dur14"></option>
-        </select>
-      </div>
     </div>
     <div class="flex-row">
       <label data-i="labelFlexible"></label>
@@ -655,23 +644,13 @@ textarea{resize:none;height:56px;font-size:.82rem}
         <button class="flex-btn" id="flexYes" onclick="setFlex(true)" data-i="flexYes"></button>
       </div>
     </div>
-    <div class="g2">
-      <div class="fg"><label data-i="labelTravelers"></label>
-        <select id="travelers">
-          <option value="solo" data-i="tSolo"></option>
-          <option value="couple" selected data-i="tCouple"></option>
-          <option value="friends" data-i="tFriends"></option>
-          <option value="family" data-i="tFamily"></option>
-        </select>
-      </div>
-      <div class="fg"><label data-i="labelBudget"></label>
-        <select id="budget">
-          <option value="low" data-i="bLow"></option>
-          <option value="mid" selected data-i="bMid"></option>
-          <option value="high" data-i="bHigh"></option>
-          <option value="premium" data-i="bPremium"></option>
-        </select>
-      </div>
+    <div class="fg"><label data-i="labelTravelers"></label>
+      <select id="travelers">
+        <option value="solo" data-i="tSolo"></option>
+        <option value="couple" selected data-i="tCouple"></option>
+        <option value="friends" data-i="tFriends"></option>
+        <option value="family" data-i="tFamily"></option>
+      </select>
     </div>
     <div class="fg"><label data-i="labelStyle"></label><div class="tags" id="tagsWrap"></div></div>
     <div class="fg"><label data-i="labelNotes"></label><textarea id="extra" data-i-ph="phNotes"></textarea></div>
@@ -1244,50 +1223,7 @@ const DEST_DB = {
   // ── ESCANDINAVIA ──
   'Estocolmo':    {f:[80,180],h:[90,190],c:58,t:16,note:'Vuelo ~3h, ciudad archipiélago'},
   'Copenhague':   {f:[80,180],h:[100,210],c:65,t:18,note:'Vuelo ~2.5h, la más cara de las capitales nórdicas'},
-};,120],h:[60,140],c:35,t:12,note:'Vuelo ~2h, muy buena relación calidad-precio'},
-  'Oporto':       {f:[50,110],h:[55,120],c:30,t:10,note:'Vuelo ~2h, más barato que Lisboa'},
-  'Algarve':      {f:[60,130],h:[70,150],c:35,t:20,note:'Coche casi obligatorio'},
-  // France
-  'París':        {f:[70,160],h:[90,200],c:55,t:18,note:'Caro pero accesible con anticip.'},
-  'Burdeos':      {f:[60,130],h:[75,150],c:45,t:12,note:'Vuelo ~1.5h'},
-  'Marsella':     {f:[60,130],h:[70,140],c:40,t:12,note:'Vuelo ~1.5h'},
-  'Lyon':         {f:[60,130],h:[80,160],c:48,t:14,note:'Gastronómico, muy subestimado'},
-  // Italy
-  'Roma':         {f:[70,170],h:[80,180],c:50,t:14,note:'Vuelo ~2.5h'},
-  'Florencia':    {f:[70,160],h:[85,190],c:50,t:12,note:'Vuelo + tren o directo'},
-  'Venecia':      {f:[70,160],h:[100,250],c:55,t:10,note:'Cara pero única'},
-  'Nápoles':      {f:[70,160],h:[60,130],c:40,t:10,note:'Más barata que el norte'},
-  'Palermo':      {f:[80,160],h:[55,110],c:35,t:10,note:'Gastronomía increíble y barata'},
-  'Milán':        {f:[70,170],h:[90,200],c:55,t:15,note:'Vuelo fácil, caro pero eficiente'},
-  // Morocco
-  'Marrakech':    {f:[80,180],h:[35,100],c:20,t:8,note:'Vuelo ~2.5h, costes muy bajos en destino'},
-  'Fez':          {f:[90,190],h:[30,90],c:18,t:7,note:'Más auténtica que Marrakech'},
-  // UK
-  'Londres':      {f:[60,160],h:[100,220],c:65,t:20,note:'Caro, pero fácil en low cost'},
-  'Edimburgo':    {f:[70,160],h:[90,200],c:55,t:15,note:'Vuelo ~2.5h, preciosa'},
-  // Netherlands
-  'Ámsterdam':    {f:[70,160],h:[100,220],c:55,t:15,note:'Vuelo ~2.5h, cara pero muy compacta'},
-  // Greece
-  'Atenas':       {f:[80,180],h:[60,140],c:40,t:12,note:'Vuelo ~3h, muy razonable'},
-  'Santorini':    {f:[100,250],h:[120,400],c:55,t:15,note:'Cara en verano, mejor primavera/otoño'},
-  'Tesalónica':   {f:[90,180],h:[55,120],c:35,t:10,note:'Mucho mejor que Atenas y más barata'},
-  // Croatia
-  'Dubrovnik':    {f:[90,220],h:[90,200],c:45,t:12,note:'Masificada en verano, mejor sept/oct'},
-  'Split':        {f:[80,180],h:[70,160],c:40,t:12,note:'Mejor base que Dubrovnik'},
-  'Zagreb':       {f:[70,160],h:[60,130],c:35,t:10,note:'Muy subestimada, barata y bonita'},
-  // Czech Republic
-  'Praga':        {f:[80,170],h:[55,130],c:30,t:10,note:'Vuelo ~3h, muy barata para Europa Central'},
-  // Hungary
-  'Budapest':     {f:[80,170],h:[55,120],c:30,t:10,note:'De las mejores relaciones calidad-precio de Europa'},
-  // Poland
-  'Cracovia':     {f:[80,170],h:[45,100],c:25,t:8,note:'Increíblemente barata, historia brutal'},
-  // Iceland
-  'Reikiavik':    {f:[120,280],h:[120,280],c:70,t:30,note:'Cara pero ningún sitio es igual'},
-  // Turkey
-  'Estambul':     {f:[90,200],h:[50,140],c:25,t:10,note:'Enorme valor — poco comparable en Europa'},
-  'Capadocia':    {f:[110,250],h:[60,200],c:25,t:20,note:'Globos aerostáticos incluidos'},
 };
-
 function getDestData(destName){
   if(!destName) return null;
   const n = destName.trim();
@@ -1332,8 +1268,8 @@ function checkBudget(){
   const pax = {solo:1,couple:2,friends:4,family:3}[tKey]||1;
   const budgetPerPax = budgetPer==='total' ? budgetVal/pax : budgetVal;
   const budgetTotal = budgetPerPax*pax;
-  const dur = document.getElementById('durationSelect');
-  const days = dur ? parseInt(dur.value) : 7;
+  const dfv=document.getElementById('df').value, dtv=document.getElementById('dt').value;
+  const days = dfv&&dtv ? Math.max(1,Math.round((new Date(dtv)-new Date(dfv))/86400000)) : 7;
 
   panel.className='budget-check';
 
@@ -2549,15 +2485,26 @@ async function gen(){
   }
   forceGenerate=false;
 
-  // Read duration from selector OR date inputs
+  // Read duration from date inputs — now required
   const dfv=document.getElementById('df').value,dtv=document.getElementById('dt').value;
-  const durSel=document.getElementById('durationSelect');
-  const days=dfv&&dtv?Math.max(1,Math.round((new Date(dtv)-new Date(dfv))/86400000)):(durSel?parseInt(durSel.value):7);
+  if(!dfv||!dtv){
+    const msg={es:'Por favor indica las fechas de salida y vuelta.',en:'Please set your departure and return dates.',fr:'Veuillez indiquer vos dates de départ et retour.'}[lang];
+    const df=document.getElementById('df'),dt=document.getElementById('dt');
+    if(!dfv){df.style.borderColor='#F87171';df.focus();}
+    else{dt.style.borderColor='#F87171';dt.focus();}
+    setTimeout(()=>{df.style.borderColor='';dt.style.borderColor='';},3000);
+    return;
+  }
+  const days=Math.max(1,Math.round((new Date(dtv)-new Date(dfv))/86400000));
 
-  const tKey=document.getElementById('travelers').value,bKey=document.getElementById('budget').value;
+  const tKey=document.getElementById('travelers').value;
+  // Keep bKey for prompt context but derive from budget amount
+  const bKey=document.getElementById('budget')?.value||'mid';
   const styles=activeTags(),extra=document.getElementById('extra').value.trim();
-  const tMap=t('travelerMap'),bMap=t('budgetMap');
-  const tStr=tMap[tKey]||tKey,bStr=bMap[bKey]||bKey;
+  const tMap=t('travelerMap');
+  const tStr=tMap[tKey]||tKey;
+  // bStr derived from actual budget amount
+  const bStr=hasBudget?`€${budgetPerPax} por persona`:(t('budgetMap')?.[bKey]||bKey);
 
   // Real budget in euros
   const budgetAmountEl=document.getElementById('budgetAmount');
@@ -3526,7 +3473,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   updateSavedCount();
   checkTripFromUrl();
   // Wire budget check listeners
-  ['budgetAmount','budgetPer','dest','travelers','durationSelect'].forEach(id=>{
+  ['budgetAmount','budgetPer','dest','travelers','df','dt'].forEach(id=>{
     const el=document.getElementById(id);
     if(el) el.addEventListener('change',checkBudget);
     if(el && el.tagName==='INPUT') el.addEventListener('input',checkBudget);
