@@ -2942,7 +2942,8 @@ Plan each day as a driving leg with stops — mention approximate km and drive t
       }).join('\n')
     : '- No specific style selected — balanced, curious traveller';
 
-
+  // Wait for real flight data (max 4s)
+  await Promise.race([flightFetchPromise, new Promise(r=>setTimeout(r,4000))]);
 
   // Build flight line for prompt
   const flightLine = realFlight
