@@ -1,14 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<script data-noptimize="1" data-cfasync="false" data-wpfc-render="false">
-  (function () {
-      var script = document.createElement("script");
-      script.async = 1;
-      script.src = 'https://emrld.ltd/NTA3NDA0.js?t=507404';
-      document.head.appendChild(script);
-  })();
-</script>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Travel Studio — Tu viaje con criterio</title>
@@ -1424,14 +1416,6 @@ let forceGenerate=false;
 function forceGen(){forceGenerate=true;gen();}
 
 // Wire up live budget check
-document.addEventListener('DOMContentLoaded',()=>{
-  ['budgetAmount','budgetPer','dest','travelers','durationSelect'].forEach(id=>{
-    const el=document.getElementById(id);
-    if(el) el.addEventListener('change',checkBudget);
-    if(el && el.tagName==='INPUT') el.addEventListener('input',checkBudget);
-  });
-});
-
 // ═══════════════════════════════════
 // SAVED TRIPS — sistema robusto con ID permanente
 // ═══════════════════════════════════
@@ -3537,9 +3521,21 @@ async function sendFullRecapEmail(){
 // INIT
 // ═══════════════════════════════════
 lang=detectLang();
-applyLang();
-// Check for trip recovery from URL on load
-setTimeout(checkTripFromUrl, 400);
+document.addEventListener('DOMContentLoaded',()=>{
+  applyLang();
+  updateSavedCount();
+  checkTripFromUrl();
+  // Wire budget check listeners
+  ['budgetAmount','budgetPer','dest','travelers','durationSelect'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.addEventListener('change',checkBudget);
+    if(el && el.tagName==='INPUT') el.addEventListener('input',checkBudget);
+  });
+});
+// Fallback if DOMContentLoaded already fired
+if(document.readyState==='complete'||document.readyState==='interactive'){
+  applyLang();
+}
 </script>
 
 <!-- ── MEMORIA DE VIAJE MODAL ── -->
@@ -3575,5 +3571,13 @@ setTimeout(checkTripFromUrl, 400);
     </div>
   </div>
 </div>
+<script data-noptimize="1" data-cfasync="false" data-wpfc-render="false">
+  (function () {
+      var script = document.createElement("script");
+      script.async = 1;
+      script.src = 'https://emrld.ltd/NTA3NDA0.js?t=507404';
+      document.head.appendChild(script);
+  })();
+</script>
 </body>
 </html>
