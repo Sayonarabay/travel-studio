@@ -1,924 +1,1349 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Travel Studio</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Travel Studio — Plan tu viaje</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;700&family=Crimson+Pro:ital,wght@0,400;1,300&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#F8F9FA;--white:#fff;--ink:#0F172A;--ink2:#334155;--muted:#94A3B8;--border:#E2E8F0;
-  --teal:#2DD4BF;--teal-light:#F0FDFA;--teal-dark:#0F766E;
-  --lav:#818CF8;--lav-light:#EEF2FF;--salmon:#F87171;--salmon-light:#FEF2F2;
-  --amber:#F59E0B;--amber-light:#FFFBEB;--green:#10B981;--green-light:#ECFDF5;
-  --r:14px;--shadow:0 1px 8px rgba(15,23,42,.07);--shadow-md:0 4px 20px rgba(15,23,42,.10);
+  --bg:#FAFAF7;--white:#fff;--ink:#1C1C2E;--ink2:#4A5568;--muted:#9CA3AF;--border:#E5DFD3;
+  --sage:#4A7C59;--sage-light:#EEF5F0;--sage-dark:#2D5A3D;
+  --navy:#2C3E6B;--teal:#2DD4BF;--teal-light:#F0FDFA;--teal-dark:#0F766E;
+  --sand:#F2EDE3;--warm-white:#FDFCF8;
+  --r:12px;--r-lg:20px;
+  --font-display:'DM Serif Display',Georgia,serif;
+  --font-body:'DM Sans',system-ui,sans-serif;
+  --font-prose:'Crimson Pro',Georgia,serif;
+  --shadow:0 2px 12px rgba(0,0,0,.06);--shadow-md:0 8px 28px rgba(0,0,0,.1);
 }
-html{font-size:16px;scroll-behavior:smooth}
-body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;line-height:1.6;overflow-x:hidden}
-
-/* NAV */
-nav{position:fixed;top:0;width:100%;z-index:100;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
-.logo{font-family:'Playfair Display',serif;font-weight:700;font-size:1.15rem;color:var(--ink)}
-.logo em{font-style:italic;color:var(--teal-dark)}
-.nav-right{display:flex;align-items:center;gap:.8rem}
-.lang-switcher{display:flex;gap:2px;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:2px}
-.lang-btn{padding:.25rem .55rem;border-radius:6px;border:none;background:transparent;font-size:.72rem;font-weight:700;color:var(--muted);cursor:pointer;transition:all .15s}
-.lang-btn.active{background:var(--ink);color:#fff}
-.nav-btn{background:var(--ink);color:#fff;border:none;padding:.5rem 1.1rem;border-radius:8px;font-size:.8rem;font-weight:600;cursor:pointer;transition:opacity .2s}
-.nav-btn:hover{opacity:.85}
-.saved-count{background:var(--teal);color:var(--ink);border-radius:100px;padding:.15rem .5rem;font-size:.68rem;font-weight:700;margin-left:.3rem}
-
-/* HERO */
-.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;padding-top:58px}
-.hero-left{padding:5rem 3.5rem 3rem;display:flex;flex-direction:column;justify-content:center;background:linear-gradient(135deg,#0F172A 0%,#1E293B 60%,#0F3460 100%);position:relative;overflow:hidden}
-.hero-left::before{content:'';position:absolute;top:-100px;right:-100px;width:400px;height:400px;background:radial-gradient(circle,rgba(45,212,191,.15),transparent 70%);border-radius:50%}
-.hero-left::after{content:'';position:absolute;bottom:-80px;left:-60px;width:300px;height:300px;background:radial-gradient(circle,rgba(129,140,248,.12),transparent 70%);border-radius:50%}
-.hero-badge{display:inline-flex;align-items:center;gap:.4rem;background:rgba(45,212,191,.15);border:1px solid rgba(45,212,191,.3);border-radius:100px;padding:.3rem .9rem;font-size:.72rem;font-weight:600;color:var(--teal);margin-bottom:1.8rem;width:fit-content;opacity:0;animation:up .7s ease .2s forwards}
-.hero-badge .dot{width:6px;height:6px;background:var(--teal);border-radius:50%}
-h1{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,4vw,3.8rem);font-weight:700;line-height:1.08;letter-spacing:-.02em;color:#fff;margin-bottom:1.2rem;opacity:0;animation:up .7s ease .35s forwards}
-h1 em{font-style:italic;color:var(--teal)}
-.hero-sub{font-size:1rem;color:rgba(255,255,255,.6);max-width:38ch;line-height:1.65;margin-bottom:2.5rem;opacity:0;animation:up .7s ease .5s forwards}
-.hero-proof{display:flex;gap:2rem;opacity:0;animation:up .7s ease .65s forwards}
-.proof-num{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:#fff;line-height:1}
-.proof-label{font-size:.68rem;color:rgba(255,255,255,.4);font-weight:500;margin-top:.2rem}
-
-/* FORM */
-.hero-right{background:var(--white);padding:3.5rem 3rem;display:flex;flex-direction:column;justify-content:center;overflow-y:auto}
-.form-title{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;margin-bottom:.3rem}
-.form-sub{font-size:.85rem;color:var(--muted);margin-bottom:1.8rem}
-.fg{display:flex;flex-direction:column;gap:.35rem;margin-bottom:.9rem}
-.fg label{font-size:.7rem;font-weight:700;color:var(--ink2);letter-spacing:.04em;text-transform:uppercase}
-.fg input,.fg select,.fg textarea{border:1.5px solid var(--border);border-radius:var(--r);padding:.75rem 1rem;font-family:'Inter',sans-serif;font-size:.9rem;color:var(--ink);outline:none;transition:border-color .2s;background:var(--bg);-webkit-appearance:none;width:100%}
-.fg input[type=date]{color-scheme:light}
-.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--teal-dark);background:#fff}
-.fg input::placeholder,.fg textarea::placeholder{color:var(--muted)}
-.fg textarea{resize:none;height:60px;line-height:1.5;font-size:.85rem}
-.form-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
-.form-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.8rem}
-.tags-wrap{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.3rem}
-.ttag{padding:.28rem .65rem;border-radius:100px;border:1.5px solid var(--border);background:transparent;font-size:.68rem;font-weight:600;color:var(--muted);cursor:pointer;transition:all .15s}
-.ttag.on{border-color:var(--teal-dark);color:var(--teal-dark);background:var(--teal-light)}
-.btn-gen{width:100%;padding:.95rem;border:none;border-radius:var(--r);background:linear-gradient(135deg,var(--teal-dark),#0D9488);color:#fff;font-family:'Inter',sans-serif;font-weight:700;font-size:.9rem;cursor:pointer;transition:all .2s;margin-top:.5rem;display:flex;align-items:center;justify-content:center;gap:.5rem;box-shadow:0 4px 14px rgba(15,118,110,.3)}
-.btn-gen:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(15,118,110,.4)}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);line-height:1.65;overflow-x:hidden;min-height:100dvh}
+nav{position:fixed;top:0;width:100%;z-index:100;background:rgba(250,250,247,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:.65rem 1.4rem;display:flex;justify-content:space-between;align-items:center}
+.logo{font-family:var(--font-display);font-size:1.2rem;font-weight:400;color:var(--ink);letter-spacing:-.02em}
+.logo em{font-style:italic;color:var(--sage)}
+.nav-back{display:flex;align-items:center;gap:.3rem;font-size:.75rem;font-weight:600;color:var(--ink2);background:none;border:1px solid var(--border);border-radius:8px;padding:.3rem .7rem;cursor:pointer;transition:all .15s}
+.nav-back:hover{border-color:var(--sage);color:var(--sage)}
+.nav-back.hidden{visibility:hidden;pointer-events:none}
+.nav-dots{display:flex;gap:.3rem;align-items:center}
+.nav-dot{width:6px;height:6px;border-radius:50%;background:var(--border);transition:all .3s}
+.nav-dot.done{background:var(--sage)}
+.nav-dot.active{background:var(--sage);transform:scale(1.4)}
+.prog-bar{position:fixed;top:54px;left:0;right:0;z-index:99;height:3px;background:var(--border)}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--sage),var(--teal));transition:width .5s cubic-bezier(.4,0,.2,1)}
+#wizard{padding-top:57px;min-height:100dvh;display:flex;flex-direction:column}
+.wz-main{flex:1;display:flex;flex-direction:column;align-items:center;padding:2rem 1.2rem 7rem;position:relative}
+.wz-step{width:100%;max-width:520px;opacity:0;transform:translateX(32px);transition:opacity .3s ease,transform .3s ease;pointer-events:none;position:absolute;top:0}
+.wz-step.active{opacity:1;transform:none;pointer-events:auto;position:relative}
+.wz-step.exit-l{opacity:0;transform:translateX(-32px)}
+.step-ey{font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--sage);margin-bottom:.4rem}
+.step-q{font-family:var(--font-display);font-size:clamp(1.6rem,4.5vw,2.1rem);font-weight:400;color:var(--ink);line-height:1.2;margin-bottom:.35rem;letter-spacing:-.02em}
+.step-q em{font-style:italic;color:var(--sage)}
+.step-hint{font-family:var(--font-prose);font-size:.9rem;color:var(--ink2);margin-bottom:1.5rem;line-height:1.6;font-style:italic}
+.opt-grid{display:grid;gap:.6rem;grid-template-columns:1fr 1fr}
+.opt-grid.c1{grid-template-columns:1fr}
+.opt-card{border:1.5px solid var(--border);border-radius:var(--r);padding:1rem 1.1rem;cursor:pointer;background:var(--white);transition:all .16s;display:flex;align-items:flex-start;gap:.7rem;position:relative;user-select:none;box-shadow:var(--shadow)}
+.opt-card:hover{border-color:var(--sage);background:var(--sage-light);transform:translateY(-1px)}
+.opt-card.sel{border-color:var(--sage);background:var(--sage-light)}
+.opt-card.sel::after{content:'✓';position:absolute;top:.5rem;right:.7rem;width:18px;height:18px;border-radius:50%;background:var(--sage);color:#fff;font-size:.62rem;font-weight:800;display:grid;place-items:center}
+.opt-ico{font-size:1.4rem;flex-shrink:0;margin-top:.05rem}
+.opt-label{font-size:.88rem;font-weight:700;color:var(--ink);line-height:1.2}
+.opt-sub{font-size:.7rem;color:var(--ink2);margin-top:.15rem;line-height:1.4}
+.pills{display:flex;flex-wrap:wrap;gap:.45rem;margin-bottom:1.2rem}
+.pill{border:1.5px solid var(--border);border-radius:100px;padding:.38rem 1rem;cursor:pointer;background:var(--white);font-size:.8rem;font-weight:600;color:var(--ink2);transition:all .14s;user-select:none}
+.pill:hover{border-color:var(--sage);color:var(--sage)}
+.pill.sel{border-color:var(--sage);background:var(--sage);color:#fff}
+label.fl{font-size:.6rem;font-weight:700;color:var(--ink2);letter-spacing:.09em;text-transform:uppercase;display:block;margin-bottom:.3rem}
+.wi{border:1.5px solid var(--border);border-radius:var(--r);padding:.68rem 1rem;font-family:var(--font-body);font-size:.87rem;color:var(--ink);outline:none;transition:border-color .18s,box-shadow .18s;background:var(--white);width:100%}
+.wi:focus{border-color:var(--sage);box-shadow:0 0 0 3px rgba(74,124,89,.1)}
+.wi::placeholder{color:var(--muted)}
+.wta{border:1.5px solid var(--border);border-radius:var(--r);padding:.7rem 1rem;font-family:var(--font-body);font-size:.85rem;color:var(--ink);outline:none;resize:none;background:var(--white);width:100%;min-height:70px;line-height:1.6;transition:border-color .18s}
+.wta:focus{border-color:var(--sage);box-shadow:0 0 0 3px rgba(74,124,89,.1)}
+.wta::placeholder{color:var(--muted)}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+.geo-btn{display:inline-flex;align-items:center;gap:.38rem;font-size:.75rem;font-weight:600;color:var(--sage);background:var(--sage-light);border:1.5px solid var(--sage);border-radius:100px;padding:.32rem .85rem;cursor:pointer;margin-bottom:.5rem}
+.bud-big{font-family:var(--font-display);font-size:3rem;font-weight:400;color:var(--ink);letter-spacing:-.03em;text-align:center;margin-bottom:.8rem}
+.bud-big span{color:var(--sage)}
+input[type=range]{-webkit-appearance:none;width:100%;height:4px;background:linear-gradient(to right,var(--sage) 0%,var(--sage) var(--p,24.6%),var(--border) var(--p,24.6%),var(--border) 100%);border-radius:2px;outline:none;cursor:pointer}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--sage);border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.18);cursor:pointer}
+.bud-scale{display:flex;justify-content:space-between;font-size:.65rem;color:var(--muted);margin-top:.3rem}
+.sugg-box{border:1.5px solid var(--border);border-radius:var(--r);background:var(--white);max-height:200px;overflow-y:auto;box-shadow:var(--shadow-md);display:none;margin-top:.25rem}
+.sugg-box.show{display:block}
+.sugg-item{padding:.55rem 1rem;font-size:.83rem;cursor:pointer;display:flex;align-items:center;gap:.5rem;transition:background .12s}
+.sugg-item:hover{background:var(--sage-light)}
+.sugg-note{font-size:.65rem;color:var(--muted);margin-left:auto}
+.dest-panel{border:1.5px solid var(--border);border-radius:var(--r-lg);padding:1rem 1.1rem;background:var(--white);box-shadow:var(--shadow);display:none;margin-top:1rem}
+.dest-panel.show{display:block}
+.dp-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:.65rem}
+.dp-title{font-size:.75rem;font-weight:700;color:var(--ink)}
+.dp-ref{background:none;border:1px solid var(--border);border-radius:8px;padding:.22rem .6rem;font-size:.68rem;cursor:pointer;color:var(--ink2);transition:all .15s}
+.dp-ref:hover{border-color:var(--sage);color:var(--sage)}
+.dp-cards{display:flex;flex-direction:column;gap:.4rem}
+.dp-card{padding:.65rem .85rem;border:1.5px solid var(--border);border-radius:10px;background:var(--white);cursor:pointer;transition:all .15s;display:flex;justify-content:space-between;align-items:flex-start;gap:.5rem}
+.dp-card:hover{border-color:var(--sage);background:var(--sage-light);transform:translateX(2px)}
+.dp-card.picked{border-color:var(--sage);background:var(--sage-light)}
+.dp-type{font-size:.58rem;font-weight:700;color:var(--ink2);text-transform:uppercase;letter-spacing:.07em}
+.dp-name{font-size:.88rem;font-weight:700;color:var(--ink);margin:.1rem 0}
+.dp-note{font-size:.68rem;color:var(--ink2)}
+.dp-price{text-align:right;flex-shrink:0}
+.dp-pp{font-size:.72rem;font-weight:700;color:var(--sage)}
+.dp-tot{font-size:.62rem;color:var(--ink2);font-weight:600}
+.dp-left{font-size:.62rem;color:var(--muted)}
+.wz-sum{background:var(--sage-light);border:1.5px solid #b7dfc8;border-radius:var(--r);padding:.9rem 1rem;margin-top:1rem;font-size:.78rem;display:none}
+.wz-srow{display:flex;justify-content:space-between;padding:.18rem 0;border-bottom:1px solid #d1f0e0}
+.wz-srow:last-child{border-bottom:none}
+.wz-sk{font-weight:600;color:var(--ink)}
+.wz-sv{color:var(--sage-dark);font-weight:500}
+.wz-footer{position:fixed;bottom:0;left:0;right:0;padding:.9rem 1.2rem;background:rgba(250,250,247,.97);backdrop-filter:blur(16px);border-top:1px solid var(--border);z-index:90}
+.btn-gen{width:100%;max-width:520px;display:flex;margin:0 auto;padding:.9rem 1.4rem;border:none;border-radius:var(--r);background:linear-gradient(135deg,var(--sage-dark),var(--sage));color:#fff;font-family:var(--font-body);font-weight:700;font-size:.9rem;cursor:pointer;transition:all .22s;align-items:center;justify-content:center;gap:.45rem;box-shadow:0 4px 20px rgba(45,90,61,.28)}
+.btn-gen:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 8px 28px rgba(45,90,61,.38)}
 .btn-gen:disabled{opacity:.4;cursor:not-allowed;transform:none}
-
-/* LOADING */
-#loadBox{display:none;padding:2rem;text-align:center}
-#loadBox.on{display:block}
-.dots{display:flex;gap:.4rem;justify-content:center;margin-bottom:.8rem}
-.dot{width:7px;height:7px;background:var(--teal-dark);border-radius:50%;animation:pulse 1.3s ease infinite}
-.dot:nth-child(2){animation-delay:.2s}
-.dot:nth-child(3){animation-delay:.4s}
-#ltxt{font-size:.78rem;color:var(--muted);font-weight:500}
-
-/* RESULT */
-#resultSection{display:none;background:var(--bg);border-top:1px solid var(--border)}
-#resultSection.on{display:block}
-.result-wrap{max-width:980px;margin:0 auto;padding:3rem 2rem}
-
-/* Result header */
-.res-header{background:linear-gradient(135deg,#0F172A,#1E3A5F);border-radius:20px;padding:2rem 2.5rem;margin-bottom:2rem;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1.5rem}
-.res-dest{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:#fff}
-.res-dest em{font-style:italic;color:var(--teal)}
-.res-chips{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:.6rem}
-.chip{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:8px;padding:.35rem .8rem;display:flex;flex-direction:column;align-items:center}
-.chip-label{font-size:.58rem;color:rgba(255,255,255,.5);font-weight:500;text-transform:uppercase;letter-spacing:.06em}
-.chip-val{font-size:.82rem;font-weight:700;color:#fff}
-.res-actions{display:flex;gap:.6rem}
-.btn-res{padding:.6rem 1.1rem;border:1px solid rgba(255,255,255,.2);border-radius:8px;background:transparent;color:rgba(255,255,255,.85);font-size:.75rem;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap}
-.btn-res:hover{background:rgba(255,255,255,.1)}
-.btn-res.active{background:rgba(45,212,191,.2);border-color:rgba(45,212,191,.5);color:var(--teal)}
-
-/* TIMELINE */
-.section-header{margin-bottom:1.5rem}
-.section-title{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700}
-.section-sub{font-size:.8rem;color:var(--muted);margin-top:.2rem}
-.timeline{display:flex;flex-direction:column;gap:1.2rem;position:relative}
-.timeline::before{content:'';position:absolute;left:19px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--teal),var(--lav),var(--salmon));opacity:.25}
-.tl-item{display:flex;gap:1rem}
-.tl-dot{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:700;flex-shrink:0;z-index:1;border:3px solid var(--white);box-shadow:var(--shadow)}
-.tl-dot.day{background:var(--ink);color:#fff}
-.tl-dot.intro{background:var(--teal-light);color:var(--teal-dark)}
-.tl-dot.tips{background:var(--amber-light);color:var(--amber)}
-.tl-card{flex:1;background:var(--white);border:1.5px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);transition:box-shadow .2s}
-.tl-card:hover{box-shadow:var(--shadow-md)}
-.tl-card-head{padding:1rem 1.2rem .2rem}
-.tl-day-label{font-size:.62rem;font-weight:700;color:var(--teal-dark);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.2rem}
-.tl-day-title{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700}
-.tl-card-body{padding:.5rem 1.2rem 1rem;font-size:.88rem;line-height:1.85;color:var(--ink2)}
-.tl-card-body p{margin-bottom:.5rem}
-.tl-card-body p:last-child{margin-bottom:0}
-.tl-card-body strong{color:var(--ink);font-weight:600}
-
-/* Inline book button */
-.inline-book{display:inline-flex;align-items:center;gap:.25rem;background:var(--teal-light);color:var(--teal-dark);border:1px solid rgba(15,118,110,.2);border-radius:100px;padding:.15rem .55rem;font-size:.68rem;font-weight:700;text-decoration:none;margin:0 .1rem;transition:all .15s;vertical-align:middle;cursor:pointer;white-space:nowrap}
-.inline-book:hover{background:var(--teal);color:#fff;border-color:var(--teal)}
-.inline-book svg{width:10px;height:10px;flex-shrink:0}
-
-/* Day affiliate row */
-.day-affs{display:flex;gap:.5rem;flex-wrap:wrap;padding:.75rem 1.2rem;border-top:1px solid var(--border);background:var(--bg)}
-.day-aff{display:inline-flex;align-items:center;gap:.35rem;padding:.35rem .75rem;border-radius:100px;font-size:.68rem;font-weight:700;text-decoration:none;transition:all .15s;border:1.5px solid transparent;white-space:nowrap}
-.day-aff:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
-.day-aff.v{background:var(--lav-light);color:#4338CA;border-color:#C7D2FE}
-.day-aff.v:hover{background:#E0E7FF}
-.day-aff.h{background:var(--green-light);color:#065F46;border-color:#A7F3D0}
-.day-aff.h:hover{background:#D1FAE5}
-.day-aff.a{background:var(--salmon-light);color:#B91C1C;border-color:#FECACA}
-.day-aff.a:hover{background:#FEE2E2}
-.day-aff.t{background:var(--amber-light);color:#92400E;border-color:#FDE68A}
-.day-aff.t:hover{background:#FEF3C7}
-
-/* TIPS CARDS */
-.tips-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1.2rem}
-.tip-card{background:var(--white);border:1.5px solid var(--border);border-radius:16px;padding:1.3rem;position:relative;overflow:hidden;transition:all .2s}
-.tip-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px)}
-.tip-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
-.tip-card:nth-child(1)::before{background:linear-gradient(90deg,var(--teal),var(--teal-dark))}
-.tip-card:nth-child(2)::before{background:linear-gradient(90deg,var(--lav),#6366F1)}
-.tip-card:nth-child(3)::before{background:linear-gradient(90deg,var(--amber),#D97706)}
-.tip-card:nth-child(4)::before{background:linear-gradient(90deg,var(--salmon),#DC2626)}
-.tip-card:nth-child(5)::before{background:linear-gradient(90deg,var(--green),#059669)}
-.tip-card:nth-child(6)::before{background:linear-gradient(90deg,#8B5CF6,#6D28D9)}
-.tip-ico{font-size:1.6rem;margin-bottom:.5rem}
-.tip-label{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:.3rem}
-.tip-heading{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;color:var(--ink);line-height:1.3;margin-bottom:.4rem}
-.tip-body{font-size:.8rem;color:var(--ink2);line-height:1.65}
-
-/* EXPERIENCES */
-.exp-section{margin-top:2.5rem}
-.exp-loading{text-align:center;padding:2rem;color:var(--muted);font-size:.85rem}
-.exp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:1.2rem}
-.exp-card{background:var(--white);border:1.5px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);transition:all .2s;display:flex;flex-direction:column}
-.exp-card:hover{box-shadow:var(--shadow-md);transform:translateY(-3px)}
-.exp-img{height:160px;overflow:hidden;position:relative}
-.exp-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
-.exp-card:hover .exp-img img{transform:scale(1.05)}
-.exp-price-badge{position:absolute;top:.6rem;right:.6rem;background:var(--ink);color:#fff;border-radius:100px;padding:.2rem .6rem;font-size:.68rem;font-weight:700}
-.exp-body{padding:1rem;flex:1;display:flex;flex-direction:column}
-.exp-tag{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--teal-dark);margin-bottom:.3rem}
-.exp-name{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;margin-bottom:.4rem;line-height:1.3}
-.exp-desc{font-size:.78rem;color:var(--ink2);line-height:1.6;flex:1;margin-bottom:.9rem}
-.exp-meta{display:flex;align-items:center;justify-content:space-between;margin-bottom:.8rem}
-.exp-duration{font-size:.72rem;color:var(--muted)}
-.exp-rating{font-size:.72rem;color:var(--amber);font-weight:600}
-.exp-book-btn{width:100%;padding:.6rem;border:none;border-radius:10px;background:var(--teal-dark);color:#fff;font-size:.78rem;font-weight:700;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:.4rem;text-decoration:none}
-.exp-book-btn:hover{background:#0D9488;transform:translateY(-1px)}
-
-/* BOTTOM AFFS */
-.bottom-affs{margin-top:2rem;background:var(--white);border:1.5px solid var(--border);border-radius:20px;padding:2rem;box-shadow:var(--shadow)}
-.affs-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:.8rem}
-.aff-card{display:flex;flex-direction:column;align-items:center;gap:.4rem;padding:1.1rem .8rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--bg);text-decoration:none;transition:all .2s;text-align:center}
-.aff-card:hover{border-color:var(--teal-dark);background:var(--teal-light);transform:translateY(-2px);box-shadow:var(--shadow-md)}
-.aff-card-ico{font-size:1.7rem}
-.aff-card-name{font-size:.72rem;font-weight:700;color:var(--ink)}
-.aff-card-prov{font-size:.6rem;color:var(--muted)}
-.aff-badge{font-size:.58rem;font-weight:700;padding:.12rem .42rem;border-radius:100px}
-.aff-badge.g{background:var(--green-light);color:#065F46}
-.aff-badge.b{background:var(--lav-light);color:#3730A3}
-.aff-badge.o{background:var(--amber-light);color:#92400E}
-.aff-badge.r{background:var(--salmon-light);color:#B91C1C}
-
-/* SAVED PANEL */
-#savedPanel{position:fixed;top:0;right:-380px;width:360px;height:100vh;background:var(--white);box-shadow:-4px 0 30px rgba(15,23,42,.12);z-index:200;transition:right .3s ease;display:flex;flex-direction:column;border-left:1px solid var(--border)}
-#savedPanel.open{right:0}
-.saved-hd{padding:1.5rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
-.saved-hd-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700}
-.saved-close{background:none;border:none;font-size:1.2rem;cursor:pointer;color:var(--muted)}
-.saved-list{flex:1;overflow-y:auto;padding:1rem}
-.saved-item{background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:1rem;margin-bottom:.8rem;position:relative}
-.saved-dest{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700}
-.saved-meta{font-size:.72rem;color:var(--muted);margin-top:.2rem}
-.saved-del{position:absolute;top:.7rem;right:.7rem;background:none;border:none;color:var(--muted);cursor:pointer;font-size:.85rem}
-.saved-del:hover{color:var(--salmon)}
-.saved-load{margin-top:.8rem;padding:.42rem .9rem;border:1.5px solid var(--teal-dark);border-radius:8px;background:transparent;color:var(--teal-dark);font-size:.72rem;font-weight:700;cursor:pointer;transition:all .2s}
-.saved-load:hover{background:var(--teal-light)}
-.saved-empty{text-align:center;padding:3rem 1rem;color:var(--muted);font-size:.85rem}
-#savedOverlay{position:fixed;inset:0;background:rgba(15,23,42,.3);z-index:199;display:none;backdrop-filter:blur(2px)}
-#savedOverlay.open{display:block}
-
-.err{padding:1.2rem;background:var(--salmon-light);border:1px solid #FECACA;border-radius:var(--r);font-size:.82rem;color:#B91C1C;line-height:1.6}
-
-@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
-@keyframes pulse{0%,80%,100%{transform:scale(.5);opacity:.3}40%{transform:scale(1);opacity:1}}
-
-@media(max-width:900px){
-  .hero{grid-template-columns:1fr;min-height:auto}
-  .hero-left{padding:5rem 1.5rem 2.5rem;min-height:45vh}
-  .hero-right{padding:2rem 1.5rem}
-  .form-grid-2,.form-grid-3{grid-template-columns:1fr 1fr}
-  .exp-grid,.tips-grid{grid-template-columns:1fr 1fr}
-  .affs-grid{grid-template-columns:repeat(3,1fr)}
-  .result-wrap{padding:2rem 1rem}
-  #savedPanel{width:100%;right:-100%}
-}
-@media(max-width:600px){
-  .form-grid-2,.form-grid-3{grid-template-columns:1fr}
-  .exp-grid,.tips-grid,.affs-grid{grid-template-columns:1fr 1fr}
-  nav{padding:.7rem 1rem}
-  .res-actions{flex-direction:column}
-}
+.btn-gen.final{font-size:1rem;padding:1rem 1.4rem;background:linear-gradient(135deg,#1a3d2a,var(--sage-dark),var(--sage))}
+#loadScreen{position:fixed;inset:0;z-index:200;background:var(--navy);display:none;flex-direction:column;align-items:center;justify-content:center;gap:1.4rem;padding:2rem}
+#loadScreen.on{display:flex}
+.ld-dest{font-family:var(--font-display);font-size:clamp(2rem,7vw,3.5rem);font-weight:400;color:#fff;letter-spacing:-.03em;text-align:center;animation:fadeUp .6s ease forwards}
+.ld-wow{font-family:var(--font-prose);font-size:1.1rem;color:rgba(255,255,255,.5);font-style:italic;text-align:center;margin-top:.3rem}
+.ld-bar{width:260px;height:3px;background:rgba(255,255,255,.15);border-radius:2px;overflow:hidden}
+.ld-fill{height:100%;background:linear-gradient(90deg,var(--sage),var(--teal));animation:ldp 9s ease forwards}
+@keyframes ldp{from{width:0}to{width:88%}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.ld-steps{display:flex;gap:.5rem;margin-top:.5rem}
+.ld-s{font-size:.65rem;color:rgba(255,255,255,.3);padding:.2rem .6rem;border:1px solid rgba(255,255,255,.1);border-radius:100px;transition:all .5s}
+.ld-s.on{color:rgba(255,255,255,.8);border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.08)}
+#results{display:none}
+#results.on{display:block}
+.res-hero{position:relative;height:40vh;min-height:250px;overflow:hidden;display:flex;align-items:flex-end}
+.res-hero img{position:absolute;inset:0;object-fit:cover;width:100%;height:100%;filter:brightness(.5)}
+.res-hero-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(28,28,46,.9) 0%,rgba(28,28,46,.2) 60%,transparent 100%)}
+.res-hero-txt{position:relative;z-index:2;padding:1.4rem 1.4rem 1.2rem;width:100%}
+.res-dest{font-family:var(--font-display);font-size:clamp(2rem,6vw,3rem);font-weight:400;color:#fff;letter-spacing:-.02em;line-height:1.1}
+.res-meta{font-size:.75rem;color:rgba(255,255,255,.6);margin-top:.3rem}
+.res-tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.7rem}
+.res-tag{display:inline-flex;align-items:center;background:rgba(255,255,255,.12);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.2);border-radius:100px;padding:.2rem .65rem;font-size:.65rem;font-weight:600;color:#fff}
+.res-body{padding:.8rem 1rem;max-width:660px;margin:0 auto}
+.r-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;margin-bottom:.9rem;box-shadow:var(--shadow)}
+.r-dk{background:#0f2137;border-color:#1a3045}
+.r-badge{font-size:.58rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:.75rem 1.3rem .2rem;display:block;color:var(--sage)}
+.r-dk .r-badge{color:#86efac}
+.r-title{font-family:var(--font-display);font-size:1.2rem;font-weight:400;padding:.1rem 1.3rem .5rem;line-height:1.3;color:var(--ink)}
+.r-dk .r-title{color:#fff}
+.r-body{padding:.2rem 1.3rem .8rem;font-size:.82rem;color:var(--ink2);line-height:1.75}
+.r-dk .r-body{color:rgba(255,255,255,.65)}
+.r-field{margin-bottom:.5rem}
+.r-flbl{font-size:.58rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--sage);margin-bottom:.1rem}
+.r-dk .r-flbl{color:#86efac}
+.r-links{display:flex;gap:.5rem;flex-wrap:wrap;padding:0 1.3rem .9rem}
+.r-link{display:inline-flex;align-items:center;gap:.35rem;padding:.52rem 1.1rem;border-radius:100px;font-size:.76rem;font-weight:700;text-decoration:none;cursor:pointer;border:none;transition:opacity .15s}
+.r-link.pr{background:var(--sage);color:#fff}
+.r-link.gh{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.25)}
+.r-link:hover{opacity:.82}
+.r-local{padding:.5rem 1.3rem .75rem}
+.r-local-in{background:rgba(255,255,255,.07);border-radius:9px;padding:.5rem .75rem;font-size:.78rem;color:rgba(255,255,255,.7);line-height:1.5}
+.r-card .r-local-in{background:var(--sand);color:var(--ink2)}
+.r-supp{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);padding:1rem 1.3rem;margin-bottom:.9rem;display:flex;flex-direction:column;gap:.45rem;box-shadow:var(--shadow)}
+.r-supp-badge{font-size:.58rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--sage)}
+.r-supp-title{font-family:var(--font-display);font-size:1.05rem;font-weight:400;color:var(--ink)}
+.r-supp-note{font-size:.76rem;color:var(--ink2);line-height:1.5}
+.r-supp-btn{display:inline-flex;align-items:center;padding:.5rem 1.1rem;background:var(--sage);color:#fff;border-radius:100px;font-size:.76rem;font-weight:700;text-decoration:none;width:fit-content}
+.r-tips{margin-bottom:.9rem}
+.r-tips-h{display:flex;align-items:center;gap:.8rem;margin-bottom:.8rem}
+.r-tips-title{font-family:var(--font-display);font-size:1.05rem;color:var(--ink)}
+.r-tips-rule{flex:1;height:1px;background:var(--border)}
+.tips-g{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+.tip-c{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:.85rem 1rem;box-shadow:var(--shadow)}
+.tip-n{font-size:.58rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--sage);margin-bottom:.25rem}
+.tip-h{font-size:.8rem;font-weight:700;color:var(--ink);line-height:1.3;margin-bottom:.2rem}
+.tip-b{font-size:.73rem;color:var(--ink2);line-height:1.6}
+.day-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);margin-bottom:.9rem;overflow:hidden;box-shadow:var(--shadow)}
+.day-hdr{display:grid;grid-template-columns:52px 1fr;border-bottom:1px solid var(--border)}
+.day-nc{background:var(--sage);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;padding:.7rem .3rem}
+.day-nb{font-family:var(--font-display);font-size:1.4rem;font-weight:400;line-height:1}
+.day-nw{font-size:.48rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.7}
+.day-hr{padding:.7rem 1.1rem}
+.day-date{font-size:.62rem;font-weight:700;color:var(--sage);text-transform:uppercase;letter-spacing:.07em}
+.day-ttl{font-size:.92rem;font-weight:700;color:var(--ink);line-height:1.3;margin-top:.1rem}
+.day-mom{padding:.5rem 1.1rem .3rem}
+.mom{margin-bottom:.7rem}
+.m-time{display:flex;align-items:center;gap:.38rem;margin-bottom:.18rem}
+.m-dot{width:5px;height:5px;border-radius:50%;background:var(--sage);flex-shrink:0}
+.m-lbl{font-size:.58rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2)}
+.m-txt{font-size:.8rem;color:var(--ink2);line-height:1.7;padding-left:.95rem;border-left:2px solid var(--border)}
+.day-ob{width:100%;padding:.5rem 1.1rem;background:none;border:none;border-top:1px solid var(--border);font-size:.72rem;font-weight:700;color:var(--sage);cursor:pointer;display:flex;align-items:center;gap:.38rem;justify-content:center;transition:background .12s}
+.day-ob:hover{background:var(--sage-light)}
+.day-ob svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2.5;transition:transform .2s}
+.day-ob.open svg{transform:rotate(180deg)}
+.opts-panel{padding:.7rem 1.1rem .9rem;background:#f8fffe;border-top:1.5px solid #d1f0e0;display:none}
+.opts-title{font-size:.58rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--sage);margin-bottom:.55rem}
+.opt-row{display:flex;align-items:flex-start;gap:.55rem;padding:.42rem .35rem;border-radius:9px;cursor:pointer;transition:background .12s;border:1.5px solid transparent;margin-bottom:.18rem}
+.opt-row:hover{background:#edfaf4}
+.opt-row.picked{background:#e4f5ec;border-color:var(--sage)}
+.opt-chk{width:15px;height:15px;flex-shrink:0;margin-top:.1rem;accent-color:var(--sage);cursor:pointer}
+.opt-row-ico{font-size:.9rem;flex-shrink:0}
+.opt-row-name{font-size:.8rem;font-weight:700;color:var(--ink);line-height:1.3}
+.opt-row-desc{font-size:.68rem;color:var(--ink2);margin-top:.04rem}
+.opt-row-price{font-size:.75rem;font-weight:800;color:var(--sage);flex-shrink:0;white-space:nowrap}
+.opt-row-price.free{color:var(--muted);font-weight:600}
+.r-recap{border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;background:var(--white);margin-bottom:1rem;box-shadow:var(--shadow)}
+.r-rhead{padding:1.1rem 1.3rem .7rem;border-bottom:1px solid var(--border)}
+.r-rdest{font-family:var(--font-display);font-size:1.15rem;font-weight:400;color:var(--ink)}
+.r-rmeta{font-size:.72rem;color:var(--ink2);margin-top:.15rem}
+.ag-sec{font-size:.58rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--sage);padding:.6rem 1.3rem .25rem;background:#f8fffe;border-bottom:1px solid var(--border)}
+.ag-item{display:flex;align-items:flex-start;gap:.55rem;padding:.6rem 1.3rem;border-bottom:1px solid var(--border)}
+.ag-item.cart{background:#f8fffe;border-left:3px solid var(--sage)}
+.ag-ico{font-size:.95rem;flex-shrink:0;width:1.3rem;text-align:center}
+.ag-info{flex:1;min-width:0}
+.ag-lbl{font-size:.8rem;font-weight:700;color:var(--ink);line-height:1.3}
+.ag-det{font-size:.67rem;color:var(--ink2);margin-top:.08rem}
+.ag-r{display:flex;align-items:center;gap:.38rem;flex-shrink:0}
+.ag-price{font-size:.8rem;font-weight:700;color:var(--ink);white-space:nowrap}
+.ag-price.free{color:var(--muted)}
+.ag-link{font-size:.65rem;color:var(--sage);font-weight:700;text-decoration:none;padding:.12rem .45rem;border:1px solid var(--sage);border-radius:4px;white-space:nowrap}
+.ag-rm{font-size:.68rem;color:#e53;background:none;border:none;cursor:pointer;padding:.12rem .3rem;border-radius:4px}
+.ag-rm:hover{background:#fee2e2}
+.ag-total{padding:.9rem 1.3rem;border-top:2px solid var(--sage-light)}
+.ag-tlbl{font-size:.58rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--sage);margin-bottom:.2rem}
+.ag-tval{font-family:var(--font-display);font-size:1.85rem;font-weight:400;color:var(--ink);letter-spacing:-.02em}
+.ag-dlbl{padding:.3rem 1.3rem .1rem;font-size:.58rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--sage);background:#f8fffe}
+.r-tl{border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;background:var(--white);margin-bottom:1rem;box-shadow:var(--shadow)}
+.r-tl-title{font-size:.58rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--sage);padding:.85rem 1.3rem .5rem;border-bottom:1px solid var(--border);background:#f8fffe}
+.tl-day{padding:.55rem 1.3rem 0}
+.tl-dh{display:flex;align-items:center;gap:.5rem;padding-bottom:.25rem}
+.tl-dd{width:9px;height:9px;border-radius:50%;background:var(--sage);flex-shrink:0}
+.tl-dn{font-size:.7rem;font-weight:800;color:var(--ink);text-transform:uppercase;letter-spacing:.06em}
+.tl-dt{font-size:.65rem;color:var(--ink2)}
+.tl-items{margin-left:1.2rem;border-left:2px solid var(--border);padding:.15rem 0 .6rem .75rem;display:flex;flex-direction:column;gap:.28rem}
+.tl-item{display:flex;align-items:flex-start;gap:.42rem}
+.tl-i-ico{font-size:.85rem;flex-shrink:0;width:1rem;text-align:center}
+.tl-i-name{font-size:.76rem;font-weight:600;color:var(--ink);line-height:1.3;flex:1}
+.tl-i-price{font-size:.68rem;font-weight:700;color:var(--sage);flex-shrink:0}
+.tl-i-price.free{color:var(--muted)}
+.r-email{padding:1rem 1.3rem;background:#f0faf4;border-top:1.5px solid #c6e8d4}
+.r-email-lbl{font-size:.8rem;font-weight:700;color:var(--ink);margin-bottom:.5rem}
+.r-email-row{display:flex;gap:.4rem;flex-wrap:wrap}
+.r-email-in{flex:1;min-width:140px;padding:.52rem .85rem;border:1.5px solid #c6e8d4;border-radius:9px;font-size:.83rem;font-family:var(--font-body);outline:none}
+.r-email-send{padding:.52rem 1rem;background:var(--sage);color:#fff;border:none;border-radius:9px;font-size:.83rem;font-weight:700;cursor:pointer}
+.r-email-pdf{padding:.52rem .9rem;background:#fff;border:1.5px solid #c6e8d4;border-radius:9px;font-size:.83rem;cursor:pointer}
 </style>
 </head>
 <body>
-
-<div id="savedOverlay" onclick="closeSaved()"></div>
-<div id="savedPanel">
-  <div class="saved-hd">
-    <div class="saved-hd-title" data-i="savedTitle">Mis viajes</div>
-    <button class="saved-close" onclick="closeSaved()">✕</button>
+<div id="loadScreen">
+  <div style="text-align:center">
+    <div style="font-size:.62rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:.8rem">Travel Studio</div>
+    <div class="ld-dest" id="ldDest"></div>
+    <div class="ld-wow" id="ldWow">Preparando tu momento wow…</div>
   </div>
-  <div class="saved-list" id="savedList"></div>
+  <div class="ld-bar"><div class="ld-fill"></div></div>
+  <div class="ld-steps">
+    <div class="ld-s" id="ls0">✈️ Vuelos</div>
+    <div class="ld-s" id="ls1">🏨 Hoteles</div>
+    <div class="ld-s" id="ls2">🗺️ Días</div>
+    <div class="ld-s" id="ls3">💡 Consejos</div>
+  </div>
 </div>
-
-<nav>
-  <div class="logo">Travel<em>Studio</em></div>
-  <div class="nav-right">
-    <div class="lang-switcher">
-      <button class="lang-btn" onclick="setLang('es')">ES</button>
-      <button class="lang-btn" onclick="setLang('en')">EN</button>
-      <button class="lang-btn" onclick="setLang('fr')">FR</button>
+<div id="wizard">
+  <nav>
+    <div class="logo">Travel<em>Studio</em></div>
+    <div style="display:flex;align-items:center;gap:.8rem">
+      <div class="nav-dots" id="navDots"></div>
+      <button class="nav-back hidden" id="backBtn" onclick="goBack()">← Volver</button>
     </div>
-    <button class="nav-btn" onclick="openSaved()">
-      <span data-i="navSaved">Mis viajes</span><span class="saved-count" id="savedCount" style="display:none">0</span>
-    </button>
-  </div>
-</nav>
-
-<section class="hero">
-  <div class="hero-left">
-    <div class="hero-badge"><span class="dot"></span><span data-i="badge"></span></div>
-    <h1 data-i="h1a"></h1>
-    <p class="hero-sub" data-i="heroSub"></p>
-    <div class="hero-proof">
-      <div class="proof-item"><div class="proof-num">10K+</div><div class="proof-label" data-i="proof1"></div></div>
-      <div class="proof-item"><div class="proof-num">150+</div><div class="proof-label" data-i="proof2"></div></div>
-      <div class="proof-item"><div class="proof-num">4.9★</div><div class="proof-label" data-i="proof3"></div></div>
-    </div>
-  </div>
-  <div class="hero-right">
-    <div class="form-title" data-i="formTitle"></div>
-    <div class="form-sub" data-i="formSub"></div>
-    <div class="form-grid-2">
-      <div class="fg"><label data-i="labelFrom"></label><input type="text" id="origin" data-i-ph="phFrom"/></div>
-      <div class="fg"><label data-i="labelTo"></label><input type="text" id="dest" data-i-ph="phTo"/></div>
-    </div>
-    <div class="form-grid-3">
-      <div class="fg"><label data-i="labelDepart"></label><input type="date" id="df"/></div>
-      <div class="fg"><label data-i="labelReturn"></label><input type="date" id="dt"/></div>
-      <div class="fg"><label data-i="labelDays"></label>
-        <select id="days">
-          <option value="3">3</option><option value="5">5</option>
-          <option value="7" selected>7</option><option value="10">10</option><option value="14">14</option>
-        </select>
+  </nav>
+  <div class="prog-bar"><div class="prog-fill" id="progFill"></div></div>
+  <div class="wz-main">
+    <div class="wz-step active" id="s1">
+      <div class="step-ey">Paso 1 de 7</div>
+      <div class="step-q">¿Qué tipo de <em>escapada</em>?</div>
+      <div class="opt-grid">
+        <div class="opt-card" onclick="pick('type','city',this)"><div class="opt-ico">🏙️</div><div><div class="opt-label">City trip</div><div class="opt-sub">Arte, restaurantes, cultura</div></div></div>
+        <div class="opt-card" onclick="pick('type','road',this)"><div class="opt-ico">🚗</div><div><div class="opt-label">Road trip</div><div class="opt-sub">Libertad total en carretera</div></div></div>
+        <div class="opt-card" onclick="pick('type','micro',this)"><div class="opt-ico">🏕️</div><div><div class="opt-label">Micro-aventura</div><div class="opt-sub">Naturaleza, senderismo</div></div></div>
+        <div class="opt-card" onclick="pick('type','surprise',this)"><div class="opt-ico">✨</div><div><div class="opt-label">Sorpréndeme</div><div class="opt-sub">Elige tú según mi presupuesto</div></div></div>
       </div>
     </div>
-    <div class="form-grid-2">
-      <div class="fg"><label data-i="labelTravelers"></label>
-        <select id="travelers">
-          <option value="solo" data-i="tSolo"></option>
-          <option value="couple" selected data-i="tCouple"></option>
-          <option value="friends" data-i="tFriends"></option>
-          <option value="family" data-i="tFamily"></option>
-        </select>
-      </div>
-      <div class="fg"><label data-i="labelBudget"></label>
-        <select id="budget">
-          <option value="low" data-i="bLow"></option>
-          <option value="mid" selected data-i="bMid"></option>
-          <option value="high" data-i="bHigh"></option>
-          <option value="premium" data-i="bPremium"></option>
-        </select>
+    <div class="wz-step" id="s2">
+      <div class="step-ey">Paso 2 de 7</div>
+      <div class="step-q">¿Cuánto <em>tiempo</em> tienes?</div>
+      <div class="opt-grid c1">
+        <div class="opt-card" onclick="pick('dur','2',this)"><div class="opt-ico">⚡</div><div><div class="opt-label">1–2 días</div><div class="opt-sub">Escapada de fin de semana</div></div></div>
+        <div class="opt-card" onclick="pick('dur','4',this)"><div class="opt-ico">🌿</div><div><div class="opt-label">3–4 días</div><div class="opt-sub">Puente largo o mini-break</div></div></div>
+        <div class="opt-card" onclick="pick('dur','7',this)"><div class="opt-ico">🌍</div><div><div class="opt-label">5–7 días</div><div class="opt-sub">Semana completa</div></div></div>
+        <div class="opt-card" onclick="pick('dur','10',this)"><div class="opt-ico">✈️</div><div><div class="opt-label">8–10 días</div><div class="opt-sub">Viaje largo, sin prisa</div></div></div>
       </div>
     </div>
-    <div class="fg"><label data-i="labelStyle"></label>
-      <div class="tags-wrap" id="tagsWrap"></div>
+    <div class="wz-step" id="s3">
+      <div class="step-ey">Paso 3 de 7</div>
+      <div class="step-q">¿Cuándo <em>sales</em>?</div>
+      <div class="step-hint">Aproximado, puedes cambiarlo después.</div>
+      <div class="g2" style="margin-bottom:.9rem">
+        <div><label class="fl">Salida</label><input type="date" class="wi" id="wdf" onchange="onDates()"></div>
+        <div><label class="fl">Vuelta</label><input type="date" class="wi" id="wdt" onchange="onDates()"></div>
+      </div>
+      <div class="opt-card" onclick="toggleFlex(this)" id="flexCard" style="max-width:320px">
+        <div class="opt-ico">🗓️</div><div><div class="opt-label">Fechas flexibles</div><div class="opt-sub">Busco el mejor momento</div></div>
+      </div>
     </div>
-    <div class="fg"><label data-i="labelNotes"></label>
-      <textarea id="extra" data-i-ph="phNotes"></textarea>
+    <div class="wz-step" id="s4">
+      <div class="step-ey">Paso 4 de 7</div>
+      <div class="step-q">¿Con <em>quién</em> viajas?</div>
+      <div class="opt-grid">
+        <div class="opt-card" onclick="pick('pax','1',this)"><div class="opt-ico">🧍</div><div><div class="opt-label">Solo/a</div><div class="opt-sub">Libertad absoluta</div></div></div>
+        <div class="opt-card" onclick="pick('pax','2',this)"><div class="opt-ico">👫</div><div><div class="opt-label">En pareja</div><div class="opt-sub">Viaje para dos</div></div></div>
+        <div class="opt-card" onclick="pick('pax','4',this)"><div class="opt-ico">👯</div><div><div class="opt-label">Con amigos</div><div class="opt-sub">Grupo de 3–5</div></div></div>
+        <div class="opt-card" onclick="pick('pax','4',this);WZ.fam=true"><div class="opt-ico">👨‍👩‍👧</div><div><div class="opt-label">Familia</div><div class="opt-sub">Con niños a bordo</div></div></div>
+      </div>
     </div>
-    <button class="btn-gen" id="genBtn" onclick="gen()">
-      <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-      <span data-i="btnGen"></span>
-    </button>
-    <div id="loadBox">
-      <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
-      <p id="ltxt"></p>
+    <div class="wz-step" id="s5">
+      <div class="step-ey">Paso 5 de 7</div>
+      <div class="step-q">¿Desde dónde <em>sales</em>?</div>
+      <div class="step-hint">Tu ciudad — para calcular vuelos y destinos cercanos.</div>
+      <button class="geo-btn" onclick="geolocate()">📍 Usar mi ubicación</button>
+      <input type="text" class="wi" id="wOrigin" placeholder="París, Madrid, Londres…" oninput="onOrigin(this.value)" autocomplete="off" style="margin-top:.3rem">
+      <div class="sugg-box" id="originSugg"></div>
+    </div>
+    <div class="wz-step" id="s6">
+      <div class="step-ey">Paso 6 de 7</div>
+      <div class="step-q">¿Cuál es tu <em>presupuesto</em>?</div>
+      <div class="step-hint">Por persona — vuelo + hotel + comida + actividades.</div>
+      <div class="bud-big">€<span id="budVal">800</span></div>
+      <input type="range" id="budSlider" min="100" max="3000" value="800" step="50" oninput="onBudget(this.value)">
+      <div class="bud-scale"><span>€100</span><span>€500</span><span>€1500</span><span>€3000</span></div>
+    </div>
+    <div class="wz-step" id="s7">
+      <div class="step-ey">Paso 7 de 7</div>
+      <div class="step-q">¿Qué te <em>importa</em>?</div>
+      <div class="pills">
+        <div class="pill" onclick="togPill(this,'naturaleza')">🌿 Naturaleza</div>
+        <div class="pill" onclick="togPill(this,'cultura')">🏛️ Cultura</div>
+        <div class="pill" onclick="togPill(this,'gastronomia')">🍷 Gastronomía</div>
+        <div class="pill" onclick="togPill(this,'aventura')">🧗 Aventura</div>
+        <div class="pill" onclick="togPill(this,'relax')">🧘 Relax</div>
+        <div class="pill" onclick="togPill(this,'romantico')">❤️ Romántico</div>
+        <div class="pill" onclick="togPill(this,'slow')">🚂 Slow travel</div>
+      </div>
+      <div style="margin-bottom:.7rem">
+        <label class="fl" style="margin-bottom:.4rem">¿Destino en mente? <span style="font-weight:400;text-transform:none;letter-spacing:0">(opcional)</span></label>
+        <input type="text" class="wi" id="wDest" placeholder="Dejar vacío = te sugerimos nosotros" oninput="onDestInput(this.value)" autocomplete="off">
+        <div class="sugg-box" id="destSugg"></div>
+      </div>
+      <div style="margin-bottom:.8rem">
+        <label class="fl" style="margin-bottom:.4rem">Algo más que quieras contarnos</label>
+        <textarea class="wta" id="wCustom" placeholder="¿Vegetariano? ¿Alérgico a los museos? ¿Adoras los mercados?…"></textarea>
+      </div>
+      <div class="dest-panel" id="destPanel">
+        <div class="dp-hdr">
+          <div class="dp-title" id="dpTitle">Destinos posibles con tu presupuesto</div>
+          <button class="dp-ref" onclick="refreshSugg()">↺ Refrescar</button>
+        </div>
+        <div class="dp-cards" id="dpCards"></div>
+      </div>
+      <div class="wz-sum" id="wzSum"></div>
     </div>
   </div>
-</section>
-
-<section id="resultSection">
-  <div class="result-wrap">
-    <div class="res-header" id="resHeader"></div>
-    <div class="section-header"><div class="section-title" data-i="tlTitle"></div><div class="section-sub" data-i="tlSub"></div></div>
-    <div class="timeline" id="timeline"></div>
-    <div id="tipsSection"></div>
-    <div class="exp-section" id="expSection"></div>
-    <div class="bottom-affs" id="bottomAffs"></div>
+  <div class="wz-footer">
+    <button class="btn-gen" id="ctaBtn" onclick="onCta()" disabled>Continuar →</button>
   </div>
-</section>
-
+</div>
+<div id="results">
+  <div class="res-hero">
+    <img id="rImg" src="" alt="">
+    <div class="res-hero-ov"></div>
+    <div class="res-hero-txt">
+      <div class="res-dest" id="rDest"></div>
+      <div class="res-meta" id="rMeta"></div>
+      <div class="res-tags" id="rTags"></div>
+    </div>
+  </div>
+  <div class="res-body">
+    <div id="rTransport"></div>
+    <div id="rTips"></div>
+    <div id="rDays"></div>
+    <div id="rRecap"></div>
+  </div>
+</div>
 <script>
-// ══════════════════════════════════════════
-// I18N
-// ══════════════════════════════════════════
-const I18N = {
-  es:{
-    badge:'IA · Itinerarios con criterio',
-    h1a:'Tu próximo viaje,\n<em>diseñado</em>\nen segundos.',
-    heroSub:'Dinos a dónde quieres ir. La IA crea un itinerario real con experiencias que merecen vivirse.',
-    proof1:'Itinerarios creados',proof2:'Destinos',proof3:'Valoración',
-    formTitle:'Crea tu itinerario',formSub:'Rellena lo que sabes — la IA hace el resto',
-    labelFrom:'Ciudad de salida',labelTo:'Destino',
-    phFrom:'Madrid, Barcelona…',phTo:'París, Tokio, Lisboa…',
-    labelDepart:'Salida',labelReturn:'Vuelta',labelDays:'Días',
-    labelTravelers:'Viajeros',labelBudget:'Presupuesto',
-    tSolo:'Solo/a',tCouple:'En pareja',tFriends:'Amigos',tFamily:'Familia',
-    bLow:'Económico',bMid:'Medio',bHigh:'Alto',bPremium:'Premium',
-    labelStyle:'Tipo de experiencia',labelNotes:'Notas (opcional)',
-    phNotes:'Sin vuelos de madrugada, vegetariano, movilidad reducida…',
-    btnGen:'Generar itinerario',
-    navSaved:'Mis viajes',savedTitle:'Mis viajes guardados',
-    tlTitle:'Tu viaje día a día',tlSub:'Cada día con experiencias reales y enlaces para reservar',
-    tipsTitle:'Consejos para este viaje',tipsSub:'Lo que necesitas saber antes de salir',
-    expTitle:'Experiencias que puedes reservar',expSub:'Seleccionadas para este viaje',
-    expBookBtn:'Reservar →',expLoadingMsg:'Buscando experiencias para este destino…',
-    affsTitle:'Reserva tu viaje',affsSub:'Todo en un clic',
-    saveBtnLabel:'🗂 Guardar este viaje',saveBtnDone:'✅ Guardado',
-    printBtn:'🖨️ PDF',
-    loadMsgs:['Analizando tu perfil…','Trazando la mejor ruta…','Seleccionando experiencias únicas…','Añadiendo transportes locales…','Dando los últimos toques…'],
-    dayLabel:'Día',tipsCardTitle:'Consejos',
-    bookInline:'Reservar',
-    tags:['🏛️ Cultura','🍷 Gastronomía','🏔️ Naturaleza','🚂 Slow travel','🏖️ Playa','🌆 Urbano','🧘 Wellness','🌙 Noche','❤️ Romántico','👨‍👩‍👧 Familiar'],
-    promptIntro:'Eres un experto viajero con criterio y gusto curado. Creas itinerarios que combinan lo esencial con lo inesperado.',
-    travelerMap:{solo:'solo/a',couple:'en pareja',friends:'en grupo de amigos',family:'en familia con niños'},
-    budgetMap:{low:'económico',mid:'medio',high:'alto',premium:'premium sin límite'},
-  },
-  en:{
-    badge:'AI · Curated itineraries',
-    h1a:'Your next trip,\n<em>designed</em>\nin seconds.',
-    heroSub:'Tell us where you want to go. AI creates a real itinerary with experiences worth living.',
-    proof1:'Itineraries created',proof2:'Destinations',proof3:'Rating',
-    formTitle:'Create your itinerary',formSub:'Fill in what you know — AI does the rest',
-    labelFrom:'Departure city',labelTo:'Destination',
-    phFrom:'London, New York…',phTo:'Paris, Tokyo, Lisbon…',
-    labelDepart:'Departure',labelReturn:'Return',labelDays:'Days',
-    labelTravelers:'Travelers',labelBudget:'Budget',
-    tSolo:'Solo',tCouple:'Couple',tFriends:'Friends',tFamily:'Family',
-    bLow:'Budget',bMid:'Mid-range',bHigh:'High-end',bPremium:'Premium',
-    labelStyle:'Experience type',labelNotes:'Notes (optional)',
-    phNotes:'No red-eye flights, vegetarian, accessibility needs…',
-    btnGen:'Generate itinerary',
-    navSaved:'My trips',savedTitle:'Saved trips',
-    tlTitle:'Your trip day by day',tlSub:'Each day with real experiences and booking links',
-    tipsTitle:'Tips for this trip',tipsSub:'What you need to know before you go',
-    expTitle:'Experiences you can book',expSub:'Curated for this trip',
-    expBookBtn:'Book now →',expLoadingMsg:'Finding experiences for this destination…',
-    affsTitle:'Book your trip',affsSub:'Everything in one click',
-    saveBtnLabel:'🗂 Save this trip',saveBtnDone:'✅ Saved',
-    printBtn:'🖨️ PDF',
-    loadMsgs:['Analysing your profile…','Mapping the best route…','Selecting unique experiences…','Adding local transport…','Final touches…'],
-    dayLabel:'Day',tipsCardTitle:'Tips',
-    bookInline:'Book',
-    tags:['🏛️ Culture','🍷 Food & Wine','🏔️ Nature','🚂 Slow travel','🏖️ Beach','🌆 Urban','🧘 Wellness','🌙 Nightlife','❤️ Romantic','👨‍👩‍👧 Family'],
-    promptIntro:'You are an expert traveller with curated taste. You create itineraries that blend the essential with the unexpected.',
-    travelerMap:{solo:'travelling solo',couple:'as a couple',friends:'with a group of friends',family:'as a family with children'},
-    budgetMap:{low:'budget',mid:'mid-range',high:'high-end',premium:'premium unlimited'},
-  },
-  fr:{
-    badge:'IA · Itinéraires avec du goût',
-    h1a:'Votre prochain voyage,\n<em>conçu</em>\nen quelques secondes.',
-    heroSub:'Dites-nous où vous voulez aller. L\'IA crée un vrai itinéraire avec des expériences qui valent la peine.',
-    proof1:'Itinéraires créés',proof2:'Destinations',proof3:'Note',
-    formTitle:'Créez votre itinéraire',formSub:'Remplissez ce que vous savez — l\'IA fait le reste',
-    labelFrom:'Ville de départ',labelTo:'Destination',
-    phFrom:'Paris, Lyon…',phTo:'Tokyo, Lisbonne, Barcelone…',
-    labelDepart:'Départ',labelReturn:'Retour',labelDays:'Jours',
-    labelTravelers:'Voyageurs',labelBudget:'Budget',
-    tSolo:'Seul(e)',tCouple:'En couple',tFriends:'Entre amis',tFamily:'En famille',
-    bLow:'Économique',bMid:'Moyen',bHigh:'Élevé',bPremium:'Premium',
-    labelStyle:'Type d\'expérience',labelNotes:'Notes (optionnel)',
-    phNotes:'Pas de vols de nuit, végétarien, accessibilité…',
-    btnGen:'Générer l\'itinéraire',
-    navSaved:'Mes voyages',savedTitle:'Voyages sauvegardés',
-    tlTitle:'Votre voyage jour par jour',tlSub:'Chaque jour avec de vraies expériences et des liens de réservation',
-    tipsTitle:'Conseils pour ce voyage',tipsSub:'Ce que vous devez savoir avant de partir',
-    expTitle:'Expériences à réserver',expSub:'Sélectionnées pour ce voyage',
-    expBookBtn:'Réserver →',expLoadingMsg:'Recherche d\'expériences pour cette destination…',
-    affsTitle:'Réservez votre voyage',affsSub:'Tout en un clic',
-    saveBtnLabel:'🗂 Sauvegarder ce voyage',saveBtnDone:'✅ Sauvegardé',
-    printBtn:'🖨️ PDF',
-    loadMsgs:['Analyse de votre profil…','Calcul du meilleur itinéraire…','Sélection d\'expériences uniques…','Ajout des transports locaux…','Dernières touches…'],
-    dayLabel:'Jour',tipsCardTitle:'Conseils',
-    bookInline:'Réserver',
-    tags:['🏛️ Culture','🍷 Gastronomie','🏔️ Nature','🚂 Slow travel','🏖️ Plage','🌆 Urbain','🧘 Bien-être','🌙 Soirées','❤️ Romantique','👨‍👩‍👧 Famille'],
-    promptIntro:'Tu es un expert voyageur avec du goût et de la curiosité. Tu crées des itinéraires qui allient l\'essentiel et l\'inattendu.',
-    travelerMap:{solo:'en solo',couple:'en couple',friends:'entre amis',family:'en famille avec enfants'},
-    budgetMap:{low:'économique',mid:'moyen',high:'élevé',premium:'premium sans limite'},
-  }
+const WZ={type:null,dur:null,df:null,dt:null,flex:false,pax:null,fam:false,origin:null,budget:800,interests:[],dest:null,custom:''};
+let step=1;const STEPS=7;let cart=[];let wzOptsByDay={};let chosenDest=null;let _seed=Math.floor(Math.random()*99);
+const TP_TOKEN='72076aae3ee33e581d2d78c7a5d52634';
+const SVG_PLANE='✈️';
+const TP_MARKER='710331';
+
+// IATA codes for common cities (origin lookup)
+const IATA_MAP={
+  'madrid':'MAD','barcelona':'BCN','sevilla':'SVQ','valencia':'VLC','bilbao':'BIO',
+  'málaga':'AGP','malaga':'AGP','granada':'GRX','alicante':'ALC','zaragoza':'ZAZ',
+  'palma':'PMI','ibiza':'IBZ','menorca':'MAH','tenerife':'TFN','gran canaria':'LPA',
+  'lanzarote':'ACE','fuerteventura':'FUE','la palma':'SPC',
+  'paris':'CDG','París':'CDG','lyon':'LYS','marsella':'MRS','niza':'NCE',
+  'burdeos':'BOD','estrasburgo':'SXB','toulouse':'TLS',
+  'london':'LHR','londres':'LHR','edinburgh':'EDI','edimburgo':'EDI',
+  'dublin':'DUB','dublín':'DUB',
+  'rome':'FCO','roma':'FCO','milan':'MXP','milán':'MXP','venecia':'VCE','venice':'VCE',
+  'florencia':'FLR','florence':'FLR','nápoles':'NAP','naples':'NAP','palermo':'PMO',
+  'bolonia':'BLQ','bologna':'BLQ',
+  'berlin':'BER','berlín':'BER','munich':'MUC','múnich':'MUC','frankfurt':'FRA',
+  'amsterdam':'AMS','bruselas':'BRU','brussels':'BRU',
+  'vienna':'VIE','viena':'VIE','salzburgo':'SZG','salzburg':'SZG',
+  'zurich':'ZRH','zúrich':'ZRH','ginebra':'GVA','geneva':'GVA',
+  'lisbon':'LIS','lisboa':'LIS','oporto':'OPO','porto':'OPO','faro':'FAO',
+  'athens':'ATH','atenas':'ATH','thessaloniki':'SKG','tesalónica':'SKG',
+  'heraklion':'HER','creta':'HER','santorini':'JTR','rhodes':'RHO','rodas':'RHO',
+  'istanbul':'IST','estambul':'IST','ankara':'ESB','antalya':'AYT',
+  'dubrovnik':'DBV','split':'SPU','zagreb':'ZAG',
+  'prague':'PRG','praga':'PRG','budapest':'BUD','krakow':'KRK','cracovia':'KRK',
+  'stockholm':'ARN','estocolmo':'ARN','copenhagen':'CPH','copenhague':'CPH',
+  'oslo':'OSL','helsinki':'HEL','reykjavik':'KEF','reikiavik':'KEF',
+  'marrakech':'RAK','marrakesh':'RAK','casablanca':'CMN','fez':'FEZ','fès':'FEZ',
+  'tanger':'TNG','tánger':'TNG',
+  'new york':'JFK','nueva york':'JFK','los angeles':'LAX','miami':'MIA',
+  'cancun':'CUN','cancún':'CUN','havana':'HAV','habana':'HAV',
+  'bangkok':'BKK','tokio':'NRT','tokyo':'NRT','singapur':'SIN','singapore':'SIN',
+  'bali':'DPS','dubai':'DXB','abu dhabi':'AUH',
+  'cairo':'CAI','el cairo':'CAI','nairobi':'NBO',
+  'sydney':'SYD','melbourne':'MEL','auckland':'AKL'
 };
 
-let lang = 'es';
-
-function detectLang(){
-  const stored = localStorage.getItem('ts_lang');
-  if(stored && I18N[stored]) return stored;
-  const nav = (navigator.language||navigator.userLanguage||'').toLowerCase();
-  if(nav.startsWith('fr')) return 'fr';
-  if(nav.startsWith('en')) return 'en';
-  return 'es';
+function getIATA(cityName){
+  if(!cityName) return null;
+  const key = cityName.toLowerCase().trim();
+  return IATA_MAP[key] || null;
 }
 
-function t(key){ return I18N[lang][key]||I18N['es'][key]||key }
+// Fetch real flight prices from Travelpayouts Data API
+async function fetchRealFlight(originCity, destCity, departDate, returnDate){
+  try {
+    const orig = getIATA(originCity);
+    const dest = getIATA(destCity);
+    if(!orig || !dest) return null;
 
-function setLang(l){
-  lang=l;
-  localStorage.setItem('ts_lang',l);
-  applyLang();
-}
+    // Format dates as YYYY-MM
+    const dep = departDate ? departDate.slice(0,7) : null;
+    const ret = returnDate ? returnDate.slice(0,7) : null;
+    if(!dep) return null;
 
-function applyLang(){
-  // Update active lang button
-  document.querySelectorAll('.lang-btn').forEach(b=>{
-    b.classList.toggle('active', b.textContent.toLowerCase()===lang);
-  });
-  // Apply translations to data-i elements
-  document.querySelectorAll('[data-i]').forEach(el=>{
-    const key=el.getAttribute('data-i');
-    const val=t(key);
-    if(key==='h1a') el.innerHTML=val.replace(/\n/g,'<br/>');
-    else el.textContent=val;
-  });
-  // Placeholders
-  document.querySelectorAll('[data-i-ph]').forEach(el=>{
-    el.placeholder=t(el.getAttribute('data-i-ph'));
-  });
-  // Select options
-  document.querySelectorAll('select option[data-i]').forEach(el=>{
-    el.textContent=t(el.getAttribute('data-i'));
-  });
-  // Tags
-  buildTags();
-  // document title
-  document.title = 'Travel Studio';
-}
+    let url = `https://api.travelpayouts.com/v1/prices/cheap?origin=${orig}&destination=${dest}&depart_date=${dep}${ret?'&return_date='+ret:''}&currency=eur&token=${TP_TOKEN}`;
 
-function buildTags(){
-  const wrap = document.getElementById('tagsWrap');
-  if(!wrap) return;
-  const tags = t('tags');
-  wrap.innerHTML = tags.map(tag=>`<button class="ttag" onclick="this.classList.toggle('on')">${tag}</button>`).join('');
-  // re-activate first 2 by default
-  wrap.querySelectorAll('.ttag:nth-child(-n+2)').forEach(b=>b.classList.add('on'));
-}
+    const resp = await fetch(url);
+    if(!resp.ok) return null;
+    const json = await resp.json();
 
-// ── AFFILIATES ──
-const AFF={skyscanner_id:'',booking_aid:'',gyg_partner_id:'',rentalcars_key:''};
-function affUrl(type,dest,origin){
-  const d=encodeURIComponent(dest||''),o=encodeURIComponent(origin||'');
-  if(type==='flight') return AFF.skyscanner_id?`https://www.skyscanner.es/vuelos/${o}/${d}?affilid=${AFF.skyscanner_id}`:`https://www.skyscanner.es/vuelos/${o}/${d}`;
-  if(type==='hotel')  return AFF.booking_aid?`https://www.booking.com/search.html?ss=${d}&aid=${AFF.booking_aid}`:`https://www.booking.com/search.html?ss=${d}`;
-  if(type==='act')    return AFF.gyg_partner_id?`https://www.getyourguide.es/s/?q=${d}&partner_id=${AFF.gyg_partner_id}`:`https://www.getyourguide.es/s/?q=${d}`;
-  if(type==='train')  return 'https://www.thetrainline.com/es';
-  if(type==='car')    return AFF.rentalcars_key?`https://www.rentalcars.com/es/?fts=${d}&affiliateCode=${AFF.rentalcars_key}`:`https://www.rentalcars.com/es/?fts=${d}`;
-}
+    if(!json.success || !json.data) return null;
 
-function dayAffRow(dest,origin,isDay1){
-  const vuelo = isDay1?`<a class="day-aff v" href="${affUrl('flight',dest,origin)}" target="_blank" rel="noopener">✈️ ${lang==='fr'?'Vols':lang==='en'?'Flights':'Vuelos'}</a>`:'';
-  return `<div class="day-affs">
-    ${vuelo}
-    <a class="day-aff h" href="${affUrl('hotel',dest,origin)}" target="_blank">🏨 ${lang==='fr'?'Hôtels':lang==='en'?'Hotels':'Hoteles'}</a>
-    <a class="day-aff a" href="${affUrl('act',dest,origin)}" target="_blank">🎟️ ${lang==='fr'?'Activités':lang==='en'?'Activities':'Actividades'}</a>
-    <a class="day-aff t" href="${affUrl('train',dest,origin)}" target="_blank">🚂 ${lang==='fr'?'Trains':'Trains'}</a>
-  </div>`;
-}
+    // Find cheapest price across all results
+    const destData = json.data[dest];
+    if(!destData) return null;
 
-function bottomAffCards(dest,origin){
-  const affs=[
-    {type:'flight',ico:'✈️',name:{es:'Vuelos',en:'Flights',fr:'Vols'},prov:'Skyscanner',badge:{es:'Mejor precio',en:'Best price',fr:'Meilleur prix'},bc:'b'},
-    {type:'hotel', ico:'🏨',name:{es:'Hoteles',en:'Hotels',fr:'Hôtels'},prov:'Booking.com',badge:{es:'Sin cargos',en:'No fees',fr:'Sans frais'},bc:'g'},
-    {type:'act',   ico:'🎟️',name:{es:'Actividades',en:'Activities',fr:'Activités'},prov:'GetYourGuide',badge:{es:'Cancelación gratis',en:'Free cancellation',fr:'Annulation gratuite'},bc:'r'},
-    {type:'train', ico:'🚂',name:{es:'Trenes',en:'Trains',fr:'Trains'},prov:'Trainline',badge:{es:'Rail deals',en:'Rail deals',fr:'Rail deals'},bc:'o'},
-    {type:'car',   ico:'🚗',name:{es:'Coche',en:'Car rental',fr:'Voiture'},prov:'Rentalcars',badge:{es:'Sin comisión',en:'No commission',fr:'Sans commission'},bc:'g'},
-  ];
-  return `
-    <div style="font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;margin-bottom:.3rem">${t('affsTitle')}</div>
-    <div style="font-size:.82rem;color:var(--muted);margin-bottom:1.5rem">${t('affsSub')}</div>
-    <div class="affs-grid">
-      ${affs.map(a=>`<a class="aff-card" href="${affUrl(a.type,dest,origin)}" target="_blank" rel="noopener">
-        <div class="aff-card-ico">${a.ico}</div>
-        <div class="aff-card-name">${a.name[lang]||a.name.es}</div>
-        <div class="aff-card-prov">${a.prov}</div>
-        <div class="aff-badge ${a.bc}">${a.badge[lang]||a.badge.es}</div>
-      </a>`).join('')}
-    </div>`;
-}
-
-// ── INLINE BOOK LINKS ──
-// The AI marks bookable activities with [BOOK:activity name]
-// We convert them to inline teal buttons linking to GetYourGuide
-function processInlineBooks(html, dest){
-  return html.replace(/\[BOOK:([^\]]+)\]/g,(match,actName)=>{
-    const url=`https://www.getyourguide.es/s/?q=${encodeURIComponent(actName+' '+dest)}${AFF.gyg_partner_id?'&partner_id='+AFF.gyg_partner_id:''}`;
-    return `<a class="inline-book" href="${url}" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 8 16 12 12 16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
-      ${t('bookInline')}
-    </a>`;
-  });
-}
-
-// ── PARSE TIPS ──
-function parseTips(tipsText){
-  if(!tipsText.trim()) return '';
-  const lines=tipsText.split('\n').map(l=>l.trim()).filter(Boolean);
-  const tips=[];let cur=null;
-  for(const line of lines){
-    const isNew=/^[-•*]|^\d+[.)]/i.test(line);
-    const clean=line.replace(/^[-•*\d.)]\s*/,'').trim();
-    if(!clean)continue;
-    if(isNew||tips.length===0){if(cur)tips.push(cur);cur={text:clean};}
-    else{if(cur)cur.text+=' '+clean;}
-  }
-  if(cur)tips.push(cur);
-  const iconMap=[
-    {keys:['flight','vuelo','avion','billet','reserv','book','anticipa','mois','months','semana'],ico:'✈️',label:{es:'Cuándo reservar',en:'When to book',fr:'Quand réserver'}},
-    {keys:['climat','weather','clima','tiempo','lluvia','rain','température','saison','season','month'],ico:'🌤️',label:{es:'Clima',en:'Weather',fr:'Météo'}},
-    {keys:['transport','metro','bus','tren','train','taxi','movilidad','getting around','déplacement'],ico:'🚇',label:{es:'Transporte',en:'Getting around',fr:'Transport'}},
-    {keys:['money','dinero','effectivo','cash','moneda','prix','price','tarjeta','card','paiement'],ico:'💶',label:{es:'Dinero',en:'Money',fr:'Argent'}},
-    {keys:['segur','safe','sécur','zone','barrio','neighbourhood','evita','avoid','éviter'],ico:'🔒',label:{es:'Seguridad',en:'Safety',fr:'Sécurité'}},
-    {keys:['free','gratis','gratuito','gratuit','sans payer','no cost','entrance'],ico:'🎁',label:{es:'Gratis',en:'Free',fr:'Gratuit'}},
-    {keys:['app','maps','offline','phone','téléphone','teléfono','download','descarga'],ico:'📱',label:{es:'Apps',en:'Apps',fr:'Applis'}},
-    {keys:['eat','comer','manger','restaurant','food','gastronomie','mercado','market','marché'],ico:'🍽️',label:{es:'Dónde comer',en:'Where to eat',fr:'Où manger'}},
-    {keys:['hotel','sleep','dorm','aloja','héberg','hostel','airbnb','barrio','zona','quartier'],ico:'🏨',label:{es:'Alojamiento',en:'Where to stay',fr:'Hébergement'}},
-  ];
-  const used=new Set();const def=['💡','🗺️','⚡','🌟','🧭'];let di=0;
-  const cards=tips.slice(0,6).map(tip=>{
-    let ico='',label=t('tipsCardTitle');
-    for(const m of iconMap){
-      if(m.keys.some(k=>tip.text.toLowerCase().includes(k))&&!used.has(m.ico)){
-        ico=m.ico;label=m.label[lang]||m.label.es;used.add(m.ico);break;
+    let minPrice = Infinity;
+    let bestFlight = null;
+    for(const k of Object.keys(destData)){
+      const f = destData[k];
+      if(f.price && f.price < minPrice){
+        minPrice = f.price;
+        bestFlight = f;
       }
     }
-    if(!ico){ico=def[di%def.length];di++;}
-    const dot=tip.text.search(/[.!?]/);
-    const heading=dot>0&&dot<90?tip.text.slice(0,dot+1):tip.text.slice(0,70)+(tip.text.length>70?'…':'');
-    const body=dot>0&&dot<90?tip.text.slice(dot+1).trim():'';
-    return `<div class="tip-card"><div class="tip-ico">${ico}</div><div class="tip-label">${label}</div><div class="tip-heading">${heading}</div>${body?`<div class="tip-body">${body}</div>`:''}</div>`;
-  }).join('');
-  return `<div style="margin-top:2.5rem">
-    <div style="font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;margin-bottom:.3rem">${t('tipsTitle')}</div>
-    <div style="font-size:.8rem;color:var(--muted);margin-bottom:.2rem">${t('tipsSub')}</div>
-    <div class="tips-grid">${cards}</div>
-  </div>`;
+    if(!bestFlight) return null;
+    return {
+      price: Math.round(minPrice),
+      airline: bestFlight.airline||'',
+      departure: bestFlight.departure_at||'',
+      orig, dest
+    };
+  } catch(e){
+    return null;
+  }
+}
+function affUrl(type, dest, origin, checkIn, checkOut, pax){
+  const d = encodeURIComponent(dest||'');
+  const o = encodeURIComponent(origin||'');
+  const M = TP_MARKER; // 710331
+
+  // Dates for hotel links
+  const ci = checkIn  || (currentTrip?.dateFrom) || '';
+  const co = checkOut || (currentTrip?.dateTo)   || '';
+
+  if(type==='flight'){
+    // Aviasales via Travelpayouts
+    const origIATA = getIATA(origin||currentTrip?.origin||'') || '';
+    const destIATA = getIATA(dest||currentTrip?.dest||'')     || '';
+    const dep = currentTrip?.dateFrom || '';
+    const ret = currentTrip?.dateTo   || '';
+    const np  = pax || getNumPax() || 1;
+    if(origIATA && destIATA)
+      return `https://www.aviasales.com/?marker=${M}&origin_iata=${origIATA}&destination_iata=${destIATA}${dep?'&depart_date='+dep:''}${ret?'&return_date='+ret:''}&adults=${np}`;
+    // fallback: generic search
+    return `https://tp.media/r?marker=${M}&trs=233044&p=4114&u=https%3A%2F%2Fwww.aviasales.com%2F&campaign_id=100`;
+  }
+
+  if(type==='hotel'){
+    // Booking.com via Travelpayouts
+    const ciF = ci ? ci.replace(/-/g,'-') : '';
+    const coF = co ? co.replace(/-/g,'-') : '';
+    const np  = pax || getNumPax() || 2;
+    let url = `https://www.booking.com/search.html?ss=${d}&lang=es&group_adults=${np}`;
+    if(ciF) url += `&checkin=${ciF}`;
+    if(coF) url += `&checkout=${coF}`;
+    // Booking.com direct affiliate link (most reliable)
+    url += `&aid=304142`; // Travelpayouts standard Booking aid
+    return url;
+  }
+
+  if(type==='act'){
+    // GetYourGuide — direct search link (no working TP wrapper for GYG in ES)
+    const ql = lang==='fr'?'fr':lang==='en'?'en':'es';
+    return `https://www.getyourguide.com/s/?q=${d}&lang=${ql}`;
+  }
+
+  if(type==='car'){
+    // Rentalcars via Travelpayouts — correct campaign
+    const rc = `https://www.rentalcars.com/?affiliateCode=travelpayou&preflang=${lang==='fr'?'fr':lang==='en'?'en':'es'}&adplat=meta&fts=${d}`;
+    return `https://tp.media/r?marker=${M}&trs=233044&p=4114&u=${encodeURIComponent(rc)}&campaign_id=37`;
+  }
+
+  if(type==='train'){
+    const tl = `https://www.trainline.eu/?utm_source=travelpayouts&utm_medium=affiliate&utm_campaign=${M}`;
+    return `https://tp.media/r?marker=${M}&trs=233044&p=4114&u=${encodeURIComponent(tl)}&campaign_id=327`;
+  }
+
+  if(type==='ferry'){
+    return `https://tp.media/r?marker=${M}&trs=233044&p=4114&u=https%3A%2F%2Fwww.directferries.es%2F&campaign_id=1307`;
+  }
+
+  return '#';
 }
 
-// ── PARSE TIMELINE ──
-function parseTimeline(text,dest,origin){
-  const parts=text.split(/(#{1,3}[^\n]+)/g).filter(s=>s.trim());
-  let html='',dayCount=0,tipsHTML='';
-  for(let i=0;i<parts.length;i++){
-    const part=parts[i].trim();if(!part)continue;
-    if(/^#{1,3}\s*(Day|Día|Jour)\s+\d+/i.test(part)){
-      dayCount++;
-      const title=part.replace(/^#+\s*/,'').trim();
-      const content=parts[i+1]&&!parts[i+1].startsWith('#')?parts[i+1].trim():'';
-      if(content)i++;
-      let body=content
-        .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
-        .replace(/\n{2,}/g,'</p><p>').replace(/\n/g,'<br/>')
-        .replace(/^/,'<p>')+'</p>';
-      body=processInlineBooks(body,dest);
-      html+=`<div class="tl-item">
-        <div class="tl-dot day">${dayCount}</div>
-        <div class="tl-card">
-          <div class="tl-card-head">
-            <div class="tl-day-label">${t('dayLabel')} ${dayCount}</div>
-            <div class="tl-day-title">${title.replace(/^(Day|Día|Jour)\s+\d+[\s—–-]*/i,'')}</div>
-          </div>
-          <div class="tl-card-body">${body}</div>
-          ${dayAffRow(dest,origin,dayCount===1)}
-        </div>
-      </div>`;
-    }
-    else if(/^#{1,3}\s*(Consejo|Tips?|Recom|Avant|Before|Lo que|Para saber|Pratique|Practical)/i.test(part)){
-      const content=parts[i+1]&&!parts[i+1].startsWith('#')?parts[i+1].trim():'';
-      if(content)i++;
-      tipsHTML=parseTips(content);
-    }
-    else if(dayCount===0&&!part.startsWith('#')){
-      let body=part.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\n{2,}/g,'</p><p>').replace(/^/,'<p>')+'</p>';
-      html+=`<div class="tl-item">
-        <div class="tl-dot intro">✦</div>
-        <div class="tl-card"><div class="tl-card-body" style="font-style:italic;padding:1rem 1.2rem">${body}</div></div>
-      </div>`;
-    }
+// CART (wizard uses its own cart array, stubs only)
+function cartTotal(){return cart.reduce((s,i)=>s+(i.priceNum||0),0);}
+function toggleCart(id,name,price,priceNum,ico){return false;}
+function removeFromCart(id){cart=cart.filter(c=>c.id!==id);updateCartBtn();renderCartBox();}
+
+
+
+
+function sendBrEmail(){
+  const input = document.getElementById('brEmail');
+  if(!input) return;
+  const email = input.value.trim();
+  if(!email || !email.includes('@')){
+    input.style.borderColor='#F87171';
+    setTimeout(()=>input.style.borderColor='',1500);
+    return;
   }
-  if(dayCount===0){
-    let body=text.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\n{2,}/g,'</p><p>').replace(/^/,'<p>')+'</p>';
-    body=processInlineBooks(body,dest);
-    html=`<div class="tl-item"><div class="tl-dot intro">✦</div><div class="tl-card">
-      <div class="tl-card-body" style="padding:1rem 1.2rem">${body}</div>
-      ${dayAffRow(dest,origin,true)}
-    </div></div>`;
-  }
-  return{timelineHTML:html,tipsHTML};
+  // Store email and delegate to sendItinerary flow
+  localStorage.setItem('ts_user_email', email);
+  // Update the modal email field if open
+  const mEmail = document.getElementById('mEmail');
+  if(mEmail) mEmail.value = email;
+  // Send via existing email API
+  sendItinerary(email).then(()=>{
+    input.value = '';
+    input.placeholder = {es:'✓ Enviado',en:'✓ Sent',fr:'✓ Envoyé'}[lang];
+    input.disabled = true;
+    document.querySelector('.br-email-btn').textContent = '✓';
+    document.querySelector('.br-email-btn').style.background = 'var(--sage)';
+  }).catch(()=>{
+    showToast({es:'Error al enviar. Inténtalo de nuevo.',en:'Error sending. Please try again.',fr:'Erreur d\'envoi. Réessayez.'}[lang]);
+  });
 }
 
-// ── EXPERIENCES (second AI call) ──
-const EXP_IMAGES={
-  'tour':   'https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=500&q=70',
-  'food':   'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=500&q=70',
-  'nature': 'https://images.unsplash.com/photo-1501854140801-50d01698950b?w=500&q=70',
-  'museum': 'https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=500&q=70',
-  'night':  'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=500&q=70',
-  'boat':   'https://images.unsplash.com/photo-1534008757030-27299c4371b6?w=500&q=70',
-  'bike':   'https://images.unsplash.com/photo-1541625602330-2277a4c46182?w=500&q=70',
-  'cook':   'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=500&q=70',
-  'art':    'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&q=70',
-  'hike':   'https://images.unsplash.com/photo-1551632811-561732d1e306?w=500&q=70',
-  'default':'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=500&q=70',
+async function sendItinerary(emailOverride){
+  const emailInput = document.getElementById('cEmailInput');
+  const email = emailOverride || (emailInput ? emailInput.value.trim() : '') || localStorage.getItem('ts_user_email') || '';
+  if(!email||!email.includes('@')){
+    const brInput = document.getElementById('brEmail');
+    if(brInput){brInput.style.borderColor='#F87171';brInput.focus();}
+    return Promise.reject('no email');
+  }
+  const name = (document.getElementById('cNameInput')?.value||'').trim() || localStorage.getItem('ts_user_name') || '';
+  const dest=document.getElementById('dest').value.trim();
+  if(currentTrip&&!currentTrip.tripId){
+    currentTrip.tripId='ts_'+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+    try{localStorage.setItem('ts_trip_'+currentTrip.tripId,JSON.stringify(currentTrip));}catch(e){}
+    const idx=saved.findIndex(s=>s.dest===currentTrip.dest);
+    if(idx>=0)saved[idx]=currentTrip;else saved.unshift(currentTrip);
+    if(saved.length>30)saved.length=30;
+    saveSaved();updateSavedCount();
+  }
+  const tripUrl = currentTrip?.tripId ? getTripUrl(currentTrip.tripId) : window.location.href;
+  const r=await fetch('/api/email',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({name,email,
+      tripName:currentTrip?.tripName||dest,
+      dest,departDate:document.getElementById('df').value,returnDate:document.getElementById('dt').value,
+      travelers:document.getElementById('travelers')?.value||'',lang,
+      tripId:currentTrip?.tripId||'',tripUrl,
+      itinerary:currentTrip?.introHTML||''
+    })});
+  return r.json();
+}
+
+function toggleExpCart(btnId, name, priceNum, ico){
+  const btn=document.getElementById(btnId);
+  if(!btn) return;
+  const inCart=btn.classList.contains('in-cart');
+  const addICO='<svg viewBox="0 0 24 24" style="width:9px;height:9px;fill:none;stroke:currentColor;stroke-width:2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>';
+  const checkICO='<svg viewBox="0 0 24 24" style="width:9px;height:9px;fill:none;stroke:currentColor;stroke-width:2.5"><polyline points="20 6 9 17 4 12"/></svg>';
+  if(inCart){
+    btn.classList.remove('in-cart');
+    btn.innerHTML=addICO+name;
+    cart=cart.filter(i=>i.id!==btnId);
+  } else {
+    btn.classList.add('in-cart');
+    btn.innerHTML=checkICO+name;
+    cart.push({id:btnId,label:name,price:'',priceNum:priceNum||0,ico:ico||'🎯'});
+  }
+  updateCartUI();
+  
+}
+
+function quickSendEmail(){
+  const emailEl=document.getElementById('quickEmail');
+  const email=emailEl?emailEl.value.trim():'';
+  if(!email||!email.includes('@')){if(emailEl){emailEl.style.borderColor='#F87171';emailEl.focus();}return;}
+  const dest=document.getElementById('dest').value.trim();
+  const btn=document.querySelector('.reb-send');
+  if(btn){btn.textContent='...';btn.disabled=true;}
+  fetch('/api/email',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({name:'',email,tripName:document.getElementById('tripDestDisplay')?.textContent||dest,dest,
+      departDate:document.getElementById('df').value,returnDate:document.getElementById('dt').value,
+      travelers:document.getElementById('travelers')?.value||'',lang,
+      tripId:currentTrip?.tripId||'',
+      tripUrl:currentTrip?.tripId?getTripUrl(currentTrip.tripId):window.location.href})})
+  .then(r=>r.json()).then(()=>{
+    const bar=document.getElementById('recapEmailBar');
+    const ok=lang==='fr'?"\u2705 C'est parti! V\u00e9rifiez votre bo\u00eete.":lang==='en'?'\u2705 Sent! Check your inbox.':'\u2705 \u00a1Enviado! Revisa tu bandeja.';
+    if(bar)bar.innerHTML='<div class="reb-ok">'+ok+'</div>';
+  }).catch(()=>{if(btn){btn.textContent='\u2192';btn.disabled=false;}});
+}
+function shareTrip(){
+  // Auto-save to get tripId
+  if(currentTrip&&!currentTrip.tripId) saveCurrentTrip();
+  const dest=document.getElementById('dest').value.trim();
+  const tripUrl=currentTrip?.tripId?getTripUrl(currentTrip.tripId):window.location.href;
+  const msg={es:`🌍 Mi plan para ${dest} — Travel Studio`,en:`🌍 My trip plan to ${dest} — Travel Studio`,fr:`🌍 Mon plan pour ${dest} — Travel Studio`}[lang];
+  if(navigator.share)navigator.share({title:'Travel Studio',text:msg,url:tripUrl});
+  else navigator.clipboard.writeText(tripUrl).then(()=>showToast({es:'Enlace copiado al portapapeles',en:'Link copied to clipboard',fr:'Lien copié'}[lang]));
+}
+
+// ═══════════════════════════════════
+// FLEXIBLE DATES
+// ═══════════════════════════════════
+let flexDates=false;
+function setFlex(v){flexDates=v;document.getElementById('flexYes').classList.toggle('on',v);document.getElementById('flexNo').classList.toggle('on',!v);}
+
+// ═══════════════════════════════════
+// GEOLOCATION
+// ═══════════════════════════════════
+function detectOrigin(){
+  const btn=document.getElementById('geoBtn');
+  const input=document.getElementById('origin');
+  if(!navigator.geolocation){return;}
+  btn.textContent='⏳';
+  navigator.geolocation.getCurrentPosition(async pos=>{
+    try{
+      const {latitude:lat,longitude:lon}=pos.coords;
+      const res=await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json&accept-language=${lang}`);
+      const data=await res.json();
+      const city=data.address?.city||data.address?.town||data.address?.village||'';
+      const country=data.address?.country||'';
+      if(city) input.value=city+(country?', '+country:'');
+    }catch(e){}
+    finally{btn.textContent='📍';}
+  },()=>{btn.textContent='📍';},{timeout:6000});
+}
+
+// ═══════════════════════════════════
+// PAX COUNTER
+// ═══════════════════════════════════
+let paxCount = 2;
+const PAX_DEFAULTS = {solo:1, couple:2, friends:4, family:4};
+const PAX_MIN = {solo:1, couple:2, friends:2, family:2};
+const PAX_MAX = {solo:1, couple:2, friends:20, family:12};
+
+function updateTravelersUI(){
+  const tKey = document.getElementById('travelers').value;
+  const paxWrap = document.getElementById('paxWrap');
+  if(tKey==='solo'){
+    paxCount = 1;
+    paxWrap.style.display='none';
+  } else if(tKey==='couple'){
+    paxCount = 2;
+    paxWrap.style.display='none';
+  } else {
+    // friends/family — keep current count if valid, else reset to default
+    const min = PAX_MIN[tKey]||2;
+    if(paxCount < min) paxCount = PAX_DEFAULTS[tKey];
+    paxWrap.style.display='flex';
+  }
+  document.getElementById('paxCount').textContent = paxCount;
+  checkBudget();
+}
+
+function changePax(delta){
+  const tKey = document.getElementById('travelers').value;
+  const min = PAX_MIN[tKey]||2, max = PAX_MAX[tKey]||20;
+  paxCount = Math.max(min, Math.min(max, paxCount + delta));
+  document.getElementById('paxCount').textContent = paxCount;
+  checkBudget();
+}
+
+function getNumPax(){
+  const tKey = document.getElementById('travelers').value;
+  if(tKey==='solo') return 1;
+  if(tKey==='couple') return 2;
+  return paxCount;
+}
+
+// ═══════════════════════════════════
+// BUDGET CALCULATOR + DESTINATION SUGGEST
+// ═══════════════════════════════════
+let destSuggestMode = false;
+
+function toggleDestSuggest(){
+  destSuggestMode = !destSuggestMode;
+  const destInput = document.getElementById('dest');
+  const btn = document.getElementById('destSuggestBtn');
+  const fg = document.getElementById('destFg');
+  if(destSuggestMode){
+    destInput.value='';
+    destInput.style.display='none';
+    btn.classList.add('on');
+    btn.textContent = t('destSuggestBtnOn');
+  } else {
+    destInput.style.display='';
+    btn.classList.remove('on');
+    btn.textContent = t('destSuggestBtn');
+  }
+  checkBudget();
+}
+
+function syncDuration(){
+  const dur = parseInt(document.getElementById('durationSelect').value);
+  const df = document.getElementById('df');
+  const dt = document.getElementById('dt');
+  if(df.value){
+    const start = new Date(df.value+'T00:00:00');
+    const end = new Date(start);
+    end.setDate(end.getDate()+dur);
+    dt.value = end.toISOString().split('T')[0];
+  }
+}
+
+// Cost-of-living database — realistic ranges (€ per person per day)
+// [flight_roundtrip, hotel_night, food_day, transport_local]
+const DEST_DB = {
+  // ── ESPAÑA — ciudades ──
+  'Madrid':            {f:[0,0],  h:[60,130], c:35,t:10, note:'Sin vuelo desde Madrid'},
+  'Barcelona':         {f:[30,80],h:[70,150], c:40,t:12, note:'AVE ~€50pp o vuelo'},
+  'Sevilla':           {f:[30,70],h:[55,110], c:30,t:8,  note:'AVE o vuelo económico'},
+  'Valencia':          {f:[25,65],h:[55,110], c:30,t:8,  note:'Fácil en AVE o vuelo'},
+  'Bilbao':            {f:[40,90],h:[65,130], c:38,t:10, note:'Vuelo ~1h desde Madrid'},
+  'Granada':           {f:[40,90],h:[50,100], c:28,t:7,  note:'Vuelo o coche desde Málaga'},
+  'San Sebastián':     {f:[40,100],h:[90,180],c:45,t:10, note:'Caro pero pequeño y perfecto'},
+  'Málaga':            {f:[30,80],h:[55,110], c:30,t:8,  note:'Vuelo o AVE'},
+  'Cádiz':             {f:[40,90],h:[55,110], c:28,t:8,  note:'Vuelo a Jerez o coche desde Sevilla'},
+  'Salamanca':         {f:[0,0],  h:[50,100], c:28,t:8,  note:'2h en coche desde Madrid, sin vuelo'},
+  'Toledo':            {f:[0,0],  h:[55,110], c:30,t:8,  note:'30min en AVE desde Madrid'},
+  'Córdoba':           {f:[30,70],h:[50,100], c:28,t:7,  note:'AVE desde Madrid ~€20-40'},
+  'Palma de Mallorca': {f:[40,110],h:[65,150],c:38,t:12, note:'Vuelo ~1h, coche recomendable'},
+  'Menorca':           {f:[50,130],h:[60,140],c:35,t:15, note:'Vuelo + coche de alquiler esencial'},
+  'Ibiza':             {f:[50,140],h:[80,250],c:55,t:15, note:'Cara en verano, preciosa en mayo/oct'},
+
+  // ── CANARIAS — ciudades ──
+  'Tenerife':          {f:[50,130],h:[55,130],c:32,t:15, note:'Vuelo ~2.5h, sur vs norte: mundos distintos'},
+  'Gran Canaria':      {f:[50,130],h:[55,130],c:32,t:15, note:'Vuelo ~2.5h, perfecta todo el año'},
+  'Lanzarote':         {f:[55,140],h:[55,130],c:32,t:18, note:'Vuelo ~2.5h, coche imprescindible'},
+  'Fuerteventura':     {f:[55,140],h:[55,125],c:30,t:18, note:'Vuelo ~2.5h, la mejor isla para playa y viento'},
+  'La Palma':          {f:[70,160],h:[50,110],c:28,t:20, note:'Vuelo con escala, poca masificación'},
+  'La Gomera':         {f:[70,160],h:[45,100],c:25,t:20, note:'Ferry desde Tenerife, naturaleza salvaje'},
+  'El Hierro':         {f:[80,170],h:[45,95], c:25,t:20, note:'La más auténtica, la menos turística'},
+
+  // ── ESCAPADAS EN TREN/COCHE — Europa ──
+  'Tours':               {f:[30,70],  h:[55,110], c:32,t:0, note:'1h TGV desde París · castillos del Loira a 15min'},
+  'Reims':               {f:[20,50],  h:[55,105], c:35,t:0, note:'45min en TGV desde París · catedral + cavas Champagne'},
+  'Chartres':            {f:[15,40],  h:[50,100], c:30,t:0, note:'1h en tren desde París · catedral gótica única'},
+  'Caen':                {f:[25,60],  h:[55,110], c:32,t:0, note:'2h en tren desde París · D-Day beaches a 30min'},
+  'Brighton':            {f:[20,50],  h:[60,130], c:35,t:0, note:'1h en tren desde Londres · playa + cultura alternativa'},
+  'Oxford':              {f:[15,40],  h:[70,150], c:40,t:0, note:'1h en tren desde Londres · universidad + pubs históricos'},
+  'Cambridge':           {f:[15,40],  h:[70,150], c:38,t:0, note:'50min en tren desde Londres · universidades + ríos'},
+  'Bath':                {f:[20,55],  h:[75,160], c:42,t:0, note:'1h30 en tren desde Londres · termas romanas + arquitectura'},
+  'Dresden':             {f:[25,60],  h:[55,110], c:35,t:0, note:'2h en tren desde Berlín · Frauenkirche + galería'},
+  'Leipzig':             {f:[20,50],  h:[55,110], c:32,t:0, note:'1h20 en tren desde Berlín · ciudad universitaria, música'},
+  'Segovia':             {f:[0,0],    h:[55,110], c:30,t:0, note:'30min en AVE desde Madrid · acueducto romano + cochinillo'},
+  'Ávila':               {f:[0,0],    h:[50,100], c:28,t:0, note:'1h30 en tren desde Madrid · murallas medievales completas'},
+  'Cuenca':              {f:[0,0],    h:[55,110], c:30,t:0, note:'50min en AVE desde Madrid · casas colgantes + naturaleza'},
+  'Tarragona':           {f:[25,60],  h:[55,110], c:30,t:0, note:'1h en tren desde Barcelona · ruinas romanas + playa'},
+  'Girona':              {f:[20,50],  h:[60,120], c:35,t:0, note:'40min en AVE desde Barcelona · catedral + barrio judío'},
+  // ── CERCA DE PARIS — escapadas en tren o coche ──
+  'Normandía':           {f:[30,70],  h:[55,120], c:35,t:0,  note:'2h en coche o tren desde París · playas, acantilados, Honfleur'},
+  'Valle del Loira':     {f:[40,90],  h:[60,130], c:40,t:0,  note:'1h30 en TGV desde París · castillos, viñedos, bicicleta'},
+  'Mont-Saint-Michel':   {f:[35,80],  h:[55,120], c:35,t:0,  note:'3h30 en coche desde París · maree, abadía, arena'},
+  'Champagne':           {f:[20,50],  h:[55,110], c:38,t:0,  note:'1h30 en tren desde París · Épernay, Reims, cavas famosas'},
+  'Brujas':              {f:[30,70],  h:[70,150], c:42,t:10, note:'2h30 en Thalys desde París · la Venecia del Norte'},
+  'Gante':               {f:[30,70],  h:[70,145], c:40,t:10, note:'2h30 en tren desde París · más auténtica que Brujas'},
+  'Luxemburgo':          {f:[40,90],  h:[75,160], c:45,t:10, note:'2h20 en tren directo desde París'},
+
+  // ── ROAD TRIPS — ESPAÑA ──
+  'Road trip Costa Brava':          {f:[30,80],h:[70,150],c:40,t:0,road:true,car:[30,55],note:'Coche desde Barcelona · Cadaqués, Begur, Cap de Creus · 5-7 días ideal'},
+  'Road trip Picos de Europa':      {f:[40,100],h:[55,110],c:32,t:0,road:true,car:[35,60],note:'Coche desde Bilbao o Oviedo · Asturias + Cantabria · 5-7 días'},
+  'Road trip Norte de Galicia':     {f:[40,100],h:[50,100],c:28,t:0,road:true,car:[30,55],note:'Vuelo a Santiago + coche · Costa da Morte, Rías Altas, Cabo Ortegal'},
+  'Road trip Ruta de la Plata':     {f:[0,0],  h:[50,100],c:28,t:0,road:true,car:[25,45],note:'Desde Madrid en coche · Cáceres, Mérida, Salamanca · 5-7 días'},
+  'Road trip Andalucía':            {f:[30,80],h:[55,110],c:30,t:0,road:true,car:[30,55],note:'Vuelo a Sevilla o Málaga + coche · Sevilla, Ronda, Granada, Cádiz'},
+  'Road trip Pirineos':             {f:[30,80],h:[55,120],c:35,t:0,road:true,car:[30,55],note:'Coche desde Barcelona o Pamplona · Ordesa, Ainsa, Benasque'},
+  'Road trip Castilla y León':      {f:[0,0],  h:[50,100],c:28,t:0,road:true,car:[25,45],note:'Desde Madrid · Segovia, Burgos, León, Salamanca · 5-7 días'},
+
+  // ── ROAD TRIPS — CANARIAS ──
+  'Road trip Tenerife':             {f:[50,130],h:[55,120],c:32,t:0,road:true,car:[25,45],note:'Vuelo + coche · Teide, Anaga, La Laguna, Masca · 5-7 días'},
+  'Road trip Gran Canaria':         {f:[50,130],h:[55,120],c:32,t:0,road:true,car:[25,45],note:'Vuelo + coche · Dunas de Maspalomas, Roque Nublo, Las Palmas · 5-7 días'},
+  'Road trip Lanzarote':            {f:[55,140],h:[55,120],c:30,t:0,road:true,car:[25,45],note:'Vuelo + coche · Timanfaya, Jameos del Agua, Orzola · coche imprescindible'},
+  'Road trip Fuerteventura':        {f:[55,140],h:[50,115],c:28,t:0,road:true,car:[25,45],note:'Vuelo + coche · Jandía, Cofete, Corralejo, El Cotillo · 5-7 días'},
+  'Interislas Canarias':            {f:[55,140],h:[52,120],c:30,t:0,road:true,car:[25,45],ferry:[15,40],note:'Vuelo + ferry entre islas + coche · Tenerife+La Gomera o Gran Canaria+Fuerteventura'},
+
+  // ── ROAD TRIPS — PORTUGAL ──
+  'Road trip Alentejo':             {f:[50,120],h:[55,120],c:30,t:0,road:true,car:[28,50],note:'Vuelo a Lisboa + coche · Évora, Monsaraz, viñedos, playas del Alentejo'},
+  'Road trip Costa Vicentina':      {f:[50,120],h:[55,120],c:30,t:0,road:true,car:[28,50],note:'Vuelo a Lisboa o Faro + coche · la costa más salvaje de Europa occidental'},
+  'Road trip Norte de Portugal':    {f:[50,110],h:[55,120],c:28,t:0,road:true,car:[28,50],note:'Vuelo a Oporto + coche · Douro, Minho, Gerês, Viana do Castelo'},
+  'Road trip Lisboa a Oporto':      {f:[50,120],h:[58,130],c:32,t:0,road:true,car:[28,50],note:'Vuelo de entrada + coche · Óbidos, Nazaré, Coimbra, Douro · 7-10 días'},
+
+  // ── ROAD TRIPS — FRANCIA ──
+  'Road trip Provenza':             {f:[60,140],h:[70,160],c:48,t:0,road:true,car:[35,60],note:'Vuelo a Marsella o Niza + coche · Gorges du Verdon, Luberon, Camargue'},
+  'Road trip Costa Azul':           {f:[70,160],h:[90,200],c:60,t:0,road:true,car:[35,65],note:'Vuelo a Niza + coche · Niza, Antibes, Saint-Tropez, Cassis · cara pero incomparable'},
+  'Road trip Bretaña':              {f:[70,150],h:[65,140],c:42,t:0,road:true,car:[35,60],note:'Vuelo a Rennes o Nantes + coche · costa salvaje, ostras, Mont-Saint-Michel'},
+  'Road trip Valle del Loira':      {f:[70,150],h:[70,150],c:45,t:0,road:true,car:[35,60],note:'Vuelo a Tours o tren desde París + coche · castillos, viñedos, ríos · 5-7 días'},
+
+  // ── ROAD TRIPS — ITALIA ──
+  'Road trip Toscana':              {f:[70,170],h:[75,180],c:50,t:0,road:true,car:[35,60],note:'Vuelo a Florencia o Pisa + coche · Siena, San Gimignano, Val d\'Orcia · 5-7 días'},
+  'Road trip Sicilia':              {f:[80,170],h:[55,120],c:38,t:0,road:true,car:[30,55],note:'Vuelo a Palermo + coche · Agrigento, Siracusa, Etna, Taormina · 7-10 días'},
+  'Road trip Costa Amalfitana':     {f:[70,170],h:[80,200],c:50,t:0,road:true,car:[30,55],note:'Vuelo a Nápoles + coche · Pompeya, Positano, Ravello, Paestum · cara pero única'},
+  'Road trip Cerdeña':              {f:[70,160],h:[60,150],c:40,t:0,road:true,car:[30,55],note:'Vuelo a Cagliari o Olbia + coche · playas increíbles, interior desconocido'},
+  'Road trip Apulia':               {f:[70,160],h:[55,130],c:38,t:0,road:true,car:[28,52],note:'Vuelo a Bari + coche · Trulli de Alberobello, Lecce, Polignano, Matera'},
+
+  // ── PORTUGAL ──
+  'Lisboa':       {f:[50,120],h:[60,140],c:35,t:12,note:'Vuelo ~2h, muy buena relación calidad-precio'},
+  'Oporto':       {f:[50,110],h:[55,120],c:30,t:10,note:'Vuelo ~2h, más barato que Lisboa'},
+  'Algarve':      {f:[60,130],h:[70,150],c:35,t:20,note:'Coche casi obligatorio'},
+
+  // ── FRANCIA ──
+  'París':        {f:[70,160],h:[90,200],c:55,t:18,note:'Caro pero accesible con anticip.'},
+  'Burdeos':      {f:[60,130],h:[75,150],c:45,t:12,note:'Vuelo ~1.5h'},
+  'Marsella':     {f:[60,130],h:[70,140],c:40,t:12,note:'Vuelo ~1.5h'},
+  'Lyon':         {f:[60,130],h:[80,160],c:48,t:14,note:'Gastronómico, muy subestimado'},
+  'Niza':         {f:[70,160],h:[85,190],c:55,t:14,note:'Vuelo ~1.5h, puerta de la Costa Azul'},
+  'Estrasburgo':  {f:[70,150],h:[70,140],c:45,t:12,note:'Alsacia, mercados navideños, frontera Alemania'},
+
+  // ── ITALIA ──
+  'Roma':         {f:[70,170],h:[80,180],c:50,t:14,note:'Vuelo ~2.5h'},
+  'Florencia':    {f:[70,160],h:[85,190],c:50,t:12,note:'Vuelo a Pisa o directo'},
+  'Venecia':      {f:[70,160],h:[100,250],c:55,t:10,note:'Cara pero única'},
+  'Nápoles':      {f:[70,160],h:[60,130],c:40,t:10,note:'Más barata que el norte'},
+  'Palermo':      {f:[80,160],h:[55,110],c:35,t:10,note:'Gastronomía increíble y barata'},
+  'Milán':        {f:[70,170],h:[90,200],c:55,t:15,note:'Vuelo fácil, caro pero eficiente'},
+  'Bolonia':      {f:[70,160],h:[70,150],c:45,t:12,note:'La mejor ciudad gastronómica de Italia'},
+
+  // ── MARRUECOS ──
+  'Marrakech':    {f:[80,180],h:[35,100],c:20,t:8,note:'Vuelo ~2.5h, costes muy bajos en destino'},
+  'Fez':          {f:[90,190],h:[30,90], c:18,t:7,note:'Más auténtica que Marrakech'},
+  'Tánger':       {f:[80,170],h:[35,90], c:18,t:8,note:'Vuelo o ferry desde Tarifa (~35min)'},
+  'Road trip Marruecos':            {f:[80,180],h:[30,90], c:18,t:0,road:true,car:[30,55],note:'Vuelo a Marrakech o Fez + coche · desierto, kasbahs, Atlas · 7-10 días'},
+
+  // ── REINO UNIDO ──
+  'Londres':      {f:[60,160],h:[100,220],c:65,t:20,note:'Caro, pero fácil en low cost'},
+  'Edimburgo':    {f:[70,160],h:[90,200],c:55,t:15,note:'Vuelo ~2.5h, preciosa'},
+  'Road trip Highlands Escocesas':  {f:[70,160],h:[70,160],c:50,t:0,road:true,car:[35,65],note:'Vuelo a Edimburgo o Inverness + coche · Loch Ness, Skye, Glen Coe · 7-10 días'},
+
+  // ── IRLANDA ──
+  'Dublín':       {f:[60,150],h:[90,200],c:60,t:15,note:'Vuelo ~2h, muy social'},
+  'Road trip Wild Atlantic Way':    {f:[60,150],h:[65,140],c:45,t:0,road:true,car:[35,60],note:'Vuelo a Dublín o Shannon + coche · Galway, Cliffs of Moher, Connemara · 7-10 días'},
+
+  // ── PAÍSES BAJOS ──
+  'Ámsterdam':    {f:[70,160],h:[100,220],c:55,t:15,note:'Vuelo ~2.5h, cara pero muy compacta'},
+
+  // ── ALEMANIA ──
+  'Berlín':       {f:[70,160],h:[70,150],c:45,t:15,note:'Vuelo ~2.5h, cultura brutal'},
+  'Múnich':       {f:[70,160],h:[80,170],c:50,t:15,note:'Vuelo ~2.5h, puerta de los Alpes'},
+  'Road trip Ruta Romántica':       {f:[70,160],h:[65,140],c:42,t:0,road:true,car:[35,60],note:'Vuelo a Múnich + coche · Rothenburg, Füssen, Neuschwanstein · 5-7 días'},
+
+  // ── AUSTRIA / SUIZA ──
+  'Viena':        {f:[80,170],h:[80,170],c:50,t:14,note:'Vuelo ~2.5h, imperial y accesible'},
+  'Salzburgo':    {f:[80,170],h:[80,160],c:48,t:14,note:'Vuelo a Múnich + tren 1.5h'},
+  'Road trip Alpes Austria-Suiza':  {f:[80,180],h:[90,200],c:55,t:0,road:true,car:[40,70],note:'Vuelo a Zúrich o Innsbruck + coche · lagos alpinos, Hallstatt, Grossglockner'},
+
+  // ── GRECIA ──
+  'Atenas':       {f:[80,180],h:[60,140],c:40,t:12,note:'Vuelo ~3h, muy razonable'},
+  'Santorini':    {f:[100,250],h:[120,400],c:55,t:15,note:'Cara en verano, mejor primavera/otoño'},
+  'Tesalónica':   {f:[90,180],h:[55,120],c:35,t:10,note:'Mucho mejor que Atenas y más barata'},
+  'Creta':        {f:[90,200],h:[55,130],c:38,t:18,note:'Vuelo + coche · la isla más grande y variada de Grecia'},
+  'Road trip Peloponeso':           {f:[80,180],h:[55,120],c:35,t:0,road:true,car:[28,52],note:'Vuelo a Atenas + coche · Micenas, Olimpia, Mystras, Monemvasia · 7 días'},
+  'Road trip islas griegas':        {f:[100,230],h:[65,180],c:42,t:0,road:true,car:[25,45],ferry:[20,50],note:'Vuelo + ferry entre islas · Atenas, Mikonos, Paros, Naxos o ruta Jónica'},
+
+  // ── CROACIA ──
+  'Dubrovnik':    {f:[90,220],h:[90,200],c:45,t:12,note:'Masificada en verano, mejor sept/oct'},
+  'Split':        {f:[80,180],h:[70,160],c:40,t:12,note:'Mejor base que Dubrovnik'},
+  'Zagreb':       {f:[70,160],h:[60,130],c:35,t:10,note:'Muy subestimada, barata y bonita'},
+  'Road trip Costa Croata':         {f:[80,180],h:[65,150],c:38,t:0,road:true,car:[28,52],ferry:[15,35],note:'Vuelo a Split o Dubrovnik + coche · Makarska, Hvar, Korčula, Pelješac · 7-10 días'},
+
+  // ── REPÚBLICA CHECA / HUNGRÍA / POLONIA ──
+  'Praga':        {f:[80,170],h:[55,130],c:30,t:10,note:'Vuelo ~3h, muy barata para Europa Central'},
+  'Budapest':     {f:[80,170],h:[55,120],c:30,t:10,note:'De las mejores relaciones calidad-precio de Europa'},
+  'Cracovia':     {f:[80,170],h:[45,100],c:25,t:8, note:'Increíblemente barata, historia brutal'},
+  'Road trip Europa Central':       {f:[80,170],h:[50,120],c:28,t:0,road:true,car:[30,55],note:'Vuelo a Praga o Viena + coche · Praga, Brno, Bratislava, Budapest · 7-10 días'},
+
+  // ── ISLANDIA ──
+  'Reikiavik':    {f:[120,280],h:[120,280],c:70,t:30,note:'Cara pero ningún sitio es igual'},
+  'Road trip Ring Road Islandia':   {f:[120,280],h:[90,200],c:65,t:0,road:true,car:[60,110],note:'Vuelo + 4x4 · la carretera circular completa · 8-12 días · imprescindible reservar coche con meses de antelación'},
+
+  // ── TURQUÍA ──
+  'Estambul':     {f:[90,200],h:[50,140],c:25,t:10,note:'Enorme valor — poco comparable en Europa'},
+  'Capadocia':    {f:[110,250],h:[60,200],c:25,t:20,note:'Globos aerostáticos incluidos'},
+  'Road trip Costa Turca (Turquesa)':{f:[90,210],h:[50,130],c:28,t:0,road:true,car:[28,50],note:'Vuelo a Dalaman o Bodrum + coche · Ölüdeniz, Kaş, Patara, Éfeso · 7-10 días'},
+
+  // ── NORUEGA ──
+  'Road trip Fiordos Noruega':      {f:[100,230],h:[90,190],c:65,t:0,road:true,car:[40,70],ferry:[20,50],note:'Vuelo a Bergen u Oslo + coche · Geiranger, Flåm, Nærøyfjord · caro pero sobrecogedor'},
+
+  // ── ESCANDINAVIA ──
+  'Estocolmo':    {f:[80,180],h:[90,190],c:58,t:16,note:'Vuelo ~3h, ciudad archipiélago'},
+  'Copenhague':   {f:[80,180],h:[100,210],c:65,t:18,note:'Vuelo ~2.5h, la más cara de las capitales nórdicas'},
+};
+function getDestData(destName){
+  if(!destName) return null;
+  const n = destName.trim();
+  // Exact match first, then partial
+  if(DEST_DB[n]) return DEST_DB[n];
+  const key = Object.keys(DEST_DB).find(k=>k.toLowerCase()===n.toLowerCase()||n.toLowerCase().includes(k.toLowerCase())||k.toLowerCase().includes(n.toLowerCase()));
+  return key ? DEST_DB[key] : null;
+}
+
+// Gateway cities — origins already in Iberia don't need an extra hub flight
+const SPAIN_PORTUGAL_ORIGINS = ['madrid','barcelona','sevilla','valencia','bilbao','málaga','malaga',
+  'granada','alicante','zaragoza','palma','tenerife','gran canaria','lanzarote','fuerteventura',
+  'lisboa','oporto','faro','la palma','la gomera','el hierro','menorca','ibiza'];
+
+// Only Iberian road trips where f[0]===0 (no own flight) need a gateway from outside Iberia
+function needsGatewayFlight(originCity, destData){
+  if(!destData.road) return false;
+  if(!originCity) return false;
+  // If the road trip already includes its own flight cost (f[0]>0), no gateway needed
+  // e.g. Road trip Sicilia has f:[80,170] — the flight to Palermo IS the f[] cost
+  if(destData.f[0] > 0) return false;
+  const o = originCity.toLowerCase().trim();
+  return !SPAIN_PORTUGAL_ORIGINS.some(c => o.includes(c) || c.includes(o));
+}
+
+// Gateway flight cost estimate (to Madrid/Lisbon) from abroad
+const GATEWAY_FLIGHT = {min: 60, max: 180}; // typical Europe→Spain pp roundtrip
+
+function calcBudget(destData, days, pax, budgetTotal, originCity){
+  if(!destData) return null;
+  const nights = Math.max(1, days-1);
+  let flightMin, flightMax;
+
+  if(destData.road){
+    const carMin = (destData.car?.[0]||30)*days;
+    const carMax = (destData.car?.[1]||60)*days;
+    const ferryMin = (destData.ferry?.[0]||0)*pax;
+    const ferryMax = (destData.ferry?.[1]||0)*pax;
+    // Base road trip cost (f is 0,0 for domestic road trips)
+    let baseMin = destData.f[0]*pax + carMin + ferryMin;
+    let baseMax = destData.f[1]*pax + carMax + ferryMax;
+    // Add gateway flight if coming from abroad
+    if(needsGatewayFlight(originCity, destData)){
+      baseMin += GATEWAY_FLIGHT.min * pax;
+      baseMax += GATEWAY_FLIGHT.max * pax;
+    }
+    flightMin = baseMin;
+    flightMax = baseMax;
+  } else {
+    flightMin = destData.f[0]*pax;
+    flightMax = destData.f[1]*pax;
+  }
+
+  const hotelMin = destData.h[0]*nights;
+  const hotelMax = destData.h[1]*nights;
+  const foodMin = destData.c*0.7*days*pax;
+  const foodMax = destData.c*1.4*days*pax;
+  const totalMin = flightMin+hotelMin+foodMin;
+  const totalMax = flightMax+hotelMax+foodMax;
+  return {flightMin,flightMax,hotelMin,hotelMax,foodMin,foodMax,totalMin,totalMax,nights,note:destData.note,isRoad:!!destData.road,hasGateway:needsGatewayFlight(originCity,destData)};
+}
+
+
+const DEST_REGION = {
+  // Spain
+  'Madrid':'es','Barcelona':'es','Sevilla':'es','Valencia':'es','Bilbao':'es','Granada':'es',
+  'San Sebastián':'es','Málaga':'es','Cádiz':'es','Salamanca':'es','Toledo':'es','Córdoba':'es',
+  'Palma de Mallorca':'es_island','Menorca':'es_island','Ibiza':'es_island',
+  'Tenerife':'canarias','Gran Canaria':'canarias','Lanzarote':'canarias','Fuerteventura':'canarias',
+  'La Palma':'canarias','La Gomera':'canarias','El Hierro':'canarias',
+  // Portugal
+  'Lisboa':'pt','Oporto':'pt','Algarve':'pt','Madeira':'pt_island','Azores':'pt_island',
+  // France
+  'París':'fr','Lyon':'fr','Niza':'fr','Marsella':'fr','Burdeos':'fr','Biarritz':'fr',
+  'Estrasburgo':'fr','Montpellier':'fr','Toulouse':'fr','Nantes':'fr',
+  // UK
+  'Londres':'uk','Edimburgo':'uk','Dublín':'ie',
+  // Belgium/Netherlands/Germany
+  'Bruselas':'benelux','Ámsterdam':'benelux','Berlín':'de','Hamburgo':'de','Munich':'de',
+  'Colonia':'de','Frankfurt':'de','Stuttgart':'de','Dresden':'de',
+  // Italy
+  'Roma':'it','Florencia':'it','Milán':'it','Venecia':'it','Nápoles':'it','Turín':'it',
+  'Palermo':'it','Bolonia':'it',
+  // Switzerland/Austria
+  'Zúrich':'chau','Ginebra':'chau','Viena':'chau','Salzburgo':'chau','Innsbruck':'chau',
+  // Nordics
+  'Copenhague':'nordic','Estocolmo':'nordic','Oslo':'nordic','Helsinki':'nordic','Reikiavik':'nordic',
+  // Greece/Eastern
+  'Atenas':'gr','Santorini':'gr_island','Mykonos':'gr_island','Creta':'gr_island','Tesalónica':'gr',
+  'Dubrovnik':'balkans','Split':'balkans','Kotor':'balkans','Ljubljana':'balkans','Bucarest':'balest',
+  // Driveable from Paris (<300km)
+  'Normandía':'fr_drive','Burdeos':'fr','Lyon':'fr','Nantes':'fr','Estrasburgo':'fr',
+  'Mont-Saint-Michel':'fr_drive','Valle del Loira':'fr_drive','Champagne':'fr_drive',
+  'Tours':'fr_drive','Reims':'fr_drive','Chartres':'fr_drive','Caen':'fr_drive',
+  'Brujas':'benelux','Gante':'benelux','Ámsterdam':'benelux','Bruselas':'benelux',
+  'Colonia':'de','Luxemburgo':'benelux',
+  // Driveable from Madrid (<300km)
+  'Salamanca':'es','Toledo':'es','Segovia':'es','Ávila':'es','Cuenca':'es',
+  // Driveable from Barcelona (<300km)
+  'Tarragona':'es','Girona':'es','Montserrat':'es',
+  // Driveable from London (<300km)
+  'Brighton':'uk','Oxford':'uk','Cambridge':'uk','Bath':'uk','Canterbury':'uk',
+  // Driveable from Berlin (<300km)
+  'Dresden':'de','Leipzig':'de','Hamburgo':'de','Praga':'chau',
+  // Driveable from Rome (<300km)
+  'Nápoles':'it','Florencia':'it','Bolonia':'it',
+  // Canary Islands road trips
+  'Road trip Tenerife':'canarias','Road trip Gran Canaria':'canarias','Road trip Lanzarote':'canarias',
+  'Road trip Fuerteventura':'canarias','Interislas Canarias':'canarias',
 };
 
-function getExpImage(name,type){
-  const n=(name+' '+type).toLowerCase();
-  if(/food|gastro|cook|wine|dining|tasting|degust|cena|comida|cuisine|culinaire/.test(n)) return EXP_IMAGES.food;
-  if(/museum|art|gallery|galería|musée|arte/.test(n)) return EXP_IMAGES.museum;
-  if(/night|bar|cocktail|jazz|club|noche|nocturne/.test(n)) return EXP_IMAGES.night;
-  if(/boat|sail|cruise|kayak|water|bateau|barco|agua/.test(n)) return EXP_IMAGES.boat;
-  if(/bike|cycling|vélo|bici/.test(n)) return EXP_IMAGES.bike;
-  if(/cook|class|taller|curso|atelier/.test(n)) return EXP_IMAGES.cook;
-  if(/hike|trek|walk|caminar|randon/.test(n)) return EXP_IMAGES.hike;
-  if(/nature|park|garden|jardin|jardín/.test(n)) return EXP_IMAGES.nature;
-  return EXP_IMAGES.tour;
+
+// Origin region detection
+function getOriginRegion(city){
+  const c = (city||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+  if(/paris|ile.de.france|lyon|marseille|bordeaux|toulouse|nantes|nice|strasbourg|lille|rennes|montpellier|grenoble|dijon|clermont|rouen|tours|reims|chartres|caen/i.test(c)) return 'fr';
+  if(/madrid|barcelona|sevilla|valencia|bilbao|zaragoza|malaga|palma|espana|spain|cordoba|granada|alicante|murcia/i.test(c)) return 'es';
+  if(/lisboa|porto|oporto|faro|portugal/i.test(c)) return 'pt';
+  if(/london|edinburgh|manchester|birmingham|bristol|leeds|glasgow|brighton|oxford|cambridge|bath|uk|england|britain/i.test(c)) return 'uk';
+  if(/berlin|munich|munchen|hamburg|frankfurt|koln|cologne|dusseldorf|stuttgart|dresden|leipzig|hannover|germany|deutschland/i.test(c)) return 'de';
+  if(/amsterdam|rotterdam|brussels|bruxelles|antwerp|anvers|bruges|gent|ghent|luxembourg|hague|den.haag/i.test(c)) return 'benelux';
+  if(/rome|roma|milan|milano|florence|firenze|turin|torino|napoli|naples|bologna|venice|venezia|italy|italia/i.test(c)) return 'it';
+  if(/zurich|bern|geneva|geneve|vienna|wien|salzburg|innsbruck|basel|austria|switzerland|schweiz/i.test(c)) return 'chau';
+  if(/stockholm|oslo|copenhagen|kobenhavn|helsinki|nordic|sweden|sverige|norway|norge|denmark|danmark|finland/i.test(c)) return 'nordic';
+  // Fallback: if near Paris-sounding, return fr; otherwise fr as default for Europe
+  return 'fr';
 }
 
-async function loadExperiences(dest, travelers, budget){
-  const expSec = document.getElementById('expSection');
-  expSec.innerHTML=`<div class="exp-loading"><div class="dots" style="justify-content:center;margin-bottom:.6rem"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>${t('expLoadingMsg')}</div>`;
+// "Nearby" = same or adjacent region (exclude islands unless origin is island)
+const NEARBY_REGIONS = {
+  fr: ['fr','benelux','de','chau','fr_drive'],
+  es: ['es','pt'],
+  pt: ['pt','es'],
+  uk: ['uk','ie'],
+  de: ['de','benelux','chau'],
+  benelux: ['benelux','fr','de','fr_drive'],
+  it: ['it','fr','chau'],
+  chau: ['chau','de','it'],
+  nordic: ['nordic'],
+  other: [],
+};
 
-  const expLang = lang==='fr'?'French':lang==='en'?'English':'Spanish';
-  const prompt=`You are a travel expert. For a trip to "${dest}" (${travelers}, ${budget} budget), suggest exactly 6 paid experiences or tours that are genuinely worth booking.
 
-Respond ONLY with a valid JSON array. No markdown, no explanation. Format:
-[
-  {
-    "name": "Experience name in ${expLang}",
-    "type": "tour|food|museum|night|boat|bike|cook|hike|nature|art",
-    "tagline": "One evocative sentence in ${expLang}",
-    "duration": "e.g. 3h / Half day / Full day",
-    "price": "e.g. from €45 / from $30",
-    "rating": "e.g. 4.8"
+function parseTips(text){
+  if(!text||!text.trim()) return '';
+  const lines=text.split('\n')
+    .map(l=>l.replace(/^[-•*\d.)]+\s*/,'').replace(/\*\*/g,'').replace(/^#+\s*/,'').trim())
+    .filter(l=>l.length>10);
+  const labels=['\uD83D\uDCA1 Consejo 1','\uD83D\uDCA1 Consejo 2','\uD83D\uDCA1 Consejo 3','\uD83D\uDCA1 Consejo 4'];
+  const cards=lines.slice(0,4).map((txt,idx)=>{
+    const lbl=labels[idx]||labels[0];
+    const sepRE=/[.:](?=\s[A-Z\u00C0-\u00FF]|\s[a-z\u00E0-\u00FF])/;
+    const sepIdx=txt.search(sepRE);
+    let head='',body='';
+    if(sepIdx>12&&sepIdx<90){head=txt.slice(0,sepIdx+1).trim();body=txt.slice(sepIdx+1).trim();}
+    else{head=txt;body='';}
+    return `<div class="tc"><div class="tn">${lbl}</div><div class="th">${head}</div>${body?`<div class="tb">${body}</div>`:''}</div>`;
+  }).join('');
+  if(!cards) return '';
+  return `<div class="rtips"><div class="rtips-hd"><div class="rtips-title">4 cosas que necesitas saber</div><div class="rtips-rule"></div></div><div class="tg">${cards}</div></div>`;
+}
+
+function updateUI(){
+  const pct=((step-1)/(STEPS-1))*100;
+  document.getElementById('progFill').style.width=pct+'%';
+  document.getElementById('navDots').innerHTML=Array.from({length:STEPS},(_,i)=>`<div class="nav-dot ${i+1<step?'done':i+1===step?'active':''}"></div>`).join('');
+  document.getElementById('backBtn').classList.toggle('hidden',step===1);
+  const btn=document.getElementById('ctaBtn');
+  btn.disabled=!canProceed();
+  if(step===STEPS){btn.innerHTML='⚡ Generar mi viaje →';btn.className='btn-gen final';}
+  else{btn.innerHTML='Continuar →';btn.className='btn-gen';}
+  if(step===7&&WZ.origin&&WZ.budget){renderSugg();updateSum();}
+}
+function canProceed(){switch(step){case 1:return!!WZ.type;case 2:return!!WZ.dur;case 3:return!!(WZ.df||WZ.flex);case 4:return!!WZ.pax;case 5:return!!WZ.origin;case 6:return WZ.budget>=100;case 7:return true;}}
+function goTo(n){
+  const cur=document.getElementById('s'+step),nxt=document.getElementById('s'+n);
+  if(n>step){cur.classList.add('exit-l');setTimeout(()=>cur.classList.remove('active','exit-l'),300);}
+  else cur.classList.remove('active');
+  setTimeout(()=>{nxt.classList.add('active');step=n;updateUI();window.scrollTo({top:0,behavior:'smooth'});},n>step?50:0);
+}
+function goBack(){if(step>1)goTo(step-1);}
+function onCta(){if(!canProceed())return;if(step===STEPS){startGenerate();return;}goTo(step+1);}
+function pick(field,val,el){
+  el.closest('.opt-grid,.wz-step').querySelectorAll('.opt-card').forEach(c=>c.classList.remove('sel'));
+  el.classList.add('sel');WZ[field]=val;updateUI();
+  if(['type','dur','pax'].includes(field))setTimeout(()=>goTo(step+1),320);
+}
+function togPill(el,val){
+  el.classList.toggle('sel');
+  if(el.classList.contains('sel')){if(!WZ.interests.includes(val))WZ.interests.push(val);}
+  else WZ.interests=WZ.interests.filter(i=>i!==val);
+  updateUI();
+}
+// DATES
+function onDates(){
+  WZ.df=document.getElementById('wdf').value||null;
+  WZ.dt=document.getElementById('wdt').value||null;
+  if(WZ.df&&!WZ.dt&&WZ.dur){const d=new Date(WZ.df+'T00:00:00');d.setDate(d.getDate()+parseInt(WZ.dur));const v=d.toISOString().split('T')[0];document.getElementById('wdt').value=v;WZ.dt=v;}
+  updateUI();
+}
+function toggleFlex(el){
+  WZ.flex=!WZ.flex;el.classList.toggle('sel',WZ.flex);
+  if(WZ.flex){const t=new Date();t.setDate(t.getDate()+14);const v=t.toISOString().split('T')[0];document.getElementById('wdf').value=v;WZ.df=v;const d2=new Date(t);d2.setDate(d2.getDate()+parseInt(WZ.dur||7));const v2=d2.toISOString().split('T')[0];document.getElementById('wdt').value=v2;WZ.dt=v2;}
+  updateUI();
+}
+document.querySelectorAll('#s2 .opt-card').forEach(c=>c.addEventListener('click',()=>setTimeout(()=>{
+  if(!WZ.df&&WZ.dur){const t=new Date();t.setDate(t.getDate()+14);const v=t.toISOString().split('T')[0];document.getElementById('wdf').value=v;WZ.df=v;const d2=new Date(t);d2.setDate(d2.getDate()+parseInt(WZ.dur));document.getElementById('wdt').value=d2.toISOString().split('T')[0];WZ.dt=d2.toISOString().split('T')[0];updateUI();}
+},420)));
+// BUDGET
+function onBudget(v){WZ.budget=parseInt(v);document.getElementById('budVal').textContent=v;const pct=((v-100)/(3000-100))*100;document.getElementById('budSlider').style.setProperty('--p',pct+'%');updateUI();}
+// ORIGIN
+const CITIES=['París','Madrid','Barcelona','Londres','Berlín','Ámsterdam','Roma','Lisboa','Bruselas','Viena','Praga','Varsovia','Budapest','Estocolmo','Oslo','Copenhague','Zurich','Ginebra','Milán','Nápoles','Lyon','Marsella','Nantes','Burdeos','Sevilla','Valencia','Bilbao','Málaga','Granada','Zaragoza','Munich','Hamburgo','Frankfurt','Colonia','Dublin','Edimburgo','Manchester','Birmingham','Toulouse','Montpellier','Estrasburgo','Lille','Niza','Reikiavik','Helsinki','Oporto','Florencia','Venecia','Rotterdam'];
+function onOrigin(v){WZ.origin=v;const box=document.getElementById('originSugg');if(!v||v.length<2){box.classList.remove('show');updateUI();return;}const m=CITIES.filter(c=>c.toLowerCase().startsWith(v.toLowerCase())).slice(0,6);if(!m.length){box.classList.remove('show');updateUI();return;}box.innerHTML=m.map(c=>`<div class="sugg-item" onclick="setOrigin(${JSON.stringify(c)})">📍 ${c}</div>`).join('');box.classList.add('show');updateUI();}
+function setOrigin(c){document.getElementById('wOrigin').value=c;document.getElementById('originSugg').classList.remove('show');WZ.origin=c;updateUI();}
+function geolocate(){if(!navigator.geolocation)return;navigator.geolocation.getCurrentPosition(pos=>{fetch(`https://nominatim.openstreetmap.org/reverse?lat=${pos.coords.latitude}&lon=${pos.coords.longitude}&format=json`).then(r=>r.json()).then(d=>{const c=d.address.city||d.address.town||d.address.village||'';if(c){document.getElementById('wOrigin').value=c;WZ.origin=c;updateUI();}}).catch(()=>{});});}
+// DEST AUTOCOMPLETE
+function onDestInput(v){WZ.dest=v||null;const box=document.getElementById('destSugg');if(!v||v.length<2){box.classList.remove('show');return;}const keys=Object.keys(DEST_DB).filter(k=>k.toLowerCase().includes(v.toLowerCase())).slice(0,8);if(!keys.length){box.classList.remove('show');return;}box.innerHTML=keys.map(k=>`<div class="sugg-item" onclick="setDest(${JSON.stringify(k)})">${DEST_DB[k].road?'🚗':'✈️'} ${k} <span class="sugg-note">${DEST_DB[k].note||''}</span></div>`).join('');box.classList.add('show');}
+function setDest(name){document.getElementById('wDest').value=name;document.getElementById('destSugg').classList.remove('show');WZ.dest=name;chosenDest=name;document.querySelectorAll('.dp-card').forEach(c=>c.classList.toggle('picked',c.querySelector('.dp-name')?.textContent===name));updateUI();}
+// SUGGESTIONS
+function renderSugg(){
+  const days=parseInt(WZ.dur||'5'),pax=parseInt(WZ.pax||'2'),bT=WZ.budget*pax,origin=WZ.origin||'';
+  const allFits=Object.entries(DEST_DB).filter(([n,d])=>{const c=calcBudget(d,days,pax,bT,origin);return c&&c.totalMin<=bT;});
+  const allE=Object.entries(DEST_DB),oReg=getOriginRegion(origin),nearR=NEARBY_REGIONS[oReg]||[];
+  const nearDests=allE.filter(([n,d])=>{if(d.road)return false;const r=DEST_REGION[n];if(!r)return false;if(r.includes('island')||r==='canarias')return false;return nearR.includes(r);});
+  let roadDests=allFits.filter(([n,d])=>d.road===true);
+  if((WZ.interests.includes('aventura')||WZ.type==='road'||WZ.type==='micro')&&roadDests.length>0){const[rN,rD]=roadDests[0];const camper=['🚐 Camper '+rN,{...rD,note:rD.note+' · En camper van',isCamper:true}];if(!roadDests.find(([n])=>n.startsWith('🚐')))roadDests=[camper,...roadDests];}
+  const flyDests=allFits.filter(([n,d])=>{if(d.road)return false;const r=DEST_REGION[n];if(r&&nearR.includes(r)&&!r.includes('island')&&r!=='canarias')return false;return true;});
+  function pR(arr,s){return arr.length?arr[((s||0)*7+3)%arr.length]:null;}
+  const nP=pR(nearDests,_seed),rP=pR(roadDests,_seed+1),f1=pR(flyDests,_seed+2),f2=pR(flyDests.filter(d=>d!==f1),_seed+4);
+  let picks=[nP,rP,f1,f2].filter(Boolean).filter((v,i,a)=>a.findIndex(x=>x[0]===v[0])===i).slice(0,4);
+  if(!nP&&picks.length<4){const fo=allE.find(([n,d])=>!d.road&&(d.f[0]||0)<60&&DEST_REGION[n]);if(fo&&!picks.find(p=>p[0]===fo[0]))picks.unshift(fo);}
+  const panel=document.getElementById('destPanel');if(!picks.length){panel.classList.remove('show');return;}
+  document.getElementById('dpTitle').textContent='Destinos posibles — €'+WZ.budget+'pp · '+WZ.dur+'d';
+  const NL='📍 Cerca',RL='🚗 Road trip',FL='✈️ Vuelo';
+  const tL=(n,d)=>{if(d.road)return RL;const r=DEST_REGION[n];if(r&&nearR.includes(r)&&!r.includes('island')&&r!=='canarias')return NL;return FL;};
+  document.getElementById('dpCards').innerHTML=picks.map(([name,d])=>{const c=calcBudget(d,days,pax,bT,origin);if(!c)return'';const rem=Math.round(bT-c.totalMin);return`<div class="dp-card" onclick="chooseDest(${JSON.stringify(name)},this)"><div style="flex:1;min-width:0"><div class="dp-type">${tL(name,d)}</div><div class="dp-name">${name}</div><div class="dp-note">${d.note||''}</div></div><div class="dp-price"><div class="dp-pp">desde ~€${Math.round(c.totalMin/pax)}pp</div>${pax>1?`<div class="dp-tot">~€${Math.round(c.totalMin)} ${pax} pax</div>`:''}<div class="dp-left">te sobran ~€${rem}</div></div></div>`;}).join('');
+  panel.classList.add('show');
+}
+function chooseDest(name,el){document.querySelectorAll('.dp-card').forEach(c=>c.classList.remove('picked'));el.classList.add('picked');chosenDest=name;WZ.dest=name;document.getElementById('wDest').value=name;updateUI();}
+function refreshSugg(){_seed=Math.floor(Math.random()*99);chosenDest=null;WZ.dest=null;document.getElementById('wDest').value='';renderSugg();}
+// SUMMARY
+const TYPE_LBL={city:'City trip',road:'Road trip',micro:'Micro-aventura',surprise:'Sorpréndeme'};
+function fD(s){if(!s)return'';const d=new Date(s+'T00:00:00');return d.toLocaleDateString('es-ES',{day:'numeric',month:'short'});}
+function updateSum(){
+  const rows=[['Escapada',TYPE_LBL[WZ.type]||WZ.type],['Duración',WZ.dur+' días'],['Fechas',WZ.df?fD(WZ.df)+(WZ.dt?' → '+fD(WZ.dt):''):'Flexible'],['Viajeros',{1:'Solo/a',2:'Pareja',4:'Amigos/familia'}[WZ.pax]||WZ.pax+' pax'],['Origen',WZ.origin||'—'],['Presupuesto','€'+WZ.budget+'/pp'],WZ.dest?['Destino',WZ.dest]:null].filter(Boolean);
+  const el=document.getElementById('wzSum');
+  el.innerHTML=rows.map(([k,v])=>`<div class="wz-srow"><span class="wz-sk">${k}</span><span class="wz-sv">${v}</span></div>`).join('');
+  el.style.display='block';
+}
+// GENERATE
+const WOWS=['Tu momento wow se está cocinando…','Buscando las mejores calles y platos…','Diseñando tu escapada perfecta…','Calculando vuelos, hoteles y actividades…'];
+function startGenerate(){
+  WZ.custom=document.getElementById('wCustom').value;
+  const dest=WZ.dest||chosenDest||(()=>{const days=parseInt(WZ.dur||5),pax=parseInt(WZ.pax||2),bT=WZ.budget*pax,o=WZ.origin||'';const fits=Object.entries(DEST_DB).filter(([n,d])=>{const c=calcBudget(d,days,pax,bT,o);return c&&c.totalMin<=bT;});return fits[Math.floor(Math.random()*Math.min(fits.length,10))]?.[0]||'Lisboa';})();
+  WZ.dest=dest;
+  document.getElementById('ldDest').textContent=dest;
+  document.getElementById('ldWow').textContent=WOWS[Math.floor(Math.random()*WOWS.length)];
+  document.getElementById('loadScreen').classList.add('on');
+  let li=0;const ldI=setInterval(()=>{for(let i=0;i<4;i++)document.getElementById('ls'+i).classList.toggle('on',i<=li);li++;if(li>=4)clearInterval(ldI);},1900);
+  const days=parseInt(WZ.dur||5),pax=parseInt(WZ.pax||2);
+  const paxStr=WZ.fam?pax+' personas con familia':pax===1?'1 persona':pax===2?'2 personas':pax+' personas';
+  const interests=WZ.interests.join(', ')||'variado';
+  const dData=DEST_DB[dest]||null;
+  const isRoad=dData?.road||WZ.type==='road';
+  const bTotal=WZ.budget*pax;
+  const prompt=`Crea un itinerario completo para ${paxStr} a ${dest}, saliendo desde ${WZ.origin||'Europa'}.
+Duración: ${days} días.${WZ.df?' Fechas: '+WZ.df+(WZ.dt?' a '+WZ.dt:'')+'.':' Fechas flexibles.'}
+Presupuesto: €${WZ.budget}/persona (€${bTotal} total). Tipo: ${TYPE_LBL[WZ.type]||WZ.type}. Intereses: ${interests}.${WZ.custom?' '+WZ.custom:''}
+
+### TRANSPORTE
+ROUTE: [ruta completa — "${WZ.origin||'origen'} → ${dest}"]
+OUTBOUND: [vuelo o tren de ida — duración, aeropuerto/estación]
+PRICE_TOTAL: [precio ida+vuelta ${pax} persona${pax>1?'s':''}]
+BOOK_TIP: [cuándo reservar]
+RETURN: [detalles vuelta]
+LOCAL_TRANSPORT: [cómo moverse en ${dest}]
+LOCAL_TRANSPORT_COST: [coste aproximado]
+${isRoad?'CAR_RENTAL_NEEDED: [info alquiler coche]':''}
+
+### Introducción
+[2-3 frases sobre por qué ${dest} encaja perfectamente.]
+
+${Array.from({length:days},(_,i)=>`### Día ${i+1}
+**Mañana:** [actividad concreta con nombre real]
+**Tarde:** [visita o actividad concreta]
+**Noche:** [cena o actividad nocturna con nombre real]`).join('\n\n')}
+
+### Consejos prácticos
+[4 consejos numerados. Título en negrita + 2 frases concretas cada uno. Sin consejos genéricos.]
+
+### OPTIONS
+Para CADA uno de los ${days} días escribe EXACTAMENTE 5 líneas. Formato:
+NUMERO_DIA|TIPO|NOMBRE|DESCRIPCION|PRECIO|DURACION
+TIPO = hotel | experience | free
+Por día: 1 hotel (precio noche) + 2 experience (€XX) + 1 free (Gratis) + 1 free (Gratis).
+SIN markdown, SIN asteriscos, SOLO líneas pipe. Nombres reales.
+
+### RECAP
+TRANSPORT_COST: [vuelo/tren ida+vuelta ${pax} personas]
+HOTEL_COST: [${days-1} noches — €X-Y/noche]
+FOOD_COST: [€X/persona/día × ${days} días]
+TOTAL_ESTIMATE: [rango total ${pax} personas]
+ACCOMMODATION: [3 opciones reales con barrio y precio]
+
+En español. Máximo ${Math.max(1400,days*280)} palabras.`;
+  fetch('/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:3500,messages:[{role:'user',content:prompt}]})})
+  .then(r=>r.json()).then(data=>{clearInterval(ldI);const raw=(data.content||[]).map(b=>b.text||'').join('').trim();document.getElementById('loadScreen').classList.remove('on');renderResults(raw,dest);})
+  .catch(e=>{clearInterval(ldI);document.getElementById('loadScreen').classList.remove('on');alert('Error — inténtalo de nuevo.');console.error(e);});
+}
+// RENDER RESULTS
+function rclean(s){return(s||'').replace(/\*\*/g,'').replace(/\*/g,'').trim();}
+function rget(blk,k){const m=blk.match(new RegExp(k+':\\s*(.+)'));return m?rclean(m[1]):'';}
+function rmd(s){return(s||'').replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>').replace(/\*([^*]+)\*/g,'<em>$1</em>');}
+function renderResults(raw,dest){
+  document.getElementById('wizard').style.display='none';
+  document.getElementById('results').classList.add('on');
+  const days=parseInt(WZ.dur||5),pax=parseInt(WZ.pax||2);
+  document.getElementById('rImg').src=`https://source.unsplash.com/1200x500/?${encodeURIComponent(dest)},travel,city`;
+  document.getElementById('rDest').textContent=dest;
+  document.getElementById('rMeta').textContent=(WZ.df?fD(WZ.df)+(WZ.dt?' → '+fD(WZ.dt):''):'Fechas flex')+' · '+days+'d · '+pax+' pax · desde '+WZ.origin;
+  document.getElementById('rTags').innerHTML=[TYPE_LBL[WZ.type],...WZ.interests.slice(0,3),'€'+WZ.budget+'/pp'].filter(Boolean).map(t=>`<div class="res-tag">${t}</div>`).join('');
+  const tc=raw.match(/###\s*TRANSPORTE[\s\S]*?(?=###|$)/i)?.[0]||'';
+  const route=rget(tc,'ROUTE'),outbound=rget(tc,'OUTBOUND'),priceT=rget(tc,'PRICE_TOTAL'),bkTip=rget(tc,'BOOK_TIP'),ret=rget(tc,'RETURN'),locT=rget(tc,'LOCAL_TRANSPORT'),locC=rget(tc,'LOCAL_TRANSPORT_COST'),carR=rget(tc,'CAR_RENTAL_NEEDED');
+  const dData=DEST_DB[dest]||null,isRoad=dData?.road||WZ.type==='road';
+  const fUrl=affUrl('flight',dest,WZ.origin||'',[],[],pax),tUrl=affUrl('train',dest,WZ.origin||'',[],[],pax),cUrl=affUrl('car',dest,WZ.origin||'',[],[],pax),hUrl=affUrl('hotel',dest,'',[],[],pax);
+  document.getElementById('rTransport').innerHTML=`
+<div class="r-card r-dk" style="margin-top:0">
+  <span class="r-badge">${isRoad?'🚗 TRANSPORTE & RUTA':'✈️ TRANSPORTE'}</span>
+  <div class="r-title">${route||WZ.origin+' → '+dest}</div>
+  <div class="r-body">
+    ${outbound?`<div class="r-field"><div class="r-flbl">IDA</div><div>${rmd(outbound)}</div></div>`:''}
+    ${priceT?`<div class="r-field"><div class="r-flbl">PRECIO</div><div>${priceT}</div></div>`:''}
+    ${bkTip?`<div class="r-field"><div class="r-flbl">CUÁNDO RESERVAR</div><div>${bkTip}</div></div>`:''}
+    ${ret?`<div class="r-field"><div class="r-flbl">VUELTA</div><div>${ret}</div></div>`:''}
+  </div>
+  ${locT?`<div class="r-local"><div class="r-local-in">🚶 ${locT}${locC?' · '+locC:''}</div></div>`:''}
+  ${carR?`<div class="r-local"><div class="r-local-in">🚗 ${carR}</div></div>`:''}
+  <div class="r-links">
+    <a class="r-link pr" href="${fUrl}" target="_blank">✈️ Buscar vuelos</a>
+    <a class="r-link gh" href="${tUrl}" target="_blank">🚂 Trenes</a>
+    ${isRoad?`<a class="r-link gh" href="${cUrl}" target="_blank">🚗 Coche</a>`:''}
+  </div>
+</div>
+<div class="r-supp">
+  <div class="r-supp-badge">🏨 ALOJAMIENTO</div>
+  <div class="r-supp-title">Dónde dormir en ${dest}</div>
+  <div class="r-supp-note">${isRoad?'Road trip: reserva noche a noche según tu ruta.':Math.max(1,days-1)+' noches — reserva con antelación.'}</div>
+  <a class="r-supp-btn" href="${hUrl}" target="_blank">Buscar alojamiento →</a>
+</div>`;
+  const {timelineHTML,tipsHTML}=parseRaw(raw,dest);
+  document.getElementById('rTips').innerHTML=tipsHTML;
+  document.getElementById('rDays').innerHTML=timelineHTML;
+  buildRecap(dest,days,pax);
+}
+// PARSE RAW
+function parseRaw(text,dest){
+  const parts=text.split(/(#{1,3}[^\n]+)/g).filter(s=>s.trim());
+  let tlHTML='',tpHTML='';let dayCount=0;wzOptsByDay={};
+  for(let i=0;i<parts.length;i++){
+    const part=parts[i].trim();if(!part)continue;
+    if(/^#{1,3}\s*(Día|Day)\s+\d+/i.test(part)){
+      dayCount++;
+      const title=part.replace(/^#+\s*/,'').replace(/^(Día|Day)\s+\d+[\s\u2014\u2013:-]*/i,'').trim();
+      const rawC=parts[i+1]&&!parts[i+1].startsWith('#')?parts[i+1].trim():'';
+      if(rawC)i++;
+      const dfv=WZ.df||'';
+      const dDate=dfv?(()=>{const d=new Date(dfv+'T00:00:00');d.setDate(d.getDate()+(dayCount-1));return d.toLocaleDateString('es-ES',{weekday:'short',day:'numeric',month:'short'});})():'';
+      const mk=[/\*{0,2}mañana[^:]*:\*{0,2}\s*/i,/\*{0,2}tarde[^:]*:\*{0,2}\s*/i,/\*{0,2}noche[^:]*:\*{0,2}\s*/i];
+      function gM(raw,sR,eRs){const p=raw.search(sR);if(p<0)return'';const a=raw.slice(p).replace(sR,'');let e=a.length;for(const r of eRs){const pp=a.search(r);if(pp>0&&pp<e)e=pp;}return rmd(a.slice(0,e).trim());}
+      const morn=gM(rawC,mk[0],[mk[1],mk[2]]),aftn=gM(rawC,mk[1],[mk[2],mk[0]]),evng=gM(rawC,mk[2],[mk[0],mk[1]]);
+      const momHTML=(morn||aftn||evng)?[{l:'Mañana',t:morn},{l:'Tarde',t:aftn},{l:'Noche',t:evng}].filter(m=>m.t).map(m=>`<div class="mom"><div class="m-time"><div class="m-dot"></div><div class="m-lbl">${m.l}</div></div><div class="m-txt">${m.t}</div></div>`).join(''):`<div style="font-size:.8rem;color:var(--ink2);line-height:1.7">${rmd(rawC)}</div>`;
+      tlHTML+=`<div class="day-card" id="wzd-${dayCount}"><div class="day-hdr"><div class="day-nc"><div class="day-nb">${dayCount}</div><div class="day-nw">día</div></div><div class="day-hr">${dDate?`<div class="day-date">${dDate}</div>`:''}<div class="day-ttl">${title||'Día '+dayCount}</div></div></div><div class="day-mom">${momHTML}</div><button class="day-ob" id="wob-${dayCount}" onclick="toggleOpts(${dayCount},this)"><svg viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg> Opciones para este día</button><div class="opts-panel" id="wop-${dayCount}"></div></div>`;
+    }
+    else if(/^#{1,3}\s*(Consejo|Tips?|Practical)/i.test(part)&&!/OPTIONS/i.test(part)){
+      const tc=parts[i+1]&&!parts[i+1].startsWith('#')?parts[i+1].trim():'';if(tc)i++;tpHTML=parseTips(tc);
+    }
+    else if(/^#{1,3}\s*OPTIONS/i.test(part)){
+      let ls=[];let j=i+1;while(j<parts.length&&!parts[j].startsWith('#')){ls.push(...parts[j].trim().split('\n'));j++;}i=j-1;
+      ls.filter(l=>l.includes('|')).forEach(line=>{
+        const p=line.replace(/^[-*\d.\s]+/,'').split('|').map(s=>s.trim().replace(/\*\*/g,''));
+        const dn=parseInt(p[0]);if(!dn||isNaN(dn))return;
+        if(!wzOptsByDay[dn])wzOptsByDay[dn]=[];if(wzOptsByDay[dn].length>=5)return;
+        wzOptsByDay[dn].push({type:(p[1]||'experience').toLowerCase().replace(/[^a-z]/g,''),name:p[2]||'',desc:p[3]||'',price:p[4]||'Gratis',dur:p[5]||''});
+      });
+      console.log('[WZ] OPTIONS:',Object.keys(wzOptsByDay).length,'days',wzOptsByDay);
+    }
   }
-]
-
-Rules:
-- Names must be specific to ${dest} (real activity types for this city)
-- All paid activities (entry fees, guided tours, workshops, experiences)
-- Mix different types: no more than 2 of the same type
-- Respond ONLY with the JSON array, nothing else`;
-
-  try{
-    const res=await fetch('/api/generate',{
-      method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:800,messages:[{role:'user',content:prompt}]})
-    });
-    const data=await res.json();
-    const raw=(data.content||[]).map(b=>b.text||'').join('').trim();
-    const clean=raw.replace(/```json|```/g,'').trim();
-    const exps=JSON.parse(clean);
-    if(!Array.isArray(exps)||exps.length===0) throw new Error('No experiences');
-
-    expSec.innerHTML=`
-      <div style="margin-top:.5rem">
-        <div style="font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;margin-bottom:.3rem">${t('expTitle')}</div>
-        <div style="font-size:.82rem;color:var(--muted);margin-bottom:1.2rem">${t('expSub')}</div>
-        <div class="exp-grid">
-          ${exps.slice(0,6).map(e=>{
-            const img=getExpImage(e.name||'',e.type||'');
-            const gygUrl=`https://www.getyourguide.es/s/?q=${encodeURIComponent(e.name+' '+dest)}${AFF.gyg_partner_id?'&partner_id='+AFF.gyg_partner_id:''}`;
-            return `<div class="exp-card">
-              <div class="exp-img">
-                <img src="${img}" alt="${e.name}" loading="lazy"/>
-                <div class="exp-price-badge">${e.price||'—'}</div>
-              </div>
-              <div class="exp-body">
-                <div class="exp-tag">${(e.type||'tour').toUpperCase()}</div>
-                <div class="exp-name">${e.name}</div>
-                <div class="exp-desc">${e.tagline||''}</div>
-                <div class="exp-meta">
-                  <span class="exp-duration">⏱ ${e.duration||'—'}</span>
-                  <span class="exp-rating">★ ${e.rating||'4.8'}</span>
-                </div>
-                <a class="exp-book-btn" href="${gygUrl}" target="_blank" rel="noopener">
-                  <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 8 16 12 12 16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
-                  ${t('expBookBtn')}
-                </a>
-              </div>
-            </div>`;
-          }).join('')}
-        </div>
-      </div>`;
-  }catch(e){
-    expSec.innerHTML=''; // silently fail — not critical
-    console.warn('Experiences failed:',e);
+  return{timelineHTML:tlHTML,tipsHTML:tpHTML};
+}
+// DAY OPTIONS
+function toggleOpts(dn,btn){
+  const panel=document.getElementById('wop-'+dn);
+  const isOpen=panel.style.display==='block';
+  btn.classList.toggle('open',!isOpen);
+  if(isOpen){panel.style.display='none';return;}
+  const opts=wzOptsByDay[dn]||[],dest=WZ.dest||'';
+  const ico={hotel:'🏨',experience:'🎟️',free:'☀️'};
+  if(!opts.length){panel.innerHTML='<div class="opts-title" style="color:var(--muted)">Sin opciones disponibles.</div>';panel.style.display='block';return;}
+  panel.innerHTML='<div class="opts-title">Opciones · Día '+dn+'</div>'+opts.map((opt,i)=>{
+    const t=(opt.type||'experience').replace(/[^a-z]/g,''),em=ico[t]||'🎟️';
+    const pN=(opt.price||'Gratis').match(/\d+/)?parseInt((opt.price||'Gratis').match(/\d+/)[0]):0;
+    const id='wopt-'+dn+'-'+i;
+    const url=t==='hotel'?affUrl('hotel',dest,''):affUrl('act',dest,'');
+    return`<label class="opt-row" id="wr-${id}"><input type="checkbox" class="opt-chk" onchange="toggleOptItem(this,${JSON.stringify(id)},${JSON.stringify(opt.name)},${JSON.stringify(opt.desc)},${JSON.stringify(opt.price||'Gratis')},${pN},${JSON.stringify(em)},${JSON.stringify(url)},${dn})"><span class="opt-row-ico">${em}</span><div style="flex:1;min-width:0"><div class="opt-row-name">${opt.name}</div>${opt.desc?`<div class="opt-row-desc">${opt.desc}${opt.dur?' · '+opt.dur:''}</div>`:''}</div><div class="opt-row-price ${pN===0?'free':''}">${opt.price||'Gratis'}</div></label>`;
+  }).join('')+'<div style="font-size:.6rem;color:var(--muted);margin-top:.4rem;font-style:italic">Marca lo que quieres → aparece en el resumen</div>';
+  panel.style.display='block';
+}
+function toggleOptItem(chk,id,name,desc,price,pN,ico,url,dayNum){
+  cart=cart.filter(c=>c.id!==id);
+  if(chk.checked){cart.push({id,name:name+(desc?' — '+desc:''),price,priceNum:pN,ico,url,dayNum:parseInt(dayNum)});document.getElementById('wr-'+id)?.classList.add('picked');}
+  else document.getElementById('wr-'+id)?.classList.remove('picked');
+  buildRecap(WZ.dest||'',parseInt(WZ.dur||5),parseInt(WZ.pax||2));
+}
+// RECAP
+function buildRecap(dest,days,pax){
+  const dData=DEST_DB[dest]||null,nights=Math.max(1,days-1),isRoad=dData?.road||WZ.type==='road',bT=WZ.budget*pax;
+  const b=dData?calcBudget(dData,days,pax,bT,WZ.origin||''):{flightMin:0,flightMax:0,hasFlight:false,hotelMin:70*nights*pax,hotelMax:140*nights*pax,foodMin:25*days*pax,foodMax:50*days*pax,carMin:0,carMax:0};
+  const cartTotal=cart.reduce((s,i)=>s+(i.priceNum||0),0);
+  const baseMin=(b.hasFlight?b.flightMin:0)+b.hotelMin+b.foodMin+(isRoad?(b.carMin||0):0);
+  const baseMax=(b.hasFlight?b.flightMax:0)+b.hotelMax+b.foodMax+(isRoad?(b.carMax||0):0);
+  const totMin=baseMin+cartTotal,totMax=baseMax+cartTotal;
+  const dfv=WZ.df||'',dtv=WZ.dt||'',dateStr=dfv?fD(dfv)+(dtv?' → '+fD(dtv):''):'';
+  function dDate(n){if(!dfv)return'';const d=new Date(dfv+'T00:00:00');d.setDate(d.getDate()+(n-1));return d.toLocaleDateString('es-ES',{weekday:'short',day:'numeric',month:'short'});}
+  function agI(ico,lbl,det,rng,url,isCrt,id){return`<div class="ag-item ${isCrt?'cart':''}"><div class="ag-ico">${ico}</div><div class="ag-info"><div class="ag-lbl">${lbl}</div>${det?`<div class="ag-det">${det}</div>`:''}</div><div class="ag-r"><div class="ag-price ${rng==='Gratis'?'free':''}">${rng}</div>${url?`<a class="ag-link" href="${url}" target="_blank">Ver →</a>`:''} ${isCrt&&id?`<button class="ag-rm" onclick="removeItem(${JSON.stringify(id)})">✕</button>`:''}</div></div>`;}
+  const sorted=[...cart].sort((a,b_)=>(a.dayNum||99)-(b_.dayNum||99));
+  const byDay={};sorted.forEach(it=>{if(it.dayNum)(byDay[it.dayNum]=byDay[it.dayNum]||[]).push(it);});
+  let cartRows='';Object.keys(byDay).map(Number).sort((a,b_)=>a-b_).forEach(dn=>{cartRows+=`<div class="ag-dlbl">Día ${dn}${dDate(dn)?' · '+dDate(dn):''}</div>`;cartRows+=byDay[dn].map(it=>agI(it.ico||'📌',it.name,it.price,it.priceNum>0?'€'+it.priceNum:'Gratis',it.url,true,it.id)).join('');});
+  const fRow=b.hasFlight?agI('✈️','Vuelo · '+dest,dateStr,'€'+b.flightMin+'–€'+b.flightMax,affUrl('flight',dest,WZ.origin||'')):''
+  const cRow=isRoad?agI('🚗','Coche alquiler',days+'d · '+dest,'€'+(b.carMin||0)+'–€'+(b.carMax||0),affUrl('car',dest,WZ.origin||'')):''
+  const hRow=agI('🏨','Alojamiento · '+nights+'n',dest,'€'+b.hotelMin+'–€'+b.hotelMax,affUrl('hotel',dest,''));
+  const fdRow=agI('🍽️','Comidas · '+days+'d','Restaurantes + mercados','€'+b.foodMin+'–€'+b.foodMax,'');
+  let tlHTML='';
+  if(sorted.length>0){
+    const tlDays=[...new Set(sorted.map(i=>i.dayNum).filter(Boolean))].sort((a,b_)=>a-b_);
+    tlHTML=`<div class="r-tl"><div class="r-tl-title">Tu selección · día a día</div>${tlDays.map(dn=>`<div class="tl-day"><div class="tl-dh"><div class="tl-dd"></div><div class="tl-dn">Día ${dn}</div>${dDate(dn)?`<span class="tl-dt"> · ${dDate(dn)}</span>`:''}</div><div class="tl-items">${byDay[dn].map(it=>`<div class="tl-item"><span class="tl-i-ico">${it.ico||'📌'}</span><span class="tl-i-name">${it.name}</span><span class="tl-i-price ${it.priceNum>0?'':'free'}">${it.priceNum>0?'€'+it.priceNum:'Gratis'}</span></div>`).join('')}</div></div>`).join('')}</div>`;
   }
+  document.getElementById('rRecap').innerHTML=`${tlHTML}<div class="r-recap"><div class="r-rhead"><div class="r-rdest">${dest}</div><div class="r-rmeta">${dateStr?dateStr+' · ':''}${days} días · ${pax} pax</div></div>${cart.length>0?`<div class="ag-sec">Lo que has añadido</div>${cartRows}`:''}<div class="ag-sec">Base estimada</div>${fRow}${cRow}${hRow}${fdRow}<div class="ag-total"><div class="ag-tlbl">Total estimado</div><div class="ag-tval">€${totMin.toLocaleString()} – €${totMax.toLocaleString()}</div><div style="font-size:.67rem;color:var(--ink2);margin-top:.2rem">${b.hasFlight?'✈️ €'+b.flightMin+'–'+b.flightMax+' · ':''}🏨 €${b.hotelMin}–${b.hotelMax} · 🍽️ €${b.foodMin}–${b.foodMax}</div><div style="font-size:.67rem;color:var(--muted);margin-top:.3rem">Precios orientativos.</div></div><div class="r-email"><div class="r-email-lbl">📧 Recibir este plan por email</div><div class="r-email-row"><input type="email" class="r-email-in" placeholder="tu@email.com"><button class="r-email-send">✉ Enviar</button><button class="r-email-pdf">⬇ PDF</button></div></div></div>`;
 }
-
-// ── SAVED TRIPS ──
-let saved=JSON.parse(localStorage.getItem('ts_saved')||'[]');
-let currentTrip=null;
-function saveSaved(){localStorage.setItem('ts_saved',JSON.stringify(saved))}
-function updateSavedCount(){const el=document.getElementById('savedCount');if(saved.length>0){el.style.display='inline';el.textContent=saved.length}else el.style.display='none'}
-function openSaved(){renderSavedList();document.getElementById('savedPanel').classList.add('open');document.getElementById('savedOverlay').classList.add('open')}
-function closeSaved(){document.getElementById('savedPanel').classList.remove('open');document.getElementById('savedOverlay').classList.remove('open')}
-function renderSavedList(){
-  const el=document.getElementById('savedList');
-  if(!saved.length){el.innerHTML=`<div class="saved-empty"><div style="font-size:2rem;margin-bottom:.5rem">🗺️</div><p>${t('navSaved')}</p></div>`;return;}
-  el.innerHTML=saved.map((s,i)=>`<div class="saved-item">
-    <button class="saved-del" onclick="deleteTrip(${i})">✕</button>
-    <div class="saved-dest">${s.dest}</div>
-    <div class="saved-meta">${s.days} ${t('labelDays').toLowerCase()} · ${s.date}</div>
-    <button class="saved-load" onclick="loadTrip(${i})">${t('expBookBtn').replace('→','').trim()} →</button>
-  </div>`).join('');
-}
-function deleteTrip(i){saved.splice(i,1);saveSaved();updateSavedCount();renderSavedList()}
-function loadTrip(i){
-  const s=saved[i];
-  document.getElementById('dest').value=s.dest||'';
-  document.getElementById('origin').value=s.origin||'';
-  if(s.resultHTML){
-    document.getElementById('resHeader').innerHTML=s.resHeader||'';
-    document.getElementById('timeline').innerHTML=s.timelineHTML||'';
-    document.getElementById('tipsSection').innerHTML=s.tipsHTML||'';
-    document.getElementById('expSection').innerHTML=s.expHTML||'';
-    document.getElementById('bottomAffs').innerHTML=s.affsHTML||'';
-    document.getElementById('resultSection').classList.add('on');
-    setTimeout(()=>document.getElementById('resultSection').scrollIntoView({behavior:'smooth',block:'start'}),150);
-  }
-  closeSaved();
-}
-function saveCurrentTrip(){
-  if(!currentTrip)return;
-  const idx=saved.findIndex(s=>s.dest===currentTrip.dest&&s.days===currentTrip.days);
-  if(idx>=0)saved.splice(idx,1);
-  saved.unshift(currentTrip);
-  if(saved.length>20)saved.length=20;
-  saveSaved();updateSavedCount();
-  const btn=document.getElementById('btnSave');
-  if(btn){btn.textContent=t('saveBtnDone');btn.classList.add('active')}
-}
-updateSavedCount();
-
-// ── DATES ──
-(function(){
-  const t2=new Date(),fmt=d=>d.toISOString().split('T')[0];
-  const f=new Date(t2);f.setDate(f.getDate()+30);
-  const v=new Date(t2);v.setDate(v.getDate()+37);
-  const df=document.getElementById('df'),dt=document.getElementById('dt');
-  df.value=fmt(f);dt.value=fmt(v);df.min=fmt(t2);dt.min=fmt(t2);
-  df.addEventListener('change',function(){
-    const d=new Date(this.value+'T00:00:00');d.setDate(d.getDate()+1);
-    const m=d.toISOString().split('T')[0];dt.min=m;if(dt.value<m)dt.value=m;
-  });
-})();
-
-function activeTags(){return[...document.querySelectorAll('.ttag.on')].map(b=>b.textContent.trim()).join(', ')||'local experiences'}
-function fmtD(iso){if(!iso)return'';return new Date(iso+'T00:00:00').toLocaleDateString(lang==='fr'?'fr-FR':lang==='en'?'en-GB':'es-ES',{day:'numeric',month:'long',year:'numeric'})}
-
-// ── GENERATE ──
-async function gen(){
-  const origin=document.getElementById('origin').value.trim()||'home';
-  const dest=document.getElementById('dest').value.trim();
-  const days=document.getElementById('days').value;
-  const df=document.getElementById('df').value;
-  const dt2=document.getElementById('dt').value;
-  const travelersKey=document.getElementById('travelers').value;
-  const budgetKey=document.getElementById('budget').value;
-  const styles=activeTags();
-  const extra=document.getElementById('extra').value.trim();
-  const tMap=t('travelerMap'),bMap=t('budgetMap');
-  const travelersStr=tMap[travelersKey]||travelersKey;
-  const budgetStr=bMap[budgetKey]||budgetKey;
-
-  if(!dest){
-    const el=document.getElementById('dest');el.style.borderColor='var(--salmon)';el.focus();
-    el.addEventListener('input',()=>el.style.borderColor='var(--border)',{once:true});return;
-  }
-
-  const btn=document.getElementById('genBtn');btn.disabled=true;
-  document.getElementById('loadBox').classList.add('on');
-  document.getElementById('resultSection').classList.remove('on');
-  ['timeline','tipsSection','expSection','bottomAffs'].forEach(id=>document.getElementById(id).innerHTML='');
-
-  const loadMsgs=t('loadMsgs');let mi=0;
-  const iv=setInterval(()=>{document.getElementById('ltxt').textContent=loadMsgs[mi=(mi+1)%loadMsgs.length]},2000);
-  document.getElementById('ltxt').textContent=loadMsgs[0];
-
-  const meses={es:['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'],en:['January','February','March','April','May','June','July','August','September','October','November','December'],fr:['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre']};
-  const mes=df?(meses[lang]||meses.es)[new Date(df+'T00:00:00').getMonth()]:'';
-  const fechaStr=df?`${lang==='fr'?'du':'from'} ${fmtD(df)} ${lang==='fr'?'au':'to'} ${fmtD(dt2)}${mes?` (${mes})`:''}`:null;
-
-  const writingLang=lang==='fr'?'French':lang==='en'?'English':'Spanish';
-
-  const prompt=`${t('promptIntro')}
-
-TRIP:
-- Departure city: ${origin} (departure point only — do NOT include activities there unless it equals the destination)
-- Destination: ${dest}
-- Duration: ${days} days
-${fechaStr?`- Dates: ${fechaStr}`:''}
-- Travelers: ${travelersStr}
-- Budget: ${budgetStr}
-- Style: ${styles}
-${extra?`- Special requirements: ${extra}`:''}
-
-INLINE BOOKING LINKS:
-When you mention a specific paid activity or experience that can be booked (museum entry, guided tour, show, workshop, boat trip, cooking class, etc.), wrap the activity name like this: [BOOK:Activity Name]
-Example: Visit the [BOOK:Louvre Museum Guided Tour] in the morning.
-Only use [BOOK:...] for genuinely bookable paid experiences — not for free walks, neighborhoods, or general areas.
-
-VOICE:
-- Write in ${writingLang}
-- Write like a knowledgeable friend, not a guidebook
-- Mix paid experiences with free ones (walks, viewpoints, markets, neighbourhoods)
-- Don't price everything — some things are just lived
-- Use real specific names ("Campo de' Fiori market", not "a local market")
-- One unexpected local gem per day
-
-FORMAT (strictly follow this — it's used to render the UI):
-[2-3 evocative opening lines about ${dest}${mes?` in ${mes}`:''} — no heading]
-
-### ${lang==='fr'?'Jour':lang==='en'?'Day':'Día'} 1 — [Evocative title]
-**${lang==='fr'?'Matin':lang==='en'?'Morning':'Mañana'}:** ...
-**${lang==='fr'?'Après-midi':lang==='en'?'Afternoon':'Tarde'}:** ...
-**${lang==='fr'?'Soir':lang==='en'?'Evening':'Noche'}:** ...
-🔍 *${lang==='fr'?'Hors des sentiers':lang==='en'?'Off the beaten path':'Fuera de ruta'}:* [local gem]
-
-[repeat for each day]
-
-### ${lang==='fr'?'Conseils pratiques':lang==='en'?'Practical tips':'Consejos prácticos'}
-- [4-5 bullet points: when to book flights, how to get around, what to avoid, best of ${mes||'the season'}, one free unmissable thing]
-
-Max 750 words. Write in ${writingLang}.`;
-
-  try{
-    const res=await fetch('/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1500,messages:[{role:'user',content:prompt}]})});
-    if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error(e?.error||`HTTP ${res.status}`);}
-    const data=await res.json();
-    const text=(data.content||[]).map(b=>b.text||'').join('').trim();
-    if(!text)throw new Error('Empty response');
-
-    clearInterval(iv);document.getElementById('loadBox').classList.remove('on');
-
-    const{timelineHTML,tipsHTML}=parseTimeline(text,dest,origin);
-    const affsHTML=bottomAffCards(dest,origin);
-    const resHeader=`
-      <div>
-        <div style="font-size:.7rem;color:rgba(255,255,255,.45);font-weight:600;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.5rem">✨ ${lang==='fr'?'Itinéraire généré':lang==='en'?'Generated itinerary':'Itinerario generado'}</div>
-        <div class="res-dest"><em>${dest}</em></div>
-        <div class="res-chips">
-          <div class="chip"><div class="chip-label">${t('labelDays')}</div><div class="chip-val">${days}</div></div>
-          ${df?`<div class="chip"><div class="chip-label">${t('labelDepart')}</div><div class="chip-val">${fmtD(df)}</div></div>`:''}
-          <div class="chip"><div class="chip-label">${t('labelTravelers')}</div><div class="chip-val">${travelersStr}</div></div>
-          <div class="chip"><div class="chip-label">${t('labelBudget')}</div><div class="chip-val">${budgetStr}</div></div>
-        </div>
-      </div>
-      <div class="res-actions">
-        <button class="btn-res" id="btnSave" onclick="saveCurrentTrip()">${t('saveBtnLabel')}</button>
-        <button class="btn-res" onclick="window.print()">${t('printBtn')}</button>
-      </div>`;
-
-    currentTrip={dest,origin,days,travelers:travelersStr,date:new Date().toLocaleDateString(),resHeader,timelineHTML,tipsHTML,affsHTML,resultHTML:true};
-
-    document.getElementById('resHeader').innerHTML=resHeader;
-    document.getElementById('timeline').innerHTML=timelineHTML;
-    document.getElementById('tipsSection').innerHTML=tipsHTML;
-    document.getElementById('bottomAffs').innerHTML=affsHTML;
-    document.getElementById('resultSection').classList.add('on');
-    setTimeout(()=>document.getElementById('resultSection').scrollIntoView({behavior:'smooth',block:'start'}),150);
-
-    // Load experiences async (non-blocking)
-    loadExperiences(dest,travelersStr,budgetStr).then(()=>{
-      if(currentTrip) currentTrip.expHTML=document.getElementById('expSection').innerHTML;
-    });
-
-  }catch(e){
-    clearInterval(iv);document.getElementById('loadBox').classList.remove('on');
-    document.getElementById('timeline').innerHTML=`<div class="err"><strong>Error:</strong> ${e.message}<br/><br/>Check <code>ANTHROPIC_API_KEY</code> in Vercel → Settings → Environment Variables.</div>`;
-    document.getElementById('bottomAffs').innerHTML=bottomAffCards(dest,origin);
-    document.getElementById('resultSection').classList.add('on');
-  }
-  btn.disabled=false;
-}
-
-['origin','dest'].forEach(id=>document.getElementById(id).addEventListener('keydown',e=>{if(e.key==='Enter')gen()}));
-
-// ── INIT ──
-lang=detectLang();
-applyLang();
+function removeItem(id){cart=cart.filter(c=>c.id!==id);const chk=document.querySelector(`#wr-${id} input`);if(chk){chk.checked=false;document.getElementById('wr-'+id)?.classList.remove('picked');}buildRecap(WZ.dest||'',parseInt(WZ.dur||5),parseInt(WZ.pax||2));}
+// INIT
+(function(){const t=new Date().toISOString().split('T')[0];document.getElementById('wdf').min=t;document.getElementById('wdt').min=t;onBudget(800);updateUI();})();
 </script>
 </body>
 </html>
