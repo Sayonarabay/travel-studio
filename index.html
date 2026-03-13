@@ -588,6 +588,44 @@ textarea{resize:none;height:56px;font-size:.82rem}
 .exp-micro:hover{border-color:var(--sage);color:var(--sage-dark);background:var(--sage-light)}
 .exp-micro.in-cart{background:var(--sage);border-color:var(--sage);color:#fff}
 .exp-micro svg{width:9px;height:9px;fill:none;stroke:currentColor;stroke-width:2.5;flex-shrink:0}
+
+/* ── PROGRESSIVE STEPPER ── */
+.sdot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.2);transition:all .3s ease;flex-shrink:0}
+.sdot.on{background:#86EFAC;width:24px;border-radius:4px}
+
+#stepWrap{position:relative;overflow:hidden;min-height:320px}
+.step-card{display:none;flex-direction:column;gap:.9rem;animation:stepIn .35s cubic-bezier(.34,1.56,.64,1) both}
+.step-card.active{display:flex}
+.step-card.out{animation:stepOut .25s ease forwards}
+@keyframes stepIn{from{opacity:0;transform:translateX(28px)}to{opacity:1;transform:none}}
+@keyframes stepOut{from{opacity:1;transform:none}to{opacity:0;transform:translateX(-28px)}}
+@keyframes stepInBack{from{opacity:0;transform:translateX(-28px)}to{opacity:1;transform:none}}
+
+.step-q{font-family:var(--font-display);font-size:1.45rem;font-weight:400;letter-spacing:-.025em;line-height:1.2;color:var(--ink);margin-bottom:-.2rem}
+.step-hint{font-size:.82rem;color:var(--ink2);line-height:1.5;margin-bottom:.2rem}
+
+.step-budget-row{display:flex;align-items:center;gap:.5rem;background:#F8F7F4;border:1.5px solid var(--border);border-radius:12px;padding:.5rem .75rem}
+.step-euro{font-size:1.1rem;font-weight:600;color:var(--ink2)}
+.step-budget-input{flex:1;border:none;background:transparent;font-size:1.4rem;font-weight:700;color:var(--ink);font-family:var(--font-display);outline:none;width:80px}
+.step-budget-per{border:none;background:transparent;font-size:.8rem;color:var(--ink2);cursor:pointer;outline:none}
+
+.step-input-row{display:flex;align-items:center;gap:.5rem}
+.step-text-input{width:100%;padding:.75rem 1rem;border:1.5px solid var(--border);border-radius:12px;font-size:.95rem;background:#F8F7F4;color:var(--ink);outline:none;transition:border-color .2s;font-family:var(--font-prose);box-sizing:border-box}
+.step-text-input:focus{border-color:var(--sage-dark);background:#fff}
+.step-geo{background:none;border:1.5px solid var(--border);border-radius:10px;padding:.6rem .75rem;cursor:pointer;font-size:1rem;flex-shrink:0;transition:border-color .2s}
+.step-geo:hover{border-color:var(--sage-dark)}
+
+.step-style-grid{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+.style-chip{padding:.65rem 1rem;border:1.5px solid var(--border);border-radius:10px;background:#F8F7F4;color:var(--ink);font-size:.85rem;cursor:pointer;transition:all .18s;text-align:left;font-family:var(--font-prose)}
+.style-chip:hover{border-color:var(--sage-dark);background:#fff}
+.style-chip.on{border-color:var(--sage-dark);background:var(--sage-dark);color:#fff}
+
+.step-nav{display:flex;gap:.6rem;margin-top:.4rem}
+.step-back{flex:0 0 auto;padding:.65rem 1.1rem;border:1.5px solid var(--border);border-radius:10px;background:transparent;color:var(--ink2);font-size:.82rem;cursor:pointer;transition:all .18s;font-family:var(--font-prose)}
+.step-back:hover{border-color:var(--ink2);color:var(--ink)}
+.step-next{flex:1;padding:.72rem 1.2rem;border:none;border-radius:10px;background:var(--ink);color:#fff;font-size:.88rem;font-weight:600;cursor:pointer;transition:background .18s;font-family:var(--font-prose);letter-spacing:.02em}
+.step-next:hover{background:var(--sage-dark)}
+
 </style>
 </head>
 <body>
@@ -625,74 +663,151 @@ textarea{resize:none;height:56px;font-size:.82rem}
       <div><div class="stat-n">150+</div><div class="stat-l" data-i="proof2"></div></div>
       <div><div class="stat-n">4.9★</div><div class="stat-l" data-i="proof3"></div></div>
     </div>
+    <!-- Progress dots -->
+    <div id="stepDots" style="display:flex;gap:.5rem;margin-top:2.5rem;opacity:.7">
+      <span class="sdot on" data-step="0"></span>
+      <span class="sdot" data-step="1"></span>
+      <span class="sdot" data-step="2"></span>
+      <span class="sdot" data-step="3"></span>
+      <span class="sdot" data-step="4"></span>
+      <span class="sdot" data-step="5"></span>
+    </div>
+    <div id="stepLabel" style="font-size:.75rem;color:rgba(255,255,255,.45);margin-top:.6rem;letter-spacing:.06em;text-transform:uppercase;font-family:var(--font-prose)"></div>
   </div>
   <div class="hero-right">
-    <div class="form-hed" data-i="formTitle"></div>
-    <div class="form-sub" data-i="formSub"></div>
-    <div class="budget-amount-row">
-      <div class="fg fg-budget">
-        <label data-i="labelBudgetAmount"></label>
-        <div class="budget-input-wrap">
-          <span class="budget-euro">€</span>
-          <input type="number" id="budgetAmount" min="50" max="50000" step="50" placeholder="800" data-i-ph="phBudget"/>
-          <select id="budgetPer">
+    <!-- PROGRESSIVE FORM WRAPPER -->
+    <div id="stepWrap">
+
+      <!-- Hidden legacy inputs (keep for gen() compatibility) -->
+      <input type="hidden" id="budgetAmount" value="800"/>
+      <select id="budgetPer" style="display:none"><option value="person">person</option><option value="total">total</option></select>
+      <input type="hidden" id="origin" value=""/>
+      <input type="hidden" id="dest" value=""/>
+      <input type="hidden" id="df" value=""/>
+      <input type="hidden" id="dt" value=""/>
+      <select id="travelers" style="display:none" onchange="updateTravelersUI()">
+        <option value="solo">Solo</option>
+        <option value="couple" selected>Couple</option>
+        <option value="friends">Friends</option>
+        <option value="family">Family</option>
+      </select>
+      <span id="paxCount" style="display:none">2</span>
+      <div id="paxWrap" style="display:none"></div>
+      <div id="tagsWrap" style="display:none"></div>
+      <textarea id="extra" style="display:none"></textarea>
+      <button id="flexNo" style="display:none" class="on"></button>
+      <button id="flexYes" style="display:none"></button>
+      <button id="geoBtn" style="display:none" onclick="detectOrigin()"></button>
+      <button id="destSuggestBtn" style="display:none" onclick="toggleDestSuggest()"></button>
+
+      <!-- STEP 0: Budget -->
+      <div class="step-card active" id="step-0">
+        <div class="step-q" data-i="sq0"></div>
+        <div class="step-hint" data-i="sh0"></div>
+        <div class="step-budget-row">
+          <div class="step-euro">€</div>
+          <input type="number" class="step-budget-input" id="s_budget" min="100" max="50000" step="50" placeholder="800" oninput="updateHiddenBudget()"/>
+          <select class="step-budget-per" id="s_budgetPer" onchange="updateHiddenBudget()">
             <option value="person" data-i="budgetPerPerson"></option>
             <option value="total" data-i="budgetPerTotal"></option>
           </select>
         </div>
+        <div id="budgetCheckPanel" class="budget-check" style="margin-top:.8rem"></div>
+        <button class="step-next" onclick="goStep(1)" data-i="stepNext"></button>
       </div>
-    </div>
-    <div class="g2">
-      <div class="fg">
-        <label data-i="labelFrom"></label>
-        <div class="origin-wrap">
-          <input type="text" id="origin" data-i-ph="phFrom"/>
-          <button type="button" class="geo-btn" id="geoBtn" onclick="detectOrigin()" title="Detectar mi ubicación">📍</button>
+
+      <!-- STEP 1: Origin -->
+      <div class="step-card" id="step-1">
+        <div class="step-q" data-i="sq1"></div>
+        <div class="step-hint" data-i="sh1"></div>
+        <div class="step-input-row">
+          <input type="text" class="step-text-input" id="s_origin" data-i-ph="phFrom" oninput="document.getElementById('origin').value=this.value"/>
+          <button type="button" class="step-geo" onclick="detectOrigin()" title="📍">📍</button>
+        </div>
+        <div class="step-nav">
+          <button class="step-back" onclick="goStep(0)" data-i="stepBack"></button>
+          <button class="step-next" onclick="goStep(2)" data-i="stepNext"></button>
         </div>
       </div>
-      <div class="fg" id="destFg"><label data-i="labelTo"></label>
-        <div class="dest-wrap">
-          <input type="text" id="dest" data-i-ph="phTo"/>
-          <button class="dest-suggest-btn" id="destSuggestBtn" onclick="toggleDestSuggest()" type="button" data-i="destSuggestBtn"></button>
+
+      <!-- STEP 2: Travel style (who + type) -->
+      <div class="step-card" id="step-2">
+        <div class="step-q" data-i="sq2"></div>
+        <div class="step-hint" data-i="sh2"></div>
+        <div class="step-style-grid" id="s_travelersGrid">
+          <button class="style-chip" data-val="solo" onclick="selectTravelers(this)" data-i-chip="tSolo">🧳 Solo</button>
+          <button class="style-chip on" data-val="couple" onclick="selectTravelers(this)" data-i-chip="tCouple">💑 Pareja</button>
+          <button class="style-chip" data-val="friends" onclick="selectTravelers(this)" data-i-chip="tFriends">👯 Amigos</button>
+          <button class="style-chip" data-val="family" onclick="selectTravelers(this)" data-i-chip="tFamily">👨‍👩‍👧 Familia</button>
+        </div>
+        <div class="step-nav">
+          <button class="step-back" onclick="goStep(1)" data-i="stepBack"></button>
+          <button class="step-next" onclick="goStep(3)" data-i="stepNext"></button>
         </div>
       </div>
-    </div>
-    <div class="g2">
-      <div class="fg"><label data-i="labelDepart"></label><input type="date" id="df"/></div>
-      <div class="fg"><label data-i="labelReturn"></label><input type="date" id="dt"/></div>
-    </div>
-    <div class="fg"><label data-i="labelTravelers"></label>
-      <div class="travelers-wrap">
-        <select id="travelers" onchange="updateTravelersUI()">
-          <option value="solo" data-i="tSolo"></option>
-          <option value="couple" selected data-i="tCouple"></option>
-          <option value="friends" data-i="tFriends"></option>
-          <option value="family" data-i="tFamily"></option>
-        </select>
-        <div class="pax-wrap" id="paxWrap" style="display:none">
-          <label data-i="labelPax"></label>
-          <div class="pax-counter">
-            <button type="button" class="pax-btn" onclick="changePax(-1)">−</button>
-            <span id="paxCount">2</span>
-            <button type="button" class="pax-btn" onclick="changePax(1)">+</button>
+
+      <!-- STEP 3: Tags / vibe -->
+      <div class="step-card" id="step-3">
+        <div class="step-q" data-i="sq3"></div>
+        <div class="step-hint" data-i="sh3"></div>
+        <div class="tags" id="s_tagsWrap"></div>
+        <div class="step-nav">
+          <button class="step-back" onclick="goStep(2)" data-i="stepBack"></button>
+          <button class="step-next" onclick="goStep(4)" data-i="stepNext"></button>
+        </div>
+      </div>
+
+      <!-- STEP 4: Dates -->
+      <div class="step-card" id="step-4">
+        <div class="step-q" data-i="sq4"></div>
+        <div class="step-hint" data-i="sh4"></div>
+        <div class="g2" style="margin-bottom:1rem">
+          <div class="fg"><label data-i="labelDepart"></label><input type="date" id="s_df" onchange="document.getElementById('df').value=this.value;updateBudgetCheck()"/></div>
+          <div class="fg"><label data-i="labelReturn"></label><input type="date" id="s_dt" onchange="document.getElementById('dt').value=this.value;updateBudgetCheck()"/></div>
+        </div>
+        <div class="flex-row" style="margin-bottom:0">
+          <label data-i="labelFlexible"></label>
+          <div class="flex-tog">
+            <button class="flex-btn on" id="s_flexNo" onclick="setFlex(false);this.classList.add('on');document.getElementById('s_flexYes').classList.remove('on')" data-i="flexNo"></button>
+            <button class="flex-btn" id="s_flexYes" onclick="setFlex(true);this.classList.add('on');document.getElementById('s_flexNo').classList.remove('on')" data-i="flexYes"></button>
           </div>
         </div>
+        <div class="step-nav">
+          <button class="step-back" onclick="goStep(3)" data-i="stepBack"></button>
+          <button class="step-next" onclick="goStep(5)" data-i="stepNext"></button>
+        </div>
       </div>
-    </div>
-    <div class="flex-row">
-      <label data-i="labelFlexible"></label>
-      <div class="flex-tog">
-        <button class="flex-btn on" id="flexNo" onclick="setFlex(false)" data-i="flexNo"></button>
-        <button class="flex-btn" id="flexYes" onclick="setFlex(true)" data-i="flexYes"></button>
+
+      <!-- STEP 5: Destination + notes -->
+      <div class="step-card" id="step-5">
+        <div class="step-q" data-i="sq5"></div>
+        <div class="step-hint" data-i="sh5"></div>
+        <!-- Destination toggle -->
+        <div style="display:flex;gap:.6rem;margin-bottom:1rem">
+          <button class="style-chip on" id="destKnownBtn" onclick="setDestMode(true)" data-i="destKnown">✈️ Sí, tengo destino</button>
+          <button class="style-chip" id="destUnknownBtn" onclick="setDestMode(false)" data-i="destUnknown">🎲 Sugiéreme uno</button>
+        </div>
+        <div id="destKnownWrap">
+          <input type="text" class="step-text-input" id="s_dest" data-i-ph="phTo" oninput="document.getElementById('dest').value=this.value" style="margin-bottom:.8rem"/>
+        </div>
+        <div id="destUnknownWrap" style="display:none">
+          <textarea class="step-text-input" id="s_extra_dest" placeholder="¿Qué tipo de lugar buscas? Playa, montaña, ciudad..." style="height:70px;resize:none;padding:.7rem;font-size:.9rem" oninput="syncNotes()"></textarea>
+        </div>
+        <div class="fg" style="margin-top:.5rem">
+          <label data-i="labelNotes"></label>
+          <textarea class="step-text-input" id="s_extra" data-i-ph="phNotes" style="height:60px;resize:none;padding:.7rem;font-size:.9rem" oninput="document.getElementById('extra').value=this.value"></textarea>
+        </div>
+        <div class="step-nav" style="margin-top:1.2rem">
+          <button class="step-back" onclick="goStep(4)" data-i="stepBack"></button>
+        </div>
+        <button class="btn-gen" id="genBtn" onclick="gen()" style="margin-top:.8rem">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          <span data-i="btnGen"></span>
+        </button>
       </div>
-    </div>
-    <div class="fg"><label data-i="labelStyle"></label><div class="tags" id="tagsWrap"></div></div>
-    <div class="fg"><label data-i="labelNotes"></label><textarea id="extra" data-i-ph="phNotes"></textarea></div>
-    <div id="budgetCheckPanel" class="budget-check"></div>
-    <button class="btn-gen" id="genBtn" onclick="gen()">
-      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-      <span data-i="btnGen"></span>
-    </button>
+
+    </div><!-- /stepWrap -->
+
     <div id="loadBox">
       <div class="load-inner">
         <div id="streamProgress"><div id="streamBar"></div></div>
@@ -700,11 +815,8 @@ textarea{resize:none;height:56px;font-size:.82rem}
           <p id="ltxt" class="load-txt"></p>
           <span id="loadTimeEst" class="load-time" style="display:none"></span>
         </div>
-        <div id="loadDestName" style="display:none;font-size:1.1rem;font-weight:800;letter-spacing:.08em;color:var(--sage-dark);margin-top:.4rem"></div>
-        <div id="destFactCard" style="display:none;margin-top:1rem;padding:.8rem 1rem;background:var(--white);border:1.5px solid var(--border);border-radius:12px;font-size:.78rem;color:var(--ink2)">
-          <div id="dfcLabel" style="font-weight:700;color:var(--ink);margin-bottom:.3rem"></div>
-          <div id="dfcFact"></div>
-        </div>
+        <div id="loadDestName" style="display:none"></div>
+        <div id="destFactCard" style="display:none"></div>
       </div>
     </div>
   </div>
@@ -749,6 +861,15 @@ textarea{resize:none;height:56px;font-size:.82rem}
 const I18N={
   es:{
     badge:'Plan de viaje completo · Gratis · Listo en 30 segundos',
+    sq0:'¿Cuánto quieres gastar?',sh0:'Cuanto más preciso, mejor el plan.',
+    sq1:'¿Desde dónde sales?',sh1:'Ciudad o aeropuerto de origen.',
+    sq2:'¿Con quién viajas?',sh2:'Personalizamos el plan según quién va.',
+    sq3:'¿Qué tipo de viaje buscas?',sh3:'Elige uno o varios estilos.',
+    sq4:'¿Cuándo viajas?',sh4:'Las fechas nos permiten calcular precios reales.',
+    sq5:'¿Tienes ya un destino en mente?',sh5:'Si tienes uno, perfecto. Si no, te sugerimos.',
+    destKnown:'✈️ Sí, tengo destino',destUnknown:'🎲 Sugiéreme uno',
+    stepNext:'Continuar →',stepBack:'← Atrás',
+    stepLabels:['Presupuesto','Origen','Viajeros','Estilo','Fechas','Destino'],
     h1a:'Tu próximo viaje,\nplanificado por alguien\n<em>que conoce el sitio.</em>',
     heroSub:'Dinos adónde quieres ir y cómo viajas. En 30 segundos tienes un itinerario día a día — con alojamiento, restaurantes, transporte y experiencias que merece la pena reservar.',
     proof1:'Planes generados',proof2:'Destinos',proof3:'Valoración',
@@ -819,6 +940,15 @@ const I18N={
   },
   en:{
     badge:'Full itinerary · Free · Ready in 30 seconds',
+    sq0:'What's your budget?',sh0:'The more precise, the better the plan.',
+    sq1:'Where are you departing from?',sh1:'City or airport of origin.',
+    sq2:'Who are you travelling with?',sh2:'We personalise the plan for your group.',
+    sq3:'What kind of trip are you looking for?',sh3:'Pick one or more styles.',
+    sq4:'When are you travelling?',sh4:'Dates help us show real prices.',
+    sq5:'Do you have a destination in mind?',sh5:'If you do, great. If not, we'll suggest one.',
+    destKnown:'✈️ Yes, I have a destination',destUnknown:'🎲 Suggest one for me',
+    stepNext:'Continue →',stepBack:'← Back',
+    stepLabels:['Budget','Origin','Travellers','Style','Dates','Destination'],
     h1a:'Your next trip,\nplanned by someone\n<em>who knows the place.</em>',
     heroSub:'Tell us where you want to go and how you travel. In 30 seconds you get a day-by-day itinerary — with accommodation, restaurants, transport and experiences worth booking.',
     proof1:'Plans generated',proof2:'Destinations',proof3:'Rating',
@@ -888,6 +1018,15 @@ const I18N={
   },
   fr:{
     badge:'Itinéraire complet · Gratuit · Prêt en 30 secondes',
+    sq0:'Quel est votre budget ?',sh0:'Plus c'est précis, meilleur sera le plan.',
+    sq1:'D'où partez-vous ?',sh1:'Ville ou aéroport de départ.',
+    sq2:'Avec qui voyagez-vous ?',sh2:'Nous personnalisons le plan pour votre groupe.',
+    sq3:'Quel type de voyage cherchez-vous ?',sh3:'Choisissez un ou plusieurs styles.',
+    sq4:'Quand voyagez-vous ?',sh4:'Les dates permettent d'afficher de vrais prix.',
+    sq5:'Avez-vous déjà une destination en tête ?',sh5:'Si oui, parfait. Sinon, nous vous en suggérons une.',
+    destKnown:'✈️ Oui, j'ai une destination',destUnknown:'🎲 Suggérez-moi une',
+    stepNext:'Continuer →',stepBack:'← Retour',
+    stepLabels:['Budget','Origine','Voyageurs','Style','Dates','Destination'],
     h1a:'Votre prochain voyage,\nplanifié par quelqu\'un\n<em>qui connaît l\'endroit.</em>',
     heroSub:'Dites-nous où vous voulez aller et comment vous voyagez. En 30 secondes vous avez un itinéraire jour par jour — hébergement, restaurants, transport et expériences qui valent la réservation.',
     proof1:'Plans générés',proof2:'Destinations',proof3:'Note',
@@ -990,6 +1129,114 @@ function buildTags(){
   w.innerHTML=t('tags').map(tag=>`<button class="tag${prev.includes(tag)?' on':''}" onclick="this.classList.toggle('on')">${tag}</button>`).join('');
   if(!prev.length)w.querySelectorAll('.tag:nth-child(-n+2)').forEach(b=>b.classList.add('on'));
 }
+
+
+// ═══════════════════════════════════
+// PROGRESSIVE STEPPER
+// ═══════════════════════════════════
+let currentStep = 0;
+const TOTAL_STEPS = 6;
+
+function goStep(n, back=false){
+  const cur = document.getElementById('step-'+currentStep);
+  const next = document.getElementById('step-'+n);
+  if(!next) return;
+  if(cur){
+    cur.style.animation = back ? 'stepOut .25s ease forwards' : 'stepOut .25s ease forwards';
+    setTimeout(()=>{ cur.classList.remove('active'); cur.style.animation=''; },240);
+  }
+  setTimeout(()=>{
+    next.style.animation = back ? 'stepInBack .35s cubic-bezier(.34,1.56,.64,1) both' : 'stepIn .35s cubic-bezier(.34,1.56,.64,1) both';
+    next.classList.add('active');
+    currentStep = n;
+    updateStepDots();
+    // focus first input
+    const inp = next.querySelector('input:not([type=hidden]),textarea');
+    if(inp) setTimeout(()=>inp.focus(),100);
+  },240);
+}
+
+function updateStepDots(){
+  document.querySelectorAll('.sdot').forEach((d,i)=>{
+    d.classList.toggle('on', i===currentStep);
+  });
+  const labels = t('stepLabels');
+  const lbl = document.getElementById('stepLabel');
+  if(lbl && labels) lbl.textContent = (currentStep+1)+' / '+TOTAL_STEPS+' — '+(labels[currentStep]||'');
+}
+
+function selectTravelers(btn){
+  document.querySelectorAll('#s_travelersGrid .style-chip').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  const val = btn.dataset.val;
+  document.getElementById('travelers').value = val;
+  updateTravelersUI();
+}
+
+function setDestMode(known){
+  document.getElementById('destKnownBtn').classList.toggle('on', known);
+  document.getElementById('destUnknownBtn').classList.toggle('on', !known);
+  document.getElementById('destKnownWrap').style.display = known ? '' : 'none';
+  document.getElementById('destUnknownWrap').style.display = known ? 'none' : '';
+  if(!known){
+    document.getElementById('dest').value = '';
+    document.getElementById('s_dest').value = '';
+  }
+}
+
+function syncNotes(){
+  const destTxt = document.getElementById('s_extra_dest')?.value || '';
+  const notesTxt = document.getElementById('s_extra')?.value || '';
+  document.getElementById('extra').value = (destTxt ? destTxt+'\n' : '') + notesTxt;
+}
+
+function updateHiddenBudget(){
+  const amt = document.getElementById('s_budget')?.value;
+  const per = document.getElementById('s_budgetPer')?.value;
+  if(amt) document.getElementById('budgetAmount').value = amt;
+  if(per) document.getElementById('budgetPer').value = per;
+  updateBudgetCheck();
+}
+
+// Build step tags (mirror of buildTags but for step-3)
+function buildStepTags(){
+  const w = document.getElementById('s_tagsWrap');
+  if(!w) return;
+  const prev = [...w.querySelectorAll('.tag.on')].map(b=>b.textContent);
+  w.innerHTML = t('tags').map(tag=>`<button class="tag${prev.includes(tag)?' on':''}" onclick="this.classList.toggle('on');syncStepTags()">${tag}</button>`).join('');
+  if(!prev.length) w.querySelectorAll('.tag:nth-child(-n+2)').forEach(b=>b.classList.add('on'));
+  syncStepTags();
+}
+
+function syncStepTags(){
+  // sync to hidden tagsWrap for gen()
+  const hidden = document.getElementById('tagsWrap');
+  const shown = document.getElementById('s_tagsWrap');
+  if(hidden && shown) hidden.innerHTML = shown.innerHTML;
+}
+
+// Override applyLang to also rebuild step tags
+const _origApplyLang = applyLang;
+function applyLang(){
+  _origApplyLang();
+  buildStepTags();
+  updateStepDots();
+  // apply data-i-chip
+  document.querySelectorAll('[data-i-chip]').forEach(el=>{
+    const k = el.getAttribute('data-i-chip');
+    const v = t(k);
+    if(v) el.textContent = el.dataset.val === 'solo' ? '🧳 '+v : el.dataset.val === 'couple' ? '💑 '+v : el.data.val === 'friends' ? '👯 '+v : '👨‍👩‍👧 '+v;
+  });
+}
+
+// Init stepper on load
+document.addEventListener('DOMContentLoaded', ()=>{
+  updateStepDots();
+  buildStepTags();
+  // sync s_origin to origin on input
+  const so = document.getElementById('s_origin');
+  if(so) so.addEventListener('input', ()=>{ document.getElementById('origin').value = so.value; });
+});
 
 // ═══════════════════════════════════
 // AFFILIATES
