@@ -693,11 +693,6 @@ textarea{resize:none;height:56px;font-size:.82rem}
       <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
       <span data-i="btnGen"></span>
     </button>
-    <div style="text-align:center;margin-top:.6rem">
-      <button type="button" onclick="showApiKeyPrompt()" id="apiKeyHint" style="background:none;border:none;font-size:.72rem;color:#94A3B8;cursor:pointer;padding:.2rem .4rem;letter-spacing:.02em">
-        🔑 <span id="apiKeyStatus">API Key</span>
-      </button>
-    </div>
     <div id="loadBox">
       <div class="load-inner">
         <div id="streamProgress"><div id="streamBar"></div></div>
@@ -3204,17 +3199,8 @@ Max ${Math.max(1200, days*250)} words. Write entirely in ${wl}.`;
   }
 
   // ── API key check before anything ──
-  // API key: localStorage first, then hardcoded fallback
-  const HARDCODED_KEY = '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';
-  const storedKey = localStorage.getItem('ts_api_key') || (HARDCODED_KEY !== 'REPLACE_WITH_YOUR_KEY' ? HARDCODED_KEY : '');
-  console.log('[TS] gen() start — key present:', !!storedKey, '— dest:', dest);
-  if(!storedKey){
-    clearInterval(iv);
-    document.getElementById('loadBox').classList.remove('on');
-    btn.disabled=false;
-    showApiKeyPrompt();
-    return;
-  }
+  const storedKey = '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';
+  console.log('[TS] gen() start — dest:', dest);
 
   let progressAnim;
   try{
