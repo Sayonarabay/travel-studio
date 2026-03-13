@@ -51,7 +51,7 @@ h1 em{font-style:italic;color:#A7F3D0}
 .stat-l{font-size:.6rem;color:rgba(255,255,255,.3);font-weight:500;margin-top:.2rem;text-transform:uppercase;letter-spacing:.1em}
 
 /* ── FORM ── */
-.hero-right{background:var(--warm-white);padding:3rem 2.8rem;display:flex;flex-direction:column;justify-content:center;overflow-y:auto;border-left:1px solid var(--border)}
+.hero-right{background:var(--warm-white);padding:3rem 2.8rem;display:flex;flex-direction:column;justify-content:flex-start;overflow-y:auto;max-height:calc(100vh - 52px);position:sticky;top:52px;border-left:1px solid var(--border)}
 .form-hed{font-family:var(--font-display);font-size:1.55rem;font-weight:400;margin-bottom:.3rem;letter-spacing:-.025em;line-height:1.15;color:var(--ink)}
 .form-sub{font-family:var(--font-prose);font-size:.98rem;color:var(--ink2);margin-bottom:1.8rem;font-style:italic;line-height:1.55}
 .fg{display:flex;flex-direction:column;gap:.28rem;margin-bottom:.8rem}
@@ -429,11 +429,13 @@ textarea{resize:none;height:56px;font-size:.82rem}
 
 @media(max-width:960px){
   .hero{grid-template-columns:1fr;min-height:auto}
-  .hero-left{padding:4.5rem 2rem 3rem;min-height:40vh}
-  .hero-right{padding:2.5rem 2rem;border-left:none;border-top:1px solid var(--border)}
+  .hero-left{padding:4.5rem 2rem 3rem;min-height:35vh}
+  .hero-right{padding:2rem 1.5rem 2.5rem;border-left:none;border-top:1px solid var(--border);max-height:none;position:static;overflow-y:visible}
   .tips-grid-2,.exp-grid{grid-template-columns:1fr 1fr}
 }
 @media(max-width:640px){
+  .hero-right{padding:1.5rem 1.2rem 2rem}
+  .form-hed{font-size:1.1rem}
   .g2{grid-template-columns:1fr}
   .tips-grid-2,.exp-grid{grid-template-columns:1fr}
   .trip-hero-content{padding:2rem 1.5rem 1.5rem}
@@ -751,12 +753,12 @@ textarea{resize:none;height:56px;font-size:.82rem}
 // ═══════════════════════════════════
 const I18N={
   es:{
-    badge:'Itinerarios con criterio. Para quienes viajan de otra manera.',
-    h1a:'Algunos sitios\nse visitan. Otros\n<em>te habitan.</em>',
-    heroSub:'Dinos cuánto tienes, de dónde sales y cómo viajas. Hacemos el plan — con criterio, con voz propia, con lo que ninguna guía te va a dar.',
-    proof1:'Viajeros',proof2:'Destinos',proof3:'Valoración',
-    formTitle:'Construye tu próximo viaje.',
-    formSub:'Cuanto más preciso seas, más tuyo sale el resultado.',
+    badge:'Plan de viaje completo · Gratis · Listo en 30 segundos',
+    h1a:'Tu próximo viaje,\nplanificado por alguien\n<em>que conoce el sitio.</em>',
+    heroSub:'Dinos adónde quieres ir y cómo viajas. En 30 segundos tienes un itinerario día a día — con alojamiento, restaurantes, transporte y experiencias que merece la pena reservar.',
+    proof1:'Planes generados',proof2:'Destinos',proof3:'Valoración',
+    formTitle:'¿Adónde vas?',
+    formSub:'Rellena lo que sepas. El resto lo resolvemos nosotros.',
     labelBudgetAmount:'¿Cuánto quieres gastar?',phBudget:'800',
     budgetPerPerson:'por persona',budgetPerTotal:'total grupo',
     labelFrom:'¿Desde dónde sales?',labelTo:'¿Adónde?',phFrom:'Madrid, París, Lisboa…',phTo:'Destino — o déjalo en blanco y te sugerimos',
@@ -778,10 +780,10 @@ const I18N={
     labelStyle:'¿Qué tipo de viaje buscas?',
     labelNotes:'Algo más que debamos saber',
     phNotes:'Soy vegetariano. Me interesan los barrios que no salen en TripAdvisor. Prefiero hostales con personalidad a hoteles de cadena…',
-    btnGen:'Crear mi itinerario',navSaved:'Mis viajes',
+    btnGen:'Generar itinerario →',navSaved:'Mis viajes',
     cartLabel:'Mi viaje',addToMyTrip:'+ Apuntar esto',addedToTrip:'✓ Apuntado',
     expBookBtn:'Reservar →',expLoadingMsg:'Seleccionando lo mejor…',
-    expTitle:'Experiencias que merecen el tiempo',expSub:'Seleccionadas para este viaje. Reserva directamente.',
+    expTitle:'Experiencias para reservar',expSub:'Seleccionadas para tu perfil. Precio y disponibilidad en tiempo real.',
     checkoutTitle:'Finalizar reserva',checkoutSub:'Un paso más para confirmar.',
     contactTitle:'Datos de contacto',cName:'Nombre',cEmail:'Email',cNamePh:'Tu nombre',cEmailPh:'tu@email.com',
     reserveTitle:'Reservar cada parte',sendTitle:'Información de pago',
@@ -792,21 +794,21 @@ const I18N={
     shareTrip:'🔗 Compartir',
     saveBtnLabel:'🗂 Guardar',saveBtnDone:'✅ Guardado',printBtn:'🖨 PDF',
     loadMsgs:[
-      'Descartando todo lo que sale en la primera página de Google…',
-      'Buscando el restaurante donde comen los que viven allí de verdad…',
-      'Cruzando fuentes — no solo TripAdvisor…',
-      'Eligiendo el barrio correcto para tu forma de viajar…',
-      'Calculando si el presupuesto da para lo que merece la pena…',
-      'Añadiendo criterio. Quitando relleno.',
-      'Ese detalle que convierte un viaje en algo que se recuerda…',
-      'Listo. Tu plan no se parece al de nadie.'
+      'Analizando el destino y las fechas…',
+      'Seleccionando alojamiento por zona y precio…',
+      'Eligiendo restaurantes con criterio local…',
+      'Calculando transporte y logística…',
+      'Añadiendo experiencias que merece la pena reservar…',
+      'Revisando que el presupuesto cuadre…',
+      'Organizando el itinerario día a día…',
+      'Preparando los links de reserva…'
     ],
     dayLabel:'Día',addDayBtn:'+ Guardar este día',addedDayBtn:'✓ Guardado',
-    tipsTitle:'Lo que los guías no te cuentan',
+    tipsTitle:'Lo que necesitas saber antes de ir',
     recapTitle:'El plan completo',budgetFitLabel:'¿Encaja con tu presupuesto?',
     dayRecapLabel:'Día a día',stayLabel:'Dónde dormir',bookHotel:'Ver alojamientos →',
-    ctaTitle:(d)=>`${d} está esperando.`,
-    ctaSub:'El itinerario está hecho. Cada día tiene su lógica, cada elección su razón. Solo falta reservar.',
+    ctaTitle:(d)=>`Tu plan para ${d} está listo.`,
+    ctaSub:'Itinerario día a día, alojamiento seleccionado, restaurantes con criterio. Reserva cada parte directamente — sin intermediarios.',
     ctaFlights:'✈ Buscar vuelos',ctaHotels:'🏨 Ver alojamientos',
     tags:['🏛️ Cultura','🍷 Gastronomía','🎨 Arte & Diseño','🧗 Aventura','🚂 Slow travel','🧘 Desconexión','🌙 Noche','❤️ Romántico','🎵 Música & Escena','🎒 Mochilero'],
     travelerMap:{solo:'solo/a',couple:'en pareja',friends:'con amigos',family:'con niños'},
@@ -821,12 +823,12 @@ const I18N={
     promptIntro:'Eres el editor de viajes de una revista independiente europea — no de turismo masivo, sino de la que se vende en librerías de diseño y aeropuertos selectos. Escribes para personas de 28 a 45 años que han viajado antes, que saben distinguir un bar de barrio de una trampa turística, y que prefieren una cena memorable a tres monumentos marcados en el mapa. Tu voz: directa, con criterio propio, a veces irónica, siempre concreta. Nunca sermoneadora. Nunca entusiasta sin razón. Recomiendas con la confianza de alguien que conoce el lugar de primera mano — no de haberlo googleado. Cada recomendación tiene una razón específica. Las descripciones evocan algo real: el ruido de las sillas a mediodía, el olor del mercado antes de las 8h, la luz de ese bar a las 11 de la noche. Incluye experiencias que no están en los primeros resultados de búsqueda: mercados concretos, bares de barrio, rutas que los locales hacen pero no publicitan, cosas gratuitas que valen más que las de pago. Evita absolutamente: "imprescindible", "joya oculta", "auténtico", "encantador", "no te puedes perder", "mágico". Usa: nombres propios, horas concretas, qué pedir exactamente, por qué este sitio y no el de al lado.',
   },
   en:{
-    badge:'Itineraries with taste. For people who travel differently.',
-    h1a:'Some places\nyou visit. Others\n<em>stay inside you.</em>',
-    heroSub:'Tell us your budget, where you\'re coming from, and how you travel. We build the plan — with taste, with a real voice, with what no guidebook gives you.',
-    proof1:'Travellers',proof2:'Destinations',proof3:'Rating',
-    formTitle:'Build your next trip.',
-    formSub:'The more precise you are, the more personal the result.',
+    badge:'Full itinerary · Free · Ready in 30 seconds',
+    h1a:'Your next trip,\nplanned by someone\n<em>who knows the place.</em>',
+    heroSub:'Tell us where you want to go and how you travel. In 30 seconds you get a day-by-day itinerary — with accommodation, restaurants, transport and experiences worth booking.',
+    proof1:'Plans generated',proof2:'Destinations',proof3:'Rating',
+    formTitle:'Where are you going?',
+    formSub:'Fill in what you know. We handle the rest.',
     labelBudgetAmount:'How much do you want to spend?',phBudget:'800',
     budgetPerPerson:'per person',budgetPerTotal:'total group',
     labelFrom:'Where are you leaving from?',labelTo:'Where to?',phFrom:'London, Paris, Lisbon…',phTo:'Destination — or leave blank for suggestions',
@@ -847,10 +849,10 @@ const I18N={
     labelStyle:'What kind of trip are you after?',
     labelNotes:'Anything else we should know',
     phNotes:'Vegetarian. Interested in neighbourhoods off TripAdvisor. I\'d rather a characterful hostel than a chain hotel…',
-    btnGen:'Build my itinerary',navSaved:'My trips',
+    btnGen:'Generate itinerary →',navSaved:'My trips',
     cartLabel:'My trip',addToMyTrip:'+ Note this',addedToTrip:'✓ Noted',
     expBookBtn:'Book →',expLoadingMsg:'Selecting the best…',
-    expTitle:'Experiences worth having',expSub:'Selected for this trip. Book directly.',
+    expTitle:'Experiences to book',expSub:'Selected for your profile. Live prices and availability.',
     checkoutTitle:'Finalise booking',checkoutSub:'One last step.',
     contactTitle:'Contact details',cName:'Name',cEmail:'Email',cNamePh:'Your name',cEmailPh:'you@email.com',
     reserveTitle:'Book each part',sendTitle:'Payment info',
@@ -861,21 +863,21 @@ const I18N={
     shareTrip:'🔗 Share',
     saveBtnLabel:'🗂 Save',saveBtnDone:'✅ Saved',printBtn:'🖨 PDF',
     loadMsgs:[
-      'Crossing out everything on page one of Google…',
-      'Finding the restaurant where people who actually live there eat…',
-      'Cross-referencing sources — not just TripAdvisor…',
-      'Choosing the right neighbourhood for how you travel…',
-      'Checking if the budget stretches to what\'s actually worth it…',
-      'Adding taste. Removing filler.',
-      'That detail that turns a trip into something you remember…',
-      'Done. Your plan looks like no one else\'s.'
+      'Analysing the destination and dates…',
+      'Selecting accommodation by neighbourhood and price…',
+      'Choosing restaurants with local knowledge…',
+      'Working out transport and logistics…',
+      'Adding experiences worth booking…',
+      'Checking the budget adds up…',
+      'Organising the day-by-day itinerary…',
+      'Preparing booking links…'
     ],
     dayLabel:'Day',addDayBtn:'+ Save this day',addedDayBtn:'✓ Saved',
-    tipsTitle:'What the guides don\'t tell you',
+    tipsTitle:'What you need to know before you go',
     recapTitle:'The full plan',budgetFitLabel:'Does it fit your budget?',
     dayRecapLabel:'Day by day',stayLabel:'Where to sleep',bookHotel:'Browse accommodation →',
-    ctaTitle:(d)=>`${d} is waiting.`,
-    ctaSub:'The itinerary is ready. Every day has its logic, every choice its reason. Just book.',
+    ctaTitle:(d)=>`Your plan for ${d} is ready.`,
+    ctaSub:'Day-by-day itinerary, selected accommodation, restaurants chosen for your profile. Book each part directly — no middlemen.',
     ctaFlights:'✈ Find flights',ctaHotels:'🏨 Find accommodation',
     tags:['🏛️ Culture','🍷 Food & Wine','🎨 Art & Design','🧗 Adventure','🚂 Slow travel','🧘 Disconnect','🌙 Nightlife','❤️ Romance','🎵 Music & Scene','🎒 Backpacker'],
     travelerMap:{solo:'solo',couple:'as a couple',friends:'with friends',family:'with kids'},
@@ -890,12 +892,12 @@ const I18N={
     promptIntro:'You are the travel editor of an independent European magazine — not mass tourism, but the kind sold in design bookshops and select airport lounges. You write for people aged 28 to 45 who have travelled before, who can tell a neighbourhood bar from a tourist trap, and who would rather have one memorable dinner than three monuments ticked off a list. Your voice: direct, opinionated, occasionally ironic, always specific. Never preachy. Never enthusiastic without reason. You recommend with the confidence of someone who knows the place first-hand — not from googling it. Every recommendation has a specific reason. Descriptions evoke something real: the sound of chairs scraping at noon, the smell of a market before 8am, the light in that bar at 11pm. Include experiences not in the top search results: specific markets, neighbourhood bars, routes locals take but don\'t publicise, free things worth more than paid ones. Avoid absolutely: "unmissable", "hidden gem", "authentic", "charming", "must-see", "magical". Use: proper names, specific times, exactly what to order, why this place and not the one next door.',
   },
   fr:{
-    badge:'Des itinéraires avec du goût. Pour ceux qui voyagent autrement.',
-    h1a:'Certains endroits\nse visitent. D\'autres\n<em>vous habitent.</em>',
-    heroSub:'Dites-nous votre budget, d\'où vous partez et comment vous voyagez. On construit le plan — avec du goût, une vraie voix, ce que les guides ne donnent pas.',
-    proof1:'Voyageurs',proof2:'Destinations',proof3:'Note',
-    formTitle:'Construisez votre prochain voyage.',
-    formSub:'Plus vous êtes précis, plus le résultat vous ressemble.',
+    badge:'Itinéraire complet · Gratuit · Prêt en 30 secondes',
+    h1a:'Votre prochain voyage,\nplanifié par quelqu\'un\n<em>qui connaît l\'endroit.</em>',
+    heroSub:'Dites-nous où vous voulez aller et comment vous voyagez. En 30 secondes vous avez un itinéraire jour par jour — hébergement, restaurants, transport et expériences qui valent la réservation.',
+    proof1:'Plans générés',proof2:'Destinations',proof3:'Note',
+    formTitle:'Où allez-vous ?',
+    formSub:'Remplissez ce que vous savez. On s\'occupe du reste.',
     labelBudgetAmount:'Combien voulez-vous dépenser ?',phBudget:'800',
     budgetPerPerson:'par personne',budgetPerTotal:'total groupe',
     labelFrom:'D\'où partez-vous ?',labelTo:'Où ?',phFrom:'Paris, Madrid, Lisbonne…',phTo:'Destination — ou laissez vide pour des suggestions',
@@ -916,10 +918,10 @@ const I18N={
     labelStyle:'Quel type de voyage cherchez-vous ?',
     labelNotes:'Autre chose à savoir',
     phNotes:'Végétarien. Quartiers hors TripAdvisor. Auberge avec caractère plutôt qu\'hôtel de chaîne…',
-    btnGen:'Créer mon itinéraire',navSaved:'Mes voyages',
+    btnGen:'Générer l\'itinéraire →',navSaved:'Mes voyages',
     cartLabel:'Mon voyage',addToMyTrip:'+ Noter ça',addedToTrip:'✓ Noté',
     expBookBtn:'Réserver →',expLoadingMsg:'Sélection des meilleures…',
-    expTitle:'Expériences qui valent le détour',expSub:'Sélectionnées pour ce voyage. Réservation directe.',
+    expTitle:'Expériences à réserver',expSub:'Sélectionnées pour votre profil. Prix et disponibilité en direct.',
     checkoutTitle:'Finaliser la réservation',checkoutSub:'Une dernière étape.',
     contactTitle:'Coordonnées',cName:'Prénom',cEmail:'Email',cNamePh:'Votre prénom',cEmailPh:'vous@email.com',
     reserveTitle:'Réserver chaque étape',sendTitle:'Informations de paiement',
@@ -930,21 +932,21 @@ const I18N={
     shareTrip:'🔗 Partager',
     saveBtnLabel:'🗂 Sauvegarder',saveBtnDone:'✅ Sauvegardé',printBtn:'🖨 PDF',
     loadMsgs:[
-      'On supprime tout ce qui apparaît en première page de Google…',
-      'Le restaurant où mangent ceux qui y vivent vraiment…',
-      'Croisement des sources — pas seulement TripAdvisor…',
-      'Le bon quartier pour votre façon de voyager…',
-      'Le budget couvre-t-il ce qui en vaut vraiment la peine ?',
-      'On ajoute du goût. On retire le superflu.',
-      'Ce détail qui transforme un voyage en souvenir…',
-      'Prêt. Votre plan ne ressemble à aucun autre.'
+      'Analyse de la destination et des dates…',
+      'Sélection de l\'hébergement par quartier et budget…',
+      'Choix des restaurants avec connaissance locale…',
+      'Calcul des transports et de la logistique…',
+      'Ajout des expériences qui valent la réservation…',
+      'Vérification que le budget tient…',
+      'Organisation de l\'itinéraire jour par jour…',
+      'Préparation des liens de réservation…'
     ],
     dayLabel:'Jour',addDayBtn:'+ Garder ce jour',addedDayBtn:'✓ Gardé',
-    tipsTitle:'Ce que les guides ne disent pas',
+    tipsTitle:'Ce qu\'il faut savoir avant de partir',
     recapTitle:'Le plan complet',budgetFitLabel:'Adapté à votre budget ?',
     dayRecapLabel:'Jour par jour',stayLabel:'Où dormir',bookHotel:'Voir l\'hébergement →',
-    ctaTitle:(d)=>`${d} vous attend.`,
-    ctaSub:'L\'itinéraire est prêt. Chaque jour pensé, chaque choix justifié. Il ne reste qu\'à réserver.',
+    ctaTitle:(d)=>`Votre plan pour ${d} est prêt.`,
+    ctaSub:'Itinéraire jour par jour, hébergement sélectionné, restaurants choisis pour votre profil. Réservez chaque étape directement — sans intermédiaires.',
     ctaFlights:'✈ Chercher des vols',ctaHotels:'🏨 Voir l\'hébergement',
     tags:['🏛️ Culture','🍷 Gastronomie','🎨 Art & Design','🧗 Aventure','🚂 Slow travel','🧘 Déconnexion','🌙 Soirées','❤️ Romantique','🎵 Musique & Scène','🎒 Sac à dos'],
     travelerMap:{solo:'en solo',couple:'en couple',friends:'entre amis',family:'avec enfants'},
@@ -2913,26 +2915,7 @@ async function gen(){
   }
   const iv=setInterval(()=>{rotatePhraseWith(msgs[mi=(mi+1)%msgs.length]);},2600);
   ltxtEl.textContent=msgs[0];ltxtEl.style.transition='opacity .3s';
-  // Show destination name
-  const _dn=document.getElementById('loadDestName');
-  if(_dn&&dest){_dn.textContent=dest.toUpperCase();_dn.style.display='block';}
-  // Show estimated time
-  const _te=document.getElementById('loadTimeEst');
-  if(_te){
-    const estSec=Math.round(20+Math.random()*15);
-    _te.textContent={es:`Tiempo estimado: ~${estSec} segundos`,en:`Estimated time: ~${estSec} seconds`,fr:`Temps estimé : ~${estSec} secondes`}[lang];
-    _te.style.display='block';
-  }
-  // Show destination fact
-  const _fc=document.getElementById('destFactCard');
-  const _df=getDestFacts(dest,lang);
-  if(_df&&_fc){
-    setTimeout(()=>{
-      _fc.style.display='block';
-      document.getElementById('dfcLabel').textContent={es:'Mientras preparamos tu viaje…',en:'A curiosity while you wait…',fr:'Une curiosité en attendant…'}[lang];
-      document.getElementById('dfcFact').innerHTML=_df;
-    },1200);
-  }
+  // Clean loading — just progress bar + status text
 
   const MONTHS={es:['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'],en:['January','February','March','April','May','June','July','August','September','October','November','December'],fr:['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre']};
   const mes=dfv?(MONTHS[lang]||MONTHS.es)[new Date(dfv+'T00:00:00').getMonth()]:'';
@@ -3221,7 +3204,9 @@ Max ${Math.max(1200, days*250)} words. Write entirely in ${wl}.`;
   }
 
   // ── API key check before anything ──
-  const storedKey = localStorage.getItem('ts_api_key')||'';
+  // API key: localStorage first, then hardcoded fallback
+  const HARDCODED_KEY = 'REPLACE_WITH_YOUR_KEY'; // set your key here for local use
+  const storedKey = localStorage.getItem('ts_api_key') || (HARDCODED_KEY !== 'REPLACE_WITH_YOUR_KEY' ? HARDCODED_KEY : '');
   console.log('[TS] gen() start — key present:', !!storedKey, '— dest:', dest);
   if(!storedKey){
     clearInterval(iv);
