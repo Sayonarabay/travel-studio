@@ -1183,6 +1183,12 @@ function renderSugg(){
   const tL=(n,d)=>{if(d.road)return RL;const r=DEST_REGION[n];if(r&&nearR.includes(r)&&!r.includes('island')&&r!=='canarias')return NL;return FL;};
   document.getElementById('dpCards').innerHTML=picks.map(([name,d])=>{const c=calcBudget(d,days,pax,bT,origin);if(!c)return'';const rem=Math.round(bT-c.totalMin);return`<div class="dp-card" onclick="chooseDest(${JSON.stringify(name)},this)"><div style="flex:1;min-width:0"><div class="dp-type">${tL(name,d)}</div><div class="dp-name">${name}</div><div class="dp-note">${d.note||''}</div></div><div class="dp-price"><div class="dp-pp">desde ~€${Math.round(c.totalMin/pax)}pp</div>${pax>1?`<div class="dp-tot">~€${Math.round(c.totalMin)} ${pax} pax</div>`:''}<div class="dp-left">te sobran ~€${rem}</div></div></div>`;}).join('');
   panel.classList.add('show');
+  // Restore selection if user already picked one
+  if(chosenDest){
+    document.querySelectorAll('.dp-card').forEach(c=>{
+      c.classList.toggle('picked', c.querySelector('.dp-name')?.textContent===chosenDest);
+    });
+  }
 }
 function chooseDest(name,el){document.querySelectorAll('.dp-card').forEach(c=>c.classList.remove('picked'));el.classList.add('picked');chosenDest=name;WZ.dest=name;document.getElementById('wDest').value=name;updateUI();}
 function refreshSugg(){_seed=Math.floor(Math.random()*99);chosenDest=null;WZ.dest=null;document.getElementById('wDest').value='';renderSugg();}
@@ -1206,6 +1212,8 @@ function startGenerate(){
   document.getElementById('loadScreen').classList.add('on');
   let li=0;const ldI=setInterval(()=>{for(let i=0;i<4;i++)document.getElementById('ls'+i).classList.toggle('on',i<=li);li++;if(li>=4)clearInterval(ldI);},1900);
   const days=parseInt(WZ.dur||5),pax=parseInt(WZ.pax||2);
+  const dData=DEST_DB[dest]||null;
+  const isRoad=dData?.road||WZ.type==='road';
   const paxStr=WZ.fam?pax+' personas con familia':pax===1?'1 persona':pax===2?'2 personas':pax+' personas';
   const interests=WZ.interests.join(', ')||'variado';
   // Build personalization context
@@ -1222,8 +1230,6 @@ function startGenerate(){
   if(WZ.budget<500) persCtx.push('presupuesto ajustado: prioriza actividades gratuitas, comida en mercados, transporte público');
   if(WZ.budget>1500) persCtx.push('presupuesto amplio: experiencias premium, restaurantes de calidad, actividades privadas');
   const persStr=persCtx.length>0?'\n\nPERFIL ESPECÍFICO:\n'+persCtx.map(p=>'- '+p).join('\n'):'';
-  const dData=DEST_DB[dest]||null;
-  const isRoad=dData?.road||WZ.type==='road';
   const bTotal=WZ.budget*pax;
   const prompt=`Crea un itinerario completo para ${paxStr} a ${dest}, saliendo desde ${WZ.origin||'Europa'}.
 Duración: ${days} días.${WZ.df?' Fechas: '+WZ.df+(WZ.dt?' a '+WZ.dt:'')+'.':' Fechas flexibles.'}
