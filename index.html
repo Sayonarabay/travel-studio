@@ -71,6 +71,19 @@ h1 em{font-style:italic;color:#A7F3D0}
 .dest-suggest-btn:hover{border-color:var(--sage);color:var(--sage-dark)}
 .dest-suggest-btn.on{border-color:var(--sage);color:var(--sage-dark);background:var(--sage-light)}
 /* Budget check panel */
+.travelers-wrap{display:flex;flex-direction:column;gap:.5rem}
+.origin-wrap{position:relative;display:flex;align-items:center}
+.origin-wrap input{padding-right:2.4rem}
+.geo-btn{position:absolute;right:.5rem;background:none;border:none;cursor:pointer;font-size:1rem;padding:.2rem;opacity:.6;transition:opacity .15s}
+.geo-btn:hover{opacity:1}
+.geo-btn.loading{animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.pax-wrap{display:flex;align-items:center;justify-content:space-between;padding:.5rem .8rem;border:1.5px solid var(--border);border-radius:var(--r);background:var(--white)}
+.pax-wrap label{margin:0;font-size:.6rem}
+.pax-counter{display:flex;align-items:center;gap:.6rem}
+.pax-btn{width:26px;height:26px;border:1.5px solid var(--border);border-radius:50%;background:var(--white);font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--ink);transition:all .15s;line-height:1;padding:0}
+.pax-btn:hover{border-color:var(--sage);color:var(--sage-dark)}
+#paxCount{font-size:.95rem;font-weight:700;color:var(--ink);min-width:18px;text-align:center}
 .budget-check{border:1.5px solid var(--border);border-radius:var(--r);padding:1rem 1.1rem;margin-bottom:.8rem;background:var(--white);display:none}
 .budget-check.show{display:block}
 .budget-check.ok{border-color:#4a7c59;background:#f0f7f2}
@@ -612,7 +625,13 @@ textarea{resize:none;height:56px;font-size:.82rem}
     <div class="form-hed" data-i="formTitle"></div>
     <div class="form-sub" data-i="formSub"></div>
     <div class="g2">
-      <div class="fg"><label data-i="labelFrom"></label><input type="text" id="origin" data-i-ph="phFrom"/></div>
+      <div class="fg">
+        <label data-i="labelFrom"></label>
+        <div class="origin-wrap">
+          <input type="text" id="origin" data-i-ph="phFrom"/>
+          <button type="button" class="geo-btn" id="geoBtn" onclick="detectOrigin()" title="Detectar mi ubicación">📍</button>
+        </div>
+      </div>
       <div class="fg" id="destFg"><label data-i="labelTo"></label>
         <div class="dest-wrap">
           <input type="text" id="dest" data-i-ph="phTo"/>
@@ -645,13 +664,22 @@ textarea{resize:none;height:56px;font-size:.82rem}
       </div>
     </div>
     <div class="fg"><label data-i="labelTravelers"></label>
-      <select id="travelers">
-        <option value="solo" data-i="tSolo"></option>
-        <option value="couple" selected data-i="tCouple"></option>
-        <option value="friends" data-i="tFriends"></option>
-        <option value="family" data-i="tFamily"></option>
-      </select>
-    </div>
+      <div class="travelers-wrap">
+        <select id="travelers" onchange="updateTravelersUI()">
+          <option value="solo" data-i="tSolo"></option>
+          <option value="couple" selected data-i="tCouple"></option>
+          <option value="friends" data-i="tFriends"></option>
+          <option value="family" data-i="tFamily"></option>
+        </select>
+        <div class="pax-wrap" id="paxWrap">
+          <label data-i="labelPax"></label>
+          <div class="pax-counter">
+            <button type="button" class="pax-btn" onclick="changePax(-1)">−</button>
+            <span id="paxCount">2</span>
+            <button type="button" class="pax-btn" onclick="changePax(1)">+</button>
+          </div>
+        </div>
+      </div>
     <div class="fg"><label data-i="labelStyle"></label><div class="tags" id="tagsWrap"></div></div>
     <div class="fg"><label data-i="labelNotes"></label><textarea id="extra" data-i-ph="phNotes"></textarea></div>
     <div id="budgetCheckPanel" class="budget-check"></div>
@@ -723,6 +751,7 @@ const I18N={
     labelDuration:'Duración',
     dur2:'Fin de semana (2 días)',dur3:'3 días',dur5:'5 días',dur7:'1 semana',dur10:'10 días',dur14:'2 semanas',
     destSuggestBtn:'¿Sin destino? Sugiéreme →',destSuggestBtnOn:'✕ Tengo destino',
+    labelPax:'¿Cuántos?',
     budgetWarnTitle:'⚠️ El presupuesto puede quedarse justo',
     budgetOkTitle:'✓ Presupuesto viable',
     budgetSuggestTitle:'Destinos posibles con tu presupuesto',
@@ -778,6 +807,7 @@ const I18N={
     labelDuration:'Duration',
     dur2:'Weekend (2 days)',dur3:'3 days',dur5:'5 days',dur7:'1 week',dur10:'10 days',dur14:'2 weeks',
     destSuggestBtn:'No destination? Suggest one →',destSuggestBtnOn:'✕ I have a destination',
+    labelPax:'How many?',
     budgetWarnTitle:'⚠️ Budget might be tight',
     budgetOkTitle:'✓ Budget looks viable',
     budgetSuggestTitle:'Destinations that fit your budget',
@@ -833,6 +863,7 @@ const I18N={
     labelDuration:'Durée',
     dur2:'Week-end (2 jours)',dur3:'3 jours',dur5:'5 jours',dur7:'1 semaine',dur10:'10 jours',dur14:'2 semaines',
     destSuggestBtn:'Pas de destination ? Suggère-moi →',destSuggestBtnOn:'✕ J\'ai une destination',
+    labelPax:'Combien ?',
     budgetWarnTitle:'⚠️ Budget peut être serré',
     budgetOkTitle:'✓ Budget viable',
     budgetSuggestTitle:'Destinations possibles avec votre budget',
@@ -1038,6 +1069,65 @@ function shareTrip(){
 // ═══════════════════════════════════
 let flexDates=false;
 function setFlex(v){flexDates=v;document.getElementById('flexYes').classList.toggle('on',v);document.getElementById('flexNo').classList.toggle('on',!v);}
+
+// ═══════════════════════════════════
+// GEOLOCATION
+// ═══════════════════════════════════
+function detectOrigin(){
+  const btn=document.getElementById('geoBtn');
+  const input=document.getElementById('origin');
+  if(!navigator.geolocation){return;}
+  btn.textContent='⏳';
+  navigator.geolocation.getCurrentPosition(async pos=>{
+    try{
+      const {latitude:lat,longitude:lon}=pos.coords;
+      const res=await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json&accept-language=${lang}`);
+      const data=await res.json();
+      const city=data.address?.city||data.address?.town||data.address?.village||'';
+      const country=data.address?.country||'';
+      if(city) input.value=city+(country?', '+country:'');
+    }catch(e){}
+    finally{btn.textContent='📍';}
+  },()=>{btn.textContent='📍';},{timeout:6000});
+}
+
+// ═══════════════════════════════════
+// PAX COUNTER
+// ═══════════════════════════════════
+let paxCount = 2;
+const PAX_DEFAULTS = {solo:1, couple:2, friends:4, family:4};
+const PAX_MIN = {solo:1, couple:2, friends:2, family:2};
+const PAX_MAX = {solo:1, couple:2, friends:20, family:12};
+
+function updateTravelersUI(){
+  const tKey = document.getElementById('travelers').value;
+  const paxWrap = document.getElementById('paxWrap');
+  // Solo and couple have fixed pax
+  if(tKey==='solo'||tKey==='couple'){
+    paxCount = PAX_DEFAULTS[tKey];
+    paxWrap.style.display='none';
+  } else {
+    if(paxCount < PAX_MIN[tKey]) paxCount = PAX_DEFAULTS[tKey];
+    paxWrap.style.display='flex';
+  }
+  document.getElementById('paxCount').textContent = paxCount;
+  checkBudget();
+}
+
+function changePax(delta){
+  const tKey = document.getElementById('travelers').value;
+  const min = PAX_MIN[tKey]||2, max = PAX_MAX[tKey]||20;
+  paxCount = Math.max(min, Math.min(max, paxCount + delta));
+  document.getElementById('paxCount').textContent = paxCount;
+  checkBudget();
+}
+
+function getNumPax(){
+  const tKey = document.getElementById('travelers').value;
+  if(tKey==='solo') return 1;
+  if(tKey==='couple') return 2;
+  return paxCount;
+}
 
 // ═══════════════════════════════════
 // BUDGET CALCULATOR + DESTINATION SUGGEST
@@ -1265,7 +1355,7 @@ function checkBudget(){
   const budgetPer = document.getElementById('budgetPer').value;
   const dest = destSuggestMode ? '' : document.getElementById('dest').value.trim();
   const tKey = document.getElementById('travelers').value;
-  const pax = {solo:1,couple:2,friends:4,family:3}[tKey]||1;
+  const pax = getNumPax();
   const budgetPerPax = budgetPer==='total' ? budgetVal/pax : budgetVal;
   const budgetTotal = budgetPerPax*pax;
   const dfv=document.getElementById('df').value, dtv=document.getElementById('dt').value;
@@ -2180,8 +2270,10 @@ function buildBookingRecap(s){
   const dtv = document.getElementById('dt').value;
   const days = dfv&&dtv ? Math.max(1,Math.round((new Date(dtv)-new Date(dfv))/86400000)) : (s.days||7);
   const tKey = document.getElementById('travelers').value;
-  const bKey = document.getElementById('budget').value;
   const tMap = t('travelerMap');
+  // Derive budget level from actual amount
+  const rawBudgetExp = parseFloat(document.getElementById('budgetAmount')?.value)||0;
+  const bKey = rawBudgetExp>300?'high':rawBudgetExp>150?'mid':'low';
   const bMap = t('budgetMap');
 
   // Labels
@@ -2498,24 +2590,18 @@ async function gen(){
   const days=Math.max(1,Math.round((new Date(dtv)-new Date(dfv))/86400000));
 
   const tKey=document.getElementById('travelers').value;
-  // Keep bKey for prompt context but derive from budget amount
-  const bKey=document.getElementById('budget')?.value||'mid';
   const styles=activeTags(),extra=document.getElementById('extra').value.trim();
-  const tMap=t('travelerMap');
-  const tStr=tMap[tKey]||tKey;
-  // bStr derived from actual budget amount
-  const bStr=hasBudget?`€${budgetPerPax} por persona`:(t('budgetMap')?.[bKey]||bKey);
+  const tStr=t('travelerMap')[tKey]||tKey;
 
   // Real budget in euros
-  const budgetAmountEl=document.getElementById('budgetAmount');
-  const budgetPerEl=document.getElementById('budgetPer');
-  const rawBudget=parseFloat(budgetAmountEl?.value)||0;
-  const budgetPer=budgetPerEl?.value||'person';
-  const numPax={solo:1,couple:2,friends:4,family:3}[tKey]||1;
+  const numPax=getNumPax();
+  const rawBudget=parseFloat(document.getElementById('budgetAmount')?.value)||0;
+  const budgetPer=document.getElementById('budgetPer')?.value||'person';
   const budgetPerPax=budgetPer==='total'?Math.round(rawBudget/numPax):rawBudget;
   const budgetTotal=budgetPerPax*numPax;
   const hasBudget=budgetTotal>0;
-  const budgetStr=hasBudget?`€${budgetPerPax}pp (€${budgetTotal} total para ${numPax} persona${numPax>1?'s':''})`:`${bStr}`;
+  const budgetStr=hasBudget?`€${budgetPerPax}pp (€${budgetTotal} total para ${numPax} persona${numPax>1?'s':''})`:`sin límite definido`;
+  const bStr=hasBudget?`€${budgetPerPax}pp`:'presupuesto abierto';
 
   const btn=document.getElementById('genBtn');btn.disabled=true;
   document.getElementById('loadBox').classList.add('on');
@@ -2564,21 +2650,22 @@ async function gen(){
   const flexNote=flexDates?{es:'Fechas flexibles ±3 días.',en:'Dates flexible ±3 days.',fr:'Dates flexibles ±3 jours.'}[lang]:'';
 
   // ── Build traveler context ──
-  const numTravelers = {solo:1,couple:2,friends:4,family:3}[tKey]||1;
+  const numTravelers = getNumPax();
   const isGroup = tKey==='friends';
   const isSolo = tKey==='solo';
   const isCouple = tKey==='couple';
   const isFamily = tKey==='family';
 
-  // Budget ranges per person per day (realistic)
-  const budgetRanges = {
-    low:  {hotel:[30,70],  food:[20,35],  exp:[0,25],  flightMult:0.7},
-    mid:  {hotel:[70,150], food:[35,60],  exp:[25,60],  flightMult:1.0},
-    high: {hotel:[150,300],food:[60,120], exp:[60,150], flightMult:1.4},
-    premium:{hotel:[300,700],food:[120,250],exp:[150,400],flightMult:2.0},
-  };
-  const br = budgetRanges[bKey]||budgetRanges.mid;
-  const pax = numTravelers;
+  // Derive budget tier from actual amount per person per day
+  const ppd = hasBudget ? Math.round(budgetPerPax / days) : 80;
+  const br = ppd < 50
+    ? {hotel:[30,70],  food:[20,35],  exp:[0,25]}
+    : ppd < 100
+    ? {hotel:[70,150], food:[35,60],  exp:[25,60]}
+    : ppd < 180
+    ? {hotel:[150,300],food:[60,120], exp:[60,150]}
+    : {hotel:[300,700],food:[120,250],exp:[150,400]};
+  const pax = getNumPax();
 
   // Traveler persona instructions
   const travelerPersona = {
@@ -2647,10 +2734,14 @@ Write instead as a type of experience: "find a local vermouth bar in the Malasa�
 Horarios, precios y disponibilidad pueden cambiar — no escribas afirmaciones definitivas sobre horas exactas de apertura.
 
 ━━ TRANSPORT INTELLIGENCE ━━
-The traveller leaves from HOME in ${origin}, not from a hotel. Think carefully about the best way to GET THERE from ${origin} to ${dest}:
-- If distance < 600km and a good train exists: RECOMMEND TRAIN. Faster door-to-door, no airport hassle.
-- If driving makes sense (road trip, coastal, countryside, <5h, ${isGroup||isFamily?'group shares cost':''}): RECOMMEND CAR.
-- If flight is the only realistic option (>800km, no good ground connection): recommend FLIGHT.
+The traveller leaves from ${origin}. Think about the best way to GET THERE:
+- If distance < 600km and a good train exists: RECOMMEND TRAIN.
+- If road trip or driving makes sense (<5h, ${isGroup||isFamily?'group shares cost':'scenic route'}): RECOMMEND CAR.
+- If flight is needed (>600km, no good ground connection): recommend FLIGHT.
+
+IMPORTANT — DO NOT invent specific prices for flights or trains. You don't have real-time data.
+For PRICE_RANGE write only: "consulta en Skyscanner / Renfe / Omio según fechas" — never a made-up number.
+For LOCAL TRANSPORT at the destination: metro/walk/bike for cities, car rental for coastal/islands/rural.
 
 Also think about LOCAL TRANSPORT at the destination:
 - City: metro/walk/bike. Suggest renting a bike or e-scooter if it fits.
@@ -3472,6 +3563,10 @@ document.addEventListener('DOMContentLoaded',()=>{
   applyLang();
   updateSavedCount();
   checkTripFromUrl();
+  updateTravelersUI();
+  // Auto-detect origin if empty
+  const originEl=document.getElementById('origin');
+  if(originEl&&!originEl.value) detectOrigin();
   // Wire budget check listeners
   ['budgetAmount','budgetPer','dest','travelers','df','dt'].forEach(id=>{
     const el=document.getElementById(id);
