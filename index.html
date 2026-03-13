@@ -51,7 +51,7 @@ h1 em{font-style:italic;color:#A7F3D0}
 .stat-l{font-size:.6rem;color:rgba(255,255,255,.3);font-weight:500;margin-top:.2rem;text-transform:uppercase;letter-spacing:.1em}
 
 /* ── FORM ── */
-.hero-right{background:var(--warm-white);padding:3rem 2.8rem;display:flex;flex-direction:column;justify-content:flex-start;overflow-y:auto;max-height:calc(100vh - 52px);position:sticky;top:52px;border-left:1px solid var(--border)}
+.hero-right{background:transparent;padding:0;display:flex;flex-direction:column;justify-content:flex-start;overflow:hidden;height:calc(100vh - 52px);min-height:600px;position:sticky;top:52px;border-left:none}
 .form-hed{font-family:var(--font-display);font-size:1.55rem;font-weight:400;margin-bottom:.3rem;letter-spacing:-.025em;line-height:1.15;color:var(--ink)}
 .form-sub{font-family:var(--font-prose);font-size:.98rem;color:var(--ink2);margin-bottom:1.8rem;font-style:italic;line-height:1.55}
 .fg{display:flex;flex-direction:column;gap:.28rem;margin-bottom:.8rem}
@@ -663,6 +663,124 @@ textarea{resize:none;height:56px;font-size:.82rem}
 .exp-micro:hover{border-color:var(--sage);color:var(--sage-dark);background:var(--sage-light)}
 .exp-micro.in-cart{background:var(--sage);border-color:var(--sage);color:#fff}
 .exp-micro svg{width:9px;height:9px;fill:none;stroke:currentColor;stroke-width:2.5;flex-shrink:0}
+
+/* ═══════════════════════════════════════════════
+   PROGRESSIVE WIZARD — 5 steps
+═══════════════════════════════════════════════ */
+.wiz-shell{position:relative;overflow:hidden;padding:0!important;background:transparent!important;border-left:none!important}
+.wiz-progress{position:absolute;top:0;left:0;right:0;height:3px;background:rgba(255,255,255,.12);z-index:10}
+.wiz-prog-bar{height:100%;background:linear-gradient(90deg,#4a7c59,#86EFAC);transition:width .5s cubic-bezier(.4,0,.2,1);width:0%}
+.wiz-back{position:absolute;top:1.2rem;left:1.2rem;z-index:20;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:50%;width:38px;height:38px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s}
+.wiz-back:hover{background:rgba(255,255,255,.22)}
+.wiz-back svg{width:16px;height:16px;stroke:#fff}
+
+/* Step container */
+.wiz-step{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:3.5rem 2.5rem 2.5rem;opacity:0;pointer-events:none;transform:translateX(60px);transition:opacity .45s cubic-bezier(.4,0,.2,1),transform .45s cubic-bezier(.4,0,.2,1)}
+.wiz-step.active{opacity:1;pointer-events:all;transform:translateX(0)}
+.wiz-step.exit{opacity:0;transform:translateX(-60px);pointer-events:none}
+
+/* Step backgrounds */
+.wiz-step[data-bg="step1"]{background:linear-gradient(145deg,#1C1C2E 0%,#2C3E6B 60%,#1C3A2E 100%)}
+.wiz-step[data-bg="step2"]{background:linear-gradient(145deg,#1a2a1e 0%,#2C3E6B 50%,#0f2027 100%)}
+.wiz-step[data-bg="step3"]{background:linear-gradient(145deg,#0f2027 0%,#1C3A2E 50%,#2C3E6B 100%)}
+.wiz-step[data-bg="step4"]{background:linear-gradient(145deg,#2C3E6B 0%,#1C3A2E 60%,#1C1C2E 100%)}
+.wiz-step[data-bg="step5"]{background:linear-gradient(145deg,#1C3A2E 0%,#0f2027 50%,#2C3E6B 100%)}
+.wiz-step[data-bg="wow"]{background:linear-gradient(145deg,#0f2027 0%,#1C3A2E 40%,#2C3E6B 100%)}
+
+/* Eyebrow + Question */
+.wiz-eyebrow{font-size:.6rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#86EFAC;margin-bottom:.75rem;text-align:center}
+.wiz-q{font-family:var(--font-display);font-size:1.7rem;font-weight:600;color:#fff;text-align:center;line-height:1.25;margin-bottom:2rem;max-width:340px}
+
+/* Trip type cards */
+.wiz-trip-cards{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;width:100%;max-width:380px}
+.wiz-trip-card{display:flex;flex-direction:column;align-items:center;gap:.5rem;padding:1.4rem .8rem;background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.12);border-radius:16px;cursor:pointer;transition:all .25s;color:#fff}
+.wiz-trip-card:hover{background:rgba(255,255,255,.13);border-color:rgba(255,255,255,.3);transform:translateY(-2px)}
+.wiz-trip-card.selected{background:rgba(74,124,89,.3);border-color:#4a7c59;box-shadow:0 0 0 1px #4a7c59}
+.wtc-ico{font-size:2rem;line-height:1}
+.wtc-lbl{font-size:.75rem;font-weight:700;letter-spacing:.04em;text-align:center}
+
+/* Duration pills */
+.wiz-pills{display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center;margin-bottom:1.2rem}
+.wiz-pill{display:flex;flex-direction:column;align-items:center;padding:.85rem 1.3rem;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.15);border-radius:14px;cursor:pointer;transition:all .2s;color:#fff;min-width:72px}
+.wiz-pill:hover{background:rgba(255,255,255,.15)}
+.wiz-pill.selected{background:rgba(74,124,89,.3);border-color:#4a7c59}
+.wpill-main{font-size:1.3rem;font-weight:800;font-family:var(--font-display)}
+.wpill-sub{font-size:.6rem;color:rgba(255,255,255,.55);margin-top:.1rem;letter-spacing:.05em;text-transform:uppercase}
+.wiz-custom-dur{display:flex;align-items:center;gap:.8rem;color:rgba(255,255,255,.6);font-size:.8rem;margin-bottom:1.5rem}
+.wcd-lbl{font-size:.72rem}
+.wcd-counter{display:flex;align-items:center;gap:.5rem}
+.wcd-counter button{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:#fff;width:28px;height:28px;border-radius:50%;font-size:1rem;cursor:pointer;transition:background .2s}
+.wcd-counter button:hover{background:rgba(255,255,255,.22)}
+#wizDaysCount{font-size:1rem;font-weight:700;color:#fff;min-width:20px;text-align:center}
+
+/* Date input */
+.wiz-date-input{background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:14px;color:#fff;font-size:1.2rem;padding:.9rem 1.5rem;text-align:center;cursor:pointer;outline:none;transition:border-color .2s;width:100%;max-width:320px;font-family:var(--font-display)}
+.wiz-date-input:focus{border-color:#4a7c59}
+.wiz-date-input::-webkit-calendar-picker-indicator{filter:invert(1);opacity:.7;cursor:pointer}
+.wiz-date-hint{font-size:.72rem;color:rgba(255,255,255,.45);margin-top:.6rem;text-align:center}
+
+/* Origin / city input */
+.wiz-origin-row{display:flex;gap:.6rem;align-items:center;width:100%;max-width:360px}
+.wiz-city-input{flex:1;background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:14px;color:#fff;font-size:1.1rem;padding:.85rem 1.2rem;outline:none;transition:border-color .2s}
+.wiz-city-input:focus{border-color:#4a7c59}
+.wiz-city-input::placeholder{color:rgba(255,255,255,.35)}
+.wiz-geo-btn{background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:12px;padding:.85rem;cursor:pointer;transition:all .2s;flex-shrink:0}
+.wiz-geo-btn:hover{background:rgba(74,124,89,.3);border-color:#4a7c59}
+.wiz-geo-btn svg{width:20px;height:20px;stroke:#fff;display:block}
+.wiz-geo-status{font-size:.72rem;color:#86EFAC;margin-top:.5rem;min-height:1.2rem;text-align:center}
+
+/* Traveler buttons */
+.wiz-traveler-row{margin-top:1.4rem;display:flex;flex-direction:column;align-items:center;gap:.6rem;width:100%}
+.wtrav-lbl{font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45)}
+.wtrav-btns{display:flex;gap:.5rem}
+.wtrav-btn{padding:.5rem 1rem;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.15);border-radius:100px;color:rgba(255,255,255,.7);font-size:.75rem;font-weight:700;cursor:pointer;transition:all .2s}
+.wtrav-btn:hover{background:rgba(255,255,255,.15)}
+.wtrav-btn.active{background:rgba(74,124,89,.3);border-color:#4a7c59;color:#fff}
+
+/* Budget slider */
+.wiz-budget-display{display:flex;align-items:baseline;gap:.3rem;margin-bottom:2rem;animation:budgetPop .3s ease}
+@keyframes budgetPop{0%{transform:scale(.95)}50%{transform:scale(1.04)}100%{transform:scale(1)}}
+.wbd-euro{font-size:2rem;font-weight:300;color:rgba(255,255,255,.5);font-family:var(--font-display)}
+.wbd-amount{font-size:5rem;font-weight:800;color:#F6C90E;font-family:var(--font-display);line-height:1;letter-spacing:-.03em;transition:all .15s}
+.wbd-per{font-size:.85rem;color:rgba(255,255,255,.45);font-weight:500;margin-left:.2rem}
+.wiz-slider{-webkit-appearance:none;width:100%;max-width:380px;height:6px;background:rgba(255,255,255,.15);border-radius:3px;outline:none;cursor:pointer}
+.wiz-slider::-webkit-slider-thumb{-webkit-appearance:none;width:28px;height:28px;background:#F6C90E;border-radius:50%;cursor:pointer;box-shadow:0 0 0 4px rgba(246,201,14,.2);transition:box-shadow .2s}
+.wiz-slider::-webkit-slider-thumb:hover{box-shadow:0 0 0 8px rgba(246,201,14,.2)}
+.wiz-slider-labels{display:flex;justify-content:space-between;width:100%;max-width:380px;font-size:.65rem;color:rgba(255,255,255,.3);margin-top:.4rem}
+
+/* Next / Launch buttons */
+.wiz-next-btn,.wiz-launch-btn{margin-top:2rem;padding:.85rem 2.2rem;background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.25);border-radius:100px;color:#fff;font-size:.85rem;font-weight:700;letter-spacing:.04em;cursor:pointer;transition:all .25s;display:flex;align-items:center;gap:.6rem}
+.wiz-next-btn:hover,.wiz-launch-btn:hover{background:rgba(255,255,255,.2);transform:translateY(-1px)}
+.wiz-launch-btn{background:linear-gradient(135deg,#4a7c59,#2d6a4f);border-color:#4a7c59;padding:1rem 2.5rem;font-size:.95rem}
+.wiz-launch-btn svg{width:14px;height:14px}
+.wiz-launch-btn:hover{background:linear-gradient(135deg,#5a9c6e,#3d8a5f)}
+.wiz-surprise-btn{margin-top:1rem;padding:.6rem 1.5rem;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:100px;color:rgba(255,255,255,.6);font-size:.75rem;cursor:pointer;transition:all .2s}
+.wiz-surprise-btn:hover{background:rgba(255,255,255,.15);color:#fff}
+
+/* WOW destination cards */
+.wow-title{font-family:var(--font-display);font-size:1.6rem;font-weight:600;color:#fff;text-align:center;margin-bottom:.4rem}
+.wow-subtitle{font-size:.75rem;color:rgba(255,255,255,.45);text-align:center;margin-bottom:2rem;letter-spacing:.04em}
+.wow-cards{display:flex;flex-direction:column;gap:.7rem;width:100%;max-width:400px}
+.wow-card{display:flex;align-items:center;gap:1rem;padding:1rem 1.3rem;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.12);border-radius:16px;cursor:pointer;transition:all .3s;animation:wowSlideIn .5s ease both;text-align:left;color:#fff}
+.wow-card:hover{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.3);transform:translateX(4px)}
+@keyframes wowSlideIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.wow-card:nth-child(2){animation-delay:.1s}
+.wow-card:nth-child(3){animation-delay:.2s}
+.wow-card-ico{font-size:1.6rem;flex-shrink:0}
+.wow-card-info{flex:1;min-width:0}
+.wow-card-type{font-size:.55rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#86EFAC;margin-bottom:.2rem}
+.wow-card-name{font-size:.95rem;font-weight:700;line-height:1.2}
+.wow-card-note{font-size:.68rem;color:rgba(255,255,255,.5);margin-top:.15rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wow-card-price{flex-shrink:0;font-size:.8rem;font-weight:700;color:#F6C90E;text-align:right;line-height:1.3}
+.wow-card-arrow{opacity:.4;font-size:.8rem;flex-shrink:0}
+
+/* Mobile adjustments for wizard */
+@media(max-width:640px){
+  .wiz-step{padding:3rem 1.5rem 2rem}
+  .wiz-q{font-size:1.4rem}
+  .wbd-amount{font-size:3.8rem}
+  .wiz-trip-cards{grid-template-columns:1fr 1fr;gap:.6rem}
+}
 </style>
 </head>
 <body>
@@ -701,73 +819,140 @@ textarea{resize:none;height:56px;font-size:.82rem}
       <div><div class="stat-n">100%</div><div class="stat-l" data-i="proof3"></div></div>
     </div>
   </div>
-  <div class="hero-right">
-    <div class="form-hed" data-i="formTitle"></div>
-    <div class="form-sub" data-i="formSub"></div>
-    <div class="budget-amount-row">
-      <div class="fg fg-budget">
-        <label data-i="labelBudgetAmount"></label>
-        <div class="budget-input-wrap">
-          <span class="budget-euro">€</span>
-          <input type="number" id="budgetAmount" min="50" max="50000" step="50" placeholder="800" data-i-ph="phBudget"/>
-          <select id="budgetPer">
-            <option value="person" data-i="budgetPerPerson"></option>
-            <option value="total" data-i="budgetPerTotal"></option>
-          </select>
+  <!-- PROGRESSIVE WIZARD -->
+  <div class="hero-right wiz-shell" id="wizShell">
+
+    <!-- Hidden legacy inputs — keep for JS compatibility -->
+    <input type="hidden" id="budgetAmount" value="1200"/>
+    <input type="hidden" id="budgetPer" value="person"/>
+    <input type="hidden" id="origin" value=""/>
+    <input type="hidden" id="dest" value=""/>
+    <input type="hidden" id="df" value=""/>
+    <input type="hidden" id="dt" value=""/>
+    <select id="travelers" style="display:none" onchange="updateTravelersUI()">
+      <option value="solo">Solo</option>
+      <option value="couple" selected>Couple</option>
+      <option value="friends">Friends</option>
+      <option value="family">Family</option>
+    </select>
+    <span id="paxCount" style="display:none">2</span>
+    <div id="tagsWrap" style="display:none"></div>
+    <textarea id="extra" style="display:none"></textarea>
+    <div id="budgetCheckPanel" class="budget-check" style="display:none"></div>
+    <div id="paxWrap" style="display:none"></div>
+
+    <!-- Step counter -->
+    <div class="wiz-progress" id="wizProgress">
+      <div class="wiz-prog-bar" id="wizProgBar"></div>
+    </div>
+
+    <!-- STEP 1: Tipo de escapada -->
+    <div class="wiz-step active" id="wstep-1" data-bg="step1">
+      <div class="wiz-eyebrow" id="weyebrow1"></div>
+      <div class="wiz-q" id="wq1"></div>
+      <div class="wiz-trip-cards" id="tripTypeCards">
+        <button class="wiz-trip-card" data-type="city" onclick="pickTripType('city',this)">
+          <span class="wtc-ico">🌆</span>
+          <span class="wtc-lbl" id="tt-city"></span>
+        </button>
+        <button class="wiz-trip-card" data-type="nature" onclick="pickTripType('nature',this)">
+          <span class="wtc-ico">🏖️</span>
+          <span class="wtc-lbl" id="tt-nature"></span>
+        </button>
+        <button class="wiz-trip-card" data-type="road" onclick="pickTripType('road',this)">
+          <span class="wtc-ico">🚗</span>
+          <span class="wtc-lbl" id="tt-road"></span>
+        </button>
+        <button class="wiz-trip-card" data-type="far" onclick="pickTripType('far',this)">
+          <span class="wtc-ico">✈️</span>
+          <span class="wtc-lbl" id="tt-far"></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- STEP 2: Duración -->
+    <div class="wiz-step" id="wstep-2" data-bg="step2">
+      <div class="wiz-eyebrow" id="weyebrow2"></div>
+      <div class="wiz-q" id="wq2"></div>
+      <div class="wiz-pills" id="durationPills">
+        <button class="wiz-pill" data-days="2" onclick="pickDuration(2,this)"><span class="wpill-main">1–2</span><span class="wpill-sub" id="pd-weekend"></span></button>
+        <button class="wiz-pill" data-days="4" onclick="pickDuration(4,this)"><span class="wpill-main">3–4</span><span class="wpill-sub" id="pd-short"></span></button>
+        <button class="wiz-pill" data-days="7" onclick="pickDuration(7,this)"><span class="wpill-main">5–7</span><span class="wpill-sub" id="pd-week"></span></button>
+        <button class="wiz-pill" data-days="14" onclick="pickDuration(14,this)"><span class="wpill-main">14+</span><span class="wpill-sub" id="pd-long"></span></button>
+      </div>
+      <div class="wiz-custom-dur">
+        <span class="wcd-lbl" id="wcd-lbl"></span>
+        <div class="wcd-counter">
+          <button onclick="adjustDays(-1)">−</button>
+          <span id="wizDaysCount">7</span>
+          <button onclick="adjustDays(1)">+</button>
+        </div>
+        <span class="wcd-unit" id="wcd-unit"></span>
+      </div>
+      <button class="wiz-next-btn" onclick="wizNext(3)" id="wbtn2"></button>
+    </div>
+
+    <!-- STEP 3: Fecha de salida -->
+    <div class="wiz-step" id="wstep-3" data-bg="step3">
+      <div class="wiz-eyebrow" id="weyebrow3"></div>
+      <div class="wiz-q" id="wq3"></div>
+      <input type="date" class="wiz-date-input" id="wizDate" onchange="pickDate(this.value)"/>
+      <div class="wiz-date-hint" id="wizDateHint"></div>
+      <button class="wiz-next-btn" onclick="wizNext(4)" id="wbtn3"></button>
+    </div>
+
+    <!-- STEP 4: Ciudad de origen -->
+    <div class="wiz-step" id="wstep-4" data-bg="step4">
+      <div class="wiz-eyebrow" id="weyebrow4"></div>
+      <div class="wiz-q" id="wq4"></div>
+      <div class="wiz-origin-row">
+        <input type="text" class="wiz-city-input" id="wizOrigin" placeholder="Paris, Madrid, London…" oninput="wizOriginChange(this.value)" autocomplete="off"/>
+        <button class="wiz-geo-btn" onclick="wizDetectOrigin()" title="Detect location">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="9" stroke-dasharray="2 4"/></svg>
+        </button>
+      </div>
+      <div class="wiz-geo-status" id="wizGeoStatus"></div>
+      <div class="wiz-traveler-row">
+        <span class="wtrav-lbl" id="wtrav-lbl"></span>
+        <div class="wtrav-btns" id="wtravBtns">
+          <button class="wtrav-btn active" data-v="solo" onclick="pickTravelers('solo',this)" id="wt-solo"></button>
+          <button class="wtrav-btn" data-v="couple" onclick="pickTravelers('couple',this)" id="wt-couple"></button>
+          <button class="wtrav-btn" data-v="friends" onclick="pickTravelers('friends',this)" id="wt-friends"></button>
+          <button class="wtrav-btn" data-v="family" onclick="pickTravelers('family',this)" id="wt-family"></button>
         </div>
       </div>
+      <button class="wiz-next-btn" onclick="wizNext(5)" id="wbtn4"></button>
     </div>
-    <div class="g2">
-      <div class="fg">
-        <label data-i="labelFrom"></label>
-        <div class="origin-wrap">
-          <input type="text" id="origin" data-i-ph="phFrom"/>
-          <button type="button" class="geo-btn" id="geoBtn" onclick="detectOrigin()" title="Detectar mi ubicación">📍</button>
-        </div>
+
+    <!-- STEP 5: Presupuesto -->
+    <div class="wiz-step" id="wstep-5" data-bg="step5">
+      <div class="wiz-eyebrow" id="weyebrow5"></div>
+      <div class="wiz-q" id="wq5"></div>
+      <div class="wiz-budget-display">
+        <span class="wbd-euro">€</span>
+        <span class="wbd-amount" id="wizBudgetDisplay">1200</span>
+        <span class="wbd-per" id="wizBudgetPer"></span>
       </div>
-      <div class="fg" id="destFg"><label data-i="labelTo"></label>
-        <div class="dest-wrap">
-          <input type="text" id="dest" data-i-ph="phTo"/>
-          <button class="dest-suggest-btn" id="destSuggestBtn" onclick="toggleDestSuggest()" type="button" data-i="destSuggestBtn"></button>
-        </div>
+      <input type="range" class="wiz-slider" id="wizSlider" min="200" max="8000" step="100" value="1200" oninput="wizBudgetChange(this.value)"/>
+      <div class="wiz-slider-labels">
+        <span id="wsl-min"></span>
+        <span id="wsl-max"></span>
       </div>
+      <button class="wiz-launch-btn" id="wizLaunchBtn" onclick="wizLaunch()">
+        <span id="wlaunch-lbl"></span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      </button>
     </div>
-    <div class="g2">
-      <div class="fg"><label data-i="labelDepart"></label><input type="date" id="df"/></div>
-      <div class="fg"><label data-i="labelReturn"></label><input type="date" id="dt"/></div>
+
+    <!-- WOW: Destination reveal -->
+    <div class="wiz-step" id="wstep-wow" data-bg="wow">
+      <div class="wow-title" id="wowTitle"></div>
+      <div class="wow-subtitle" id="wowSub"></div>
+      <div class="wow-cards" id="wowCards"></div>
+      <button class="wiz-surprise-btn" onclick="wizSurpriseMe()" id="wbtn-surprise"></button>
     </div>
-    <div class="fg"><label data-i="labelTravelers"></label>
-      <div class="travelers-wrap">
-        <select id="travelers" onchange="updateTravelersUI()">
-          <option value="solo" data-i="tSolo"></option>
-          <option value="couple" selected data-i="tCouple"></option>
-          <option value="friends" data-i="tFriends"></option>
-          <option value="family" data-i="tFamily"></option>
-        </select>
-        <div class="pax-wrap" id="paxWrap" style="display:none">
-          <label data-i="labelPax"></label>
-          <div class="pax-counter">
-            <button type="button" class="pax-btn" onclick="changePax(-1)">−</button>
-            <span id="paxCount">2</span>
-            <button type="button" class="pax-btn" onclick="changePax(1)">+</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="flex-row">
-      <label data-i="labelFlexible"></label>
-      <div class="flex-tog">
-        <button class="flex-btn on" id="flexNo" onclick="setFlex(false)" data-i="flexNo"></button>
-        <button class="flex-btn" id="flexYes" onclick="setFlex(true)" data-i="flexYes"></button>
-      </div>
-    </div>
-    <div class="fg"><label data-i="labelStyle"></label><div class="tags" id="tagsWrap"></div></div>
-    <div class="fg"><label data-i="labelNotes"></label><textarea id="extra" data-i-ph="phNotes"></textarea></div>
-    <div id="budgetCheckPanel" class="budget-check"></div>
-    <button class="btn-gen" id="genBtn" onclick="gen()">
-      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-      <span data-i="btnGen"></span>
-    </button>
+
+    <!-- Load box (same as before) -->
     <div id="loadBox">
       <div class="load-inner">
         <div id="streamProgress"><div id="streamBar"></div></div>
@@ -782,6 +967,11 @@ textarea{resize:none;height:56px;font-size:.82rem}
         </div>
       </div>
     </div>
+
+    <!-- Back button -->
+    <button class="wiz-back" id="wizBack" onclick="wizBack()" style="display:none">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    </button>
   </div>
 </section>
 
@@ -4613,6 +4803,392 @@ if(document.readyState==='complete'||document.readyState==='interactive'){
       script.src = 'https://emrld.ltd/NTA3NDA0.js?t=507404';
       document.head.appendChild(script);
   })();
+// ═══════════════════════════════════════════════════════════════
+// WIZARD — 5-step progressive form
+// ═══════════════════════════════════════════════════════════════
+const WIZ = {
+  step: 1,
+  tripType: null,
+  days: 7,
+  date: '',
+  originCity: '',
+  travelers: 'couple',
+  pax: 2,
+  budget: 1200,
+};
+
+// i18n for wizard
+const WIZ_I18N = {
+  es: {
+    eyebrow: ['1 / 5','2 / 5','3 / 5','4 / 5','5 / 5'],
+    q: ['¿Qué tipo de escapada?','¿Cuánto tiempo tienes?','¿Cuándo sales?','¿Desde dónde?','¿Cuál es tu presupuesto?'],
+    tt: ['Ciudad & Cultura','Playa & Naturaleza','Road Trip','Aventura lejana'],
+    pills: ['Fin de semana','Escapada corta','Una semana','Dos semanas+'],
+    customLbl: 'Personalizar:',
+    customUnit: 'días',
+    next: 'Continuar →',
+    launch: 'Ver destinos',
+    surprise: 'Sorpréndeme ✨',
+    wowTitle: 'Tu próximo viaje',
+    wowSub: 'Elige un destino o déjanos elegir por ti',
+    perPerson: '/ persona',
+    slMin: 'económico',
+    slMax: 'sin límites',
+    geoDetecting: 'Detectando ubicación…',
+    geoOk: '📍 Ubicación detectada',
+    geoErr: 'No se pudo detectar. Escribe tu ciudad.',
+    wtrav: ['Solo','En pareja','Amigos','Familia'],
+    travLbl: '¿Cómo viajáis?',
+    dateHint: 'Podemos ajustar si las fechas no cuadran',
+  },
+  en: {
+    eyebrow: ['1 / 5','2 / 5','3 / 5','4 / 5','5 / 5'],
+    q: ['What kind of trip?','How much time?','When do you leave?','Where from?','What's your budget?'],
+    tt: ['City & Culture','Beach & Nature','Road Trip','Far Adventure'],
+    pills: ['Weekend','Short break','One week','Two weeks+'],
+    customLbl: 'Custom:',
+    customUnit: 'days',
+    next: 'Continue →',
+    launch: 'See destinations',
+    surprise: 'Surprise me ✨',
+    wowTitle: 'Your next trip',
+    wowSub: 'Pick a destination or let us choose',
+    perPerson: '/ person',
+    slMin: 'budget',
+    slMax: 'no limit',
+    geoDetecting: 'Detecting location…',
+    geoOk: '📍 Location detected',
+    geoErr: 'Could not detect. Type your city.',
+    wtrav: ['Solo','Couple','Friends','Family'],
+    travLbl: 'Who's travelling?',
+    dateHint: 'We can adjust if dates don't work out',
+  },
+  fr: {
+    eyebrow: ['1 / 5','2 / 5','3 / 5','4 / 5','5 / 5'],
+    q: ['Quel type d'escapade ?','Combien de temps ?','Quand partez-vous ?','Depuis où ?','Quel est votre budget ?'],
+    tt: ['Ville & Culture','Plage & Nature','Road Trip','Grande aventure'],
+    pills: ['Week-end','Court séjour','Une semaine','Deux semaines+'],
+    customLbl: 'Personnaliser :',
+    customUnit: 'jours',
+    next: 'Continuer →',
+    launch: 'Voir les destinations',
+    surprise: 'Surprenez-moi ✨',
+    wowTitle: 'Votre prochain voyage',
+    wowSub: 'Choisissez une destination ou laissez-nous choisir',
+    perPerson: '/ personne',
+    slMin: 'économique',
+    slMax: 'sans limite',
+    geoDetecting: 'Détection en cours…',
+    geoOk: '📍 Position détectée',
+    geoErr: 'Impossible de détecter. Tapez votre ville.',
+    wtrav: ['Seul','En couple','Amis','Famille'],
+    travLbl: 'Comment voyagez-vous ?',
+    dateHint: 'On peut ajuster si les dates ne conviennent pas',
+  },
+};
+
+function wi(){ return WIZ_I18N[lang]||WIZ_I18N.es; }
+
+function initWizard(){
+  const w = wi();
+  // Eyebrows
+  for(let i=1;i<=5;i++){
+    const el=document.getElementById('weyebrow'+i);
+    if(el) el.textContent=w.eyebrow[i-1];
+    const qel=document.getElementById('wq'+i);
+    if(qel) qel.textContent=w.q[i-1];
+  }
+  // Trip type labels
+  ['city','nature','road','far'].forEach((t,i)=>{
+    const el=document.getElementById('tt-'+t);
+    if(el) el.textContent=w.tt[i];
+  });
+  // Duration pills
+  ['weekend','short','week','long'].forEach((k,i)=>{
+    const el=document.getElementById('pd-'+k);
+    if(el) el.textContent=w.pills[i];
+  });
+  document.getElementById('wcd-lbl')&&(document.getElementById('wcd-lbl').textContent=w.customLbl);
+  document.getElementById('wcd-unit')&&(document.getElementById('wcd-unit').textContent=w.customUnit);
+  // Buttons
+  ['wbtn2','wbtn3','wbtn4'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.textContent=w.next;
+  });
+  const lb=document.getElementById('wizLaunchBtn');
+  if(lb){ lb.innerHTML=`<span>${w.launch}</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>`; }
+  const sb=document.getElementById('wbtn-surprise');
+  if(sb) sb.textContent=w.surprise;
+  document.getElementById('wizBudgetPer')&&(document.getElementById('wizBudgetPer').textContent=w.perPerson);
+  document.getElementById('wsl-min')&&(document.getElementById('wsl-min').textContent=w.slMin);
+  document.getElementById('wsl-max')&&(document.getElementById('wsl-max').textContent=w.slMax);
+  // Traveler buttons
+  ['solo','couple','friends','family'].forEach((v,i)=>{
+    const el=document.getElementById('wt-'+v);
+    if(el) el.textContent=w.wtrav[i];
+  });
+  const tl=document.getElementById('wtrav-lbl');
+  if(tl) tl.textContent=w.travLbl;
+  // WOW text
+  document.getElementById('wowTitle')&&(document.getElementById('wowTitle').textContent=w.wowTitle);
+  document.getElementById('wowSub')&&(document.getElementById('wowSub').textContent=w.wowSub);
+}
+
+function wizSetStep(n, dir){
+  const prev = WIZ.step;
+  const prevEl = document.getElementById('wstep-'+prev)||document.getElementById('wstep-wow');
+  const nextEl = document.getElementById('wstep-'+n)||document.getElementById('wstep-wow');
+  if(!nextEl) return;
+  if(prevEl){
+    prevEl.classList.remove('active');
+    prevEl.classList.add('exit');
+    setTimeout(()=>prevEl.classList.remove('exit'),500);
+  }
+  nextEl.classList.add('active');
+  WIZ.step = n;
+  // Progress bar
+  const pct = Math.min(100, (n>5?100:(n-1)/4*100));
+  const bar=document.getElementById('wizProgBar');
+  if(bar) bar.style.width=pct+'%';
+  // Back button
+  const back=document.getElementById('wizBack');
+  if(back) back.style.display=(n>1&&n<=5)?'flex':'none';
+}
+
+function wizBack(){
+  if(WIZ.step > 1) wizSetStep(WIZ.step-1);
+}
+
+function wizNext(n){ wizSetStep(n); }
+
+function pickTripType(type, btn){
+  WIZ.tripType = type;
+  document.querySelectorAll('.wiz-trip-card').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+  // Map trip type to style tags
+  const tagMap = {
+    city:['🏛️ Cultura','🍷 Gastronomía'],
+    nature:['🧘 Desconexión','🧗 Aventura'],
+    road:['🚂 Slow travel','🧗 Aventura'],
+    far:['🧗 Aventura','🏛️ Cultura']
+  };
+  // Pre-activate matching tags in hidden tagsWrap
+  setTimeout(()=>{
+    const tags=document.querySelectorAll('#tagsWrap .tag');
+    tags.forEach(t=>{
+      const matches=(tagMap[type]||[]).some(m=>t.textContent.includes(m.replace(/[🏛️🍷🧘🧗🚂]/g,'').trim()));
+      if(matches) t.classList.add('on'); else t.classList.remove('on');
+    });
+    // Auto-advance after brief pause
+    setTimeout(()=>wizSetStep(2),350);
+  },100);
+}
+
+function pickDuration(days, btn){
+  WIZ.days = days;
+  document.getElementById('wizDaysCount').textContent = days;
+  document.querySelectorAll('.wiz-pill').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+}
+
+function adjustDays(delta){
+  WIZ.days = Math.max(1, Math.min(30, WIZ.days+delta));
+  document.getElementById('wizDaysCount').textContent = WIZ.days;
+  document.querySelectorAll('.wiz-pill').forEach(b=>b.classList.remove('selected'));
+}
+
+function pickDate(val){
+  WIZ.date = val;
+  // Set hidden df/dt inputs
+  document.getElementById('df').value = val;
+  // Calculate return date based on days
+  if(val && WIZ.days){
+    const d = new Date(val+'T00:00:00');
+    d.setDate(d.getDate()+WIZ.days);
+    document.getElementById('dt').value = d.toISOString().slice(0,10);
+  }
+  // Show formatted hint
+  if(val){
+    const d = new Date(val+'T00:00:00');
+    const fmt = d.toLocaleDateString(lang==='fr'?'fr-FR':lang==='en'?'en-GB':'es-ES',{weekday:'long',day:'numeric',month:'long'});
+    const hint = document.getElementById('wizDateHint');
+    if(hint) hint.textContent = '📅 '+fmt;
+  }
+}
+
+function wizOriginChange(val){
+  WIZ.originCity = val;
+  document.getElementById('origin').value = val;
+}
+
+function wizDetectOrigin(){
+  const status = document.getElementById('wizGeoStatus');
+  if(status) status.textContent = wi().geoDetecting;
+  if(!navigator.geolocation){ if(status) status.textContent = wi().geoErr; return; }
+  navigator.geolocation.getCurrentPosition(async pos=>{
+    try{
+      const r = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${pos.coords.latitude}&lon=${pos.coords.longitude}&format=json`);
+      const d = await r.json();
+      const city = d.address?.city||d.address?.town||d.address?.village||d.address?.county||'';
+      const country = d.address?.country||'';
+      const full = city+(country?' ('+country+')':'');
+      WIZ.originCity = full;
+      document.getElementById('wizOrigin').value = full;
+      document.getElementById('origin').value = full;
+      if(status) status.textContent = wi().geoOk;
+    } catch(e){ if(status) status.textContent = wi().geoErr; }
+  }, ()=>{ if(status) status.textContent = wi().geoErr; });
+}
+
+function pickTravelers(val, btn){
+  WIZ.travelers = val;
+  document.getElementById('travelers').value = val;
+  WIZ.pax = {solo:1,couple:2,friends:4,family:4}[val]||2;
+  document.getElementById('paxCount').textContent = WIZ.pax;
+  document.querySelectorAll('.wtrav-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function wizBudgetChange(val){
+  WIZ.budget = parseInt(val);
+  const display = document.getElementById('wizBudgetDisplay');
+  if(display){
+    display.textContent = WIZ.budget.toLocaleString();
+    display.style.animation='none';
+    requestAnimationFrame(()=>{display.style.animation='';});
+  }
+  document.getElementById('budgetAmount').value = WIZ.budget;
+}
+
+function wizLaunch(){
+  // Sync all values to legacy inputs
+  document.getElementById('budgetAmount').value = WIZ.budget;
+  document.getElementById('origin').value = WIZ.originCity || document.getElementById('wizOrigin').value||'';
+  document.getElementById('travelers').value = WIZ.travelers;
+  document.getElementById('paxCount').textContent = WIZ.pax;
+  if(WIZ.date){
+    document.getElementById('df').value = WIZ.date;
+    const d=new Date(WIZ.date+'T00:00:00'); d.setDate(d.getDate()+WIZ.days);
+    document.getElementById('dt').value=d.toISOString().slice(0,10);
+  }
+  // Show WOW destination cards
+  wizSetStep('wow');
+  buildWowCards();
+}
+
+function buildWowCards(){
+  const container = document.getElementById('wowCards');
+  if(!container) return;
+  container.innerHTML = '<div style="color:rgba(255,255,255,.4);font-size:.8rem;text-align:center">…</div>';
+
+  // Use existing checkBudget logic — but manually pick from DEST_DB
+  const budgetTotal = WIZ.budget * WIZ.pax;
+  const days = WIZ.days;
+  const originCity = document.getElementById('origin').value||'';
+  const allEntries = Object.entries(DEST_DB||{});
+  const pax = WIZ.pax;
+
+  // Filter by trip type
+  const typeFilter = WIZ.tripType;
+  const allFits = allEntries.filter(([n,d])=>{
+    if(typeFilter==='road' && !d.road) return false;
+    if((typeFilter==='city'||typeFilter==='nature'||typeFilter==='far') && d.road) return false;
+    const c = calcBudget(d, days, pax, budgetTotal, originCity);
+    return c && c.totalMin <= budgetTotal * 1.3;
+  });
+
+  const originRegion = getOriginRegion(originCity);
+  const NEARBY = {fr:['fr','benelux','de','chau','fr_drive'],es:['es','pt'],pt:['pt','es'],uk:['uk','ie'],de:['de','benelux','chau'],benelux:['benelux','fr','de','fr_drive'],it:['it','fr','chau'],chau:['chau','de','it'],nordic:['nordic'],other:['fr','benelux','de']};
+  const nearbyR = NEARBY[originRegion]||NEARBY.fr;
+
+  function getOriginRegion(city){
+    const c=(city||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+    if(/paris|ile.de.france|lyon|marseille|bordeaux|nantes|nice|strasbourg|lille|rennes|tours|reims/i.test(c)) return 'fr';
+    if(/madrid|barcelona|sevilla|valencia|bilbao|malaga/i.test(c)) return 'es';
+    if(/lisboa|porto|portugal/i.test(c)) return 'pt';
+    if(/london|edinburgh|manchester|uk|england/i.test(c)) return 'uk';
+    if(/berlin|munich|hamburg|frankfurt/i.test(c)) return 'de';
+    if(/amsterdam|brussels|bruxelles/i.test(c)) return 'benelux';
+    if(/rome|milan|firenze|torino/i.test(c)) return 'it';
+    if(/zurich|vienna|wien/i.test(c)) return 'chau';
+    if(/stockholm|oslo|copenhagen/i.test(c)) return 'nordic';
+    return 'fr';
+  }
+
+  const nearDests = Object.entries(DEST_DB||{}).filter(([n,d])=>{
+    if(d.road) return false;
+    const r=DEST_REGION&&DEST_REGION[n];
+    if(!r||r.includes('island')||r==='canarias') return false;
+    return nearbyR.includes(r);
+  });
+  const roadDests = allFits.filter(([n,d])=>d.road);
+  const flyDests = allFits.filter(([n,d])=>{
+    if(d.road) return false;
+    const r=DEST_REGION&&DEST_REGION[n];
+    if(r&&nearbyR.includes(r)&&!r.includes('island')&&r!=='canarias') return false;
+    return true;
+  });
+
+  const seed = window._suggestSeed||Math.floor(Math.random()*20);
+  function pick(arr){ return arr.length?arr[seed%arr.length]:null; }
+
+  const NEAR_LABEL={es:'📍 Cerca · tren o coche',en:'📍 Nearby · train or car',fr:'📍 Proche · train ou voiture'}[lang];
+  const ROAD_LABEL={es:'🚗 Road trip',en:'🚗 Road trip',fr:'🚗 Road trip'}[lang];
+  const FLY_LABEL={es:'✈️ Vuelo',en:'✈️ Flight',fr:'✈️ Vol'}[lang];
+
+  const nearPick=pick(nearDests);
+  const roadPick=typeFilter==='road'?pick(allFits.filter(([n,d])=>d.road)):pick(roadDests);
+  const flyPick=pick(flyDests.filter(p=>p!==nearPick&&p!==roadPick));
+
+  // Force at least near pick if none from type filter
+  const candidates = [
+    nearPick?[nearPick,NEAR_LABEL,nearPick[1]?.f?.[0]<60?'🚂':'🚗']:null,
+    roadPick?[roadPick,ROAD_LABEL,'🚗']:null,
+    flyPick?[flyPick,FLY_LABEL,'✈️']:null,
+  ].filter(Boolean).slice(0,3);
+
+  if(!candidates.length){
+    container.innerHTML='<div style="color:rgba(255,255,255,.5);text-align:center;font-size:.8rem">'+{es:'Amplia el presupuesto para ver opciones',en:'Increase budget to see options',fr:'Augmentez le budget pour voir des options'}[lang]+'</div>';
+    return;
+  }
+
+  container.innerHTML = candidates.map(([entry, typeLabel, ico], idx)=>{
+    const [name, d] = entry;
+    const c = calcBudget(d, days, pax, budgetTotal, originCity)||{totalMin:0,totalMax:0};
+    const priceStr = c.totalMin>0?`~€${Math.round(c.totalMin/pax)}pp`:'';
+    return `<button class="wow-card" onclick="wizPickDest('${name.replace(/'/g,'\u2019')}')" style="animation-delay:${idx*0.1}s">
+      <span class="wow-card-ico">${ico}</span>
+      <div class="wow-card-info">
+        <div class="wow-card-type">${typeLabel}</div>
+        <div class="wow-card-name">${name}</div>
+        <div class="wow-card-note">${d.note||''}</div>
+      </div>
+      <div class="wow-card-price">${priceStr}</div>
+      <span class="wow-card-arrow">›</span>
+    </button>`;
+  }).join('');
+}
+
+function wizPickDest(destName){
+  document.getElementById('dest').value = destName;
+  // Sync remaining form state
+  document.getElementById('budgetAmount').value = WIZ.budget;
+  document.getElementById('travelers').value = WIZ.travelers;
+  document.getElementById('paxCount').textContent = WIZ.pax;
+  // Go!
+  gen();
+}
+
+function wizSurpriseMe(){
+  // Pick random from wow cards
+  const cards = document.querySelectorAll('.wow-card');
+  if(cards.length) cards[Math.floor(Math.random()*cards.length)].click();
+}
+
+// Re-init wizard text on language change
+const _origApplyLang = typeof applyLang==='function'?applyLang:null;
+document.addEventListener('DOMContentLoaded', ()=>{ initWizard(); });
+// Also call after applyLang runs
+setTimeout(initWizard, 300);
+
 </script>
-</body>
-</html>
