@@ -1240,12 +1240,16 @@ const PAX_MAX = {solo:1, couple:2, friends:20, family:12};
 function updateTravelersUI(){
   const tKey = document.getElementById('travelers').value;
   const paxWrap = document.getElementById('paxWrap');
-  // Solo and couple have fixed pax
-  if(tKey==='solo'||tKey==='couple'){
-    paxCount = PAX_DEFAULTS[tKey];
+  if(tKey==='solo'){
+    paxCount = 1;
+    paxWrap.style.display='none';
+  } else if(tKey==='couple'){
+    paxCount = 2;
     paxWrap.style.display='none';
   } else {
-    if(paxCount < PAX_MIN[tKey]) paxCount = PAX_DEFAULTS[tKey];
+    // friends/family — keep current count if valid, else reset to default
+    const min = PAX_MIN[tKey]||2;
+    if(paxCount < min) paxCount = PAX_DEFAULTS[tKey];
     paxWrap.style.display='flex';
   }
   document.getElementById('paxCount').textContent = paxCount;
@@ -1461,29 +1465,54 @@ function getDestData(destName){
   return key ? DEST_DB[key] : null;
 }
 
-function calcBudget(destData, days, pax, budgetTotal){
+// Gateway cities — if origin is outside Spain/Portugal, road trip destinations need a flight to hub first
+const SPAIN_PORTUGAL_ORIGINS = ['madrid','barcelona','sevilla','valencia','bilbao','málaga','malaga',
+  'granada','alicante','zaragoza','palma','tenerife','gran canaria','lanzarote','fuerteventura',
+  'lisboa','oporto','faro','la palma','la gomera','el hierro','menorca','ibiza'];
+
+function needsGatewayFlight(originCity, destData){
+  if(!destData.road) return false; // not a road trip
+  if(!originCity) return false;
+  const o = originCity.toLowerCase().trim();
+  // If origin is already in Spain/Portugal, no extra flight needed for Spanish road trips
+  return !SPAIN_PORTUGAL_ORIGINS.some(c => o.includes(c) || c.includes(o));
+}
+
+// Gateway flight cost estimate (to Madrid/Lisbon) from abroad
+const GATEWAY_FLIGHT = {min: 60, max: 180}; // typical Europe→Spain pp roundtrip
+
+function calcBudget(destData, days, pax, budgetTotal, originCity){
   if(!destData) return null;
   const nights = Math.max(1, days-1);
   let flightMin, flightMax;
+
   if(destData.road){
-    // Road trip: car rental cost per day × days, shared between pax
     const carMin = (destData.car?.[0]||30)*days;
     const carMax = (destData.car?.[1]||60)*days;
     const ferryMin = (destData.ferry?.[0]||0)*pax;
     const ferryMax = (destData.ferry?.[1]||0)*pax;
-    flightMin = destData.f[0]*pax + carMin + ferryMin;
-    flightMax = destData.f[1]*pax + carMax + ferryMax;
+    // Base road trip cost (f is 0,0 for domestic road trips)
+    let baseMin = destData.f[0]*pax + carMin + ferryMin;
+    let baseMax = destData.f[1]*pax + carMax + ferryMax;
+    // Add gateway flight if coming from abroad
+    if(needsGatewayFlight(originCity, destData)){
+      baseMin += GATEWAY_FLIGHT.min * pax;
+      baseMax += GATEWAY_FLIGHT.max * pax;
+    }
+    flightMin = baseMin;
+    flightMax = baseMax;
   } else {
     flightMin = destData.f[0]*pax;
     flightMax = destData.f[1]*pax;
   }
+
   const hotelMin = destData.h[0]*nights;
   const hotelMax = destData.h[1]*nights;
   const foodMin = destData.c*0.7*days*pax;
   const foodMax = destData.c*1.4*days*pax;
   const totalMin = flightMin+hotelMin+foodMin;
   const totalMax = flightMax+hotelMax+foodMax;
-  return {flightMin,flightMax,hotelMin,hotelMax,foodMin,foodMax,totalMin,totalMax,nights,note:destData.note,isRoad:!!destData.road};
+  return {flightMin,flightMax,hotelMin,hotelMax,foodMin,foodMax,totalMin,totalMax,nights,note:destData.note,isRoad:!!destData.road,hasGateway:needsGatewayFlight(originCity,destData)};
 }
 
 function checkBudget(){
@@ -1492,7 +1521,7 @@ function checkBudget(){
   const budgetVal = parseFloat(document.getElementById('budgetAmount').value);
   const budgetPer = document.getElementById('budgetPer').value;
   const dest = destSuggestMode ? '' : document.getElementById('dest').value.trim();
-  const tKey = document.getElementById('travelers').value;
+  const originCity = document.getElementById('origin').value.trim();
   const pax = getNumPax();
   const budgetPerPax = budgetPer==='total' ? budgetVal/pax : budgetVal;
   const budgetTotal = budgetPerPax*pax;
@@ -1506,23 +1535,24 @@ function checkBudget(){
   if(destSuggestMode || !dest){
     // Suggest destinations that fit
     const fits = Object.entries(DEST_DB).filter(([name,d])=>{
-      const c = calcBudget(d,days,pax,budgetTotal);
+      const c = calcBudget(d,days,pax,budgetTotal,originCity);
       return c && c.totalMin <= budgetTotal;
     }).sort(([,a],[,b])=>{
-      const ca=calcBudget(a,days,pax,budgetTotal), cb=calcBudget(b,days,pax,budgetTotal);
+      const ca=calcBudget(a,days,pax,budgetTotal,originCity), cb=calcBudget(b,days,pax,budgetTotal,originCity);
       return (budgetTotal-ca.totalMin)-(budgetTotal-cb.totalMin);
     }).slice(0,6);
 
     if(fits.length===0){
-      panel.innerHTML=`<div class="bc-title" style="color:#b45309">${t('budgetWarnTitle')}</div><div class="bc-breakdown">Con €${Math.round(budgetTotal)} para ${days} días y ${pax} persona${pax>1?'s':''} es difícil cubrir vuelos + hotel + comida en la mayoría de destinos europeos. Prueba con más días menos costosos, como Budapest o Cracovia.</div>`;
+      panel.innerHTML=`<div class="bc-title" style="color:#b45309">${t('budgetWarnTitle')}</div><div class="bc-breakdown">Con €${Math.round(budgetTotal)} para ${days} días y ${pax} persona${pax>1?'s':''} es difícil cubrir vuelos + hotel + comida en la mayoría de destinos europeos. Prueba aumentando el presupuesto o reduciendo los días.</div>`;
       panel.classList.add('show','warn');
       return;
     }
 
     const altsHTML = fits.map(([name,d])=>{
-      const c = calcBudget(d,days,pax,budgetTotal);
+      const c = calcBudget(d,days,pax,budgetTotal,originCity);
       const remaining = Math.round(budgetTotal - c.totalMin);
-      return `<div class="bc-alt" onclick="selectDest('${name}')"><span class="bc-alt-name">${name}</span><div style="text-align:right"><span class="bc-alt-detail">${d.note}</span><br><span style="font-size:.7rem;color:#4a7c59;font-weight:700">desde ~€${Math.round(c.totalMin/pax)}pp · te sobran ~€${remaining}</span></div></div>`;
+      const gatewayNote = c.hasGateway ? ' <span style="color:#b45309;font-size:.65rem">+ vuelo a España</span>' : '';
+      return `<div class="bc-alt" onclick="selectDest('${name}')"><span class="bc-alt-name">${name}${gatewayNote}</span><div style="text-align:right"><span class="bc-alt-detail">${d.note}</span><br><span style="font-size:.7rem;color:#4a7c59;font-weight:700">desde ~€${Math.round(c.totalMin/pax)}pp · te sobran ~€${remaining}</span></div></div>`;
     }).join('');
 
     panel.innerHTML=`<div class="bc-title">${t('budgetSuggestTitle')} — €${Math.round(budgetPerPax)}pp · ${days} días</div><div class="bc-alts">${altsHTML}</div>`;
@@ -1533,16 +1563,17 @@ function checkBudget(){
   // Check specific destination
   const destData = getDestData(dest);
   if(!destData){ panel.classList.remove('show'); return; }
-  const c = calcBudget(destData, days, pax, budgetTotal);
+  const c = calcBudget(destData, days, pax, budgetTotal, originCity);
   if(!c){ panel.classList.remove('show'); return; }
 
   const fits = c.totalMin <= budgetTotal;
   const tight = c.totalMax > budgetTotal && c.totalMin <= budgetTotal;
 
-  const flightLine = destData.f[0]===0 && !destData.road ? 'Sin vuelo (origen)' : `${c.isRoad?'🚗 Coche/vuelo+coche':'✈️ Vuelo'} ~€${c.flightMin}–€${c.flightMax}`;
+  const gatewayNote = c.hasGateway ? `<br><span style="color:#b45309;font-size:.7rem">⚠️ Incluye vuelo estimado ${originCity}→Madrid/hub (~€${GATEWAY_FLIGHT.min}–${GATEWAY_FLIGHT.max}pp) para llegar al inicio del road trip</span>` : '';
+  const flightLine = destData.f[0]===0 && !destData.road ? 'Sin vuelo (origen)' : `${c.isRoad?'🚗 Coche'+( c.hasGateway?'+vuelo hub':''):'✈️ Vuelo'} ~€${c.flightMin}–€${c.flightMax}`;
   const breakdown = `<div class="bc-breakdown">
     <b>${flightLine}</b> · Hotel ~€${c.hotelMin}–€${c.hotelMax} (${c.nights}n) · Comida ~€${Math.round(c.foodMin)}–€${Math.round(c.foodMax)}<br>
-    <b>Total estimado: ~€${Math.round(c.totalMin)}–€${Math.round(c.totalMax)}</b> para ${pax} persona${pax>1?'s':''}<br>
+    <b>Total estimado: ~€${Math.round(c.totalMin)}–€${Math.round(c.totalMax)}</b> para ${pax} persona${pax>1?'s':''}${gatewayNote}<br>
     <span style="color:${fits?'#4a7c59':'#b45309'}">${fits?(tight?'⚠️ Ajustado — reserva con antelación':'✓ Cabe en tu presupuesto'):'✗ Puede quedarse corto'}</span>
     ${destData.note?`<br><span style="color:var(--ink2);font-size:.7rem">${destData.note}</span>`:''}
   </div>`;
@@ -1553,11 +1584,11 @@ function checkBudget(){
   } else {
     // Suggest cheaper alternatives
     const cheaper = Object.entries(DEST_DB).filter(([name,d])=>{
-      const cc=calcBudget(d,days,pax,budgetTotal);
+      const cc=calcBudget(d,days,pax,budgetTotal,originCity);
       return cc && cc.totalMin<=budgetTotal && name!==dest;
     }).slice(0,3);
     const altsHTML = cheaper.length>0 ? `<div style="font-size:.72rem;color:var(--ink2);margin-top:.5rem;font-weight:700">Alternativas que sí caben:</div><div class="bc-alts">${cheaper.map(([name,d])=>{
-      const cc=calcBudget(d,days,pax,budgetTotal);
+      const cc=calcBudget(d,days,pax,budgetTotal,originCity);
       return `<div class="bc-alt" onclick="selectDest('${name}')"><span class="bc-alt-name">${name}</span><span class="bc-alt-detail">desde ~€${Math.round(cc.totalMin/pax)}pp</span></div>`;
     }).join('')}</div>` : '';
     panel.innerHTML=`<div class="bc-title" style="color:#b45309">${t('budgetWarnTitle')}</div>${breakdown}${altsHTML}<div class="bc-warn-cta" onclick="forceGen()">${t('budgetWarnCta')}</div>`;
@@ -2892,6 +2923,20 @@ If you are not confident a specific place exists and operates today, DO NOT ment
 Write instead as a type of experience: "find a local vermouth bar in the Malasaña neighbourhood" — never invent a name.
 Horarios, precios y disponibilidad pueden cambiar — no escribas afirmaciones definitivas sobre horas exactas de apertura.
 
+━━ HONESTY ABOUT PRICES — NON-NEGOTIABLE ━━
+You do NOT have access to real-time prices for hotels, flights, activities, or restaurants.
+RULES:
+1. NEVER invent a specific price for a hotel (e.g. "€89/night at Hotel X"). You don't know what it costs today.
+2. For hotels: give a RANGE based on the destination tier — e.g. "budget hostels €25–45/night, mid-range hotels €80–140/night, boutique €150–250/night in this city."
+3. For restaurants: give a realistic spend range — e.g. "expect €15–25pp for a sit-down lunch, €35–60pp for dinner with wine."
+4. For activities/experiences: give the real typical range — e.g. "museum entries typically €10–18, guided tours €25–60pp."
+5. For transport AT destination: give realistic daily estimates — e.g. "metro day pass €2–5, taxi across the city €8–15."
+6. NEVER write "from €X" for a specific hotel — only ranges for categories.
+7. If you genuinely know an iconic venue's price (e.g. Uffizi Gallery entry is a well-known ~€20), you may use it — but flag it: "(~€20, verify on official site)".
+8. For RECAP costs: use ranges, not invented totals. Write "€80–140/night" not "€95/night".
+
+The user's job is to make the final booking decision with real prices. Your job is to tell them WHERE to go, WHY, and ROUGHLY WHAT TO BUDGET — not to quote prices you made up.
+
 ━━ TRANSPORT INTELLIGENCE ━━
 The traveller leaves from ${origin}. Think about the best way to GET THERE:
 - If distance < 600km and a good train exists: RECOMMEND TRAIN.
@@ -2899,7 +2944,7 @@ The traveller leaves from ${origin}. Think about the best way to GET THERE:
 - If flight is needed (>600km, no good ground connection): recommend FLIGHT.
 
 IMPORTANT — DO NOT invent specific prices for flights or trains. You don't have real-time data.
-For PRICE_RANGE write only: "consulta en Skyscanner / Renfe / Omio según fechas" — never a made-up number.
+For PRICE_RANGE write only a realistic range: "€40–120pp by train depending on advance booking" or "€60–180pp by flight — check Skyscanner". NEVER a made-up fixed number.
 For LOCAL TRANSPORT at the destination: metro/walk/bike for cities, car rental for coastal/islands/rural.
 
 Also think about LOCAL TRANSPORT at the destination:
@@ -2922,11 +2967,11 @@ El título de cada día debe ser una frase que capture algo real — no genéric
 La intro de cada día (1-2 frases) es una observación que abre el apetito. No una descripción.
 
 
-- All prices in euros, realistic for ${dest} in ${mes||'current season'}
-- Accommodation: price per room/night
-- Experiences: price per person
-- Restaurants: total bill for ${pax} people
-- Transport: total for ${pax} ${pax===1?'person':'people'}
+- All prices in euros, as RANGES — never invented fixed prices
+- Accommodation: range per room/night by category (budget / mid / boutique)
+- Experiences: typical range per person
+- Restaurants: realistic spend range for ${pax} people
+- Transport: realistic range for ${pax} ${pax===1?'person':'people'}
 
 DO NOT use [BOOK:...] tags. No inline links.
 
@@ -2961,15 +3006,15 @@ CAR_RENTAL_NEEDED: [If car needed: pickup, category, estimated total, best agenc
 - [Exactly 6 tips. Each must be the kind of thing a well-connected local would whisper to a friend — NOT obvious, NOT generic. Include: a specific neighbourhood at a specific time of day, a food or drink nobody orders but should, a transport trick that saves time or money, something that's free but feels expensive, a cultural detail that changes how you see the place, and one thing most tourists do wrong that you should avoid. Each tip starts with a bold, declarative, specific sentence — then expands with context. No "book in advance". No "stay hydrated". No "learn a few words of the language".]
 
 ### RECAP
-TRANSPORT_COST: [total transport to/from for ${pax}]
-LOCAL_TRANSPORT_COST: [local transport for ${pax} for ${days} days]
-HOTEL_COST: [€X–Y/night × ${days-1} nights = ~€Z total]
-EXP_COST: [€X–Y/person × ${pax} = ~€Z]
-FOOD_COST: [~€Z total, ${days} days × €X–Y/person × ${pax}]
-TOTAL_ESTIMATE: [~€X–€Y total for ${pax} ${pax===1?'person':'people'}]
-BUDGET_MATCH: [1 honest sentence: does it fit the ${bStr} budget?]
-DAY_RECAP: [one line per day: "${dw} 1: X + Y + Z — ~€N/person"]
-ACCOMMODATION: [3 real, named, currently-operating options for ${bStr} + ${tStr}: name[MAPS], neighbourhood, €X–Y/night, why it suits ${tStr}]
+TRANSPORT_COST: [range for ${pax} round-trip — e.g. "€60–180pp by flight" or "€40–90pp by train"]
+LOCAL_TRANSPORT_COST: [range for ${pax} for ${days} days — e.g. "€15–30 total (metro + 1 taxi)"]
+HOTEL_COST: [range/night × ${days-1} nights — e.g. "budget €25–45 · mid €80–140 · boutique €150–250/night"]
+EXP_COST: [range per person × ${pax} — e.g. "€30–80/person depending on mix of free/paid"]
+FOOD_COST: [range total — e.g. "€20–40/person/day × ${days} days × ${pax} = ~€${pax*days*20}–€${pax*days*40}"]
+TOTAL_ESTIMATE: [honest range: "~€X–€Y total for ${pax} ${pax===1?'person':'people'} — highly variable by hotel choice and activities"]
+BUDGET_MATCH: [1 honest sentence: does the ${bStr} budget cover this trip? Be specific about what fits and what might not.]
+DAY_RECAP: [one line per day: "${dw} 1: X + Y + Z — budget €N–M/person"]
+ACCOMMODATION: [3 real, named, currently-operating options: name[MAPS], neighbourhood, price RANGE €X–Y/night (verify on Booking), why it suits ${tStr}]
 
 Max 1000 words. Write entirely in ${wl}.`;
 
@@ -2992,6 +3037,7 @@ Max 1000 words. Write entirely in ${wl}.`;
     const timeout=setTimeout(()=>controller.abort(),90000);
     let raw='';
     try{
+      // Try Vercel serverless endpoint first
       const res=await fetch('/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},
         signal:controller.signal,
         body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1800,messages:[{role:'user',content:prompt}]})});
@@ -3001,8 +3047,31 @@ Max 1000 words. Write entirely in ${wl}.`;
       raw=(data.content||[]).map(b=>b.text||'').join('').trim();
     }catch(fetchErr){
       clearTimeout(timeout);
+      // If /api/generate not available (local dev or Vercel not deployed), try direct Anthropic API
       if(fetchErr.name==='AbortError') throw new Error({es:'Tiempo de espera agotado. Verifica tu conexión e inténtalo de nuevo.',en:'Request timed out. Check your connection and try again.',fr:'Délai dépassé. Vérifiez votre connexion et réessayez.'}[lang]||'Timeout');
-      throw fetchErr;
+      if(fetchErr.message.includes('Failed to fetch')||fetchErr.message.includes('NetworkError')||fetchErr.message.includes('404')||fetchErr.message.includes('HTTP 404')){
+        // Fallback: call Anthropic API directly
+        rotatePhraseWith({es:'Conectando directamente…',en:'Connecting directly…',fr:'Connexion directe…'}[lang]||'...');
+        const controller2=new AbortController();
+        const timeout2=setTimeout(()=>controller2.abort(),90000);
+        try{
+          const res2=await fetch('https://api.anthropic.com/v1/messages',{
+            method:'POST',
+            signal:controller2.signal,
+            headers:{'Content-Type':'application/json','anthropic-dangerous-direct-browser-access':'true'},
+            body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1800,messages:[{role:'user',content:prompt}]})
+          });
+          clearTimeout(timeout2);
+          if(!res2.ok){const e=await res2.json().catch(()=>({}));throw new Error(e?.error?.message||`HTTP ${res2.status}`);}
+          const data2=await res2.json();
+          raw=(data2.content||[]).map(b=>b.text||'').join('').trim();
+        }catch(e2){
+          clearTimeout(timeout2);
+          throw new Error({es:`Error al conectar con la IA: ${e2.message}`,en:`Error connecting to AI: ${e2.message}`,fr:`Erreur de connexion IA : ${e2.message}`}[lang]);
+        }
+      } else {
+        throw fetchErr;
+      }
     }finally{clearInterval(progressAnim);}
 
     setProgress(100);
