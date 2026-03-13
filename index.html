@@ -3199,7 +3199,7 @@ Max ${Math.max(1200, days*250)} words. Write entirely in ${wl}.`;
   }
 
   // ── API key check before anything ──
-  const storedKey = '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';
+  const storedKey = localStorage.getItem('ts_api_key') || '';
   console.log('[TS] gen() start — dest:', dest);
 
   let progressAnim;
