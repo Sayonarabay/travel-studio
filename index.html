@@ -395,6 +395,22 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;o
   <div id="tdContent"></div>
 </div>
 
+<!-- API KEY MODAL -->
+<div id="apiModal" style="display:none;position:fixed;inset:0;z-index:500;background:rgba(14,14,14,.9);backdrop-filter:blur(12px);display:none;align-items:center;justify-content:center;padding:2rem">
+  <div style="background:#1a1a1a;border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:2rem;max-width:420px;width:100%;text-align:center">
+    <div style="font-size:.62rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem">Configuración</div>
+    <div style="font-family:var(--font-display);font-size:1.8rem;font-weight:300;color:var(--paper);margin-bottom:.5rem">API Key de Anthropic</div>
+    <div style="font-size:.8rem;color:var(--muted);margin-bottom:1.5rem;line-height:1.6">Para generar viajes necesitas una API Key de Anthropic.<br>Se guarda solo en tu navegador.</div>
+    <input type="password" id="apiKeyInput" placeholder="sk-ant-..." style="width:100%;background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.15);border-radius:10px;padding:.85rem 1rem;font-size:.9rem;color:var(--paper);font-family:var(--font-body);outline:none;margin-bottom:1rem">
+    <button onclick="saveApiKey()" style="width:100%;background:var(--gold);color:var(--ink);border:none;border-radius:10px;padding:.85rem;font-size:.88rem;font-weight:600;font-family:var(--font-body);cursor:pointer">Guardar y generar →</button>
+    <button onclick="cancelApiKey()" style="margin-top:.6rem;background:none;border:none;color:var(--muted);font-size:.78rem;font-family:var(--font-body);cursor:pointer;width:100%">Cancelar</button>
+    <div style="margin-top:1rem;font-size:.7rem;color:var(--muted)">Obtén tu key en <a href="https://console.anthropic.com" target="_blank" style="color:var(--gold)">console.anthropic.com</a></div>
+  </div>
+</div>
+
+<!-- ERROR DISPLAY -->
+<div id="errorBox" style="display:none;position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);background:#b85c38;color:#fff;padding:.8rem 1.5rem;border-radius:100px;font-size:.82rem;font-weight:500;z-index:600;max-width:90%"></div>
+
 <script>
 // ═══════════════════════════════════════════
 // STATE
@@ -743,41 +759,56 @@ Reglas:
 - 3 opciones gratuitas + 2 de pago por viaje
 - Todo en ${lang}`;
 
-  try {
-    const res = await fetch('/api/generate', {
-      method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({model:'claude-haiku-4-5-20251001', max_tokens:4000, messages:[{role:'user',content:prompt}]})
+  const body = JSON.stringify({model:'claude-haiku-4-5-20251001', max_tokens:4000, messages:[{role:'user',content:prompt}]});
+
+  async function callAPI(){
+    const storedKey = localStorage.getItem('wandr_api_key')||'';
+    // Try Vercel endpoint first
+    try {
+      const res = await fetch('/api/generate', {method:'POST', headers:{'Content-Type':'application/json'}, body});
+      if(res.ok){ const d=await res.json(); return (d.content||[]).map(b=>b.text||'').join('').trim(); }
+    } catch(e){}
+    // Direct Anthropic API with stored key
+    if(!storedKey){ clearInterval(statusInterval); document.getElementById('loading').classList.remove('show'); showApiKeyModal(); return null; }
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-api-key':storedKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+      body
     });
-    const data = await res.json();
-    const raw = (data.content||[]).map(b=>b.text||'').join('').trim();
-    
+    if(res.status===401||res.status===403){ localStorage.removeItem('wandr_api_key'); clearInterval(statusInterval); document.getElementById('loading').classList.remove('show'); showApiKeyModal(); return null; }
+    if(!res.ok) throw new Error('API error '+res.status);
+    const d = await res.json();
+    return (d.content||[]).map(b=>b.text||'').join('').trim();
+  }
+
+  try {
+    const raw = await callAPI();
+    if(!raw) return; // modal shown
+
     clearInterval(statusInterval);
-    
-    // Parse JSON
+
+    // Parse JSON — strip markdown fences, find first {...}
     let parsed;
     try {
-      const clean = raw.replace(/^```json\n?/,'').replace(/\n?```$/,'').trim();
+      const clean = raw.replace(/^```json\s*/,'').replace(/\s*```$/,'').trim();
       parsed = JSON.parse(clean);
-    } catch(e) {
-      // Try to extract JSON from text
-      const match = raw.match(/\{[\s\S]*\}/);
-      if(match) parsed = JSON.parse(match[0]);
-      else throw new Error('Invalid JSON');
+    } catch(e){
+      const match = raw.match(/\{[\s\S]*"trips"[\s\S]*\}/);
+      if(match) try{ parsed = JSON.parse(match[0]); }catch(e2){}
+      if(!parsed) throw new Error('JSON inválido en la respuesta');
     }
-    
+
+    if(!parsed?.trips?.length) throw new Error('No se generaron viajes');
     generatedTrips = parsed.trips;
-    // Save pattern
     savePattern();
     showResults();
-    
+
   } catch(err) {
     clearInterval(statusInterval);
     console.error('Generation error:', err);
-    statusEl.textContent = 'Error al generar. Intenta de nuevo.';
-    setTimeout(()=>{
-      document.getElementById('loading').classList.remove('show');
-      document.getElementById('wizard').classList.remove('hidden');
-    }, 2000);
+    document.getElementById('loading').classList.remove('show');
+    showError('Error: '+err.message+' — Inténtalo de nuevo');
+    document.getElementById('wizard').classList.remove('hidden');
   }
 }
 
@@ -1062,6 +1093,33 @@ function saveChoice(trip){
     if(choices.length>30) choices.shift();
     localStorage.setItem('wandr_choices', JSON.stringify(choices));
   } catch(e){}
+}
+
+// ═══════════════════════════════════════════
+// API KEY & ERROR HELPERS
+// ═══════════════════════════════════════════
+function showApiKeyModal(){
+  const modal = document.getElementById('apiModal');
+  modal.style.display = 'flex';
+  const stored = localStorage.getItem('wandr_api_key')||'';
+  if(stored) document.getElementById('apiKeyInput').value = stored;
+}
+function cancelApiKey(){
+  document.getElementById('apiModal').style.display = 'none';
+  document.getElementById('wizard').classList.remove('hidden');
+}
+function saveApiKey(){
+  const key = document.getElementById('apiKeyInput').value.trim();
+  if(!key.startsWith('sk-')) return showError('API Key inválida — debe empezar por sk-ant-…');
+  localStorage.setItem('wandr_api_key', key);
+  document.getElementById('apiModal').style.display = 'none';
+  launchGeneration();
+}
+function showError(msg){
+  const box = document.getElementById('errorBox');
+  box.textContent = msg;
+  box.style.display = 'block';
+  setTimeout(()=>box.style.display='none', 5000);
 }
 
 // ═══════════════════════════════════════════
