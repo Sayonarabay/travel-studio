@@ -71,6 +71,9 @@ h1 em{font-style:italic;color:#A7F3D0}
 .dest-suggest-btn:hover{border-color:var(--sage);color:var(--sage-dark)}
 .dest-suggest-btn.on{border-color:var(--sage);color:var(--sage-dark);background:var(--sage-light)}
 /* Budget check panel */
+.real-price-badge{display:flex;align-items:center;gap:.5rem;background:#f0fdf4;border:1.5px solid #86efac;border-radius:8px;padding:.5rem .9rem;font-size:.72rem;color:#166534;margin-bottom:.6rem;font-weight:600}
+.real-price-badge a{color:#15803d;text-decoration:underline}
+.rpb-dot{width:7px;height:7px;border-radius:50%;background:#22c55e;flex-shrink:0;animation:pulse 2s infinite}
 .travelers-wrap{display:flex;flex-direction:column;gap:.5rem}
 .origin-wrap{position:relative;display:flex;align-items:center}
 .origin-wrap input{padding-right:2.4rem}
@@ -934,6 +937,94 @@ function buildTags(){
 // AFFILIATES
 // ═══════════════════════════════════
 const AFF={skyscanner_id:'',booking_aid:'',gyg_partner_id:'',rentalcars_key:''};
+const TP_TOKEN='72076aae3ee33e581d2d78c7a5d52634';
+const TP_MARKER='710331';
+
+// IATA codes for common cities (origin lookup)
+const IATA_MAP={
+  'madrid':'MAD','barcelona':'BCN','sevilla':'SVQ','valencia':'VLC','bilbao':'BIO',
+  'málaga':'AGP','malaga':'AGP','granada':'GRX','alicante':'ALC','zaragoza':'ZAZ',
+  'palma':'PMI','ibiza':'IBZ','menorca':'MAH','tenerife':'TFN','gran canaria':'LPA',
+  'lanzarote':'ACE','fuerteventura':'FUE','la palma':'SPC',
+  'paris':'CDG','París':'CDG','lyon':'LYS','marsella':'MRS','niza':'NCE',
+  'burdeos':'BOD','estrasburgo':'SXB','toulouse':'TLS',
+  'london':'LHR','londres':'LHR','edinburgh':'EDI','edimburgo':'EDI',
+  'dublin':'DUB','dublín':'DUB',
+  'rome':'FCO','roma':'FCO','milan':'MXP','milán':'MXP','venecia':'VCE','venice':'VCE',
+  'florencia':'FLR','florence':'FLR','nápoles':'NAP','naples':'NAP','palermo':'PMO',
+  'bolonia':'BLQ','bologna':'BLQ',
+  'berlin':'BER','berlín':'BER','munich':'MUC','múnich':'MUC','frankfurt':'FRA',
+  'amsterdam':'AMS','bruselas':'BRU','brussels':'BRU',
+  'vienna':'VIE','viena':'VIE','salzburgo':'SZG','salzburg':'SZG',
+  'zurich':'ZRH','zúrich':'ZRH','ginebra':'GVA','geneva':'GVA',
+  'lisbon':'LIS','lisboa':'LIS','oporto':'OPO','porto':'OPO','faro':'FAO',
+  'athens':'ATH','atenas':'ATH','thessaloniki':'SKG','tesalónica':'SKG',
+  'heraklion':'HER','creta':'HER','santorini':'JTR','rhodes':'RHO','rodas':'RHO',
+  'istanbul':'IST','estambul':'IST','ankara':'ESB','antalya':'AYT',
+  'dubrovnik':'DBV','split':'SPU','zagreb':'ZAG',
+  'prague':'PRG','praga':'PRG','budapest':'BUD','krakow':'KRK','cracovia':'KRK',
+  'stockholm':'ARN','estocolmo':'ARN','copenhagen':'CPH','copenhague':'CPH',
+  'oslo':'OSL','helsinki':'HEL','reykjavik':'KEF','reikiavik':'KEF',
+  'marrakech':'RAK','marrakesh':'RAK','casablanca':'CMN','fez':'FEZ','fès':'FEZ',
+  'tanger':'TNG','tánger':'TNG',
+  'new york':'JFK','nueva york':'JFK','los angeles':'LAX','miami':'MIA',
+  'cancun':'CUN','cancún':'CUN','havana':'HAV','habana':'HAV',
+  'bangkok':'BKK','tokio':'NRT','tokyo':'NRT','singapur':'SIN','singapore':'SIN',
+  'bali':'DPS','dubai':'DXB','abu dhabi':'AUH',
+  'cairo':'CAI','el cairo':'CAI','nairobi':'NBO',
+  'sydney':'SYD','melbourne':'MEL','auckland':'AKL'
+};
+
+function getIATA(cityName){
+  if(!cityName) return null;
+  const key = cityName.toLowerCase().trim();
+  return IATA_MAP[key] || null;
+}
+
+// Fetch real flight prices from Travelpayouts Data API
+async function fetchRealFlight(originCity, destCity, departDate, returnDate){
+  try {
+    const orig = getIATA(originCity);
+    const dest = getIATA(destCity);
+    if(!orig || !dest) return null;
+
+    // Format dates as YYYY-MM
+    const dep = departDate ? departDate.slice(0,7) : null;
+    const ret = returnDate ? returnDate.slice(0,7) : null;
+    if(!dep) return null;
+
+    let url = `https://api.travelpayouts.com/v1/prices/cheap?origin=${orig}&destination=${dest}&depart_date=${dep}${ret?'&return_date='+ret:''}&currency=eur&token=${TP_TOKEN}`;
+
+    const resp = await fetch(url);
+    if(!resp.ok) return null;
+    const json = await resp.json();
+
+    if(!json.success || !json.data) return null;
+
+    // Find cheapest price across all results
+    const destData = json.data[dest];
+    if(!destData) return null;
+
+    let minPrice = Infinity;
+    let bestFlight = null;
+    for(const k of Object.keys(destData)){
+      const f = destData[k];
+      if(f.price && f.price < minPrice){
+        minPrice = f.price;
+        bestFlight = f;
+      }
+    }
+    if(!bestFlight) return null;
+    return {
+      price: Math.round(minPrice),
+      airline: bestFlight.airline||'',
+      departure: bestFlight.departure_at||'',
+      orig, dest
+    };
+  } catch(e){
+    return null;
+  }
+}
 function affUrl(type,dest,origin){
   const d=encodeURIComponent(dest||''),o=encodeURIComponent(origin||'');
   if(type==='flight')return`https://www.skyscanner.es/vuelos/${o}/${d}${AFF.skyscanner_id?'?affilid='+AFF.skyscanner_id:''}`;
@@ -2535,6 +2626,14 @@ function renderResult(s){
   }
   // Content
   document.getElementById('flightCard').innerHTML=s.transportHTML||s.flightHTML||'';
+  // If we got a real flight price, add a "precio real" badge
+  if(realFlight){
+    const fc=document.getElementById('flightCard');
+    const badge=document.createElement('div');
+    badge.className='real-price-badge';
+    badge.innerHTML=`<span class="rpb-dot"></span> {{es:'Precio real',en:'Real price',fr:'Prix réel'}[lang]||'Precio real'} · €${realFlight.price}pp · <a href="https://www.aviasales.com/?marker=${TP_MARKER}&origin_iata=${realFlight.orig}&destination_iata=${realFlight.dest}&depart_date=${dfv}&return_date=${dtv}&adults=${numPax}" target="_blank" rel="noopener">${{es:'Ver vuelos →',en:'See flights →',fr:'Voir vols →'}[lang]}</a>`;
+    fc.prepend(badge);
+  }
   document.getElementById('mapSection').innerHTML='';
   document.getElementById('timeline').innerHTML=s.timelineHTML||'';
   document.getElementById('tipsSection').innerHTML=s.tipsHTML||'';
@@ -2608,6 +2707,10 @@ async function gen(){
   document.getElementById('resultSection').classList.remove('on');
   document.getElementById('tripHero').style.display='none';
   ['flightCard','timeline','tipsSection','recapSection','expSection','bookingRecap','bottomCta'].forEach(id=>document.getElementById(id).innerHTML='');
+
+  // ── Fetch real flight price in parallel with loading UI ──
+  let realFlight = null;
+  const flightFetchPromise = fetchRealFlight(origin, dest, dfv, dtv).then(r=>{ realFlight=r; });
 
   const msgs=t('loadMsgs');let mi=0;
   const ltxtEl=document.getElementById('ltxt');
@@ -2699,6 +2802,14 @@ async function gen(){
     fr: `C'est ${mes}. Tenez compte : météo réelle à ${dest} à cette période, événements ou festivals locaux, haute/basse saison (impact sur les prix et l'affluence), quoi emporter, quelles activités sont idéales ou déconseillées cette saison.`
   }[lang] : '';
 
+  // Wait for real flight data (max 4s so it doesn't slow generation)
+  await Promise.race([flightFetchPromise, new Promise(r=>setTimeout(r,4000))]);
+
+  // Build flight line for prompt
+  const flightLine = realFlight
+    ? `- Flight: REAL DATA from Travelpayouts — cheapest found: €${realFlight.price}pp (${realFlight.orig}→${realFlight.dest}${realFlight.airline?' on '+realFlight.airline:''}). USE THIS EXACT PRICE in your FLIGHT_PRICE field. Do NOT invent or estimate flight prices.`
+    : `- Flight: no real-time data available — DO NOT invent a specific price or airline. Say "consulta en Skyscanner" instead.`;
+
   const prompt=`${t('promptIntro')}
 
 TRAVELER PROFILE — adapt every single word to this:
@@ -2709,6 +2820,7 @@ TRIP:
 - Destination: ${dest}
 - Duration: ${days} days
 ${fechaStr?'- Dates: '+fechaStr:''}
+${flightLine}
 - Budget: ${budgetStr}${hasBudget?` — HARD LIMIT: el itinerario completo NO debe superar €${budgetTotal} total para ${numPax} persona${numPax>1?'s':''}. Si el destino es caro para este presupuesto, dilo honestamente en BUDGET_MATCH y optimiza cada elección para mantenerse dentro.`:`(hotel ~€${br.hotel[0]}–${br.hotel[1]}/night, food ~€${br.food[0]}–${br.food[1]}/day/person, experiences ~€${br.exp[0]}–${br.exp[1]}/person)`}
 - Style: ${styles}
 ${extra?'- Traveller notes: '+extra:''}
