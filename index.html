@@ -3199,7 +3199,7 @@ Max ${Math.max(1200, days*250)} words. Write entirely in ${wl}.`;
   }
 
   // ── API key check before anything ──
-  const storedKey = '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';
+  const storedKey = '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';
   console.log('[TS] gen() start — dest:', dest);
 
   let progressAnim;
@@ -3255,14 +3255,7 @@ Max ${Math.max(1200, days*250)} words. Write entirely in ${wl}.`;
           const errData=await res2.json().catch(()=>({}));
           const msg=errData?.error?.message||`HTTP ${res2.status}`;
           if(res2.status===401){
-            // Bad key — clear it and re-prompt
-            localStorage.removeItem('ts_api_key');
-            clearInterval(progressAnim);clearInterval(iv);
-            document.getElementById('loadBox').classList.remove('on');
-            btn.disabled=false;
-            applyLang();
-            showApiKeyPrompt();
-            return;
+            throw new Error('API Key inválida (401). Ve a console.anthropic.com/keys y crea una nueva key.');
           }
           throw new Error(msg);
         }
