@@ -697,6 +697,11 @@ textarea{resize:none;height:56px;font-size:.82rem}
           <p id="ltxt" class="load-txt"></p>
           <span id="loadTimeEst" class="load-time" style="display:none"></span>
         </div>
+        <div id="loadDestName" style="display:none;font-size:1.1rem;font-weight:800;letter-spacing:.08em;color:var(--sage-dark);margin-top:.4rem"></div>
+        <div id="destFactCard" style="display:none;margin-top:1rem;padding:.8rem 1rem;background:var(--white);border:1.5px solid var(--border);border-radius:12px;font-size:.78rem;color:var(--ink2)">
+          <div id="dfcLabel" style="font-weight:700;color:var(--ink);margin-bottom:.3rem"></div>
+          <div id="dfcFact"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -2783,7 +2788,7 @@ async function gen(){
   const btn=document.getElementById('genBtn');btn.disabled=true;
   document.getElementById('loadBox').classList.add('on');
   document.getElementById('resultSection').classList.remove('on');
-  document.getElementById('tripHero').style.display='none';
+  document.getElementById('tripHero')?.style && (document.getElementById('tripHero').style.display='none');
   ['flightCard','timeline','tipsSection','recapSection','expSection','bookingRecap','bottomCta'].forEach(id=>document.getElementById(id).innerHTML='');
 
   // ── Fetch real flight price in parallel with loading UI ──
@@ -3175,7 +3180,7 @@ Max 1000 words. Write entirely in ${wl}.`;
   }catch(e){
     clearInterval(iv);
     document.getElementById('loadBox').classList.remove('on');
-    document.getElementById('destFactCard').style.display='none';
+    document.getElementById('destFactCard')?.style && (document.getElementById('destFactCard').style.display='none');
     const prog=document.getElementById('streamProgress');if(prog)prog.classList.remove('on');
     document.getElementById('resultSection').classList.add('on');
     const errMsg=e.message||'Unknown error';
